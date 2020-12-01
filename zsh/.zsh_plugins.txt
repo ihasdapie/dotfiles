@@ -1,0 +1,3 @@
+zsh-users/zsh-history-substring-search
+xen0n/autojump-rs
+romkatv/powerlevel10k
