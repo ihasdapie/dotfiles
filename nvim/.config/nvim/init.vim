@@ -237,7 +237,8 @@ Plug 'skywind3000/vim-quickui'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-
+Plug 'liuchengxu/vista.vim'
+Plug 'dense-analysis/ale'
 " Utility
 
 " Prettyify
@@ -260,6 +261,23 @@ augroup Binary
   au BufWritePost *.bin if &bin | %!xxd
   au BufWritePost *.bin set nomod | endif
 augroup END
+
+
+""""""""""""""""""
+" => Vista.vim
+""""""""""""""""""
+nmap <silent> <c-v> :Vista!! <cr>
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#enable_icon = 1
+let g:vista_echo_cursor_strategy = "both" " Floating windows & in prompt bar
+
+let g:vista_default_executive = 'ale' 
+
+"let g:vista_executive_for = {
+"  \ 'cpp': 'vim_lsp',
+"  \ 'php': 'vim_lsp',
+"  \ }
+
 
 
 """""
