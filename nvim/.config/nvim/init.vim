@@ -112,6 +112,9 @@ if (has("termguicolors"))
 endif
 
 
+:tnoremap <Esc> <C-\><C-n> " Allow esc to exit out of terminal mode
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows, buffers, splits
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -119,15 +122,18 @@ endif
 " Map leader
 let mapleader=","
 
-:nnoremap k gk
-:nnoremap j gj
+nnoremap k gk
+nnoremap j gj
 
-map <silent> <leader><cr> :noh<cr>
+" turn off highlights
+map <silent> <leader><cr> :noh<cr> 
+
+
 
 " buffer movement
 
 " list buffers
-:nnoremap <leader>bl :buffers<CR>:buffer<Space>
+nnoremap <leader>bl :buffers<CR>:buffer<Space>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -140,9 +146,6 @@ map <leader>b :b
 
 " Close the current buffer
 map <leader>bd :bd<cr>:tabclose<cr>gT
-
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
 
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
@@ -221,23 +224,21 @@ Plug 'lervag/vimtex'
 Plug 'junegunn/fzf'
 Plug 'daeyun/vim-matlab'
 Plug 'kshenoy/vim-signature'
-Plug 'https://github.com/jiangmiao/auto-pairs'
 
 " UML
 "Plug 'skanehira/preview-uml.vim'
 " Plug 'scrooloose/vim-slumlord'
+
 Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
-Plug 'aklt/plantuml-syntax'
-
 
 
 Plug 'skywind3000/vim-quickui'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
 
 " Utility
-
 
 " Prettyify
 Plug 'ryanoasis/vim-devicons'
@@ -245,6 +246,20 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
+
+""""""""""""""
+"Binary Files
+""""""""""""""
+augroup Binary
+  au!
+  au BufReadPre  *.bin let &bin=1
+  au BufReadPost *.bin if &bin | %!xxd
+  au BufReadPost *.bin set ft=xxd | endif
+  au BufWritePre *.bin if &bin | %!xxd -r
+  au BufWritePre *.bin endif
+  au BufWritePost *.bin if &bin | %!xxd
+  au BufWritePost *.bin set nomod | endif
+augroup END
 
 
 """""
@@ -255,25 +270,24 @@ noremap <c-f> :FZF <CR>
 """"""""
 " Smooth Scrolling
 """"""""
-noremap <silent> <up> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
-noremap <silent> <down> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
+" noremap <silent> <up> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
+" noremap <silent> <down> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
 noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
 noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
 
 """"""""""
 " => Polyglot 
 """"""""""
-" Polyglot is slow but I feel like we will have to use it...
+" Polyglot is slow but it is the best option atm will have to use it...
 let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
-
 
 
 """"""""""""""""""
 " ==> SnipRun
 """"""""""""""""""
 
-nnoremap ff :SnipRun<CR>
-vnoremap f :SnipRun<CR>
+nnoremap <leader>f :SnipRun<CR>
+vnoremap <leader>f :SnipRun<CR>
 
 
 
@@ -359,30 +373,30 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " => Lightline 
 """""""""""""""""""""""""""""""
 
-let g:lightline = {
-            \ 'colorscheme': 'deus',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-            \ },
-            \ 'tabline' : {
-            \ 'left': [ [ 'buffers'] ],
-            \ 'right': [ ['close'] ]
-            \ },
-            \ 'component_expand': {
-            \   'buffers': 'lightline#bufferline#buffers'
-            \ },
-            \ 'component_type': {
-            \   'buffers': 'tabsel'
-            \ },
-            \ 'component_function': {
-            \   'gitbranch': 'FugitiveHead'
-            \ },
-            \ }
-let g:lightline#bufferline#show_number=1 " Add buffer # as shown by :ls to bufferline
-let g:lightline#bufferline#unicode_symbols=1 " prettier bufferline symbols 
-let g:lightline#bufferline#clickable=1 " make clickable
-let g:lightline.component_raw = {'buffers': 1}
+" let g:lightline = {
+"             \ 'colorscheme': 'deus',
+"             \ 'active': {
+"             \   'left': [ [ 'mode', 'paste' ],
+"             \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"             \ },
+"             \ 'tabline' : {
+"             \ 'left': [ [ 'buffers'] ],
+"             \ 'right': [ ['close'] ]
+"             \ },
+"             \ 'component_expand': {
+"             \   'buffers': 'lightline#bufferline#buffers'
+"             \ },
+"             \ 'component_type': {
+"             \   'buffers': 'tabsel'
+"             \ },
+"             \ 'component_function': {
+"             \   'gitbranch': 'FugitiveHead'
+"             \ },
+"             \ }
+" let g:lightline#bufferline#show_number=1 " Add buffer # as shown by :ls to bufferline
+" let g:lightline#bufferline#unicode_symbols=1 " prettier bufferline symbols 
+" let g:lightline#bufferline#clickable=1 " make clickable
+" let g:lightline.component_raw = {'buffers': 1}
 
 """"""""""""""""""""""""""""""
 " => NerdTree & NerdTreeToggle
@@ -410,6 +424,9 @@ endif
 " for yanklist
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
+" for expected behaviour with coc-pairs on hitting enter w/ open ( or {
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -435,14 +452,14 @@ endif
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 
-" Accept Coc Completion on "enter"
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Accept Coc Completion on enter 
+inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nmap <leader>cd :CocDiagnostics<cr>
 nmap <leader>clc :CocList commands<cr>
 nmap <leader>clo :CocList outline<cr>
 nmap <leader>cls :CocList symbols<cr>
-
+nmap <leader>cf :CocFix<cr>
 """ for coc-actions
 " Remap for do codeAction of selected region
 function! s:cocActionsOpenFromSelected(type) abort
