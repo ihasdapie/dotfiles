@@ -7,9 +7,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Sourcing
-#
+# Plugins
+antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
+
+# autojump (xen0n/autojump-rs)
 source /usr/share/autojump/autojump.zsh
 
 ## Options section
@@ -116,24 +118,6 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
     	RPROMPT="%{$fg[red]%} %(?..[%?])" 
     	alias x='startx ~/.xinitrc'      # Type name of desired desktop after x, xinitrc is configured for it
     ;;
-#  'tmux: server')
-#        RPROMPT='$(git_prompt_string)'
-#		## Base16 Shell color themes.
-#		#possible themes: 3024, apathy, ashes, atelierdune, atelierforest, atelierhearth,
-#		#atelierseaside, bespin, brewer, chalk, codeschool, colors, default, eighties, 
-#		#embers, flat, google, grayscale, greenscreen, harmonic16, isotope, londontube,
-#		#marrakesh, mocha, monokai, ocean, paraiso, pop (dark only), railscasts, shapesifter,
-#		#solarized, summerfruit, tomorrow, twilight
-#		#theme="eighties"
-#		#Possible variants: dark and light
-#		#shade="dark"
-#		#BASE16_SHELL="/usr/share/zsh/scripts/base16-shell/base16-$theme.$shade.sh"
-#		#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-#		# Use autosuggestion
-#		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-#		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-#  		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-#     ;;
   *)
         RPROMPT='$(git_prompt_string)'
 		# Use autosuggestion
@@ -168,7 +152,6 @@ alias vim="nvim"
 alias ll="ls -all --color=auto"
 alias ls="ls --color=auto"
 alias spotify="spotify --force-device-scale-factor=2"
-alias cli-spotify="ncspot"
 alias icat="kitty +kitten icat"
 alias klipboard="kitty +kitten clipboard"
 alias kssh="kitty +kitten ssh"
@@ -194,7 +177,7 @@ alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {
 ############
 
 function kittycolor(){
-    kitty @set-colors "/home/ihasdapie/.config/kitty/kitty-themes/themes/$1"
+    kitty @set-colors "/home/ihasdapie/.config/kitty/kitty-themes/themes/$1"".conf"
 }
 
 ##################
@@ -212,6 +195,11 @@ export NNN_FIFO=/tmp/nnn.fifo
 
 
 #### FZF
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -262,16 +250,10 @@ unset __conda_setup
 
 
 
-#### Docker
-fpath=(~/.zsh/completion $fpath)
-
 
 #### DIRENV
 
-eval "$(direnv hook bash)"
-
-
-
+eval "$(direnv hook zsh)"
 ### COMPLETIONS #########
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
 # Speed up completions
@@ -309,10 +291,20 @@ zstyle :compinstall filename '/home/ihasdapie/.zshrc'
 kitty + complete setup zsh | source /dev/stdin
 
 
-## Startup commands
+# ROS
 #
+source /opt/ros/noetic/local_setup.zsh
+
+
+
+# Startup commands
 fortune | cowthink
 
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#
 # zprof
 
 
