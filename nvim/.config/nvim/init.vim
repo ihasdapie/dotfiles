@@ -405,6 +405,8 @@ endif
 
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+" rename with coc 
+nmap <leader>rn <Plug>(coc-rename)
 
 " Accept Coc Completion on enter
 inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
