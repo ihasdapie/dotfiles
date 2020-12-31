@@ -1,0 +1,68 @@
+/* 
+   One-line UI for Vivaldi 3.3+
+
+   Before using this style, please 
+   * remove the search bar (or adjust space-from-left below)
+   * disable extension toggle button, profile switch button and menu bar
+   * adjust the current theme to apply accent color to window (not toolbar)
+   * make sure you've enabled the Alt key to open menu (keyboard settings)
+   Otherwise you'll have to modify the style further to suit your usage.
+
+   The style is meant to be used primarily in a maximized window, 
+   on restored windows it may not look as good. 
+
+   Inspired by https://forum.vivaldi.net/topic/13042/one-line-ui-help-wanted
+*/
+.win.normal .toolbar-mainbar {
+    left: unset;
+    right: unset;
+}
+
+:root {
+  --space-from-left: 36em; /* Main toolbar space - adjust according to your buttonset */
+  --space-from-right: 9em; /* Extension toolbar space - adjust according to your tab bar buttons (cloud, trashbin, ...) */
+}
+
+.toolbar-mainbar {
+  background: transparent !important; /* Prevent toolbar background overlapping with content (different height) */
+  position: fixed !important; /* Set a fixed position for toolbar (before tabs) */
+  top: -0.2em !important; /* Align it to the top edge */
+  padding-left: 0em !important; /* Align to the left (corner) */
+  z-index: 2 !important; /* Make sure autocomplete and overlays work */
+}
+
+.UrlBar-AddressField {
+  left: 2.5em !important; /* Keep space for toolbar buttons (adjust accordingly) */
+  top: 0.3em !important; /* Align address bar with the tabs */
+  width: 33em !important; /* Set a fixed width for address bar */
+}
+
+#tabs-container {
+  padding-left: var(--space-from-left) !important;
+  z-index: 2 !important; /* Make sure overlays work */
+}
+
+.toolbar-addressbar, .toolbar-mainbar, .toolbar-extensions {
+background-color: var(--colorAccentBg); /* Append the same background color as window caption */
+}
+
+.toolbar-addressbar:after, .toolbar-mainbar:after, .toolbar-extensions:after, .toolbar-tabbar:after {
+display: none !important; /* Remove a weird white line below the toolbar */
+}
+
+.toolbar-extensions {
+  position: fixed !important; /* Move the extension toolbar toggle position */
+  right: var(--space-from-right) !important; /* Position it next to trashbin/synced tabs */
+}
+
+/*  The Vivaldi button does not work when moved, so the only way to keep UI nice is 
+  to remove it. You can still access the menu by pressing Alt anywhere on the page.
+   
+  If you still want a virtual button to click, try this customizable extension: 
+  https://chrome.google.com/webstore/detail/mymenu/embakochaelgijbeolbbgnljfgpbeeoe
+  Keep in mind that it may display Chromium interfaces instead of Vivaldi's, 
+  such as the history and bookmarks manager. */
+
+.vivaldi .burger-icon {
+  display: none !important;
+}

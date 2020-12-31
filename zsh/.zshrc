@@ -7,6 +7,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # Plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
@@ -15,7 +18,7 @@ source ~/.zsh_plugins.sh
 source /usr/share/autojump/autojump.zsh
 
 ## Options section
-setopt correct                                                  # Auto correct mistakes
+# setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
 # setopt nocaseglob                                               # Case insensitive globbing
 setopt rcexpandparam                                            # Array expension with parameters
@@ -48,7 +51,6 @@ export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
-
 ## Keybindings section
 bindkey -e
 bindkey '^R' history-incremental-search-backward
@@ -79,16 +81,8 @@ bindkey '^[[Z' undo                                             # Shift+tab undo
 
 
 
-autoload -U colors compinit zcalc
-compinit -d
-colors
-
-
-
-
 # enable substitution for prompt
 setopt prompt_subst
-
 
 # Color man pages
 export LESS_TERMCAP_mb=$'\E[01;32m'
@@ -100,38 +94,11 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-r
 
-## Plugins section: Enable fish style features
-# Use syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Use history substring search
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up			
-bindkey '^[[B' history-substring-search-down
-
-# Apply different settigns for different terminals
-case $(basename "$(cat "/proc/$PPID/comm")") in
-  login)
-    	RPROMPT="%{$fg[red]%} %(?..[%?])" 
-    	alias x='startx ~/.xinitrc'      # Type name of desired desktop after x, xinitrc is configured for it
-    ;;
-  *)
-        RPROMPT='$(git_prompt_string)'
-		# Use autosuggestion
-		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-  		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-    ;;
-esac
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-
-# THEMING
-ZSH_THEME=powerlevel10k/powerlevel10k
-
+# I'm not 100% sure what this does right now or where it's from we'll roll with it!
 function set-title-precmd() {
   printf "\e]2;%s\a" "${PWD/#$HOME/~}"
 }
@@ -144,11 +111,11 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd set-title-precmd
 add-zsh-hook preexec set-title-preexec
 
-
 ##################
 # My Aliases START
 ##################
 alias vim="nvim"
+alias vimnorc="nvim -u NONE"
 alias ll="ls -all --color=auto"
 alias ls="ls --color=auto"
 alias spotify="spotify --force-device-scale-factor=2"
@@ -187,9 +154,7 @@ export PATH=$PATH:/home/ihasdapie/Applications/
 export PATH=$PATH:/home/ihasdapie/.gem/ruby/2.7.0/bin/
 export PATH=$PATH:/home/ihasdapie/.cargo/bin/
 
-
 #######  nnn
-
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 
@@ -197,7 +162,6 @@ export NNN_FIFO=/tmp/nnn.fifo
 #### FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
@@ -213,23 +177,6 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
-
-# (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-    export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
-    ssh)          fzf "$@" --preview 'dig {}' ;;
-    *)            fzf "$@" ;;
-  esac
-}
-
-
 
 
 # >>> conda initialize >>>
@@ -247,13 +194,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
-
-
-
 #### DIRENV
 
 eval "$(direnv hook zsh)"
+
 ### COMPLETIONS #########
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
 # Speed up completions
@@ -261,28 +205,21 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # The following lines were added by compinstall
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _ignored _correct # _approximate
-zstyle ':completion:*' completions 1
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' glob 1
-zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' list-suffixes true
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
-zstyle ':completion:*' menu select=5
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' '' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*' substitute 1
+zstyle ':completion:*' squeeze-slashes true
 zstyle :compinstall filename '/home/ihasdapie/.zshrc'
+
+autoload -U colors compinit zcalc
+colors # Put standard ANSI color codes in shell parameters for easy use.
+compinit -d
 
 # End of lines added by compinstall
 ### Kitty
@@ -290,21 +227,10 @@ zstyle :compinstall filename '/home/ihasdapie/.zshrc'
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
 
-
 # ROS
-#
 source /opt/ros/noetic/local_setup.zsh
 
-
-
-# Startup commands
 fortune | cowthink
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-#
 # zprof
 
 
