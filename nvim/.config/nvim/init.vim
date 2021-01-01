@@ -55,7 +55,7 @@ set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
-set cmdheight=2
+set cmdheight=1
 
 " Allow for glyphs and indentLine
 set conceallevel=2
@@ -354,13 +354,13 @@ let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
 
 
 """"""""""""""""""""""""""""""
-" => NerdTree & NerdTreeToggle
-""""""""""""""""""""""""""""""
-map <C-t> :NERDTreeTabsToggle <CR>
-let g:NERDTreeWinPos = "right"
-let NERDTreeShowHidden=0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
+"" => NerdTree & NerdTreeToggle
+"""""""""""""""""""""""""""""""
+"map <C-t> :NERDTreeTabsToggle <CR>
+"let g:NERDTreeWinPos = "right"
+"let NERDTreeShowHidden=0
+"let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+"let g:NERDTreeWinSize=35
 
 """"""""""""""""""""""""""""""
 " => Coc
@@ -482,8 +482,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
-Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'preservim/nerdtree'
+" Plug 'jistr/vim-nerdtree-tabs'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
