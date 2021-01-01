@@ -1,4 +1,5 @@
 # zmodload zsh/zprof
+fortune | cowthink
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -49,7 +50,6 @@ SAVEHIST=7500
 
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
-WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
 ## Keybindings section
 bindkey -e
@@ -178,24 +178,7 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/ihasdapie/Applications/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/ihasdapie/Applications/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/ihasdapie/Applications/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/ihasdapie/Applications/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 #### DIRENV
-
 eval "$(direnv hook zsh)"
 
 ### COMPLETIONS #########
@@ -206,7 +189,6 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # The following lines were added by compinstall
-
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' list-colors ''
@@ -225,12 +207,24 @@ compinit -d
 ### Kitty
 
 # Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
+_kitty() {
+    local src
+    # Send all words up to the word the cursor is currently on
+    src=$(printf "%s
+" "${(@)words[1,$CURRENT]}" | kitty +complete zsh)
+    if [[ $? == 0 ]]; then
+        eval ${src}
+    fi
+}
+compdef _kitty kitty
 
 # ROS
-source /opt/ros/noetic/local_setup.zsh
+rosup () {
+  source /opt/ros/noetic/local_setup.zsh
+}
 
-fortune | cowthink
+
+
 # zprof
 
 
