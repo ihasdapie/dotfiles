@@ -43,7 +43,7 @@ set redrawtime=4000
 
 set expandtab
 set shiftwidth=4
-set colorcolumn=85
+set colorcolumn=100
 
 
 """" for coc.nvim
@@ -132,7 +132,7 @@ nnoremap j gj
 " turn off highlights
 map <silent> <leader><cr> :noh<cr>
 
-
+map <leader>cb :set clipboard+=unnamedplus<cr>
 
 " buffer movement
 
@@ -160,7 +160,6 @@ map <leader>t<leader> :tabnext
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " " Specify the behavior when switching between buffers
 " try
@@ -189,19 +188,55 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """"""""""""""
 "Binary Files
 """"""""""""""
-augroup Binary
+augroup binary
   au!
-  au BufReadPre  *.bin let &bin=1
-  au BufReadPost *.bin if &bin | %!xxd
-  au BufReadPost *.bin set ft=xxd | endif
-  au BufWritePre *.bin if &bin | %!xxd -r
-  au BufWritePre *.bin endif
-  au BufWritePost *.bin if &bin | %!xxd
-  au BufWritePost *.bin set nomod | endif
+  au bufreadpre  *.bin let &bin=1
+  au bufreadpost *.bin if &bin | %!xxd
+  au bufreadpost *.bin set ft=xxd | endif
+  au bufwritepre *.bin if &bin | %!xxd -r
+  au bufwritepre *.bin endif
+  au bufwritepost *.bin if &bin | %!xxd
+  au bufwritepost *.bin set nomod | endif
+augroup end
+
+augroup elf_files
+  au!
+  au BufReadPre  *.elf let &bin=1
+  au BufReadPost *.elf if &bin | %!xxd
+  au BufReadPost *.elf set ft=xxd | endif
+  au BufWritePre *.elf if &bin | %!xxd -r
+  au BufWritePre *.elf endif
+  au BufWritePost *.elf if &bin | %!xxd
+  au BufWritePost *.elf set nomod | endif
+augroup END
+
+augroup object_files
+  au!
+  au BufReadPre  *.o let &bin=1
+  au BufReadPost *.o if &bin | %!xxd
+  au BufReadPost *.o set ft=xxd | endif
+  au BufWritePre *.o if &bin | %!xxd -r
+  au BufWritePre *.o endif
+  au BufWritePost *.o if &bin | %!xxd
+  au BufWritePost *.o set nomod | endif
 augroup END
 
 
+"""""""
+"=> assembly
+"""""""
+" Detect asm filetypes
+augroup NASM
+    au BufNewFile *.nasm setfiletype nasm
+    au BufRead *.nasm setfiletype nasm
+augroup END
 
+augroup ASM
+    au BufNewfile *.asm setfiletype asm
+    au BufRead *.asm setfiletype asm
+augroup END
+
+let g:asmsyntax='nasm'
 
 """"""""""""""""""
 " Fix cursorhold 
@@ -214,11 +249,12 @@ let g:cursorhold_updatetime = 100
 " Ale
 """""""""""""
 let g:ale_fixers = {
-    \'*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ }
-" let g:ale_linters={
-"  \ 'rust' : ['analyzer']
-"  \ }
+            \'*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ }
+let g:ale_linters={
+            \ 'rust' : ['analyzer'],
+            \ 'python' : ['flake8']
+            \ }
 
 
 let g:ale_sign_column_always = 1
@@ -236,22 +272,20 @@ let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista#renderer#enable_icon = 1
 let g:vista_echo_cursor_strategy = "both" " Floating windows & in prompt bar
 
-let g:vista_default_executive = 'ale'
-let g:vista_sidebar_width=40
+let g:vista_default_executive = 'ctags'
+let g:vista_sidebar_width=35
 
 
 " For whatever reason coc + vista doesn't work with those arrow eyecandy but it works better
 " And I can't get ale to work with the preview popup which i find to be
 " useful..
-" let g:vista_executive_for = {
-    \ 'vim': 'ctags',
-    \ 'tex': 'ctags',
+let g:vista_executive_for = {
     \ 'python': 'coc', 
     \ 'rust': 'coc',
+    \ 'c' : 'ale'
     \ }
 
-" Why is fzf not working?
-" fzf#vim#
+
 let g:vista_fzf_preview=['right:50%']
 let g:vista_keep_fzf_colors=1
 let g:vista_finder_alternative_executives=['coc', 'ctags']
@@ -272,6 +306,7 @@ let g:vista_floating_delay=200
 """""
 " set rtp+=/usr/bin/fzf
 noremap <c-f> :FZF <CR>
+noremap <leader>wl :W  <CR>
 
 """"""""
 " Smooth Scrolling
@@ -329,10 +364,13 @@ let g:tex_flavor = "latex"
 let g:vimtex_view_general_viewer = 'zathura'
 
 """""""""""""""""""""""""""
-" --> IndentLine
+" --> IndentGuide
 """"""""""""""""""""""""""""
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_setColors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+let g:indent_guides_default_mapping=0
+
 
 """"""""""""""""""""""""""""""""
 "" => airline
@@ -365,6 +403,15 @@ let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
 """"""""""""""""""""""""""""""
 " => Coc
 """"""""""""""""""""""""""""""
+
+""""""""""""""""
+" coc-pyright
+""""""""""""""""
+
+
+
+
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -443,12 +490,23 @@ let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copi
 """"""""
 " Assorted bindings:
 """"""""""
-
-
 nnoremap <leader>ss :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR>            
 
+"""""""""""""
+"=> nnn.vim
+"""""""""""""
+let g:nnn#set_default_mappings=0
+nnoremap <silent> <c-t> :NnnPicker %:p:h<cr>
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6} }
+let g:nnn#repalce_netrw=1 " replace netrw when opening directory
+let g:nnn#command = 'NNN_COLORS="2136" nnn -d'
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-x>': 'split',
+      \ '<c-v>': 'vsplit' }
 
-""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""
 " => vim-plug
 """"""""""""""""""""""""""""""
 
@@ -479,11 +537,10 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 
 " Eyecandy
 Plug 'junegunn/goyo.vim'
-Plug 'rafi/awesome-vim-colorschemes'
+Plug 'flazz/vim-colorschemes/'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
-" Plug 'preservim/nerdtree'
-" Plug 'jistr/vim-nerdtree-tabs'
+Plug 'mcchrish/nnn.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -491,8 +548,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'tpope/vim-commentary'
 Plug 'lambdalisue/suda.vim'
-Plug 'Yggdroot/indentLine'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
+                          
 
 " Other
 Plug 'lervag/vimtex'
