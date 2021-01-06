@@ -132,8 +132,9 @@ alias gitu='git add . && git commit && git push'
 alias gitdeployall="git remote | xargs -L1 git push --all"
 alias yay-clean="yay -Qtdq | yay -Rns -" 
 alias t="trash"
-alias tr="trash-restore"
 alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+alias qemu='qemu-system-x86_64'
+alias nnn='nnn -d'
 
 ##################
 # My Aliases END
@@ -153,10 +154,13 @@ function kittycolor(){
 export PATH=$PATH:/home/ihasdapie/Applications/
 export PATH=$PATH:/home/ihasdapie/.gem/ruby/2.7.0/bin/
 export PATH=$PATH:/home/ihasdapie/.cargo/bin/
+export PATH=$PATH:/usr/local/i386elfgcc/bin/
 
 #######  nnn
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
+export NNN_COLORS="2136" 
+export NNN_TRASH=1 
 
 
 #### FZF
