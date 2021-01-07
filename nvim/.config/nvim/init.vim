@@ -137,7 +137,6 @@ map <leader>cb :set clipboard+=unnamedplus<cr>
 " buffer movement
 
 " list buffers
-nnoremap <leader>bl :buffers<CR>:buffer<Space>
 
 " switching between buffers
 map <leader>b :b
@@ -278,11 +277,13 @@ let g:vista_sidebar_width=35
 
 " For whatever reason coc + vista doesn't work with those arrow eyecandy but it works better
 " And I can't get ale to work with the preview popup which i find to be
-" useful..
+
+
+" ctags for c has function prototypes, coc seems a little better tho
 let g:vista_executive_for = {
     \ 'python': 'coc', 
     \ 'rust': 'coc',
-    \ 'c' : 'ale'
+    \ 'c' : 'coc' 
     \ }
 
 
@@ -305,8 +306,12 @@ let g:vista_floating_delay=200
 " => FZF
 """""
 " set rtp+=/usr/bin/fzf
-noremap <c-f> :FZF <CR>
-noremap <leader>wl :W  <CR>
+noremap <c-f> :Files <CR>
+noremap <leader>wl :Windows  <CR>
+nnoremap <leader>bl :Buffers <CR>
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+
+
 
 """"""""
 " Smooth Scrolling
@@ -499,7 +504,7 @@ let g:nnn#set_default_mappings=0
 nnoremap <silent> <c-t> :NnnPicker %:p:h<cr>
 let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6} }
 let g:nnn#repalce_netrw=1 " replace netrw when opening directory
-let g:nnn#command = 'NNN_COLORS="2136" nnn -d'
+let g:nnn#command = 'NNN_COLORS="2136" NNN_TRASH=1 nnn -d'
 let g:nnn#action = {
       \ '<c-t>': 'tab split',
       \ '<c-x>': 'split',
