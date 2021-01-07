@@ -18,6 +18,11 @@ source ~/.zsh_plugins.sh
 # autojump (xen0n/autojump-rs)
 source /usr/share/autojump/autojump.zsh
 
+# git completions
+fpath=(~/.zsh $fpath)
+
+
+
 ## Options section
 # setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
@@ -127,10 +132,10 @@ alias mv="mv -i"                                                # Confirm before
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
 alias du='du --block-size=MiB --human-readable --apparent-size'
-# git alias
-alias gitu='git add . && git commit && git push'
+alias lg='lazygit'
+alias gitu='git add --all && git commit && git push'
 alias gitdeployall="git remote | xargs -L1 git push --all"
-alias yay-clean="yay -Qtdq | yay -Rns -" 
+alias yayclean="yay -Qtdq | yay -Rns -" 
 alias t="trash"
 alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 alias qemu='qemu-system-x86_64'
