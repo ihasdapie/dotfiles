@@ -21,6 +21,12 @@ VIVALDI:
 css to combine taskbar with address bar
 enable with settings->custom ui modifications
 
+FIREFOX: 
+[Simplerent Fox](https://github.com/MiguelRAvila/SimplerentFox)
+Modified to show current tab & include close button on tabs
+
+
+
 Wallpapers:
 a bunch of pretty pictures.
 
