@@ -50,8 +50,8 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=2000
-SAVEHIST=7500
+HISTSIZE=1000 # number loaded into memory
+SAVEHIST=7500 # number saved
 
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
@@ -150,7 +150,7 @@ alias nnn='nnn -d'
 ############
 
 function kittycolor(){
-    kitty @set-colors "/home/ihasdapie/.config/kitty/kitty-themes/themes/$1"".conf"
+  kitty @set-colors $(fd . '/home/ihasdapie/.config/kitty/kitty-themes/themes/' | fzf)
 }
 
 ##################
@@ -198,7 +198,7 @@ nn ()
 #### FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
 export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find

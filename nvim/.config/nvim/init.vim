@@ -44,6 +44,7 @@ set redrawtime=4000
 set expandtab
 set shiftwidth=4
 set colorcolumn=100
+set signcolumn=auto
 
 
 """" for coc.nvim
@@ -67,12 +68,6 @@ set conceallevel=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
-
-" " Avoid garbled characters in Chinese language windows OS
-" let $LANG='en'
-" set langmenu=en
-" source $VIMRUNTIME/delmenu.vim
-" source $VIMRUNTIME/menu.vim
 
 " Turn on the Wild menu
 set wildmenu
@@ -309,6 +304,7 @@ let g:vista_floating_delay=200
 noremap <c-f> :Files <CR>
 noremap <leader>wl :Windows  <CR>
 nnoremap <leader>bl :Buffers <CR>
+nnoremap <leader>rg :Rg <CR>
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
 
@@ -409,22 +405,9 @@ let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
 " => Coc
 """"""""""""""""""""""""""""""
 
-""""""""""""""""
-" coc-pyright
-""""""""""""""""
 
 
 
-
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-    set signcolumn=number
-else
-    set signcolumn=yes
-endif
 
 " for yanklist
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
@@ -555,6 +538,7 @@ Plug 'tpope/vim-commentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
+" Plug 'puremourning/vimspector'
                           
 
 " Other
