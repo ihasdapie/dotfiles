@@ -31,7 +31,6 @@ set title titlestring=%n\:\ %t\ \:\:\ VIM titlelen=70
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff"
 "
 set shortmess=atc
-colorscheme deus
 
 " allow for transparent backgrounds
 " autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
@@ -305,6 +304,10 @@ noremap <c-f> :Files <CR>
 noremap <leader>wl :Windows  <CR>
 nnoremap <leader>bl :Buffers <CR>
 nnoremap <leader>rg :Rg <CR>
+nnoremap <leader>ml :Marks <CR>
+
+
+
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
 
@@ -378,7 +381,9 @@ let g:indent_guides_default_mapping=0
 """""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_theme='deus'
+" let g:airline_theme='deus'
+let g:airline_theme='base16_snazzy'
+
 let g:airline#extensions#whitespace#enabled=0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
@@ -531,6 +536,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mcchrish/nnn.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'dracula/vim'
+Plug 'pineapplegiant/spaceduck'
 
 " Tools
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
@@ -551,3 +558,4 @@ Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
 call plug#end()
 
 
+colorscheme spaceduck
