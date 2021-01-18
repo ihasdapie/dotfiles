@@ -558,4 +558,4 @@ Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
 call plug#end()
 
 
-colorscheme spaceduck
+colorscheme spaceduck2
