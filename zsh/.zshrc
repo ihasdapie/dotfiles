@@ -11,9 +11,6 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Plugins
-antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.sh
 
 # autojump (xen0n/autojump-rs)
 source /usr/share/autojump/autojump.zsh
@@ -50,7 +47,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=1000 # number loaded into memory
+HISTSIZE=3000 # number loaded into memory
 SAVEHIST=7500 # number saved
 
 export EDITOR=/usr/bin/nvim
@@ -121,7 +118,7 @@ add-zsh-hook preexec set-title-preexec
 ##################
 alias vim="nvim"
 alias vimnorc="nvim -u NONE"
-alias ll="ls -all --color=auto"
+alias ll="ls -all --color=auto -h "
 alias ls="ls --color=auto"
 alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
@@ -199,7 +196,7 @@ nn ()
 #### FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 69% --layout=reverse --border'
 export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
@@ -261,6 +258,9 @@ rosup () {
 }
 
 
+# Plugins
+antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+source ~/.zsh_plugins.sh
 
 # zprof
 

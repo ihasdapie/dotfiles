@@ -396,6 +396,18 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
 
+let g:airline#extensions#bufferline#enabled = 1
+
+let g:airline_left_sep=''
+let g:airline_right_sep = ''
+
+
+
+
+
+
+
+
 
 """"""""""""""""""""""""""""""
 "" => NerdTree & NerdTreeToggle
@@ -536,8 +548,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mcchrish/nnn.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'dracula/vim'
 Plug 'pineapplegiant/spaceduck'
+Plug 'mhinz/vim-startify'
 
 " Tools
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
