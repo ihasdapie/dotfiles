@@ -163,9 +163,12 @@ export PATH=$PATH:/usr/local/i386elfgcc/bin/
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
+export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 export NNN_TRASH=1 
 
-
+# return to nnn when done
+[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
+# cd on quit
 nn ()
 {
     # Block nesting of nnn in subshells
@@ -193,6 +196,9 @@ nn ()
             rm -f "$NNN_TMPFILE" > /dev/null
     fi
 }
+
+
+
 #### FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
