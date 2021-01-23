@@ -36,6 +36,8 @@ setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt nomatch
+setopt globdots # GLOBDOTS lets files beginning with a . be matched without explicitly specifying the dot.
+
 
 # expire duplicates first
 setopt HIST_EXPIRE_DUPS_FIRST 
@@ -136,7 +138,6 @@ alias yayclean="yay -Qtdq | yay -Rns -"
 alias t="trash"
 alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 alias qemu='qemu-system-x86_64'
-alias nnn='nnn -d'
 alias grep='grep --color'
 
 ##################
@@ -158,11 +159,13 @@ export PATH=$PATH:/home/ihasdapie/Applications/
 export PATH=$PATH:/home/ihasdapie/.gem/ruby/2.7.0/bin/
 export PATH=$PATH:/home/ihasdapie/.cargo/bin/
 export PATH=$PATH:/usr/local/i386elfgcc/bin/
+export PATH=$PATH:/home/ihasdapie/Scripts/exec/
 
 #######  nnn
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
+export NNN_OPTS="deH"
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 export NNN_TRASH=1 
 
@@ -246,6 +249,13 @@ compinit -d
 # End of lines added by compinstall
 ### Kitty
 
+# blur kitty
+if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
+        for wid in $(xdotool search --pid $PPID); do
+            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+fi 
+
+
 # Completion for kitty
 _kitty() {
     local src
@@ -267,6 +277,7 @@ rosup () {
 # Plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
+
 
 # zprof
 

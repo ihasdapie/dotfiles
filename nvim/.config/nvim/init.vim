@@ -551,6 +551,7 @@ Plug 'mcchrish/nnn.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'pineapplegiant/spaceduck'
+Plug 'ihasdapie/spaceducky'
 Plug 'mhinz/vim-startify'
 
 " Tools
@@ -572,4 +573,4 @@ Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
 call plug#end()
 
 
-colorscheme spaceduck2
+colorscheme spaceducky
