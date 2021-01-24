@@ -139,6 +139,7 @@ alias t="trash"
 alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 alias qemu='qemu-system-x86_64'
 alias grep='grep --color'
+alias kc='kdeconnect-cli'
 
 ##################
 # My Aliases END

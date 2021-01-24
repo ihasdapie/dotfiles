@@ -1,3 +1,4 @@
+
 """"""""""""""""""""""""""""""
 " => Misc/General
 """"""""""""""""""""""""""""""
@@ -26,6 +27,10 @@ set mousemodel=popup_setpos
 set noshowmode "to remove redundant --insert-- etc"
 set lazyredraw
 set nowrap "turn off wrapping"
+
+
+
+
 set title titlestring=%n\:\ %t\ \:\:\ VIM titlelen=70
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff"
@@ -42,7 +47,7 @@ set redrawtime=4000
 
 set expandtab
 set shiftwidth=4
-set colorcolumn=100
+set colorcolumn=80
 set signcolumn=auto
 
 
@@ -236,7 +241,66 @@ let g:asmsyntax='nasm'
 let g:cursorhold_updatetime = 100
 """""""""""""""""
 
+"""""""""""""""""""""""""""""
+" => vim-plug
+""""""""""""""""""""""""""""""
 
+" auto-installation script
+
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
+call plug#begin('~/.config/nvim/plugged')
+
+" Essentials
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'liuchengxu/vista.vim'
+Plug 'dense-analysis/ale'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
+
+
+" Performance improvements
+Plug 'antoinemadec/FixCursorHold.nvim'
+
+" Eyecandy
+Plug 'junegunn/goyo.vim'
+Plug 'flazz/vim-colorschemes/'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'ryanoasis/vim-devicons'
+Plug 'mcchrish/nnn.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'pineapplegiant/spaceduck'
+Plug 'ihasdapie/spaceducky'
+Plug 'mhinz/vim-startify'
+
+" Tools
+Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
+Plug 'tpope/vim-commentary'
+Plug 'lambdalisue/suda.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-surround'
+" Plug 'puremourning/vimspector'
+                          
+
+" Other
+Plug 'lervag/vimtex'
+Plug 'daeyun/vim-matlab'
+Plug 'kshenoy/vim-signature'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
+
+call plug#end()
+
+colorscheme spaceducky
 
 """""""""""""
 " Ale
@@ -342,11 +406,13 @@ let t:is_transparent = 1
 function! Toggle_transparent()
     if t:is_transparent == 0
         hi Normal ctermbg=black
-        execute "colorscheme deus"
+        execute "colorscheme spaceducky"
         let t:is_transparent = 1
+        echo "Transparency off"
     else
         hi Normal guibg=NONE ctermbg=NONE
         let t:is_transparent = 0
+        echo "Transparency on"
     endif
 endfunction
 
@@ -513,64 +579,3 @@ let g:nnn#action = {
       \ '<c-v>': 'vsplit' }
 
 
-"""""""""""""""""""""""""""""
-" => vim-plug
-""""""""""""""""""""""""""""""
-
-" auto-installation script
-
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-
-call plug#begin('~/.config/nvim/plugged')
-
-" Essentials
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'liuchengxu/vista.vim'
-Plug 'dense-analysis/ale'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-fugitive'
-Plug 'jiangmiao/auto-pairs'
-
-
-" Performance improvements
-Plug 'antoinemadec/FixCursorHold.nvim'
-
-" Eyecandy
-Plug 'junegunn/goyo.vim'
-Plug 'flazz/vim-colorschemes/'
-Plug 'terryma/vim-smooth-scroll'
-Plug 'ryanoasis/vim-devicons'
-Plug 'mcchrish/nnn.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'pineapplegiant/spaceduck'
-Plug 'ihasdapie/spaceducky'
-Plug 'mhinz/vim-startify'
-
-" Tools
-Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-Plug 'tpope/vim-commentary'
-Plug 'lambdalisue/suda.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'tpope/vim-surround'
-" Plug 'puremourning/vimspector'
-                          
-
-" Other
-Plug 'lervag/vimtex'
-Plug 'daeyun/vim-matlab'
-Plug 'kshenoy/vim-signature'
-Plug 'weirongxu/plantuml-previewer.vim'
-Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
-
-call plug#end()
-
-
-colorscheme spaceducky
