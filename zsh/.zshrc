@@ -83,7 +83,7 @@ bindkey '^[[1;5C' forward-word                                  #
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
-
+bindkey '^[^M' self-insert-unmeta                               # alt-enter inserts newline instead of executing command
 
 # enable substitution for prompt
 setopt prompt_subst
@@ -272,6 +272,17 @@ compdef _kitty kitty
 # ROS
 rosup () {
   source /opt/ros/noetic/local_setup.zsh
+}
+
+
+# run ls on cd
+cd() { builtin cd "$@" && ls; }
+
+# i dont want to type out curl syntax all the time
+# so a function to upload something to 0x0.st
+
+upload_0x0 () {
+  curl -F "file=@$1" http://0x0.st
 }
 
 
