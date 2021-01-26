@@ -1,0 +1,3 @@
+[submodule "mailspring/.config/Mailspring/mailspring"]
+	path = mailspring/.config/Mailspring/mailspring
+	url = git@github.com:dracula/mailspring.git

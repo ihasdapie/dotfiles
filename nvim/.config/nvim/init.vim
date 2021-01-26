@@ -406,6 +406,7 @@ let t:is_transparent = 1
 function! Toggle_transparent()
     if t:is_transparent == 0
         hi Normal ctermbg=black
+        set background=dark
         execute "colorscheme spaceducky"
         let t:is_transparent = 1
         echo "Transparency off"
