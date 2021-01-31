@@ -161,7 +161,8 @@ export PATH=$PATH:/home/ihasdapie/.gem/ruby/2.7.0/bin/
 export PATH=$PATH:/home/ihasdapie/.cargo/bin/
 export PATH=$PATH:/usr/local/i386elfgcc/bin/
 export PATH=$PATH:/home/ihasdapie/Scripts/exec/
-
+export PATH=$PATH:/home/ihasdapie/Scripts/exec/
+export PATH=$PATH:/home/ihasdapie/go/bin/
 #######  nnn
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
@@ -295,3 +296,6 @@ source ~/.zsh_plugins.sh
 
 
 
+
+
+export PATH="$HOME/.poetry/bin:$PATH"

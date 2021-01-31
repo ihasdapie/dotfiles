@@ -114,6 +114,7 @@ endif
 
 
 let g:loaded_netrw_Plugin = 1 "NeTrW iS bLoAT
+let g:loaded_netrw=1
 
 :tnoremap <Esc> <C-\><C-n> " Allow esc to exit out of terminal mode
 
