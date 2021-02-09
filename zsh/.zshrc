@@ -140,6 +140,7 @@ alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {
 alias qemu='qemu-system-x86_64'
 alias grep='grep --color'
 alias kc='kdeconnect-cli'
+alias open='xdg-open'
 
 ##################
 # My Aliases END
@@ -163,6 +164,7 @@ export PATH=$PATH:/usr/local/i386elfgcc/bin/
 export PATH=$PATH:/home/ihasdapie/Scripts/exec/
 export PATH=$PATH:/home/ihasdapie/Scripts/exec/
 export PATH=$PATH:/home/ihasdapie/go/bin/
+export PATH=$PATH:/home/ihasdapie/.poetry/bin/
 #######  nnn
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
@@ -251,11 +253,11 @@ compinit -d
 # End of lines added by compinstall
 ### Kitty
 
-# blur kitty
-if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
-        for wid in $(xdotool search --pid $PPID); do
-            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
-fi 
+# # blur kitty
+# if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
+#         for wid in $(xdotool search --pid $PPID); do
+#             xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+# fi 
 
 
 # Completion for kitty
@@ -298,4 +300,3 @@ source ~/.zsh_plugins.sh
 
 
 
-export PATH="$HOME/.poetry/bin:$PATH"
