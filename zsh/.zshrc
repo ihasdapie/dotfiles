@@ -141,6 +141,7 @@ alias qemu='qemu-system-x86_64'
 alias grep='grep --color'
 alias kc='kdeconnect-cli'
 alias open='xdg-open'
+alias ra='ranger'
 
 ##################
 # My Aliases END

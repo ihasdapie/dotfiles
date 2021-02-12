@@ -288,8 +288,9 @@ Plug 'tpope/vim-commentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
+" Plug 'liuchengxu/vim-which-key' #
+" https://github.com/liuchengxu/vim-which-key TODO: put together bindings dict
 " Plug 'puremourning/vimspector'
-                          
 
 " Other
 Plug 'lervag/vimtex'
@@ -297,6 +298,7 @@ Plug 'daeyun/vim-matlab'
 Plug 'kshenoy/vim-signature'
 Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
+
 
 call plug#end()
 
