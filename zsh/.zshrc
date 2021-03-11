@@ -49,7 +49,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=3000 # number loaded into memory
+HISTSIZE=2000 # number loaded into memory
 SAVEHIST=7500 # number saved
 
 export EDITOR=/usr/bin/nvim
@@ -142,6 +142,8 @@ alias grep='grep --color'
 alias kc='kdeconnect-cli'
 alias open='xdg-open'
 alias ra='ranger'
+alias ha='hunter -i -g kitty'
+alias za='zathura'
 
 ##################
 # My Aliases END
@@ -152,21 +154,24 @@ alias ra='ranger'
 ############
 
 function kittycolor(){
-  kitty @set-colors $(fd . '/home/ihasdapie/.config/kitty/kitty-themes/themes/' | fzf)
+  kitty @set-colors $(fd . "$HOME/.config/kitty/kitty-themes/themes/" | fzf)
 }
 
 ##################
 # My Path Exports
 ##################
-export PATH=$PATH:/home/ihasdapie/Applications/
-export PATH=$PATH:/home/ihasdapie/.gem/ruby/2.7.0/bin/
-export PATH=$PATH:/home/ihasdapie/.cargo/bin/
+export PATH=$PATH:$HOME/Applications/
+export PATH=$PATH:$HOME/.gem/ruby/2.7.0/bin/
+export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:/usr/local/i386elfgcc/bin/
-export PATH=$PATH:/home/ihasdapie/Scripts/exec/
-export PATH=$PATH:/home/ihasdapie/Scripts/exec/
-export PATH=$PATH:/home/ihasdapie/go/bin/
-export PATH=$PATH:/home/ihasdapie/.poetry/bin/
-#######  nnn
+export PATH=$PATH:$HOME/Scripts/exec/
+export PATH=$PATH:$HOME/Scripts/exec/
+export PATH=$PATH:$HOME/go/bin/
+export PATH=$PATH:$HOME/.poetry/bin/
+
+
+
+#######  NNN
 export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
@@ -239,13 +244,10 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' '' 'l:|=* r:|=*'
 zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' squeeze-slashes true
-zstyle :compinstall filename '/home/ihasdapie/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -U colors compinit zcalc
 colors # Put standard ANSI color codes in shell parameters for easy use.
@@ -254,11 +256,11 @@ compinit -d
 # End of lines added by compinstall
 ### Kitty
 
-# # blur kitty
-# if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
-#         for wid in $(xdotool search --pid $PPID); do
-#             xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
-# fi 
+# blur kitty
+if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
+        for wid in $(xdotool search --pid $PPID); do
+            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+fi 
 
 
 # Completion for kitty
@@ -277,6 +279,26 @@ compdef _kitty kitty
 rosup () {
   source /opt/ros/noetic/local_setup.zsh
 }
+
+
+# pyenv
+
+eval "$(pyenv init -)"
+
+
+
+
+# node stuff
+
+nodeup() {
+  eval $(npm completion zsh)
+  [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+  source /usr/share/nvm/nvm.sh
+  source /usr/share/nvm/bash_completion
+  source /usr/share/nvm/install-nvm-exec
+}
+
+
 
 
 # run ls on cd

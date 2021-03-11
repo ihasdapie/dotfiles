@@ -29,13 +29,24 @@ set lazyredraw
 set nowrap "turn off wrapping"
 
 
-
-
 set title titlestring=%n\:\ %t\ \:\:\ VIM titlelen=70
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff"
 "
 set shortmess=atc
+
+
+  " guard for distributions lacking the 'persistent_undo' feature.
+if has('persistent_undo')
+    " define a path to store persistent undo files.
+    let target_path = expand('~/.config/nvim/undo/')    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call system('mkdir -p ' . target_path)
+    endif    " point Vim to the defined undo directory.
+    let &undodir = target_path    " finally, enable undo persistence.
+    set undofile
+endif 
 
 " allow for transparent backgrounds
 " autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
@@ -47,7 +58,7 @@ set redrawtime=4000
 
 set expandtab
 set shiftwidth=4
-set colorcolumn=80
+" set colorcolumn=80
 set signcolumn=auto
 
 
@@ -300,6 +311,10 @@ Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
 
 
+" Experimental
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+
 call plug#end()
 
 colorscheme spaceducky
@@ -420,6 +435,19 @@ function! Toggle_transparent()
 endfunction
 
 
+
+"""""""""""""""
+" => Prose Mode
+"""""""""""""""
+function! Prose_mode()
+    execute ":Goyo"
+    execute ":set linebreak"
+    execute ":set wrap"
+
+
+endfunction
+
+
 """"""""""""""""""""
 " ==> Vim-Matlab
 """"""""""""""""""
@@ -494,10 +522,9 @@ let g:airline_right_alt_sep=''
 """"""""""""""""""""""""""""""
 
 
+nnoremap <leader>ce :CocCommand explorer <cr>
 
 
-
-" for yanklist
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
 " for expected behaviour with coc-pairs on hitting enter w/ open ( or {
