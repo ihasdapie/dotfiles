@@ -35,6 +35,7 @@ setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_SPACE
 setopt nomatch
 setopt globdots # GLOBDOTS lets files beginning with a . be matched without explicitly specifying the dot.
 
@@ -102,7 +103,8 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# I'm not 100% sure what this does right now or where it's from we'll roll with it!
+
+# sets window and tab titles for termianls
 function set-title-precmd() {
   printf "\e]2;%s\a" "${PWD/#$HOME/~}"
 }
@@ -144,6 +146,7 @@ alias open='xdg-open'
 alias ra='ranger'
 alias ha='hunter -i -g kitty'
 alias za='zathura'
+alias mpv='mpv -hwdec' # enable hardware decoding for mpv
 
 ##################
 # My Aliases END
@@ -153,9 +156,6 @@ alias za='zathura'
 #My commands
 ############
 
-function kittycolor(){
-  kitty @set-colors $(fd . "$HOME/.config/kitty/kitty-themes/themes/" | fzf)
-}
 
 ##################
 # My Path Exports
@@ -263,6 +263,7 @@ if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
 fi 
 
 
+
 # Completion for kitty
 _kitty() {
     local src
@@ -275,47 +276,16 @@ _kitty() {
 }
 compdef _kitty kitty
 
-# ROS
-rosup () {
-  source /opt/ros/noetic/local_setup.zsh
+
+load () {
+for file in $HOME/.zsh/functions/*; do
+  source "$file"
+done
 }
-
-
-# pyenv
-
-eval "$(pyenv init -)"
-
-
-
-
-# node stuff
-
-nodeup() {
-  eval $(npm completion zsh)
-  [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-  source /usr/share/nvm/nvm.sh
-  source /usr/share/nvm/bash_completion
-  source /usr/share/nvm/install-nvm-exec
-}
-
-
-
-
-# run ls on cd
-cd() { builtin cd "$@" && ls; }
-
-# i dont want to type out curl syntax all the time
-# so a function to upload something to 0x0.st
-
-upload_0x0 () {
-  curl -F "file=@$1" http://0x0.st
-}
-
 
 # Plugins
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
-
 
 # zprof
 
