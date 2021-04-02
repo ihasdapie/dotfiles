@@ -1,10 +1,12 @@
-
 """"""""""""""""""""""""""""""
 " => Misc/General
 """"""""""""""""""""""""""""""
 set number
 set autoindent
 set smartindent
+
+set guifont=FiraCode\ Nerd\ Font:h30
+
 
 filetype plugin on
 filetype indent on
@@ -14,9 +16,6 @@ set history=500
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
-set nofoldenable
-set foldmethod=syntax
-set foldnestmax=1
 filetype off
 set visualbell
 set confirm
@@ -58,7 +57,7 @@ set redrawtime=4000
 
 set expandtab
 set shiftwidth=4
-" set colorcolumn=80
+set colorcolumn=80
 set signcolumn=auto
 
 
@@ -253,6 +252,27 @@ let g:asmsyntax='nasm'
 let g:cursorhold_updatetime = 100
 """""""""""""""""
 
+
+"""""""""""""
+" Ale
+"""""""""""""
+let g:ale_fixers = {
+            \'*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ }
+let g:ale_linters={
+            \ 'rust' : ['analyzer'],
+            \ 'python' : ['flake8']
+            \ }
+
+
+let g:ale_sign_column_always = 1
+let g:ale_lint_delay = 1000  " Default, 200ms: I don't need linting that much
+
+let g:ale_disable_lsp = 1
+let g:ale_hover_cursor = 1
+let g:ale_set_balloons =1 " Show hover tooltip in balloon
+
+
 """""""""""""""""""""""""""""
 " => vim-plug
 """"""""""""""""""""""""""""""
@@ -313,30 +333,12 @@ Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
 
 " Experimental
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
+Plug 'nvim-treesitter/playground'
+Plug 'p00f/nvim-ts-rainbow'
 
 call plug#end()
 
 colorscheme spaceducky
-
-"""""""""""""
-" Ale
-"""""""""""""
-let g:ale_fixers = {
-            \'*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ }
-let g:ale_linters={
-            \ 'rust' : ['analyzer'],
-            \ 'python' : ['flake8']
-            \ }
-
-
-let g:ale_sign_column_always = 1
-let g:ale_lint_delay = 1000  " Default, 200ms: I don't need linting that much
-
-let g:ale_disable_lsp = 1
-let g:ale_hover_cursor = 1
-let g:ale_set_baloons =1 " Show hover tooltip in balloon
 """"""""""""""""""
 " => Vista.vim
 """"""""""""""""""
@@ -463,6 +465,7 @@ let g:preview_uml_url='http://localhost:8888'
 """""""""""""""""""
 let g:tex_flavor = "latex"
 let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_compiler_progname = 'nvr'
 
 """""""""""""""""""""""""""
 " --> IndentGuide
@@ -521,10 +524,7 @@ let g:airline_right_alt_sep=''
 " => Coc
 """"""""""""""""""""""""""""""
 
-
 nnoremap <leader>ce :CocCommand explorer <cr>
-
-
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
 " for expected behaviour with coc-pairs on hitting enter w/ open ( or {
@@ -561,11 +561,12 @@ nmap <leader>rn <Plug>(coc-rename)
 " Accept Coc Completion on enter
 inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <leader>cd :CocDiagnostics<cr>
+nmap <leader>cdi :CocDiagnostics<cr>
 nmap <leader>clc :CocList commands<cr>
 nmap <leader>clo :CocList outline<cr>
 nmap <leader>cls :CocList symbols<cr>
-nmap <leader>cf :CocFix<cr>
+nmap <leader>cfi :CocFix<cr>
+
 """ for coc-actions
 " Remap for do codeAction of selected region
 function! s:cocActionsOpenFromSelected(type) abort
@@ -573,6 +574,13 @@ function! s:cocActionsOpenFromSelected(type) abort
 endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+
+
+" Coc go to definition
+nmap <silent> gd :call CocAction('jumpDefinition', 'tabe')<CR>
+
+
 
 
 """"""""""""""""""""""""
@@ -607,5 +615,11 @@ let g:nnn#action = {
       \ '<c-t>': 'tab split',
       \ '<c-x>': 'split',
       \ '<c-v>': 'vsplit' }
-
-
+"""""""""""""
+" => Treesitter
+"""""""""""""
+luafile ~/.config/nvim/ts.lua
+set nofoldenable
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldnestmax=2
