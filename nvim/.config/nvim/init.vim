@@ -261,7 +261,7 @@ let g:ale_fixers = {
             \ }
 let g:ale_linters={
             \ 'rust' : ['analyzer'],
-            \ 'python' : ['flake8']
+            \ 'python' : ['pyright']
             \ }
 
 
@@ -312,16 +312,24 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'pineapplegiant/spaceduck'
 Plug 'ihasdapie/spaceducky'
+Plug 'ihasdapie/airline_base16_snazzy'
+
 
 " Tools
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
+Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
 " Plug 'liuchengxu/vim-which-key' #
 " https://github.com/liuchengxu/vim-which-key TODO: put together bindings dict
 " Plug 'puremourning/vimspector'
+Plug 'liuchengxu/graphviz.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+
+
 
 " Other
 Plug 'lervag/vimtex'
@@ -481,8 +489,7 @@ let g:indent_guides_default_mapping=0
 """""""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" let g:airline_theme='deus'
-let g:airline_theme='base16_snazzy'
+let g:airline_theme='old_base16_snazzy'
 
 let g:airline#extensions#whitespace#enabled=0
 let g:airline_powerline_fonts = 1
@@ -618,8 +625,22 @@ let g:nnn#action = {
 """""""""""""
 " => Treesitter
 """""""""""""
+
 luafile ~/.config/nvim/ts.lua
 set nofoldenable
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldnestmax=2
+
+
+""""""""""
+" => Gitsigns.nvim
+"""""""""
+luafile ~/.config/nvim/gitsigns.lua
+
+
+
+
+
+
+

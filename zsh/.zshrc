@@ -50,7 +50,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=2000 # number loaded into memory
+HISTSIZE=3000 # number loaded into memory
 SAVEHIST=7500 # number saved
 
 export EDITOR=/usr/bin/nvim
@@ -276,17 +276,16 @@ _kitty() {
 }
 compdef _kitty kitty
 
-
-load () {
-for file in $HOME/.zsh/functions/*; do
-  source "$file"
-done
-}
-
 # Plugins
-antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+# antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
 
+
+# zsh autosuggestions
+#
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20 # max lneght of buffer to auttosugest to
+export ZSH_AUTOSUGGEST_USE_ASYNC=1 # allow for async suggestion fetching
+export ZSH_AUTOSUGGEST_HISTORY_IGNORE=" "
 # zprof
 
 
