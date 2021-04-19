@@ -27,6 +27,9 @@ wget https://github.com/jarun/nnn/releases/download/v3.6/nnn_3.6-1_ubuntu16.04.a
 sudo dpkg -i fd_8.2.1_amd64.deb
 sudo dpkg -i nnn_3.6-1_ubuntu16.04.amd64.deb
 
+# pyenv 
+sudo apt-get install build-essential git libreadline-dev zlib1g-dev libssl-dev libbz2-dev libsqlite3-dev
+curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
 
 
 
