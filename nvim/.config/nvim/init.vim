@@ -297,13 +297,15 @@ Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
-
+Plug 'lewis6991/gitsigns.nvim'
+" Plug 'airblade/vim-gitgutter'
 
 " Performance improvements
 Plug 'antoinemadec/FixCursorHold.nvim'
 
 " Eyecandy
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
+Plug 'kdav5758/TrueZen.nvim'
 Plug 'flazz/vim-colorschemes/'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
@@ -327,7 +329,9 @@ Plug 'tpope/vim-surround'
 " Plug 'puremourning/vimspector'
 Plug 'liuchengxu/graphviz.vim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim'
+
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 
 
@@ -640,7 +644,6 @@ luafile ~/.config/nvim/gitsigns.lua
 
 
 
-
-
-
-
+""""""""""
+" => Gitgutter
+""""""""""""
