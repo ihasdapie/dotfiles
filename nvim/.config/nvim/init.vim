@@ -298,6 +298,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'lewis6991/gitsigns.nvim'
+
+
 " Plug 'airblade/vim-gitgutter'
 
 " Performance improvements
@@ -310,16 +312,18 @@ Plug 'flazz/vim-colorschemes/'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mcchrish/nnn.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'pineapplegiant/spaceduck'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'ihasdapie/spaceducky'
 Plug 'ihasdapie/airline_base16_snazzy'
 
 
+Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+
 " Tools
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-" Plug 'tpope/vim-commentary'
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -327,6 +331,7 @@ Plug 'tpope/vim-surround'
 " Plug 'liuchengxu/vim-which-key' #
 " https://github.com/liuchengxu/vim-which-key TODO: put together bindings dict
 " Plug 'puremourning/vimspector'
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'liuchengxu/graphviz.vim'
 Plug 'nvim-lua/plenary.nvim'
 
@@ -454,7 +459,7 @@ endfunction
 " => Prose Mode
 """""""""""""""
 function! Prose_mode()
-    execute ":Goyo"
+    execute ":TZAtaraxis"
     execute ":set linebreak"
     execute ":set wrap"
 
@@ -491,31 +496,117 @@ let g:indent_guides_default_mapping=0
 """"""""""""""""""""""""""""""""
 "" => airline
 """""""""""""""""""""""""""""""
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_theme='old_base16_snazzy'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline_theme='old_base16_snazzy'
 
-let g:airline#extensions#whitespace#enabled=0
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
-let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
-let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
-let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
-let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
-let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline#extensions#whitespace#enabled=0
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
+" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
+" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
+" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
+" let g:airline#extensions#tabline#buffer_nr_show = 1
 
-let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
+" let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
 
-let g:airline#extensions#bufferline#enabled = 1
+" let g:airline#extensions#bufferline#enabled = 1
 
-let g:airline_left_sep=''
-let g:airline_right_sep = ''
-let g:airline_left_alt_sep=''
-let g:airline_right_alt_sep=''
+" let g:airline_left_sep=''
+" let g:airline_right_sep = ''
+" let g:airline_left_alt_sep=''
+" let g:airline_right_alt_sep=''
 
+""""""""""""""""""
+" ==> lualine
+""""""""""""""""""""
+let g:lualine = {
+    \'options' : {
+    \  'theme' : 'palenight',
+    \  'section_separators' : ['', ''],
+    \  'component_separators' : ['', ''],
+    \  'icons_enabled' : v:true,
+    \},
+    \'sections' : {
+    \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
+    \  'lualine_b' : [ ['branch', {'icon': '',}, ], ],
+    \  'lualine_c' : [ ['filename', {'file_status': v:true,},], ],
+    \  'lualine_x' : [ 'encoding', 'fileformat', 'filetype' ],
+    \  'lualine_y' : [ 'progress' ],
+    \  'lualine_z' : [ 'location'  ],
+    \},
+    \'inactive_sections' : {
+    \  'lualine_a' : [  ],
+    \  'lualine_b' : [  ],
+    \  'lualine_c' : [ 'filename' ],
+    \  'lualine_x' : [ 'location' ],
+    \  'lualine_y' : [  ],
+    \  'lualine_z' : [  ],
+    \},
+    \'extensions' : [ 'fzf', 'fugitive',  ],
+    \}
 
+lua require("lualine").setup()
 
+""""""""""""""""
+" ==> Barbar
+""""""""""""""""
+
+" NOTE: If barbar's option dict isn't created yet, create it
+let bufferline = get(g:, 'bufferline', {})
+
+" Enable/disable animations
+let bufferline.animation = v:true
+
+" Enable/disable auto-hiding the tab bar when there is a single buffer
+let bufferline.auto_hide = v:true
+
+" Enable/disable current/total tabpages indicator (top right corner)
+let bufferline.tabpages = v:true
+
+" Enable/disable close button
+let bufferline.closable = v:true
+
+" Enables/disable clickable tabs
+"  - left-click: go to buffer
+"  - middle-click: delete buffer
+let bufferline.clickable = v:true
+
+" Enable/disable icons
+" if set to 'numbers', will show buffer index in the tabline
+" if set to 'both', will show buffer index and icons in the tabline
+let bufferline.icons = v:true
+
+" Sets the icon's highlight group.
+" If false, will use nvim-web-devicons colors
+let bufferline.icon_custom_colors = v:false
+
+" Configure icons on the bufferline.
+let bufferline.icon_separator_active = '▎'
+let bufferline.icon_separator_inactive = '▎'
+let bufferline.icon_close_tab = ''
+let bufferline.icon_close_tab_modified = '●'
+
+" Sets the maximum padding width with which to surround each tab
+let bufferline.maximum_padding = 2
+
+" If set, the letters for each buffer in buffer-pick mode will be
+" assigned based on their name. Otherwise or in case all letters are
+" already assigned, the behavior is to assign letters in order of
+" usability (see order below)
+let bufferline.semantic_letters = v:true
+
+" New buffer letters are assigned in this order. This order is
+" optimal for the qwerty keyboard layout but might need adjustement
+" for other layouts.
+let bufferline.letters =
+  \ 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
+
+" Sets the name of unnamed buffers. By default format is "[Buffer X]"
+" where X is the buffer number. But only a static string is accepted here.
+let bufferline.no_name_title = v:null
 
 
 
@@ -564,7 +655,7 @@ else
     inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " rename with coc 
 nmap <leader>rn <Plug>(coc-rename)
@@ -572,7 +663,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Accept Coc Completion on enter
 inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <leader>cdi :CocDiagnostics<cr>
+nmap <leader>cdi :CocList diagnostics<cr>
 nmap <leader>clc :CocList commands<cr>
 nmap <leader>clo :CocList outline<cr>
 nmap <leader>cls :CocList symbols<cr>
