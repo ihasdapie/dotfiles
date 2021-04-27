@@ -8,6 +8,8 @@ set smartindent
 set guifont=FiraCode\ Nerd\ Font:h30
 
 
+set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
+
 filetype plugin on
 filetype indent on
 
@@ -143,30 +145,34 @@ nnoremap j gj
 map <silent> <leader><cr> :noh<cr>
 
 map <leader>cb :set clipboard+=unnamedplus<cr>
+map <leader>cf :copen <cr>
+
 
 " buffer movement
 
 " list buffers
+""""""
+" Overrideen via barbar
+""""""
+" " switching between buffers
+" map <leader>b :b
 
-" switching between buffers
-map <leader>b :b
+" " Close the current buffer
+" map <leader>bd :bd<cr>:tabclose<cr>gT
 
-" Close the current buffer
-map <leader>bd :bd<cr>:tabclose<cr>gT
+" map <leader>l :bnext<cr>
+" map <leader>h :bprevious<cr>
 
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
+" " Useful mappings for managing tabs
+" map <leader>tn :tabnew<cr>
+" map <leader>to :tabonly<cr>
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
+" map <leader>t<leader> :tabnext
 
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
+" " Opens a new tab with the current buffer's path
+" " Super useful when editing files in the same directory
+" map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
 
@@ -298,7 +304,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'lewis6991/gitsigns.nvim'
-
+" Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Plug 'airblade/vim-gitgutter'
 
@@ -316,7 +323,8 @@ Plug 'mcchrish/nnn.vim'
 " Plug 'vim-airline/vim-airline-themes'
 Plug 'ihasdapie/spaceducky'
 Plug 'ihasdapie/airline_base16_snazzy'
-
+Plug 'romgrk/doom-one.vim'
+Plug 'joshdick/onedark.vim'
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -459,7 +467,8 @@ endfunction
 " => Prose Mode
 """""""""""""""
 function! Prose_mode()
-    execute ":TZAtaraxis"
+    execute ":TZLeft"
+    execute ":TZBottom"
     execute ":set linebreak"
     execute ":set wrap"
 
@@ -478,11 +487,15 @@ nmap <leader>mrc :MatlabCliRunCell <cr>
 let g:preview_uml_url='http://localhost:8888'
 
 """"""""""""""""""""
-" latex
-"""""""""""""""""""
+" vimtex
+""""""""""""""""""""
 let g:tex_flavor = "latex"
 let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode=0
+let g:tex_conceal='abdmg'
+
+" let g:vimtex_compiler_progname = 'nvr'
 
 """""""""""""""""""""""""""
 " --> IndentGuide
@@ -522,6 +535,7 @@ let g:indent_guides_default_mapping=0
 """"""""""""""""""
 " ==> lualine
 """"""""""""""""""""
+
 let g:lualine = {
     \'options' : {
     \  'theme' : 'palenight',
@@ -558,7 +572,7 @@ lua require("lualine").setup()
 let bufferline = get(g:, 'bufferline', {})
 
 " Enable/disable animations
-let bufferline.animation = v:true
+let bufferline.animation = v:false
 
 " Enable/disable auto-hiding the tab bar when there is a single buffer
 let bufferline.auto_hide = v:true
@@ -608,7 +622,21 @@ let bufferline.letters =
 " where X is the buffer number. But only a static string is accepted here.
 let bufferline.no_name_title = v:null
 
+map <leader>bd :BufferClose<cr>
+map <leader>bp :BufferPick<cr>
 
+map <leader>l :BufferNext<cr>
+map <leader>h :BufferPrevious<cr>
+
+" map gt :BufferNext<cr>
+" map gT :BufferPrevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 
 
@@ -685,7 +713,9 @@ nmap <silent> gd :call CocAction('jumpDefinition', 'tabe')<CR>
 
 
 
-""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""
 "=>suda.vim
 """"""""""""""""""""""""
 
@@ -720,8 +750,7 @@ let g:nnn#action = {
 """""""""""""
 " => Treesitter
 """""""""""""
-
-luafile ~/.config/nvim/ts.lua
+lua require('treesitter_config')
 set nofoldenable
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
@@ -731,9 +760,20 @@ set foldnestmax=2
 """"""""""
 " => Gitsigns.nvim
 """""""""
-luafile ~/.config/nvim/gitsigns.lua
+lua require('gitsigns_config')
 
 
+
+
+
+
+""""""""
+"=> Hide quickfix 
+"""""
+augroup qf
+    autocmd!
+    autocmd FileType qf set nobuflisted
+augroup END
 
 """"""""""
 " => Gitgutter
