@@ -28,6 +28,7 @@ set mousemodel=popup_setpos
 set noshowmode "to remove redundant --insert-- etc"
 set lazyredraw
 set nowrap "turn off wrapping"
+set timeoutlen=690
 
 
 set title titlestring=%n\:\ %t\ \:\:\ VIM titlelen=70
@@ -304,7 +305,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'lewis6991/gitsigns.nvim'
-" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Plug 'airblade/vim-gitgutter'
@@ -312,19 +312,22 @@ Plug 'honza/vim-snippets'
 " Performance improvements
 Plug 'antoinemadec/FixCursorHold.nvim'
 
+Plug 'tweekmonster/startuptime.vim/'
+
+
+
 " Eyecandy
-" Plug 'junegunn/goyo.vim'
 Plug 'kdav5758/TrueZen.nvim'
-Plug 'flazz/vim-colorschemes/'
+" Plug 'flazz/vim-colorschemes/'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mcchrish/nnn.vim'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'ihasdapie/spaceducky'
 Plug 'ihasdapie/airline_base16_snazzy'
+
 Plug 'romgrk/doom-one.vim'
 Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -336,12 +339,17 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
-" Plug 'liuchengxu/vim-which-key' #
-" https://github.com/liuchengxu/vim-which-key TODO: put together bindings dict
+
+Plug 'folke/which-key.nvim'
+
+
 " Plug 'puremourning/vimspector'
-Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'liuchengxu/graphviz.vim'
 Plug 'nvim-lua/plenary.nvim'
+
+Plug 'kevinhwang91/nvim-bqf'
+
+
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -363,7 +371,8 @@ Plug 'p00f/nvim-ts-rainbow'
 
 call plug#end()
 
-colorscheme spaceducky
+colorscheme onedark
+
 """"""""""""""""""
 " => Vista.vim
 """"""""""""""""""
@@ -413,6 +422,8 @@ noremap <leader>wl :Windows  <CR>
 nnoremap <leader>bl :Buffers <CR>
 nnoremap <leader>rg :Rg <CR>
 nnoremap <leader>ml :Marks <CR>
+nnoremap <leader>hf :History <CR>
+nnoremap <leader>hc :History: <CR>
 
 
 
@@ -625,8 +636,8 @@ let bufferline.no_name_title = v:null
 map <leader>bd :BufferClose<cr>
 map <leader>bp :BufferPick<cr>
 
-map <leader>l :BufferNext<cr>
-map <leader>h :BufferPrevious<cr>
+map <space>l :BufferNext<cr>
+map <space>h :BufferPrevious<cr>
 
 " map gt :BufferNext<cr>
 " map gT :BufferPrevious<cr>
@@ -708,7 +719,7 @@ nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<C
 
 
 " Coc go to definition
-nmap <silent> gd :call CocAction('jumpDefinition', 'tabe')<CR>
+nmap <silent> gd :call CocAction('jumpDefinition', 'e')<CR>
 
 
 
@@ -775,6 +786,19 @@ augroup qf
     autocmd FileType qf set nobuflisted
 augroup END
 
-""""""""""
-" => Gitgutter
-""""""""""""
+
+""""""""""""""""""
+" ==> nvim-which-key
+""""""""""""""""""
+lua require('which-key_config')
+
+
+
+
+
+
+
+
+
+
+
