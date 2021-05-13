@@ -172,10 +172,10 @@ export PATH=$PATH:$HOME/.poetry/bin/
 
 
 #######  NNN
-export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
+export NNN_PLUG="p:preview-tui-ext;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
-export NNN_OPTS="deH"
+export NNN_OPTS="de"
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 export NNN_TRASH=1 
 
