@@ -1,0 +1,37 @@
+swipe:
+  4:
+    down:
+      command: 'xdotool key super+o'
+    up: 
+      command: 'xdotool key super+p'
+  3:
+    # Switching Desktops
+    up: 
+      command: 'xdotool key super+Up'
+    left:
+      command: 'xdotool key super+Left'
+    right:
+      command: 'xdotool key super+Right'
+    down: 
+      command: 'xdotool key super+Down'
+
+
+pinch:
+  2:
+    in:
+      command: 'xdotool keydown ctrl click 4 keyup ctrl' # Zoom in
+    out:
+      command: 'xdotool keydown ctrl click 5 keyup ctrl' # Zoom out
+  3:
+    out:
+      command: 'xdotool key Escape'
+
+
+
+plugin:
+  inputs:
+    libinput_command_input:
+      enable-tap: true
+      enable-dwt: true
+      show-keycodes: true
+
