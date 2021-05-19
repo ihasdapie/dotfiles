@@ -309,33 +309,37 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'honza/vim-snippets'
 Plug 'simnalamburt/vim-mundo'
+Plug 'voldikss/vim-floaterm'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/nvim-bufferline.lua'
+Plug 'hoob3rt/lualine.nvim'
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
-
-" Plug 'airblade/vim-gitgutter'
 
 " Performance improvements
 Plug 'antoinemadec/FixCursorHold.nvim'
-
 Plug 'tweekmonster/startuptime.vim/'
 Plug 'vim-scripts/LargeFile'
 Plug 'famiu/nvim-reload'
-Plug 'akinsho/nvim-bufferline.lua'
 
 
 " Eyecandy
 Plug 'kdav5758/TrueZen.nvim'
-" Plug 'flazz/vim-colorschemes/'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mcchrish/nnn.vim'
-Plug 'ihasdapie/spaceducky'
 Plug 'wfxr/minimap.vim'
+
+
+" Colourschemes
 Plug 'joshdick/onedark.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'folke/tokyonight.nvim'
+Plug 'ihasdapie/spaceducky'
+Plug 'marko-cerovac/material.nvim'
+Plug 'sainnhe/edge'
+Plug 'sainnhe/sonokai'
 
-Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 
 " Tools
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
@@ -345,6 +349,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
 
 Plug 'folke/which-key.nvim'
+Plug 'ferrine/md-img-paste.vim'
 
 
 " Plug 'puremourning/vimspector'
@@ -376,8 +381,14 @@ Plug 'p00f/nvim-ts-rainbow'
 call plug#end()
 
 let g:tokyonight_italic_functions='true'
-let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+let g:tokyonight_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
 let g:tokyonight_style="storm"
+let g:tokyonight_dark_float='true'
+let g:tokyonight_hide_inactive_statusline='true'
+let g:tokyonight_colors = {"comment": "#696969"}
+
+
+
 colorscheme tokyonight
 
 
@@ -475,7 +486,8 @@ function! Toggle_transparent()
     if t:is_transparent == 0
         hi Normal ctermbg=black
         set background=dark
-        execute "colorscheme spaceducky"
+        execute "colorscheme tokyonight"
+
         let t:is_transparent = 1
         echo "Transparency off"
     else
@@ -556,37 +568,23 @@ let g:indent_guides_default_mapping=0
 " let g:airline_left_alt_sep=''
 " let g:airline_right_alt_sep=''
 
+
+
+"""""""""""""
+" => Galaxyline
+"""""""""""""
+
+" lua require('galaxyline_config')
+
+
+
+
 """"""""""""""""""
 " ==> lualine
 """"""""""""""""""""
 
-let g:lualine = {
-    \'options' : {
-    \  'theme' : 'tokyonight',
-    \  'section_separators' : ['', ''],
-    \  'component_separators' : ['', ''],
-    \  'icons_enabled' : v:true,
-    \},
-    \'sections' : {
-    \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
-    \  'lualine_b' : [ ['branch', {'icon': '',}, ], ],
-    \  'lualine_c' : [ ['filename', {'file_status': v:true,},], ],
-    \  'lualine_x' : [ 'encoding', 'fileformat', 'filetype' ],
-    \  'lualine_y' : [ 'progress' ],
-    \  'lualine_z' : [ 'location'  ],
-    \},
-    \'inactive_sections' : {
-    \  'lualine_a' : [  ],
-    \  'lualine_b' : [  ],
-    \  'lualine_c' : [ 'filename' ],
-    \  'lualine_x' : [ 'location' ],
-    \  'lualine_y' : [  ],
-    \  'lualine_z' : [  ],
-    \},
-    \'extensions' : [ 'fzf', 'fugitive',  ],
-    \}
+lua require('lualine_config')
 
-lua require("lualine").setup()
 
 
 """"""""""""""""
@@ -842,6 +840,27 @@ lua require('which-key_config')
 " => Vim Mundo
 """""""""""""
 noremap <leader>md :MundoToggle <cr>
+
+
+""""""""""
+" => md-image-paste
+""""""""""
+
+noremap <leader>pi :call mdip#MarkdownClipboardImage() <cr>
+
+
+let g:mdip_imgdir = 'img'
+let g:mdip_imgname = 'image'
+
+
+
+
+"""""""""""
+" => Graphviz.vim
+"""""""""""
+
+noremap <leader>gv :w <CR> :GraphvizCompile <CR>
+
 
 
 
