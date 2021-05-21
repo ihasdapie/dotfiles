@@ -312,8 +312,8 @@ Plug 'simnalamburt/vim-mundo'
 Plug 'voldikss/vim-floaterm'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'hoob3rt/lualine.nvim'
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'hoob3rt/lualine.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 
 " Performance improvements
@@ -355,10 +355,7 @@ Plug 'ferrine/md-img-paste.vim'
 " Plug 'puremourning/vimspector'
 Plug 'liuchengxu/graphviz.vim'
 Plug 'nvim-lua/plenary.nvim'
-
 Plug 'kevinhwang91/nvim-bqf'
-
-
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -377,6 +374,8 @@ Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
+" Plug 'rafcamlet/coc-nvim-lua'
+
 
 call plug#end()
 
@@ -475,7 +474,7 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 " ==> SnipRun
 """"""""""""""""""
 
-nnoremap <leader>f :SnipRun<CR>
+nnoremap <leader>sr :SnipRun<CR>
 vnoremap <leader>f :SnipRun<CR>
 
 """""""""""""""""""
@@ -574,8 +573,7 @@ let g:indent_guides_default_mapping=0
 " => Galaxyline
 """""""""""""
 
-" lua require('galaxyline_config')
-
+lua require('galaxyline_config')
 
 
 
@@ -583,7 +581,7 @@ let g:indent_guides_default_mapping=0
 " ==> lualine
 """"""""""""""""""""
 
-lua require('lualine_config')
+" lua require('lualine_config')
 
 
 

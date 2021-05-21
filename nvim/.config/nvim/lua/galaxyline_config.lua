@@ -15,7 +15,7 @@ gl.short_line_list = {
     'plug'
 }
 
--- VistaPlugin = extension.vista_nearest
+VistaPlugin = extension.vista_nearest
 
 local colors = {
     bg = '#282c34',
@@ -148,7 +148,7 @@ gls.left[2] = {
       }
       local vim_mode = vim.fn.mode()
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
-      return alias[vim_mode] .. '   '
+      return alias[vim_mode] .. '   '
     end,
     highlight = {colors.red,colors.line_bg,'bold'},
   },
@@ -170,7 +170,7 @@ gls.left[4] = {
 
 gls.left[5] = {
   GitIcon = {
-    provider = function() return '  ' end,
+    provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.orange,colors.line_bg},
   }

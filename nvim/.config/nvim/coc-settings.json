@@ -1,0 +1,46 @@
+{
+
+  /* "languageserver": { */
+  /*   "golang": { */
+  /*     "command": "gopls", */
+  /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
+  /*     "filetypes": ["go"] */
+  /*   } */
+  /* }, */
+
+  "coc.source.emoji.filetypes": [
+    "gitcommit",
+    "markdown"
+  ],
+
+  "diagnostic.displayByAle": false,
+
+ /* Coc-Python  */
+
+  /* "python.linting.pylintEnabled": true, */
+  "python.linting.flake8Enabled": true,
+
+
+  /* Coc-Explorer */
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.enableVimDevicons": true,
+
+
+  /* Coc-Diagnostics */
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "",
+
+  /* Coc-Snippets */
+  "snippets.snipmate.enable": false,
+
+  /* Coc-lua */
+  // We want to be able to develop for neovim...
+  "Lua.workspace.library": {
+    "/usr/share/nvim/runtime/lua": true,
+    "/usr/share/nvim/runtime/lua/vim": true,
+    "/usr/share/nvim/runtime/lua/vim/lsp": true
+  },
+  "Lua.diagnostics.globals": ["vim"]
+}
