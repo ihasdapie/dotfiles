@@ -7,21 +7,21 @@ swipe:
   3:
     # Switching Desktops
     up: 
-      command: 'xdotool key super+Up'
+      command: 'xdotool key super+Down'
     left:
       command: 'xdotool key super+Left'
     right:
       command: 'xdotool key super+Right'
     down: 
-      command: 'xdotool key super+Down'
+      command: 'xdotool key super+Up'
 
 
 pinch:
-  2:
-    in:
-      command: 'xdotool keydown ctrl click 4 keyup ctrl' # Zoom in
-    out:
-      command: 'xdotool keydown ctrl click 5 keyup ctrl' # Zoom out
+  # 2:
+  #   in:
+  #     command: 'xdotool keydown ctrl click 4 keyup ctrl' # Zoom in
+  #   out:
+  #     command: 'xdotool keydown ctrl click 5 keyup ctrl' # Zoom out
   3:
     out:
       command: 'xdotool key Escape'

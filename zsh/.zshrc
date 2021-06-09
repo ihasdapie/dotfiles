@@ -50,7 +50,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=3000 # number loaded into memory
+HISTSIZE=6969 # number loaded into memory
 SAVEHIST=7500 # number saved
 
 export EDITOR=/usr/bin/nvim
@@ -168,6 +168,7 @@ export PATH=$PATH:$HOME/Scripts/exec/
 export PATH=$PATH:$HOME/Scripts/exec/
 export PATH=$PATH:$HOME/go/bin/
 export PATH=$PATH:$HOME/.poetry/bin/
+export PATH=$PATH:$HOME/.emacs.d/bin/
 
 
 
@@ -182,8 +183,7 @@ export NNN_TRASH=1
 # return to nnn when done
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
 # cd on quit
-nn ()
-{
+nn () {
     # Block nesting of nnn in subshells
     if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
         echo "nnn is already running"
@@ -208,6 +208,10 @@ nn ()
             . "$NNN_TMPFILE"
             rm -f "$NNN_TMPFILE" > /dev/null
     fi
+}
+
+xp () {
+  cd $(xplr)
 }
 
 
@@ -286,9 +290,14 @@ source ~/.zsh_plugins.sh
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20 # max lneght of buffer to auttosugest to
 export ZSH_AUTOSUGGEST_USE_ASYNC=1 # allow for async suggestion fetching
 export ZSH_AUTOSUGGEST_HISTORY_IGNORE=" "
+
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+
 # zprof
-
-
-
 
 

@@ -5,8 +5,8 @@ set number
 set autoindent
 set smartindent
 
-set guifont=FiraCode\ Nerd\ Font:h30
-
+" set guifont=FiraCode\ Nerd\ Font:h30
+set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
 
 set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
 
@@ -31,7 +31,7 @@ set nowrap "turn off wrapping"
 set timeoutlen=690
 
 
-set title titlestring=%n\:\ %t\ \:\:\ VIM titlelen=70
+set title titlestring=VIM\[%t\]\:%n titlelen=70
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
 set shortmess=atc
@@ -54,7 +54,7 @@ endif
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=100
+set updatetime=200
 set redrawtime=4000
 
 set expandtab
@@ -128,7 +128,7 @@ endif
 let g:loaded_netrw_Plugin = 1 "NeTrW iS bLoAT
 let g:loaded_netrw=1
 
-:tnoremap <Esc> <C-\><C-n> " Allow esc to exit out of terminal mode
+tnoremap <Esc> <C-\><C-n> " Allow esc to exit out of terminal mode
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,8 +189,8 @@ map <leader>cf :copen <cr>
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-nnoremap <silent> <Leader>s :split<CR>
-nnoremap <silent> <Leader>v :vsplit<CR>
+nnoremap <silent> <Leader>wh :split<CR>
+nnoremap <silent> <Leader>wv :vsplit<CR>
 nnoremap <silent> <Leader>q :close<CR>
 
 
@@ -256,38 +256,12 @@ augroup END
 
 let g:asmsyntax='nasm'
 
-""""""""""""""""""
-" Fix cursorhold 
-let g:cursorhold_updatetime = 100
-"""""""""""""""""
-
-
-"""""""""""""
-" Ale
-"""""""""""""
-let g:ale_fixers = {
-            \'*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ }
-let g:ale_linters={
-            \ 'rust' : ['analyzer'],
-            \ 'python' : ['pyright']
-            \ }
-
-
-let g:ale_sign_column_always = 1
-let g:ale_lint_delay = 1000  " Default, 200ms: I don't need linting that much
-
-let g:ale_disable_lsp = 1
-let g:ale_hover_cursor = 1
-let g:ale_set_balloons =1 " Show hover tooltip in balloon
-
 
 """""""""""""""""""""""""""""
 " => vim-plug
 """"""""""""""""""""""""""""""
 
 " auto-installation script
-
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -299,20 +273,19 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'liuchengxu/vista.vim'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
-Plug 'jiangmiao/auto-pairs'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
+Plug 'ihasdapie/vim-snippets'
 Plug 'simnalamburt/vim-mundo'
 Plug 'voldikss/vim-floaterm'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
-" Plug 'hoob3rt/lualine.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 
@@ -332,20 +305,26 @@ Plug 'wfxr/minimap.vim'
 
 
 " Colourschemes
-Plug 'joshdick/onedark.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'folke/tokyonight.nvim'
 Plug 'ihasdapie/spaceducky'
 Plug 'marko-cerovac/material.nvim'
 Plug 'sainnhe/edge'
 Plug 'sainnhe/sonokai'
-
+Plug 'navarasu/onedark.nvim'
+Plug 'rafamadriz/neon'
+Plug 'dracula/vim'
+Plug 'romgrk/doom-one.vim'
 
 " Tools
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'Yggdroot/indentLine'
+" Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'} " Still waiting on some upstream changes... to fix bug with horz. movement
+
+
 Plug 'tpope/vim-surround'
 
 Plug 'folke/which-key.nvim'
@@ -353,31 +332,59 @@ Plug 'ferrine/md-img-paste.vim'
 
 
 " Plug 'puremourning/vimspector'
-Plug 'liuchengxu/graphviz.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
 
 
 
 " Other
+Plug 'kshenoy/vim-signature' 
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim' "dependency for plantuml-previewer
+
+
+" Language Syntax
 Plug 'lervag/vimtex'
 Plug 'daeyun/vim-matlab'
-Plug 'kshenoy/vim-signature'
-Plug 'weirongxu/plantuml-previewer.vim'
-Plug 'tyru/open-browser.vim' " dependency for plantuml-previewer
+Plug 'liuchengxu/graphviz.vim'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 
 " Experimental
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
-" Plug 'rafcamlet/coc-nvim-lua'
 
+
+Plug 'tmsvg/pear-tree'
+
+" =>  Graveyard
+" Plug 'hoob3rt/lualine.nvim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
+
+""""""""""""""""""
+" Fix cursorhold 
+let g:cursorhold_updatetime = 100
+"""""""""""""""""
+
+
+
+
+
+""""""""""
+" => Largefile
+"""""""""
+let g:LargeFile=50
+
+
+""""""""""
+" => colorscheme
+""""""""""
 
 let g:tokyonight_italic_functions='true'
 let g:tokyonight_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
@@ -385,11 +392,7 @@ let g:tokyonight_style="storm"
 let g:tokyonight_dark_float='true'
 let g:tokyonight_hide_inactive_statusline='true'
 let g:tokyonight_colors = {"comment": "#696969"}
-
-
-
 colorscheme tokyonight
-
 
 """"""""""""""""""
 " => Vista.vim
@@ -412,7 +415,8 @@ let g:vista_sidebar_width=35
 let g:vista_executive_for = {
     \ 'python': 'coc', 
     \ 'rust': 'coc',
-    \ 'c' : 'coc' 
+    \ 'c' : 'coc',
+    \ 'lua': 'coc'
     \ }
 
 
@@ -442,10 +446,9 @@ nnoremap <leader>rg :Rg <CR>
 nnoremap <leader>ml :Marks <CR>
 nnoremap <leader>hf :History <CR>
 nnoremap <leader>hc :History: <CR>
-
-
-
+nnoremap <m-x> :Commands<CR>
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+
 
 
 
@@ -475,7 +478,7 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 """"""""""""""""""
 
 nnoremap <leader>sr :SnipRun<CR>
-vnoremap <leader>f :SnipRun<CR>
+vnoremap <leader>sr :SnipRun<CR>
 
 """""""""""""""""""
 " ==> Toggle Transparent Background
@@ -530,48 +533,11 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmg'
 
-" let g:vimtex_compiler_progname = 'nvr'
-
-"""""""""""""""""""""""""""
-" --> IndentGuide
-""""""""""""""""""""""""""""
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
-let g:indent_guides_default_mapping=0
 
 
-""""""""""""""""""""""""""""""""
-"" => airline
-"""""""""""""""""""""""""""""""
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" let g:airline_theme='old_base16_snazzy'
-
-" let g:airline#extensions#whitespace#enabled=0
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
-" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
-" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
-" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
-" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
-" let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
-
-" let g:airline#extensions#bufferline#enabled = 1
-
-" let g:airline_left_sep=''
-" let g:airline_right_sep = ''
-" let g:airline_left_alt_sep=''
-" let g:airline_right_alt_sep=''
-
-
-
-"""""""""""""
+""""""""""""
 " => Galaxyline
-"""""""""""""
+""""""""""""
 
 lua require('galaxyline_config')
 
@@ -588,12 +554,8 @@ lua require('galaxyline_config')
 """"""""""""""""
 " ==> nvim-bufferline
 """"""""""""""""
-lua require('bufferline').setup{
-            \ options = {
-            \ tab_size=12,
-            \ numbers="buffer_id"
-            \ }
-            \}
+lua require('nvim-bufferline_config')
+
 
 map <leader>bp :BufferLinePick<cr>
 " I do not use vim-rooter etc to change cwd, so pick relative dir
@@ -702,17 +664,6 @@ map <leader>bd :bdelete % <cr>
 " => Coc
 """"""""""""""""""""""""""""""
 
-nnoremap <leader>ce :CocCommand explorer <cr>
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-
-" for expected behaviour with coc-pairs on hitting enter w/ open ( or {
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
@@ -724,6 +675,8 @@ function! s:check_back_space() abort
 return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+
+
 " Use <c-space> to trigger completion.
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
@@ -731,33 +684,47 @@ else
     inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" rename with coc 
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+"-------------------
+" => My Coc Mappings
+"-------------------
+
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+
+nnoremap <leader>ce :CocCommand explorer <cr>
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>rn <Plug>(coc-rename)
-
-" Accept Coc Completion on enter
-inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nmap <leader>cdf :CocList diagnostics<cr>
 nmap <leader>cdl :CocDiagnostics <cr>
 nmap <leader>clc :CocList commands<cr>
 nmap <leader>clo :CocList outline<cr>
 nmap <leader>cls :CocList symbols<cr>
-nmap <leader>cfi :CocFix<cr>
-
-""" for coc-actions
-" Remap for do codeAction of selected region
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+nmap <leader>cfx :CocFix<cr>
 
 
+" Accept Coc Completion on enter
+inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Coc go to definition
-nmap <silent> gd :call CocAction('jumpDefinition', 'e')<CR>
 
 
 
@@ -812,6 +779,10 @@ set foldnestmax=2
 lua require('gitsigns_config')
 
 
+""""""""""""""""""
+" ==> nvim-which-key
+""""""""""""""""""
+lua require('which-key_config')
 
 
 
@@ -823,13 +794,6 @@ augroup qf
     autocmd!
     autocmd FileType qf set nobuflisted
 augroup END
-
-
-""""""""""""""""""
-" ==> nvim-which-key
-""""""""""""""""""
-lua require('which-key_config')
-
 
 
 
@@ -859,8 +823,94 @@ let g:mdip_imgname = 'image'
 
 noremap <leader>gv :w <CR> :GraphvizCompile <CR>
 
+"""""""""""
+" => Peartree
+"""""""""""
+let g:pear_tree_repeatable_expand=0 " get expected behaviour when autoinserting closures
+let g:pear_tree_smart_openers=1
+let g:pear_tree_smart_closers=1
+let g:pear_tree_smart_backspace=1
 
 
 
+
+"""""""""""""""""
+" => Nvim Lua Dev  
+"""""""""""""""'
+let g:vimsyn_embed = 'l'
+nmap <leader>lf :w<cr> :luafile %<cr>
+
+
+
+
+"""""""""""""""""""""""""""
+" --> IndentGuide
+""""""""""""""""""""""""""""
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+let g:indent_guides_default_mapping=0
+
+
+
+
+
+
+"""""""""""""""""""
+"" ==> Graveyard
+"""""""""""""""""""
+
+
+"""""""""""""
+" => Indent-Blankline
+"""""""""""""""
+
+" let g:indent_blankline_use_treesitter = v:true
+
+
+""""""""""""""""""""""""""""""""
+"" => airline
+"""""""""""""""""""""""""""""""
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline_theme='old_base16_snazzy'
+
+" let g:airline#extensions#whitespace#enabled=0
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
+" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
+" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
+" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
+
+" let g:airline#extensions#bufferline#enabled = 1
+
+" let g:airline_left_sep=''
+" let g:airline_right_sep = ''
+" let g:airline_left_alt_sep=''
+" let g:airline_right_alt_sep=''
+
+
+
+"""""""""""""
+" Ale
+"""""""""""""
+" let g:ale_fixers = {
+"             \'*': ['remove_trailing_lines', 'trim_whitespace'],
+"             \ }
+" let g:ale_linters={
+"             \ 'rust' : ['analyzer'],
+"             \ 'python' : ['pyright']
+"             \ }
+" let g:ale_sign_column_always = 1
+" let g:ale_lint_delay = 1000  " Default, 200ms: I don't need linting that much
+
+" let g:ale_disable_lsp = 1
+" let g:ale_hover_cursor = 1
+" let g:ale_set_balloons =1 " Show hover tooltip in balloon
 
 
