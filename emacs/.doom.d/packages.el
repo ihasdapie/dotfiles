@@ -56,6 +56,9 @@
 (package! org-autolist)
 (package! org-journal-list)
 (package! org-bullets)
+(package! evil-surround)
+(package! fzf)
+(package! company-org-block)
 
 
 ;; (package! fira-code-mode)
