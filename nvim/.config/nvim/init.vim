@@ -13,9 +13,8 @@ set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
 filetype plugin on
 filetype indent on
 
-set nocompatible
-set history=500
-" Set to auto read when a file is changed from the outside
+set nocompatible 
+set history=500 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
 filetype off
@@ -59,7 +58,7 @@ set redrawtime=4000
 
 set expandtab
 set shiftwidth=4
-set colorcolumn=80
+" set colorcolumn=80
 set signcolumn=auto
 
 
@@ -80,7 +79,6 @@ set conceallevel=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -309,10 +307,8 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'folke/tokyonight.nvim'
 Plug 'ihasdapie/spaceducky'
 Plug 'marko-cerovac/material.nvim'
-Plug 'sainnhe/edge'
 Plug 'sainnhe/sonokai'
 Plug 'navarasu/onedark.nvim'
-Plug 'rafamadriz/neon'
 Plug 'dracula/vim'
 Plug 'romgrk/doom-one.vim'
 
@@ -321,6 +317,8 @@ Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'dkarter/bullets.vim'
+
 " Plug 'Yggdroot/indentLine'
 " Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'} " Still waiting on some upstream changes... to fix bug with horz. movement
 
@@ -348,8 +346,9 @@ Plug 'tyru/open-browser.vim' "dependency for plantuml-previewer
 Plug 'lervag/vimtex'
 Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'axvr/org.vim'
 
 
 " Experimental
@@ -359,6 +358,10 @@ Plug 'p00f/nvim-ts-rainbow'
 
 
 Plug 'tmsvg/pear-tree'
+
+
+Plug '~/Projects/vim/SCHLAD-list.nvim'
+
 
 " =>  Graveyard
 " Plug 'hoob3rt/lualine.nvim'
@@ -386,13 +389,28 @@ let g:LargeFile=50
 " => colorscheme
 """"""""""
 
+let g:sonokai_enable_italic=1
+let g:sonokai_style="atlantis"
+let g:sonokai_better_performance=1
+
 let g:tokyonight_italic_functions='true'
+let g:tokyonight_colors = {"comment": "#696969"}
 let g:tokyonight_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
 let g:tokyonight_style="storm"
 let g:tokyonight_dark_float='true'
 let g:tokyonight_hide_inactive_statusline='true'
 let g:tokyonight_colors = {"comment": "#696969"}
-colorscheme tokyonight
+
+let g:material_italic_functions='true'
+let g:material_colors = {"comment": "#696969"}
+let g:material_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
+let g:material_style="palenight"
+let g:material_dark_float='true'
+let g:material_hide_inactive_statusline='true'
+let g:material_colors = {"comment": "#696969"}
+
+colorscheme dracula
+
 
 """"""""""""""""""
 " => Vista.vim
@@ -446,6 +464,7 @@ nnoremap <leader>rg :Rg <CR>
 nnoremap <leader>ml :Marks <CR>
 nnoremap <leader>hf :History <CR>
 nnoremap <leader>hc :History: <CR>
+nnoremap <leader>fr :Files <CR>
 nnoremap <m-x> :Commands<CR>
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
@@ -852,7 +871,10 @@ let g:indent_guides_guide_size=1
 let g:indent_guides_default_mapping=0
 
 
-
+"""""""""""""""
+" => Keybinds
+"""""""""""
+silent source ~/.config/nvim/keybindings.vim
 
 
 
@@ -912,5 +934,6 @@ let g:indent_guides_default_mapping=0
 " let g:ale_disable_lsp = 1
 " let g:ale_hover_cursor = 1
 " let g:ale_set_balloons =1 " Show hover tooltip in balloon
+
 
 

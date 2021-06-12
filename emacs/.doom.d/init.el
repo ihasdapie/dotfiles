@@ -21,9 +21,9 @@
 
        :completion
        (company +childframe)          ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       ;; (helm +fuzzy)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +fuzzy +prescient)              ; a search engine for love and life
+       (ivy +icons +prescient)              ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -35,7 +35,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
-       ;; (ligatures)         ; ligatures and symbols to make your code pretty again
+       ; ligatures         ; ligatures and symbols to make your code pretty again !
        ;; (ligatures +extra)          ; ligatures and symbols to make your code pretty again
        ; minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -139,7 +139,8 @@
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex             ; writing papers in Emacs has never been so fun
+       latex
+       ; (latex +latexmk +lsp +fold)             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs

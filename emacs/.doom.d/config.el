@@ -25,16 +25,19 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-;; (setq doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'Regular)
-;;       doom-variable-pitch-font (font-spec :family "Nunito" :size 15 :weight 'Light)
-;;       doom-big-font (font-spec :family "JetBrains Mono" :size 50))
+(setq doom-font (font-spec :family "VictorMono" :size 15 :weight 'Medium)
+      doom-variable-pitch-font (font-spec :family "Noto Serif" :size 15 :weight 'Light)
+      doom-big-font (font-spec :family "VictorMono" :size 50))
 
-;; (after! doom-themes
-;;   (setq doom-themes-enable-bold t
-;;         doom-themes-enable-italic t))
-;; (custom-set-faces!
-;;   '(font-lock-comment-face :slant italic)
-;;   '(font-lock-keyword-face :slant italic))
+;; (setq doom-font (font-spec :family "Victor Mono Medium Nerd Font" :size 15 :weight 'Regular)
+;;       doom-variable-pitch-font (font-spec :family "Liberation Serif" :size 15 :weight 'Light)
+;;       doom-big-font (font-spec :family "Victor Mono Medium Nerd Font" :size 50))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
 
 
 ;; Org Mode Quality-Of-Life Improvements
@@ -61,7 +64,7 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-
+(setq org-image-actual-width nil) ;; make it so images aren't huge
 
 
 
@@ -207,6 +210,7 @@
 (setq gc-cons-threshold (* 128 1024 1024) )
 (setq read-process-output-max 5242880)
 (setq lsp-idle-delay 0.500)
+(setq lsp-ui-doc-enabled nil)
 (setq history-length 100)
 (setq auto-save-default nil)
 (put 'minibuffer-history 'history-length 50)
