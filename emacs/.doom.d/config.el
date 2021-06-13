@@ -14,7 +14,7 @@
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
-;;
+;
 ;; + `doom-font'
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
@@ -26,7 +26,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font (font-spec :family "VictorMono" :size 15 :weight 'Medium)
-      doom-variable-pitch-font (font-spec :family "Noto Serif" :size 15 :weight 'Light)
+      doom-variable-pitch-font (font-spec :family "Nunito" :size 15 :weight 'Light)
       doom-big-font (font-spec :family "VictorMono" :size 50))
 
 ;; (setq doom-font (font-spec :family "Victor Mono Medium Nerd Font" :size 15 :weight 'Regular)
@@ -189,10 +189,19 @@
 ;; ==> Package Configs
 ;; =====================
 ;;==========> Company
-(setq company-idle-delay 0.4)
-(setq company-minimum-prefix-length 1)
-(setq company-dabbrev-downcase 0)
-(setq company-lsp-cache-candidates 'auto)
+
+(after! company
+        (setq company-idle-delay 0.4
+        company-minimum-prefix-length 1
+        company-dabbrev-downcase 0
+        company-lsp-cache-candidates 'auto)
+)
+
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+
+
+
 (defun tab-indent-or-complete ()
   (interactive)
   (if (minibufferp)
