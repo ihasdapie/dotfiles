@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""
 " => Misc/General
 """"""""""""""""""""""""""""""
 set number
@@ -29,14 +29,12 @@ set lazyredraw
 set nowrap "turn off wrapping"
 set timeoutlen=690
 
-
 set title titlestring=VIM\[%t\]\:%n titlelen=70
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
 set shortmess=atc
 
-
-  " guard for distributions lacking the 'persistent_undo' feature.
+" guard for distributions lacking the 'persistent_undo' feature.
 if has('persistent_undo')
     " define a path to store persistent undo files.
     let target_path = expand('~/.config/nvim/undo/')    " create the directory and any parent directories
@@ -48,9 +46,6 @@ if has('persistent_undo')
     set undofile
 endif 
 
-" allow for transparent backgrounds
-" autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=200
@@ -60,7 +55,6 @@ set expandtab
 set shiftwidth=4
 " set colorcolumn=80
 set signcolumn=auto
-
 
 """" for coc.nvim
 " TextEdit might fail if hidden is not set.
@@ -90,7 +84,7 @@ set wildmenu
 set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 ""Always show current position
-"set ruler
+set ruler
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -126,79 +120,8 @@ endif
 let g:loaded_netrw_Plugin = 1 "NeTrW iS bLoAT
 let g:loaded_netrw=1
 
-tnoremap <Esc> <C-\><C-n> " Allow esc to exit out of terminal mode
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows, buffers, splits
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Map leader
-let mapleader=","
-
-nnoremap k gk
-nnoremap j gj
-
-" turn off highlights
-map <silent> <leader><cr> :noh<cr>
-
-noremap <leader>cb :set clipboard+=unnamedplus<cr>
-nnoremap <leader>ps "+p
-
-
-map <leader>cf :copen <cr>
-
-
-" buffer movement
-
-" list buffers
-""""""
-" Overrideen via barbar
-""""""
-" " switching between buffers
-" map <leader>b :b
-
-" " Close the current buffer
-" map <leader>bd :bd<cr>:tabclose<cr>gT
-
-" map <leader>l :bnext<cr>
-" map <leader>h :bprevious<cr>
-
-" " Useful mappings for managing tabs
-" map <leader>tn :tabnew<cr>
-" map <leader>to :tabonly<cr>
-" map <leader>tc :tabclose<cr>
-" map <leader>tm :tabmove
-" map <leader>t<leader> :tabnext
-
-" " Opens a new tab with the current buffer's path
-" " Super useful when editing files in the same directory
-" map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-
-" " Specify the behavior when switching between buffers
-" try
-"     set switchbuf=useopen,usetab,newtab
-"     set stal=2
-" catch
-" endtry
-
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-nnoremap <silent> <Leader>wh :split<CR>
-nnoremap <silent> <Leader>wv :vsplit<CR>
-nnoremap <silent> <Leader>q :close<CR>
-
-
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 
 """"""""""""""
@@ -266,7 +189,6 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
 call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
@@ -317,24 +239,19 @@ Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'dkarter/bullets.vim'
 
 " Plug 'Yggdroot/indentLine'
 " Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'} " Still waiting on some upstream changes... to fix bug with horz. movement
-
-
+Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-surround'
-
 Plug 'folke/which-key.nvim'
 Plug 'ferrine/md-img-paste.vim'
+Plug 'mechatroner/rainbow_csv'
 
 
 " Plug 'puremourning/vimspector'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kevinhwang91/nvim-bqf'
-
-
-
 
 " Other
 Plug 'kshenoy/vim-signature' 
@@ -346,8 +263,8 @@ Plug 'tyru/open-browser.vim' "dependency for plantuml-previewer
 Plug 'lervag/vimtex'
 Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim'
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'axvr/org.vim'
 
 
@@ -357,7 +274,6 @@ Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
 
 
-Plug 'tmsvg/pear-tree'
 
 
 Plug '~/Projects/vim/SCHLAD-list.nvim'
@@ -374,9 +290,6 @@ call plug#end()
 " Fix cursorhold 
 let g:cursorhold_updatetime = 100
 """""""""""""""""
-
-
-
 
 
 """"""""""
@@ -415,8 +328,6 @@ colorscheme dracula
 """"""""""""""""""
 " => Vista.vim
 """"""""""""""""""
-nmap <silent> <leader>vv :Vista!! <cr>
-nmap <silent> <leader>vf :Vista finder <cr>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista#renderer#enable_icon = 1
 let g:vista_echo_cursor_strategy = "both" " Floating windows & in prompt bar
@@ -427,8 +338,6 @@ let g:vista_sidebar_width=35
 
 " For whatever reason coc + vista doesn't work with those arrow eyecandy but it works better
 " And I can't get ale to work with the preview popup which i find to be
-
-
 " ctags for c has function prototypes, coc seems a little better tho
 let g:vista_executive_for = {
     \ 'python': 'coc', 
@@ -447,57 +356,18 @@ let g:vista_floating_delay=200
 
 
 
-" autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \
-"              / :<c-u>call vista#finder#fzf#Run()<CR>
-
-
-
 
 """""
 " => FZF
 """""
-" set rtp+=/usr/bin/fzf
-noremap <c-f> :Files <CR>
-noremap <leader>wl :Windows  <CR>
-nnoremap <leader>bl :Buffers <CR>
-nnoremap <leader>rg :Rg <CR>
-nnoremap <leader>ml :Marks <CR>
-nnoremap <leader>hf :History <CR>
-nnoremap <leader>hc :History: <CR>
-nnoremap <leader>fr :Files <CR>
-nnoremap <m-x> :Commands<CR>
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-
-
-
-
-""""""""
-" Smooth Scrolling
-""""""""
-noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
-noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
-
-
-" noremap <silent> <c-k> 10 k<CR>
-" noremap <silent> <c-j> 10 j<CR>
-
-
-
 
 """"""""
 " => Polyglot
 """"""""""
 " Polyglot is slow but it is the best option atm will have to use it...
-
 let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
 
-
-""""""""""""""""""
-" ==> SnipRun
-""""""""""""""""""
-
-nnoremap <leader>sr :SnipRun<CR>
-vnoremap <leader>sr :SnipRun<CR>
 
 """""""""""""""""""
 " ==> Toggle Transparent Background
@@ -528,15 +398,8 @@ function! Prose_mode()
     execute ":TZBottom"
     execute ":set linebreak"
     execute ":set wrap"
-
-
 endfunction
 
-
-""""""""""""""""""""
-" ==> Vim-Matlab
-""""""""""""""""""
-nmap <leader>mrc :MatlabCliRunCell <cr>
 
 """"""""""""""""
 " --> UML
@@ -557,7 +420,6 @@ let g:tex_conceal='abdmg'
 """"""""""""
 " => Galaxyline
 """"""""""""
-
 lua require('galaxyline_config')
 
 
@@ -565,7 +427,6 @@ lua require('galaxyline_config')
 """"""""""""""""""
 " ==> lualine
 """"""""""""""""""""
-
 " lua require('lualine_config')
 
 
@@ -576,176 +437,13 @@ lua require('galaxyline_config')
 lua require('nvim-bufferline_config')
 
 
-map <leader>bp :BufferLinePick<cr>
-" I do not use vim-rooter etc to change cwd, so pick relative dir
-map <leader>bo :BufferLineSortByRelativeDirectory <cr> 
-
-map <space>l :BufferLineCycleNext<cr>
-map <space>h :BufferLineCyclePrev<cr>
-map <space>j :BufferLineMovePrev<cr>
-map <space>k :BufferLineMoveNext<cr>
-
-
-map <leader>bd :bdelete % <cr>
-
-" map gt :BufferNext<cr>
-" map gT :BufferPrevious<cr>
-
-
-
-""""""""""""""""
-" ==> Barbar
-""""""""""""""""
-
-" " NOTE: If barbar's option dict isn't created yet, create it
-" let bufferline = get(g:, 'bufferline', {})
-
-" " Enable/disable animations
-" let bufferline.animation = v:false
-
-" " Enable/disable auto-hiding the tab bar when there is a single buffer
-" let bufferline.auto_hide = v:true
-
-" " Enable/disable current/total tabpages indicator (top right corner)
-" let bufferline.tabpages = v:true
-
-" " Enable/disable close button
-" let bufferline.closable = v:true
-
-" " Enables/disable clickable tabs
-" "  - left-click: go to buffer
-" "  - middle-click: delete buffer
-" let bufferline.clickable = v:true
-
-" " Enable/disable icons
-" " if set to 'numbers', will show buffer index in the tabline
-" " if set to 'both', will show buffer index and icons in the tabline
-" let bufferline.icons = v:true
-
-" " Sets the icon's highlight group.
-" " If false, will use nvim-web-devicons colors
-" let bufferline.icon_custom_colors = v:false
-
-" " Configure icons on the bufferline.
-" let bufferline.icon_separator_active = '▎'
-" let bufferline.icon_separator_inactive = '▎'
-" let bufferline.icon_close_tab = ''
-" let bufferline.icon_close_tab_modified = '●'
-
-" " Sets the maximum padding width with which to surround each tab
-" let bufferline.maximum_padding = 2
-
-" " If set, the letters for each buffer in buffer-pick mode will be
-" " assigned based on their name. Otherwise or in case all letters are
-" " already assigned, the behavior is to assign letters in order of
-" " usability (see order below)
-" let bufferline.semantic_letters = v:true
-
-" " New buffer letters are assigned in this order. This order is
-" " optimal for the qwerty keyboard layout but might need adjustement
-" " for other layouts.
-" let bufferline.letters =
-"   \ 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
-
-" " Sets the name of unnamed buffers. By default format is "[Buffer X]"
-" " where X is the buffer number. But only a static string is accepted here.
-" let bufferline.no_name_title = v:null
-
-" map <leader>bd :BufferClose<cr>
-" map <leader>bp :BufferPick<cr>
-
-" map <space>l :BufferNext<cr>
-" map <space>h :BufferPrevious<cr>
-
-" " map gt :BufferNext<cr>
-" " map gT :BufferPrevious<cr>
-
-" " Useful mappings for managing tabs
-" map <leader>tn :tabnew<cr>
-
-" " Opens a new tab with the current buffer's path
-" " Super useful when editing files in the same directory
-" map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
-
-
-
-
-""""""""""""""""""""""""""""""
-"" => NerdTree & NerdTreeToggle
-"""""""""""""""""""""""""""""""
-"map <C-t> :NERDTreeTabsToggle <CR>
-"let g:NERDTreeWinPos = "right"
-"let NERDTreeShowHidden=0
-"let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-"let g:NERDTreeWinSize=35
-
 """"""""""""""""""""""""""""""
 " => Coc
 """"""""""""""""""""""""""""""
 
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-else
-    inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-
-"-------------------
-" => My Coc Mappings
-"-------------------
-
-
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-
-nnoremap <leader>ce :CocCommand explorer <cr>
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>rn <Plug>(coc-rename)
-
-nmap <leader>cdf :CocList diagnostics<cr>
-nmap <leader>cdl :CocDiagnostics <cr>
-nmap <leader>clc :CocList commands<cr>
-nmap <leader>clo :CocList outline<cr>
-nmap <leader>cls :CocList symbols<cr>
-nmap <leader>cfx :CocFix<cr>
-
-
-" Accept Coc Completion on enter
-inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-
-
 
 
 
@@ -753,7 +451,6 @@ inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u
 """""""""""""""""""""""
 "=>suda.vim
 """"""""""""""""""""""""
-
 let g:suda#prefix = 'suda://'
 " multiple protocols can be defined too
 let g:suda#prefix = ['suda://', 'sudo://', '_://']
@@ -765,17 +462,12 @@ let g:suda#prefix = ['suda://', 'sudo://', '_://']
 let g:html_number_lines = 0 " Omit line numbers in generated html
 let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copiable
 
-""""""""
-" Assorted bindings:
-""""""""""
-nnoremap <leader>ss :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR>            
 
 """""""""""""
 "=> nnn.vim
 """""""""""""
 let g:nnn#set_default_mappings=0
-nnoremap <silent> <c-t> :NnnPicker %:p:h<cr>
-let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6} }
+let g:nnn#layout = { 'window': { 'width': 0.5, 'height': 0.7} }
 let g:nnn#repalce_netrw=1 " replace netrw when opening directory
 let g:nnn#command = 'NNN_COLORS="2136" NNN_TRASH=1 nnn -d'
 let g:nnn#action = {
@@ -804,8 +496,6 @@ lua require('gitsigns_config')
 lua require('which-key_config')
 
 
-
-
 """"""""
 "=> Hide quickfix 
 """""
@@ -815,32 +505,12 @@ augroup qf
 augroup END
 
 
-
-
-"""""""""""""
-" => Vim Mundo
-"""""""""""""
-noremap <leader>md :MundoToggle <cr>
-
-
 """"""""""
 " => md-image-paste
 """"""""""
-
-noremap <leader>pi :call mdip#MarkdownClipboardImage() <cr>
-
-
 let g:mdip_imgdir = 'img'
 let g:mdip_imgname = 'image'
 
-
-
-
-"""""""""""
-" => Graphviz.vim
-"""""""""""
-
-noremap <leader>gv :w <CR> :GraphvizCompile <CR>
 
 """""""""""
 " => Peartree
@@ -857,9 +527,6 @@ let g:pear_tree_smart_backspace=1
 " => Nvim Lua Dev  
 """""""""""""""'
 let g:vimsyn_embed = 'l'
-nmap <leader>lf :w<cr> :luafile %<cr>
-
-
 
 
 """""""""""""""""""""""""""
@@ -869,71 +536,41 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_default_mapping=0
+let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile']
 
 
 """""""""""""""
 " => Keybinds
 """""""""""
 silent source ~/.config/nvim/keybindings.vim
+" The rest of the keybindings can be found in ./lua/which-key_config.lua
 
-
-
-"""""""""""""""""""
-"" ==> Graveyard
-"""""""""""""""""""
-
-
-"""""""""""""
-" => Indent-Blankline
+"""""""""
+" => Scratch Buffer
 """""""""""""""
-
-" let g:indent_blankline_use_treesitter = v:true
-
-
-""""""""""""""""""""""""""""""""
-"" => airline
-"""""""""""""""""""""""""""""""
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" let g:airline_theme='old_base16_snazzy'
-
-" let g:airline#extensions#whitespace#enabled=0
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
-" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
-" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
-" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
-" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
-" let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" let g:airline#extensions#ale#enabled = 1 " show ale stuff in airline
-
-" let g:airline#extensions#bufferline#enabled = 1
-
-" let g:airline_left_sep=''
-" let g:airline_right_sep = ''
-" let g:airline_left_alt_sep=''
-" let g:airline_right_alt_sep=''
+function! Scratch()
+    vsplit
+    noswapfile hide enew
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    "setlocal nobuflisted
+    "lcd ~
+    file scratch
+endfunction
 
 
 
-"""""""""""""
-" Ale
-"""""""""""""
-" let g:ale_fixers = {
-"             \'*': ['remove_trailing_lines', 'trim_whitespace'],
-"             \ }
-" let g:ale_linters={
-"             \ 'rust' : ['analyzer'],
-"             \ 'python' : ['pyright']
-"             \ }
-" let g:ale_sign_column_always = 1
-" let g:ale_lint_delay = 1000  " Default, 200ms: I don't need linting that much
+""""""""""""""""""""""
+" => Rainbow csv
+""""""""""""""'
+let g:disable_rainbow_key_mappings = 1
 
-" let g:ale_disable_lsp = 1
-" let g:ale_hover_cursor = 1
-" let g:ale_set_balloons =1 " Show hover tooltip in balloon
+
+
+
+
+
+
 
 
 

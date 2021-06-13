@@ -59,6 +59,12 @@
 (package! evil-surround)
 (package! fzf)
 (package! company-org-block)
+(package! org-super-agenda)
+(package! doct)
+
+
+
+
 
 
 ;; (package! fira-code-mode)
