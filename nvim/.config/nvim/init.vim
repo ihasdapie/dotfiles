@@ -505,8 +505,37 @@ autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
     \ echo "asdfasdf"
     \ endif
 
+" coc-extensions list
 
-
+let g:coc_global_extensions = [
+            \ 'coc-yank',
+            \ 'coc-tabnine',
+            \ 'coc-snippets',
+            \ 'coc-marketplace',
+            \ 'coc-html-css-support',
+            \ 'coc-html',
+            \ 'coc-css',
+            \ 'coc-htmldjango',
+            \ 'coc-emoji',
+            \ 'coc-calc',
+            \ 'coc-explorer',
+            \ 'coc-diagnostic',
+            \ 'coc-actions',
+            \ 'coc-vimtex',
+            \ 'coc-vetur',
+            \ 'coc-tsserver',
+            \ 'coc-toml',
+            \ 'coc-sql',
+            \ 'coc-sh',
+            \ 'coc-rust-analyzer',
+            \ 'coc-pyright',
+            \ 'coc-lua',
+            \ 'coc-json',
+            \ 'coc-java',
+            \ 'coc-go',
+            \ 'coc-fish',
+            \ 'coc-clangd',
+            \ ]
 
 """""""""""""""""""""""
 "=>suda.vim
