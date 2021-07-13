@@ -23,7 +23,7 @@
        (company +childframe)          ; the ultimate code completion backend
        ;; (helm +fuzzy)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +icons +prescient)              ; a search engine for love and life
+       (ivy +prescient)              ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -35,7 +35,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
-       ; ligatures         ; ligatures and symbols to make your code pretty again !
+       ;; ligatures         ; ligatures and symbols to make your code pretty again !
        ;; (ligatures +extra)          ; ligatures and symbols to make your code pretty again
        ; minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -89,7 +89,7 @@
        ;;ansible
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       docker
+       ;; docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -158,6 +158,7 @@
        ;;php               ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
+       ;; python
        (python +lsp +poetry +pyright)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs

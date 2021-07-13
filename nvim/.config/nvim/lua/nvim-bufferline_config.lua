@@ -1,6 +1,6 @@
 require('bufferline').setup{
     options = {
-        tab_size=12,
+        tab_size=10,
         numbers="both",
     }
 }

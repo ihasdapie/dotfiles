@@ -82,16 +82,6 @@ nnoremap <leader>cmr :MatlabCliRunCell <cr>
 nnoremap <leader>cgv :w <CR> :GraphvizCompile <CR>
 nnoremap <leader>clf :w<cr> :luafile %<cr>
 
-"""""""""""""""""""""""""""""""""""""'
-" => [S]earch: search
-"""""""""""""""""""""""""""""""""""""'
-" Search current vim root
-nnoremap <silent> <leader>sp :Rg <CR> 
-" Search all buffers
-nnoremap <silent> <leader>sB :Lines <CR> 
-" Search current buffer
-nnoremap <silent> <leader>sb :BLines <CR> 
-
 
 """""""""""""""""""""""""""""""""""""'
 " => [T]oggle: toggle
@@ -116,17 +106,12 @@ nnoremap <silent> <leader>gG :Git <CR>
 """""""""""""""""""""""""""""""""""""'
 " => [L]ist: list
 """""""""""""""""""""""""""""""""""""'
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
 
 
-"""""""""""""""""""""""""""""""""""""'
-" => Quick![,] Shortcuts (LocalLeader)
-"""""""""""""""""""""""""""""""""""""'
-nnoremap <LocalLeader>l :BufferLineCycleNext<cr>
-nnoremap <LocalLeader>h :BufferLineCyclePrev<cr>
-nnoremap <LocalLeader>j :BufferLineMovePrev<cr>
-nnoremap <LocalLeader>k :BufferLineMoveNext<cr>
+
+" Can't seem to map this one in which-key.nvim
+" vnoremap <LocalLeader>y "+y 
 
 
 
@@ -159,7 +144,6 @@ vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 " autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \
-noremap <leader>wl :Windows  <CR>
 nnoremap <leader>ml :Marks <CR>
 nnoremap <leader>hf :History <CR>
 nnoremap <leader>hc :History: <CR>
@@ -175,7 +159,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Remove trailing whitespace
-nnoremap <leader>ss :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR> 
+" nnoremap <leader>ss :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR> 
 
 
 nnoremap <silent> <c-t> :NnnPicker %:p:h<cr>

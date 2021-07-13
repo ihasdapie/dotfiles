@@ -42,7 +42,7 @@ wk.setup {
     border = "double", -- none, single, double, shadow
     position = "bottom", -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]
   },
   layout = {
     height = { min = 4, max = 25 }, -- min and max height of the columns
@@ -64,10 +64,77 @@ wk.setup {
   },
 }
 
-
 wk.register( {
 
     ["<leader>"] = {
+      b = {
+          name = "+buffer",
+          p = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
+          o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
+          d = {"<cmd>bdelete %<CR>", "delete current buffer"},
+          B = {"<cmd>Buffers<CR>", "list buffers"},
+      },
+
+      f = {
+        name = "+files",
+        r = {"<cmd>History<CR>", "History"},
+        f = {"<cmd>Files<CR>", "List @ CWD"},
+        p = {"<cmd>Files ../<CR>", "List @ parent"},
+        s = {"<cmd>w<CR>", "Save"},
+        P = {"<cmd>Files ~/.config/nvim/<CR>", "Open config files"},
+        n = {"<cmd>DashboardNewFile<CR>", "New FIle"},
+      },
+
+      g = {
+        name = "+git",
+        G = {"<cmd>Git<CR>", "Status"},
+
+        h = {
+          name = "+hunk",
+
+        },
+        l = {
+          name = "+list",
+          c = {"<cmd>Commits<CR>", "Commits"},
+        }
+
+      },
+
+
+      h = {
+        name = "+help",
+        t = {"<cmd>Colors<CR>", "Colorscheme"},
+        m = {"<cmd>Helptags<CR>", "Modules"},
+        p = {
+          name = "+packages",
+          i = {"<cmd>PlugInstall<CR>", "Install Packages"},
+          u = {"<cmd>PlugUpdate<CR>", "Update Packages"},
+        },
+        r = {
+            name = "reload",
+            r = {"<cmd>Reload<CR>", "Reload Configuration"},
+            b = {"<cmd>Whichkey<CR>", "Which-key"}
+        },
+      },
+
+      l = {
+        name = "+list",
+        y = {"<cmd>CocList -A --normal yank<CR>", "yank"},
+        o = {"<cmd>CocList -A outline<CR>", "outline"},
+        m = {"<cmd>Marks<CR>", "marks"},
+
+
+      },
+
+      p = {
+        name = "+project",
+        s = {"<cmd>cd %:h<CR>", "change pwd to current file"},
+        c = {"<cmd>FzfChooseProjectFile<CR>", "choose project file"},
+        p = {"<cmd>FzfSwitchProject<CR>", "switch project"}
+      },
+
+
+
       w = {
         name = "+window",
         s = {"<cmd>split<CR>", "Horizontal split"},
@@ -76,58 +143,96 @@ wk.register( {
         d = {"<cmd>close<CR>", "Close"},
         q = {"<cmd>close<CR>", "Close"},
         p = {"<cmd>Windows<CR>", "Pick"},
+        W = {"<cmd>Windows<CR>", "Pick"},
         h = {"<cmd>wincmd h<CR>", "Select left"},
         j = {"<cmd>wincmd j<CR>", "Select below"},
         k = {"<cmd>wincmd k<CR>", "Select above"},
         l = {"<cmd>wincmd l<CR>", "Select right"},
+
         T = {"<cmd>wincmd T<CR>", "Break out to new tab"},
         x = {"<cmd>wincmd x<CR>", "Swap windows"},
         [">"] = {"<cmd>wincmd > <CR>", "Increase size"},
-        ["<"] = {"<cmd>wincmd < <CR>", "Decrease size"},
+        ["<lt>"] = {"<cmd>wincmd <lt> <CR>", "Decrease size"},
         ["="] = {"<cmd>wincmd = <CR>", "Equal size"},
+
         K = {"<cmd>wincmd K<CR>", "Arrange horizontally"},
         H = {"<cmd>wincmd H<CR>", "Arrange vertically"},
       },
 
-      b = {
-          name = "+buffer",
-          p = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
-          o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
-          d = {"<cmd>bdelete %<CR>", "Delete current buffer"},
-          l = {"<cmd>Buffers<CR>", "Bufferline list"},
+
+      s = {
+        name = "+search",
+        p = {"<cmd>Rg<CR>", "all files at cwd"},
+        P = {"<cmd>RG<CR>", "all files at cwd + regex"},
+
+        B = {"<cmd>Lines<CR>", "open buffers"}, b = {"<cmd>BLines<CR>", "current buffer"},
+        s = {"<cmd>Vista finder<CR>", "symbols"},
+        h = {
+            name = "+history",
+            c = {"<cmd>History:<CR>", "commands"},
+            s = {"<cmd>History/<CR>", "search"},
+            f = {"<cmd>History<CR>", "files"}
+        }
+
+      }, 
+
+      T = {
+          name = "+tab",
+          n = {"<cmd>tabnew<CR>", "new"},
+          c = {"<cmd>tabclose<CR>", "close"},
+          -- e = {'<cmd>tabedit <C-r>=expand(\"%:p:h\")<cr>', "edit"}
+          e = {':tabedit <TAB>', "edit"}
       },
 
-      h = {
-        name = "+help",
-        t = {"<cmd>Colors<CR>", "Colorscheme"},
-        r = "reload",
-        ["rr"] = {"<cmd>Reload<CR>", "Reload Configuration"},
-        ["kb"] = {"<cmd>Whichkey<CR>", "Which-key"}
+      t = {
+        name = "+toggle",
+        n = {"<cmd>lua MYFUNC.cycle_number()<CR>", "cycle line numbers"},
+        t = {"<cmd>FloatermToggle<CR>", "toggle Floaterm"},
+        h = {"<cmd>noh<CR>", "hide current search highlighting"},
+        H = {"<cmd>set invhlsearch<CR>", "toggle search highlighting"},
+        i = {"<cmd>IndentGuidesToggle<CR>", "toggle indent guides"},
+        u = {"<cmd>UndotreeToggle<CR>", "toggle undotree"},
+        
+        T = {
+          name = "+treesitter",
+          c = {"<cmd>TSContextToggle", "toggle context"},
+          h = {"<cmd>TSBufToggle highlight", "toggle syntax highlight"},
+          s = {"<cmd>TSBufToggle refactor.highlight_current_scope", "toggle highlight current scope"},
 
-      },
-
-      f = {
-        name = "+files",
-        r = {"<cmd>History<CR>", "History"},
-        f = {"<cmd>FZF<CR>", "List @ CWD"},
-        p = {"<cmd>FZF ../", "List @ parent"},
-        s = {"<cmd>w<CR>", "Save"},
-        P = {"<cmd>FZF ~/.config/nvim/ <CR>", "Open config files"}
+        }
 
       },
 
 
       m  = {
         name = "+misc",
-        h = {"<cmd>noh<CR>", "Turn off highlighting"}
-      }
+      },
+
+      o = {
+          name = "+open",
+          t = {"<cmd>FloatermNew<CR>", "new floatterm"},
+          f = {"<cmd>CocCommand explorer<CR>", "project sidebar"}
+
+      },
+
+      q = {
+        name = "+quit",
+        a = {"<cmd>qa<CR>", "quit all"},
+
+      },
 
     },
 
-    ["<localleader"] = {
+    ["<localleader>"] = {
+      -- We want to change this up because <localleader> l conflicts with vimtex
+      -- and most of the bindings defined here are actually global!
         w = {"<cmd>w<CR>", "Save file"},
-        p = {"\"+p", "Paste from system clipboard"}, -- #TODO Make this work!
-        y = {"\"+y", "Copys to system clipboard"}
+        p = {"\"+p", "Paste from system clipboard"},
+        h = {"<cmd>BufferLineCyclePrev<CR>", "Previous buffer"},
+        l = {"<cmd>BufferLineCycleNext<CR>", "Next buffer"},
+        j = {"<cmd>BufferLineMovePrev<CR>", "Move buffer left"},
+        k = {"<cmd>BufferLineMoveNextv<CR>", "Move buffer right"},
+        y = {"\"+y", "Copy to system clipboard"}
     }
   })
 
@@ -135,4 +240,15 @@ wk.register( {
 
 
 
-
+-- TODO: Map <cmd>Man<CR> somewhere -- gives vim help for thing under cursor
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--

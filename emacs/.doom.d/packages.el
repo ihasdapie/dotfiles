@@ -61,6 +61,7 @@
 (package! company-org-block)
 (package! org-super-agenda)
 (package! doct)
+(package! ox-hugo)
 
 
 

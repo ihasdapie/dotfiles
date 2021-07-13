@@ -122,7 +122,7 @@ add-zsh-hook preexec set-title-preexec
 ##################
 alias vim="nvim"
 alias vimnorc="nvim -u NONE"
-alias ll="ls -all --color=auto -h "
+alias ll="ls -alh --color=auto"
 alias ls="ls --color=auto"
 alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
@@ -147,6 +147,7 @@ alias ra='ranger'
 alias ha='hunter -i -g kitty'
 alias za='zathura'
 alias mpv='mpv -hwdec' # enable hardware decoding for mpv
+alias less='less --incsearch'
 
 ##################
 # My Aliases END
@@ -259,12 +260,6 @@ compinit -d
 
 # End of lines added by compinstall
 ### Kitty
-
-# blur kitty
-if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
-        for wid in $(xdotool search --pid $PPID); do
-            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
-fi 
 
 
 

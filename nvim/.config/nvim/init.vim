@@ -4,9 +4,10 @@
 set number
 set autoindent
 set smartindent
+set cursorline
 
-" set guifont=FiraCode\ Nerd\ Font:h30
-set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
+set guifont=FiraCode\ Nerd\ Font:h15
+" set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
 
 set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
 
@@ -196,11 +197,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
+Plug 'benwainwright/fzf-project'
 " Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'ihasdapie/vim-snippets'
 Plug 'simnalamburt/vim-mundo'
 Plug 'voldikss/vim-floaterm'
@@ -222,6 +224,8 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mcchrish/nnn.vim'
 Plug 'wfxr/minimap.vim'
+Plug 'glepnir/dashboard-nvim'
+
 
 
 " Colourschemes
@@ -271,18 +275,12 @@ Plug 'axvr/org.vim'
 " Experimental
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'p00f/nvim-ts-rainbow'
-
-
-
+Plug 'mg979/vim-visual-multi'
+Plug 'mbbill/undotree'
 
 Plug '~/Projects/vim/SCHLAD-list.nvim'
-
-
-" =>  Graveyard
-" Plug 'hoob3rt/lualine.nvim'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -346,9 +344,8 @@ let g:vista_executive_for = {
     \ 'lua': 'coc'
     \ }
 
-
-let g:vista_fzf_preview=['right:50%']
-let g:vista_keep_fzf_colors=1
+let g:vista_fzf_preview=['down:69%']
+let g:vista_keep_f_colors=1
 let g:vista_finder_alternative_executives=['coc', 'ctags']
 let g:vista_disable_statusline=1
 let g:vista#renderer#ctags='kind'
@@ -360,7 +357,62 @@ let g:vista_floating_delay=200
 """""
 " => FZF
 """""
-let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.96, 'relative': v:true, 'yoffset': 0.0 } }
+let g:fzf_preview_window = ['down:69%', 'ctrl-/']
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" create file with subdirectories if needed :E
+function s:MKDir(...)
+    if         !a:0
+           \|| stridx('`+', a:1[0])!=-1
+           \|| a:1=~#'\v\\@<![ *?[%#]'
+           \|| isdirectory(a:1)
+           \|| filereadable(a:1)
+           \|| isdirectory(fnamemodify(a:1, ':p:h'))
+        return
+    endif
+    return mkdir(fnamemodify(a:1, ':p:h'), 'p')
+endfunction
+command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <args>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """"""""
 " => Polyglot
@@ -394,8 +446,7 @@ endfunction
 " => Prose Mode
 """""""""""""""
 function! Prose_mode()
-    execute ":TZLeft"
-    execute ":TZBottom"
+    execute ":TZMinimalist"
     execute ":set linebreak"
     execute ":set wrap"
 endfunction
@@ -438,12 +489,21 @@ lua require('nvim-bufferline_config')
 
 
 """"""""""""""""""""""""""""""
-" => Coc
+" => Coc.nvim
 """"""""""""""""""""""""""""""
-
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
+
+" Disable on files > 1mb
+autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
+    \ TSBufDisable highlight
+    \ TSBufDisable all
+    \ syntax off
+    \ IndentGuidesDisable 
+    \ let b:coc_enabled=0 
+    \ echo "asdfasdf"
+    \ endif
 
 
 
@@ -522,7 +582,6 @@ let g:pear_tree_smart_backspace=1
 
 
 
-
 """""""""""""""""
 " => Nvim Lua Dev  
 """""""""""""""'
@@ -532,18 +591,35 @@ let g:vimsyn_embed = 'l'
 """""""""""""""""""""""""""
 " --> IndentGuide
 """"""""""""""""""""""""""""
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_default_mapping=0
-let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile']
+let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile', 'terminal', 'nofile', "dashboard"]
+
+" Cannot seem to exclude terminals!
+au TermEnter * IndentGuidesDisable
+au TermLeave * IndentGuidesEnable
+
+
 
 
 """""""""""""""
-" => Keybinds
+" => keybinds
 """""""""""
 silent source ~/.config/nvim/keybindings.vim
 " The rest of the keybindings can be found in ./lua/which-key_config.lua
+
+
+
+"""""""""""""""""""""""""""
+" => Assorted Functions
+"""""""""""""""""""""""""""""
+lua MYFUNC = require('functions')
+" Not sure if this is the right way to do it, but it works ?!
+
+
+
 
 """""""""
 " => Scratch Buffer
@@ -564,6 +640,75 @@ endfunction
 " => Rainbow csv
 """"""""""""""'
 let g:disable_rainbow_key_mappings = 1
+
+"""""""""""""""""
+" => vim-floaterm
+""""""""""""""""""
+let g:floaterm_width = 1.0
+let g:floaterm_height = 0.420
+let g:floaterm_position='bottom'
+
+
+"""""""""""""""""
+" => dashboard-nvim
+""""""""""""""""""'
+let g:dashboard_default_executive = "fzf"
+
+let g:dashboard_custom_header = [
+    \ '',
+    \'███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗',
+    \'████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║',
+    \'██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║',
+    \'██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
+    \'██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
+    \'╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝',
+    \'                                                  ']
+
+" let g:dashboard_custom_shortcut={
+" \ 'last_session'       : 'SPC s l',
+" \ 'find_history'       : 'SPC s h f',
+" \ 'find_file'          : 'SPC f f',
+" \ 'new_file'           : 'SPC T n',
+" \ 'change_colorscheme' : 'SPC h t',
+" \ 'find_word'          : 'SPC s p',
+" \ 'book_marks'         : 'SPC l m',
+" \ }
+" let g:dashboard_custom_shortcut_icon={}
+
+" let g:dashboard_custom_shortcut_icon['last_session'] = ' '
+" let g:dashboard_custom_shortcut_icon['find_history'] = 'ﭯ '
+" let g:dashboard_custom_shortcut_icon['find_file'] = ' '
+" let g:dashboard_custom_shortcut_icon['new_file'] = ' '
+" let g:dashboard_custom_shortcut_icon['change_colorscheme'] = ' '
+" let g:dashboard_custom_shortcut_icon['find_word'] = ' '
+" let g:dashboard_custom_shortcut_icon['book_marks'] = ' '
+
+
+" let g:dashboard_seperator = "                 "
+
+" let g:dashboard_custom_section={
+"   \ 'buffer_list': {
+"       \ 'description': [' List Files' . g:dashboard_seperator . 'SPC b b'],
+"       \ 'command': 'Files' }
+"   \ }
+
+
+""""""""""""""""""""
+" => fzf-project
+"""""""""""""""""""
+
+
+""""""""""""""
+" Private Configuration
+""""""""""""""
+source ~/dotfiles-private/nvim/projects.vim
+
+
+
+
+
+
+
 
 
 
