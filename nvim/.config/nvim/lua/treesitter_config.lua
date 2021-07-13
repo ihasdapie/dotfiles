@@ -23,6 +23,22 @@ require'nvim-treesitter.configs'.setup {
     },
     rainbow = {
         enable = true
+    },
+    refactor = {
+        highlight_definitions = {enable = true},
+        highlight_current_scope = {enable = false},
+        --[[ navigation = {
+            enable=true,
+            keymaps = {
+                goto_definition = "tgd",
+            }
+        },
+        smart_rename = {
+            enable=true,
+            keymaps = {
+                smart_rename = "trn"
+            } ]]
+        -- }
     }
 
 }

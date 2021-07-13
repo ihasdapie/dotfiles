@@ -1,19 +1,25 @@
 swipe:
   4:
     down:
-      command: 'xdotool key super+o'
+      sendkey: "LEFTMETA+o"
+      # command: 'xdotool key super+o'
     up: 
-      command: 'xdotool key super+p'
+      sendkey: "LEFTMETA+p"
+      # command: 'xdotool key super+p'
   3:
     # Switching Desktops
     up: 
-      command: 'xdotool key super+Down'
+      sendkey: "LEFTMETA+down"
+      # command: 'xdotool key super+Down'
     left:
-      command: 'xdotool key super+Left'
+      sendkey: "LEFTMETA+left"
+      # command: 'xdotool key super+Left'
     right:
-      command: 'xdotool key super+Right'
+      sendkey: "LEFTMETA+right"
+      # command: 'xdotool key super+Right'
     down: 
-      command: 'xdotool key super+Up'
+      sendkey: "LEFTMETA+up"
+      # command: 'xdotool key super+Up'
 
 
 pinch:
