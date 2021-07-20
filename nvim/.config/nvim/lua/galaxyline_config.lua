@@ -20,8 +20,7 @@ VistaPlugin = extension.vista_nearest
 local colors = {
     bg = '#282c34',
     line_bg = '#353644',
-    fg = '#8FBCBB',
-    fg_green = '#65a380',
+    fg = '#8FBCBB', fg_green = '#65a380',
 
     yellow = '#fabd2f',
     cyan = '#008080',
@@ -54,6 +53,12 @@ local function get_coc_lsp()
   return lsp_status(status)
 end
 
+local function get_venom()
+  local virtualenv = vim.fn['venom#statusline']()
+  return virtualenv
+end
+
+
 function get_diagnostic_info()
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_lsp()
@@ -74,6 +79,7 @@ function get_function_info()
   return ''
 end
 
+
 local function trailing_whitespace()
     local trail = vim.fn.search("\\s$", "nw")
     if trail ~= 0 then
@@ -86,6 +92,7 @@ end
 CocStatus = get_diagnostic_info
 CocFunc = get_current_func
 TrailingWhiteSpace = trailing_whitespace
+
 
 function has_file_type()
     local f_type = vim.bo.filetype
@@ -253,7 +260,6 @@ gls.left[14] = {
   }
 }
 
-
 gls.left[15] = {
     CocStatus = {
      provider = CocStatus,
@@ -269,6 +275,16 @@ gls.left[16] = {
     highlight = {colors.yellow,colors.bg},
   }
 }
+
+-- TODO 
+--[[ VenomEnv = get_venom
+gls.left[17] = {
+  PythonEnv = {
+    provider = VenomEnv,
+    highlight = {colors.yellow,colors.bg},
+  }
+}
+ ]]
 
 gls.right[1]= {
   FileFormat = {

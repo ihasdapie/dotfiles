@@ -1,56 +1,82 @@
 {
-    "$schema": "http://json-schema.org/schema",
+        "coc.source.emoji.filetypes": [
+                "gitcommit",
+                "markdown",
+                "pandoc",
+        ],
 
-  /* "languageserver": { */
-  /*   "golang": { */
-  /*     "command": "gopls", */
-  /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
-  /*     "filetypes": ["go"] */
-  /*   } */
-  /* }, */
+        "coc.source.coc-tabnine.priority": 50,
+        "tabnine.priority": 50,
 
-  "coc.source.emoji.filetypes": [
-    "gitcommit",
-    "markdown"
-  ],
-  "coc.source.coc-tabnine.priority": 50,
-  "tabnine.priority": 50,
+        "diagnostic.displayByAle": false,
 
-  "diagnostic.displayByAle": false,
+        /* Coc-Python  */
 
- /* Coc-Python  */
+        "python.linting.pylintEnabled": true,
+        "python.linting.pylintArgs": ["--disable=R,C"],
+        "python.linting.flake8Enabled": true,
+        /* "python.linting.mypyEnabled": true, */
+        "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
+        /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
 
-  "python.linting.pylintEnabled": true,
-  "python.linting.pylintArgs": ["--disable=R,C"],
-  "python.linting.flake8Enabled": true,
-  /* "python.linting.mypyEnabled": true, */
-  "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
-  /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
+        /* Coc-Explorer */
+        "explorer.icon.enableNerdfont": true,
+        "explorer.icon.source": "vim-devicons",
 
 
-  /* Coc-Explorer */
-  "explorer.icon.enableNerdfont": true,
-  "explorer.icon.enableVimDevicons": true,
+        "suggest.completionItemKindLabels": {
+                "function": "\uf794",
+                "method": "\uf6a6",
+                "variable": "\uf71b",
+                "constant": "\uf8ff",
+                "struct": "\ufb44",
+                "class": "\uf0e8",
+                "interface": "\ufa52",
+                "text": "\ue612",
+                "enum": "\uf435",
+                "enumMember": "\uf02b",
+                "module": "\uf668",
+                "color": "\ue22b",
+                "property": "\ufab6",
+                "field": "\uf93d",
+                "unit": "\uf475",
+                "file": "\uf471",
+                "value": "\uf8a3",
+                "event": "\ufacd",
+                "folder": "\uf115",
+                "keyword": "\uf893",
+                "snippet": "\uf64d",
+                "operator": "\uf915",
+                "reference": "\uf87a",
+                "typeParameter": "\uf278",
+                "default": "\uf29c"
+        },
 
+        /* Coc-Diagnostics */
+        "diagnostic.errorSign": "",
+        "diagnostic.warningSign": "",
+        "diagnostic.infoSign": "",
+        "diagnostic.hintSign": "",
 
-  /* Coc-Diagnostics */
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "",
-  "diagnostic.infoSign": "",
-  "diagnostic.hintSign": "",
+        /* Coc-Snippets */
+        "snippets.snipmate.enable": false,
 
-  /* Coc-Snippets */
-  "snippets.snipmate.enable": false,
+        /* Coc-lua */
+        // We want to be able to develop for neovim...
+        "Lua.workspace.library": {
+                "/usr/share/nvim/runtime/lua": true,
+                "/usr/share/nvim/runtime/lua/vim": true,
+                "/usr/share/nvim/runtime/lua/vim/lsp": true
+        },
+        "Lua.diagnostics.globals": [
+                "vim"
+        ],
 
-  /* Coc-lua */
-  // We want to be able to develop for neovim...
-  "Lua.workspace.library": {
-    "/usr/share/nvim/runtime/lua": true,
-    "/usr/share/nvim/runtime/lua/vim": true,
-    "/usr/share/nvim/runtime/lua/vim/lsp": true
-  },
-  "Lua.diagnostics.globals": [
-    "vim"
-  ],
-  "git.enableGutters": false
+        /* "languageserver": { */
+                /*   "golang": { */
+                        /*     "command": "gopls", */
+                        /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
+                        /*     "filetypes": ["go"] */
+                        /*   } */
+                        /* }, */
 }

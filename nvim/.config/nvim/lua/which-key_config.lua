@@ -39,7 +39,7 @@ wk.setup {
     group = "+", -- symbol prepended to a group
   },
   window = {
-    border = "double", -- none, single, double, shadow
+    border = "single", -- none, single, double, shadow
     position = "bottom", -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]
@@ -71,9 +71,21 @@ wk.register( {
           name = "+buffer",
           p = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
           o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
-          d = {"<cmd>bdelete %<CR>", "delete current buffer"},
+          d = {"<cmd>Bdelete %<CR>", "delete current buffer"},
           B = {"<cmd>Buffers<CR>", "list buffers"},
       },
+
+      c = {
+          name = "+code",
+          c = {"<cmd>CocList --auto-preview --ignore-case commands<CR>", "list avaliable commands"},
+          l = {
+              name = "+lsp",
+              r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},
+              R = {"<cmd>CocRebuild<CR>", "rebuild coc.nvim"},
+          }
+
+      },
+
 
       f = {
         name = "+files",
@@ -82,7 +94,7 @@ wk.register( {
         p = {"<cmd>Files ../<CR>", "List @ parent"},
         s = {"<cmd>w<CR>", "Save"},
         P = {"<cmd>Files ~/.config/nvim/<CR>", "Open config files"},
-        n = {"<cmd>DashboardNewFile<CR>", "New FIle"},
+        n = {"<cmd>DashboardNewFile<CR>", "new file"},
       },
 
       g = {
@@ -104,17 +116,18 @@ wk.register( {
       h = {
         name = "+help",
         t = {"<cmd>Colors<CR>", "Colorscheme"},
-        m = {"<cmd>Helptags<CR>", "Modules"},
         p = {
           name = "+packages",
-          i = {"<cmd>PlugInstall<CR>", "Install Packages"},
-          u = {"<cmd>PlugUpdate<CR>", "Update Packages"},
+          i = {"<cmd>PlugInstall<CR>", "install Packages"},
+          c = {"<cmd>PlugClean<CR>", "clean Packages"},
+          u = {"<cmd>PlugUpdate<CR>", "update Packages"},
         },
         r = {
-            name = "reload",
+            name = "+reload",
             r = {"<cmd>Reload<CR>", "Reload Configuration"},
             b = {"<cmd>Whichkey<CR>", "Which-key"}
         },
+        s = {"<cmd>Helptags<CR>", "search help"}
       },
 
       l = {
@@ -133,8 +146,6 @@ wk.register( {
         p = {"<cmd>FzfSwitchProject<CR>", "switch project"}
       },
 
-
-
       w = {
         name = "+window",
         s = {"<cmd>split<CR>", "Horizontal split"},
@@ -151,8 +162,8 @@ wk.register( {
 
         T = {"<cmd>wincmd T<CR>", "Break out to new tab"},
         x = {"<cmd>wincmd x<CR>", "Swap windows"},
-        [">"] = {"<cmd>wincmd > <CR>", "Increase size"},
-        ["<lt>"] = {"<cmd>wincmd <lt> <CR>", "Decrease size"},
+        [">"] = {"<cmd>20 wincmd > <CR>", "Increase size"},
+        ["<lt>"] = {"<cmd>20 wincmd <lt> <CR>", "Decrease size"},
         ["="] = {"<cmd>wincmd = <CR>", "Equal size"},
 
         K = {"<cmd>wincmd K<CR>", "Arrange horizontally"},
@@ -162,19 +173,19 @@ wk.register( {
 
       s = {
         name = "+search",
+        c = {"<cmd>Commands<CR>", "commands"},
         p = {"<cmd>Rg<CR>", "all files at cwd"},
         P = {"<cmd>RG<CR>", "all files at cwd + regex"},
-
         B = {"<cmd>Lines<CR>", "open buffers"}, b = {"<cmd>BLines<CR>", "current buffer"},
         s = {"<cmd>Vista finder<CR>", "symbols"},
+        r = {":CocSearch", "search-and-replace"},
         h = {
             name = "+history",
             c = {"<cmd>History:<CR>", "commands"},
             s = {"<cmd>History/<CR>", "search"},
             f = {"<cmd>History<CR>", "files"}
         }
-
-      }, 
+      },
 
       T = {
           name = "+tab",
@@ -192,12 +203,13 @@ wk.register( {
         H = {"<cmd>set invhlsearch<CR>", "toggle search highlighting"},
         i = {"<cmd>IndentGuidesToggle<CR>", "toggle indent guides"},
         u = {"<cmd>UndotreeToggle<CR>", "toggle undotree"},
-        
+        p = {"<cmd>call Prose_mode()<CR>", "toggle prose mode"},
+        v = {"<cmd>Vista!!<CR>", 'toggle vista symbol tree'},
         T = {
           name = "+treesitter",
-          c = {"<cmd>TSContextToggle", "toggle context"},
-          h = {"<cmd>TSBufToggle highlight", "toggle syntax highlight"},
-          s = {"<cmd>TSBufToggle refactor.highlight_current_scope", "toggle highlight current scope"},
+          c = {"<cmd>TSContextToggle<CR>", "toggle context"},
+          h = {"<cmd>TSBufToggle highlight<CR>", "toggle syntax highlight"},
+          s = {"<cmd>TSBufToggle refactor.highlight_current_scope<CR>", "toggle highlight current scope"},
 
         }
 

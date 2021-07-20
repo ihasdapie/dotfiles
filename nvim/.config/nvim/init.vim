@@ -6,7 +6,7 @@ set autoindent
 set smartindent
 set cursorline
 
-set guifont=FiraCode\ Nerd\ Font:h15
+set guifont=FiraCode\ Nerd\ Font:h30
 " set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
 
 set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
@@ -28,9 +28,17 @@ set mousemodel=popup_setpos
 set noshowmode "to remove redundant --insert-- etc"
 set lazyredraw
 set nowrap "turn off wrapping"
-set timeoutlen=690
+set timeoutlen=420
 
 set title titlestring=VIM\[%t\]\:%n titlelen=70
+
+
+" Set python interpreters; this speeds up startup time but not necessary
+let g:python3_host_prog="/usr/bin/python3"
+let g:python_host_prog="/usr/bin/python2"
+
+
+
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
 set shortmess=atc
@@ -184,11 +192,11 @@ let g:asmsyntax='nasm'
 """"""""""""""""""""""""""""""
 
 " auto-installation script
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" endif
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -196,61 +204,68 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'liuchengxu/vista.vim'
-Plug 'benwainwright/fzf-project'
-" Plug 'dense-analysis/ale'
+Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
+Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'honza/vim-snippets'
 Plug 'ihasdapie/vim-snippets'
-Plug 'simnalamburt/vim-mundo'
-Plug 'voldikss/vim-floaterm'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'akinsho/nvim-bufferline.lua'
+Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill', 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
+" Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'kshenoy/vim-signature' 
+Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
+Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
+
+" Plug 'dense-analysis/ale'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 
 " Performance improvements
 Plug 'antoinemadec/FixCursorHold.nvim'
-Plug 'tweekmonster/startuptime.vim/'
+Plug 'tweekmonster/startuptime.vim/', {'on': 'StartupTime'}
 Plug 'vim-scripts/LargeFile'
 Plug 'famiu/nvim-reload'
 
 
 " Eyecandy
-Plug 'kdav5758/TrueZen.nvim'
+Plug 'kdav5758/TrueZen.nvim', {'on': ['TZMinimalist', 'TZAtaraxis']}
 Plug 'terryma/vim-smooth-scroll'
 Plug 'ryanoasis/vim-devicons'
-Plug 'mcchrish/nnn.vim'
-Plug 'wfxr/minimap.vim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'mcchrish/nnn.vim', {'on': 'NnnPicker'}
+Plug 'wfxr/minimap.vim', {'on': ['MinimapToggle']}
 Plug 'glepnir/dashboard-nvim'
 
 
 
 " Colourschemes
-Plug 'gruvbox-community/gruvbox'
-Plug 'folke/tokyonight.nvim'
-Plug 'ihasdapie/spaceducky'
-Plug 'marko-cerovac/material.nvim'
-Plug 'sainnhe/sonokai'
-Plug 'navarasu/onedark.nvim'
+Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
+Plug 'folke/tokyonight.nvim',  {'on': ['Colors']}
+Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
+Plug 'marko-cerovac/material.nvim',  {'on': ['Colors']}
+Plug 'sainnhe/sonokai',  {'on': ['Colors']}
+Plug 'navarasu/onedark.nvim', {'on': ['Colors']}
+Plug 'romgrk/doom-one.vim', {'on': ['Colors']}
 Plug 'dracula/vim'
-Plug 'romgrk/doom-one.vim'
+
+
 
 " Tools
-Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
+Plug 'michaelb/sniprun', {'do': 'bash install.sh', 'on': ['SnipRun', ]}
 Plug 'b3nj5m1n/kommentary'
-Plug 'lambdalisue/suda.vim'
+Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'nathanaelkane/vim-indent-guides'
-
 " Plug 'Yggdroot/indentLine'
 " Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'} " Still waiting on some upstream changes... to fix bug with horz. movement
+Plug 'rafi/vim-venom', { 'for': 'python' }
+
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-surround'
 Plug 'folke/which-key.nvim'
 Plug 'ferrine/md-img-paste.vim'
-Plug 'mechatroner/rainbow_csv'
+Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 
 
 " Plug 'puremourning/vimspector'
@@ -258,36 +273,40 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 
 " Other
-Plug 'kshenoy/vim-signature' 
-Plug 'weirongxu/plantuml-previewer.vim'
-Plug 'tyru/open-browser.vim' "dependency for plantuml-previewer
-
+Plug 'weirongxu/plantuml-previewer.vim', {'for': 'plantuml'}
+Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']} "dependency for plantuml-previewer
 
 " Language Syntax
-Plug 'lervag/vimtex'
-Plug 'daeyun/vim-matlab'
-Plug 'liuchengxu/graphviz.vim'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'axvr/org.vim'
+Plug 'lervag/vimtex', {'for': ['tex', 'bib']}
+Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
+Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
+Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc']}
+Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc']}
+Plug 'axvr/org.vim', {'for': ['org']}
+
+
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground', {'on': ['TSPlaygroundToggle']}
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'p00f/nvim-ts-rainbow'
 
 
 " Experimental
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'p00f/nvim-ts-rainbow'
-Plug 'mg979/vim-visual-multi'
-Plug 'mbbill/undotree'
 
-Plug '~/Projects/vim/SCHLAD-list.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-lua/popup.nvim'
+
+Plug 'mg979/vim-visual-multi'
+Plug '~/Projects/vim/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
+Plug '~/Projects/vim/nvim-bufferline.lua'
 
 call plug#end()
 
 """"""""""""""""""
 " Fix cursorhold 
-let g:cursorhold_updatetime = 100
 """""""""""""""""
+let g:cursorhold_updatetime = 100
 
 
 """"""""""
@@ -301,7 +320,7 @@ let g:LargeFile=50
 """"""""""
 
 let g:sonokai_enable_italic=1
-let g:sonokai_style="atlantis"
+let g:sonokai_style="shusia"
 let g:sonokai_better_performance=1
 
 let g:tokyonight_italic_functions='true'
@@ -315,18 +334,25 @@ let g:tokyonight_colors = {"comment": "#696969"}
 let g:material_italic_functions='true'
 let g:material_colors = {"comment": "#696969"}
 let g:material_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
-let g:material_style="palenight"
+let g:material_style="darker"
 let g:material_dark_float='true'
 let g:material_hide_inactive_statusline='true'
 let g:material_colors = {"comment": "#696969"}
 
+let g:gruvbox_bold=1
+let g:gruvbox_italic=1
+
+
+" autocmd ColorScheme doom-one highlight Comment gui=italic
 colorscheme dracula
+
+
 
 
 """"""""""""""""""
 " => Vista.vim
 """"""""""""""""""
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "] 
 let g:vista#renderer#enable_icon = 1
 let g:vista_echo_cursor_strategy = "both" " Floating windows & in prompt bar
 
@@ -473,15 +499,6 @@ let g:tex_conceal='abdmg'
 """"""""""""
 lua require('galaxyline_config')
 
-
-
-""""""""""""""""""
-" ==> lualine
-""""""""""""""""""""
-" lua require('lualine_config')
-
-
-
 """"""""""""""""
 " ==> nvim-bufferline
 """"""""""""""""
@@ -491,6 +508,26 @@ lua require('nvim-bufferline_config')
 """"""""""""""""""""""""""""""
 " => Coc.nvim
 """"""""""""""""""""""""""""""
+
+
+function! s:DisableFileExplorer()
+    au! FileExplorer
+endfunction
+
+function! s:OpenDirHere(dir)
+    if isdirectory(a:dir)
+        let b:cmd = "CocCommand explorer --reveal " . a:dir
+        let b:cmd = strpart(b:cmd, 0, strlen(b:cmd) -1)
+        exec b:cmd
+    endif
+endfunction
+
+" Taken from vim-easytree plugin, and changed to use coc-explorer
+augroup CocExplorerDefault
+    autocmd VimEnter * call <SID>DisableFileExplorer()
+    autocmd BufEnter * call <SID>OpenDirHere(expand('%:p'))
+augroup end
+
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -570,7 +607,7 @@ lua require('treesitter_config')
 set nofoldenable
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-set foldnestmax=2
+set foldnestmax=10
 
 
 """"""""""
@@ -722,9 +759,21 @@ let g:dashboard_custom_header = [
 "   \ }
 
 
-""""""""""""""""""""
-" => fzf-project
-"""""""""""""""""""
+
+""""""""""""""
+" vim-venom
+""""""""""""""
+
+let g:venom_use_tools = 1
+let g:venom_tools = {
+  \ 'poetry': 'poetry env info -p',
+  \ 'pipenv': 'pipenv --venv'
+  \ }
+
+autocmd User VenomActivated
+            \ CocRestart
+
+
 
 
 """"""""""""""
@@ -734,6 +783,13 @@ source ~/dotfiles-private/nvim/projects.vim
 
 
 
+
+
+
+""""""""""""""
+" Graveyard
+""""""""""""""
+" source ~/.config/nvim/graveyard.vim
 
 
 

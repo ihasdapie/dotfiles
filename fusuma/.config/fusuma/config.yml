@@ -1,11 +1,10 @@
 swipe:
-  4:
-    down:
-      sendkey: "LEFTMETA+o"
-      # command: 'xdotool key super+o'
-    up: 
-      sendkey: "LEFTMETA+p"
-      # command: 'xdotool key super+p'
+  2:
+    # going forwards and back in browser, dolphin, etc
+    right:
+      sendkey: "LEFTALT+right"
+    left: 
+      sendkey: "LEFTALT+left"
   3:
     # Switching Desktops
     up: 
@@ -20,17 +19,18 @@ swipe:
     down: 
       sendkey: "LEFTMETA+up"
       # command: 'xdotool key super+Up'
+  4:
+    right:
+      sendkey: "LEFTMETA+o"
+      # command: 'xdotool key super+o'
+    left: 
+      sendkey: "LEFTMETA+p"
+      # command: 'xdotool key super+p'
+    up: 
+      sendkey: "esc"
+    down: 
+      command: 'krunner'
 
-
-pinch:
-  # 2:
-  #   in:
-  #     command: 'xdotool keydown ctrl click 4 keyup ctrl' # Zoom in
-  #   out:
-  #     command: 'xdotool keydown ctrl click 5 keyup ctrl' # Zoom out
-  3:
-    out:
-      command: 'xdotool key Escape'
 
 
 

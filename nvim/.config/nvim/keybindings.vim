@@ -8,6 +8,8 @@ let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcu
 "Emacs-like M-x
 nnoremap <M-x> :Commands <CR> 
 
+nnoremap <leader>sR :CocSearch
+
 nnoremap k gk
 nnoremap j gj
 
@@ -111,7 +113,7 @@ nnoremap <silent> <leader>gG :Git <CR>
 
 
 " Can't seem to map this one in which-key.nvim
-" vnoremap <LocalLeader>y "+y 
+vnoremap <LocalLeader>y "+y 
 
 
 
