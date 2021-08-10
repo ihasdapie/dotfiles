@@ -1,23 +1,27 @@
-"""""""""""""""""""""""""""""
-" => Misc/General
-""""""""""""""""""""""""""""""
+" vim:fileencoding=utf-8:foldmethod=marker
+
+
+" => General Settings {{{
 set number
 set autoindent
 set smartindent
 set cursorline
+set shell=/bin/bash
 
 set guifont=FiraCode\ Nerd\ Font:h30
 " set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
 
+" set foldcolumn=auto
 set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
 
 filetype plugin on
 filetype indent on
 
-set nocompatible 
 set history=500 " Set to auto read when a file is changed from the outside
 set autoread
-au FocusGained,BufEnter * checktime
+au FocusGained,BufEnter * silent! checktime " Silent or else `q:` or `q/` get messed up
+
+
 filetype off
 set visualbell
 set confirm
@@ -36,7 +40,6 @@ set title titlestring=VIM\[%t\]\:%n titlelen=70
 " Set python interpreters; this speeds up startup time but not necessary
 let g:python3_host_prog="/usr/bin/python3"
 let g:python_host_prog="/usr/bin/python2"
-
 
 
 
@@ -79,10 +82,9 @@ set cmdheight=1
 " Allow for glyphs and indentLine
 set conceallevel=2
 
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => User Interface {{{
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -132,10 +134,28 @@ let g:loaded_netrw=1
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" Make quickfix buffers nonlisted
+augroup qf
+    autocmd!
+    autocmd FileType qf set nobuflisted
+augroup END
 
-""""""""""""""
-"Binary Files
-""""""""""""""
+
+" Map <Shift-Tab> to vim ommifunc completion
+" Useful in cases where coc.nvim isn't around, e.g. when working with
+" beancount 
+inoremap <S-TAB> <C-X><C-O>
+
+" }}}
+
+
+" => augroups{{{
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+    au! BufNewFile,BufFilePre,BufRead *.pdc set filetype=markdown.pandoc
+augroup END
+
+
 augroup binary
   au!
   au bufreadpre  *.bin let &bin=1
@@ -186,11 +206,9 @@ augroup END
 
 let g:asmsyntax='nasm'
 
+" }}}
 
-"""""""""""""""""""""""""""""
-" => vim-plug
-""""""""""""""""""""""""""""""
-
+" => vim-plug {{{
 " auto-installation script
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))
 "   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -211,7 +229,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'ihasdapie/vim-snippets'
 Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill', 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
-" Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kshenoy/vim-signature' 
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
@@ -231,8 +248,7 @@ Plug 'famiu/nvim-reload'
 
 " Eyecandy
 Plug 'kdav5758/TrueZen.nvim', {'on': ['TZMinimalist', 'TZAtaraxis']}
-Plug 'terryma/vim-smooth-scroll'
-Plug 'ryanoasis/vim-devicons'
+
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mcchrish/nnn.vim', {'on': 'NnnPicker'}
 Plug 'wfxr/minimap.vim', {'on': ['MinimapToggle']}
@@ -249,6 +265,10 @@ Plug 'sainnhe/sonokai',  {'on': ['Colors']}
 Plug 'navarasu/onedark.nvim', {'on': ['Colors']}
 Plug 'romgrk/doom-one.vim', {'on': ['Colors']}
 Plug 'dracula/vim'
+" Plug 'ayu-theme/ayu-vim'
+" Plug '/home/ihasdapie/Projects/vim-dev/nvim-highlite'
+" Plug 'Shatur/neovim-ayu'
+Plug 'Luxed/ayu-vim'
 
 
 
@@ -258,14 +278,16 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'Yggdroot/indentLine'
-" Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'} " Still waiting on some upstream changes... to fix bug with horz. movement
+" Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'rafi/vim-venom', { 'for': 'python' }
-
+Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-surround'
 Plug 'folke/which-key.nvim'
 Plug 'ferrine/md-img-paste.vim'
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
+Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
+Plug 'tpope/vim-dadbod', {'on': ['DBUI', 'DB']}
 
 
 " Plug 'puremourning/vimspector'
@@ -277,12 +299,15 @@ Plug 'weirongxu/plantuml-previewer.vim', {'for': 'plantuml'}
 Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']} "dependency for plantuml-previewer
 
 " Language Syntax
-Plug 'lervag/vimtex', {'for': ['tex', 'bib']}
+Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'pdc', 'pandoc']}
 Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
-Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc']}
-Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc']}
-Plug 'axvr/org.vim', {'for': ['org']}
+Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc', 'pdc', 'markdown'], 'on': ['Pandoc']}
+Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown'], 'on': ['Pandoc']}
+
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'axvr/org.vim', {'for': ['org']}
 
 
 " Treesitter
@@ -294,14 +319,33 @@ Plug 'p00f/nvim-ts-rainbow'
 
 " Experimental
 
+Plug 'mg979/vim-visual-multi'
+Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
+Plug 'tpope/vim-endwise', {'for': ['lua', 'make', 'matlab']}
+Plug 'kristijanhusak/orgmode.nvim'
+
+
+Plug '~/Projects/vim-dev/nvim-bufferline.lua'
+Plug 'akinsho/nvim-toggleterm.lua'
+" Plug 'akinsho/nvim-bufferline.lua'
+" Plug 'romgrk/barbar.nvim'
+
+Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'nathangrigg/vim-beancount'
+Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
+
+
+" I think this is removeable now?
+" Plug 'ryanoasis/vim-devicons'  
+
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'nvim-lua/popup.nvim'
-
-Plug 'mg979/vim-visual-multi'
-Plug '~/Projects/vim/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
-Plug '~/Projects/vim/nvim-bufferline.lua'
-
 call plug#end()
+
+
+
+" }}}
+
 
 """"""""""""""""""
 " Fix cursorhold 
@@ -315,10 +359,7 @@ let g:cursorhold_updatetime = 100
 let g:LargeFile=50
 
 
-""""""""""
-" => colorscheme
-""""""""""
-
+": => Colorscheme {{{
 let g:sonokai_enable_italic=1
 let g:sonokai_style="shusia"
 let g:sonokai_better_performance=1
@@ -342,16 +383,21 @@ let g:material_colors = {"comment": "#696969"}
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 
+let ayucolor="mirage"
+let g:ayucolor="mirage" " for mirage version of theme
+
+lua vim.g.ayu_mirage = true
+let g:ayu_italic_comment = 1 " defaults to 0.
+let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
+
 
 " autocmd ColorScheme doom-one highlight Comment gui=italic
-colorscheme dracula
+colorscheme ayu
 
+"}}}
 
+": => Vista {{{
 
-
-""""""""""""""""""
-" => Vista.vim
-""""""""""""""""""
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "] 
 let g:vista#renderer#enable_icon = 1
 let g:vista_echo_cursor_strategy = "both" " Floating windows & in prompt bar
@@ -377,12 +423,9 @@ let g:vista_disable_statusline=1
 let g:vista#renderer#ctags='kind'
 let g:vista_floating_delay=200
 
+"}}}
 
-
-
-"""""
-" => FZF
-"""""
+" => FZF {{{
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.96, 'relative': v:true, 'yoffset': 0.0 } }
 let g:fzf_preview_window = ['down:69%', 'ctrl-/']
@@ -426,18 +469,7 @@ function s:MKDir(...)
     return mkdir(fnamemodify(a:1, ':p:h'), 'p')
 endfunction
 command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <args>
-
-
-
-
-
-
-
-
-
-
-
-
+" }}}
 
 
 """"""""
@@ -447,68 +479,7 @@ command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <
 let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
 
 
-"""""""""""""""""""
-" ==> Toggle Transparent Background
-"""""""""""""""""""""""""
-let t:is_transparent = 1
-function! Toggle_transparent()
-    if t:is_transparent == 0
-        hi Normal ctermbg=black
-        set background=dark
-        execute "colorscheme tokyonight"
-
-        let t:is_transparent = 1
-        echo "Transparency off"
-    else
-        hi Normal guibg=NONE ctermbg=NONE
-        let t:is_transparent = 0
-        echo "Transparency on"
-    endif
-endfunction
-
-
-
-"""""""""""""""
-" => Prose Mode
-"""""""""""""""
-function! Prose_mode()
-    execute ":TZMinimalist"
-    execute ":set linebreak"
-    execute ":set wrap"
-endfunction
-
-
-""""""""""""""""
-" --> UML
-"""""""""""""""
-let g:preview_uml_url='http://localhost:8888'
-
-""""""""""""""""""""
-" vimtex
-""""""""""""""""""""
-let g:tex_flavor = "latex"
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_quickfix_mode=0
-let g:tex_conceal='abdmg'
-
-
-
-""""""""""""
-" => Galaxyline
-""""""""""""
-lua require('galaxyline_config')
-
-""""""""""""""""
-" ==> nvim-bufferline
-""""""""""""""""
-lua require('nvim-bufferline_config')
-
-
-""""""""""""""""""""""""""""""
-" => Coc.nvim
-""""""""""""""""""""""""""""""
-
+" => Coc.nvim {{{
 
 function! s:DisableFileExplorer()
     au! FileExplorer
@@ -537,13 +508,38 @@ autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
     \ TSBufDisable highlight
     \ TSBufDisable all
     \ syntax off
-    \ IndentGuidesDisable 
+    " \ IndentGuidesDisable 
     \ let b:coc_enabled=0 
     \ echo "asdfasdf"
     \ endif
 
-" coc-extensions list
 
+" for coc.preferences.jumpCommand
+" opens coc jump-to-file in a new split if it isn't already opened.
+" TODO: Give option for floating.
+function! SplitIfNotOpen(...)
+    let fname = a:1
+    let call = ''
+    if a:0 == 2
+	let fname = a:2
+	let call = a:1
+    endif
+    let bufnum=bufnr(expand(fname))
+    let winnum=bufwinnr(bufnum)
+    if winnum != -1
+	" Jump to existing split
+	exe winnum . "wincmd w"
+    else
+	" Make new split as usual
+	exe "vsplit " . fname
+    endif
+    " Execute the cursor movement command
+    exe call
+endfunction
+
+command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
+
+" coc-extensions list
 let g:coc_global_extensions = [
             \ 'coc-yank',
             \ 'coc-tabnine',
@@ -572,7 +568,88 @@ let g:coc_global_extensions = [
             \ 'coc-go',
             \ 'coc-fish',
             \ 'coc-clangd',
+            \ 'coc-db'
             \ ]
+
+
+
+" }}}
+
+" => Personal Functions {{{
+
+" => Toggle Transparent Background
+let t:is_transparent = 1
+function! Toggle_transparent()
+    if t:is_transparent == 0
+        hi Normal ctermbg=black
+        set background=dark
+        execute "colorscheme " .. g:prev_colorscheme
+
+        let t:is_transparent = 1
+        echo "Transparency on" 
+    else
+        hi Normal guibg=NONE ctermbg=NONE
+        let t:is_transparent = 0
+        let g:prev_colorscheme = g:colors_name
+        echo "Transparency on" 
+    endif
+endfunction
+
+" Focus mode
+function! Prose_mode()
+    execute ":TZMinimalist"
+    execute ":set linebreak"
+    execute ":set wrap"
+endfunction
+
+" => Scratch Buffer
+function! Scratch()
+    vsplit
+    noswapfile hide enew
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    "setlocal nobuflisted
+    "lcd ~
+    file scratch
+endfunction
+
+" }}}
+
+" => Lua Configurations {{{
+
+lua require('galaxyline_config')
+lua require('nvim-bufferline_config')
+" lua require('barbar_config')
+lua require('orgmode-nvim_config')
+lua require('treesitter_config')
+lua require('which-key_config')
+lua require('gitsigns_config')
+lua require('toggleterm_config')
+lua require('vimtex_bindings')
+lua require('colorizer').setup()
+
+
+
+
+
+" }}}
+
+
+
+""""""""""""""""
+" --> UML
+"""""""""""""""
+let g:preview_uml_url='http://localhost:8888'
+
+""""""""""""""""""""
+" vimtex
+""""""""""""""""""""
+let g:tex_flavor = "latex"
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode=0
+let g:tex_conceal='abdmg'
+
 
 """""""""""""""""""""""
 "=>suda.vim
@@ -600,35 +677,15 @@ let g:nnn#action = {
       \ '<c-t>': 'tab split',
       \ '<c-x>': 'split',
       \ '<c-v>': 'vsplit' }
-"""""""""""""
-" => Treesitter
-"""""""""""""
-lua require('treesitter_config')
+
+
+" => Treesitter {{{
 set nofoldenable
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldnestmax=10
+" }}}
 
-
-""""""""""
-" => Gitsigns.nvim
-"""""""""
-lua require('gitsigns_config')
-
-
-""""""""""""""""""
-" ==> nvim-which-key
-""""""""""""""""""
-lua require('which-key_config')
-
-
-""""""""
-"=> Hide quickfix 
-"""""
-augroup qf
-    autocmd!
-    autocmd FileType qf set nobuflisted
-augroup END
 
 
 """"""""""
@@ -661,16 +718,18 @@ let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_default_mapping=0
-let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile', 'terminal', 'nofile', "dashboard"]
+let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile', 'terminal', 'nofile', "dashboard", "term"]
 
-" Cannot seem to exclude terminals!
-au TermEnter * IndentGuidesDisable
-au TermLeave * IndentGuidesEnable
-
-
+" terminal ft doesn't seem to exclude?
+" au TermEnter * IndentGuidesDisable
+" au TermLeave * IndentGuidesEnable
 
 
-"""""""""""""""
+""""""""""""""""""""""""
+" => Indentline
+ """"""""""""
+" let g:indent_blankline_use_treesitter = v:true
+" let g:indentLine_fileType = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile', 'terminal', 'nofile', "dashboard"]
 " => keybinds
 """""""""""
 silent source ~/.config/nvim/keybindings.vim
@@ -687,25 +746,18 @@ lua MYFUNC = require('functions')
 
 
 
-"""""""""
-" => Scratch Buffer
-"""""""""""""""
-function! Scratch()
-    vsplit
-    noswapfile hide enew
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    "setlocal nobuflisted
-    "lcd ~
-    file scratch
-endfunction
-
-
 
 """"""""""""""""""""""
 " => Rainbow csv
 """"""""""""""'
 let g:disable_rainbow_key_mappings = 1
+
+
+""""""
+" csv.vim
+"""""""""
+let g:csv_nomap_cr = 1
+let g:csv_nomap_space = 1
 
 """""""""""""""""
 " => vim-floaterm
@@ -764,6 +816,7 @@ let g:dashboard_custom_header = [
 " vim-venom
 """"""""""""""
 
+" This absolutely massacres startup time for repo without virtualenv...
 let g:venom_use_tools = 1
 let g:venom_tools = {
   \ 'poetry': 'poetry env info -p',
@@ -775,22 +828,34 @@ autocmd User VenomActivated
 
 
 
+""""""""""""""""
+" => Pandoc
+""""""""""""""""
+let g:pandoc#syntax#codeblocks#embeds#langs = ['python', 'tex', 'rust', 'c', 'cpp', 'lua', 'matlab']
+
 
 """"""""""""""
 " Private Configuration
 """"""""""""""
-source ~/dotfiles-private/nvim/projects.vim
+source ~/dotfiles-private/nvim/private.vim
 
 
 
+" => dadbod {{{
 
+let g:db_ui_use_nerd_fonts=1
+let g:db_ui_show_database_icon=1
+" let g:db_ui_disable_mappings=1 " need to which-key map!
+
+
+
+" }}}
 
 
 """"""""""""""
 " Graveyard
 """"""""""""""
 " source ~/.config/nvim/graveyard.vim
-
 
 
 

@@ -1,5 +1,8 @@
 
 local gl = require('galaxyline')
+local utils = require('utils.galaxyline_utils')
+-- local config = require('utils.example_config')
+
 local gls = gl.section
 local extension = require('galaxyline.provider_extensions')
 
@@ -12,7 +15,7 @@ gl.short_line_list = {
     'nerdtree',
     'fugitive',
     'fugitiveblame',
-    'plug'
+    'plug',
 }
 
 VistaPlugin = extension.vista_nearest
@@ -20,8 +23,8 @@ VistaPlugin = extension.vista_nearest
 local colors = {
     bg = '#282c34',
     line_bg = '#353644',
-    fg = '#8FBCBB', fg_green = '#65a380',
-
+    fg = '#8FBCBB', 
+    fg_green = '#65a380',
     yellow = '#fabd2f',
     cyan = '#008080',
     darkblue = '#081633',
@@ -33,10 +36,11 @@ local colors = {
     red = '#ec5f67'
 }
 
-local function lsp_status(status)
-    shorter_stat = ''
+
+local function format_lsp_status(status)
+    local shorter_stat = ''
     for match in string.gmatch(status, "[^%s]+")  do
-        err_warn = string.find(match, "^[WE]%d+", 0)
+        local err_warn = string.find(match, "^[WE]%d+", 0) -- check what this regex does
         if not err_warn then
             shorter_stat = shorter_stat .. ' ' .. match
         end
@@ -44,13 +48,13 @@ local function lsp_status(status)
     return shorter_stat
 end
 
-
 local function get_coc_lsp()
   local status = vim.fn['coc#status']()
   if not status or status == '' then
       return ''
   end
-  return lsp_status(status)
+  -- return lsp_status(status)
+  return format_lsp_status(status)
 end
 
 local function get_venom()
@@ -67,10 +71,13 @@ function get_diagnostic_info()
 end
 
 local function get_current_func()
-  local has_func, func_name = pcall(vim.fn.nvim_buf_get_var,0,'coc_current_function')
-  if not has_func then return end
-      return func_name
+  local cur_func = vim.b.coc_current_function
+  if not cur_func or cur_func == '' then
+    return nil
   end
+  return '  ' .. cur_func
+end
+
 
 function get_function_info()
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
@@ -109,13 +116,14 @@ local buffer_not_empty = function()
   return false
 end
 
-gls.left[1] = {
+table.insert(gls.left, {
   FirstElement = {
     provider = function() return ' ' end,
     highlight = {colors.blue,colors.line_bg}
-  },
-}
-gls.left[2] = {
+  }, }
+)
+
+table.insert(gls.left, {
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
@@ -155,41 +163,44 @@ gls.left[2] = {
       }
       local vim_mode = vim.fn.mode()
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
-      return alias[vim_mode] .. '   '
+      -- return alias[vim_mode] .. '   '
+      return alias[vim_mode] .. ' '
       -- return alias[vim_mode] .. '   '
     end,
     highlight = {colors.red,colors.line_bg,'bold'},
-  },
-}
-gls.left[3] ={
+  }, })
+
+
+table.insert(gls.left, {
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.line_bg},
   },
-}
-gls.left[4] = {
+})
+
+table.insert(gls.left, {
   FileName = {
     provider = {'FileName','FileSize'},
     condition = buffer_not_empty,
     highlight = {colors.fg,colors.line_bg,'bold'}
   }
-}
+})
 
-gls.left[5] = {
+table.insert(gls.left, {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.orange,colors.line_bg},
   }
-}
-gls.left[6] = {
+})
+table.insert(gls.left, {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {'#8FBCBB',colors.line_bg,'bold'},
   }
-}
+})
 
 local checkwidth = function()
   local squeeze_width  = vim.fn.winwidth(0) / 2
@@ -199,82 +210,88 @@ local checkwidth = function()
   return false
 end
 
-gls.left[7] = {
+table.insert(gls.left, {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
-    icon = ' ',
+    icon = '   ',
     highlight = {colors.green,colors.line_bg},
   }
-}
-gls.left[8] = {
+})
+table.insert(gls.left, {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
     icon = ' ',
     highlight = {colors.orange,colors.line_bg},
   }
-}
-gls.left[9] = {
+})
+table.insert(gls.left, {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
     icon = ' ',
     highlight = {colors.red,colors.line_bg},
   }
-}
-gls.left[10] = {
+})
+table.insert(gls.left, {
   LeftEnd = {
     provider = function() return '' end,
     separator = '',
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.line_bg,colors.line_bg}
   }
-}
+})
 
-gls.left[11] = {
+table.insert(gls.left, {
     TrailingWhiteSpace = {
      provider = TrailingWhiteSpace,
      icon = '  ',
      highlight = {colors.yellow,colors.bg},
     }
-}
+})
 
-gls.left[12] = {
+table.insert(gls.left, {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = {colors.red,colors.bg}
   }
-}
-gls.left[13] = {
+})
+table.insert(gls.left, {
   Space = {
     provider = function () return ' ' end
   }
-}
-gls.left[14] = {
+})
+table.insert(gls.left, {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
     highlight = {colors.yellow,colors.bg},
   }
-}
+})
 
-gls.left[15] = {
+table.insert(gls.left, {
     CocStatus = {
      provider = CocStatus,
      highlight = {colors.green,colors.bg},
      icon = '  🗱'
     }
-}
+})
 
-gls.left[16] = {
+table.insert(gls.left, {
   CocFunc = {
     provider = CocFunc,
-    icon = '  λ ',
-    highlight = {colors.yellow,colors.bg},
+    -- icon = '  λ ',
+    highlight = {colors.fg_green, colors.bg},
   }
-}
+})
+
+
+DBUIFunc = utils.misc.db_ui_info
+
+
+
 
 -- TODO 
 --[[ VenomEnv = get_venom
@@ -286,48 +303,102 @@ gls.left[17] = {
 }
  ]]
 
-gls.right[1]= {
+local function get_condition(type)
+ local function condition()
+   local cur_tab = vim.fn.tabpagenr()
+   local all_nr = {}
+   for key, tab in pairs(vim.fn.gettabinfo()) do
+     table.insert(all_nr, tab.tabnr)
+   end
+
+   local max = all_nr[#all_nr]
+   if type == 'checkleft' then
+     return (cur_tab > 1 ) and (#all_nr > 1)
+   elseif type == 'checkright' then
+     return cur_tab < max
+   end
+ end
+ return condition
+end
+
+
+
+table.insert(gls.right, {
+  TabInfoLeft = {
+    condition = get_condition('checkleft'),
+    provider = utils.stabline.render_left_tabs(nil, '│', 'name_only'),
+    -- seperator = '┼',
+    highlight = {colors.fg, colors.bg}
+  }
+})
+
+
+table.insert(gls.right, {
+  TabInfoCurrent = {
+    provider = utils.stabline.render_current_tab(nil, '│', '│', 'name_only'),
+    highlight = {colors.yellow, colors.line_bg, 'bold'},
+  }
+})
+
+table.insert(gls.right, {
+  TabInfoRight = {
+    condition = get_condition('checkright'),
+    provider = utils.stabline.render_right_tabs(nil, '│', 'name_only'),
+    highlight = {colors.fg, colors.bg}
+  }
+})
+
+
+table.insert(gls.right, {
   FileFormat = {
     provider = 'FileFormat',
     separator = ' ',
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.fg,colors.line_bg,'bold'},
   }
-}
-gls.right[4] = {
+})
+table.insert(gls.right, {
   LineInfo = {
     provider = 'LineColumn',
     separator = ' | ',
     separator_highlight = {colors.blue,colors.line_bg},
     highlight = {colors.fg,colors.line_bg},
   },
-}
-gls.right[5] = {
+})
+table.insert(gls.right, {
   PerCent = {
     provider = 'LinePercent',
     separator = ' ',
     separator_highlight = {colors.line_bg,colors.line_bg},
     highlight = {colors.cyan,colors.darkblue,'bold'},
   }
+})
+
+--[[ gls.right[5] = {
+  ScrollBar = {
+    provider = 'ScrollBar',
+    highlight = {colors.blue,colors.purple},
+  }
+} ]]
+
+--[[ gls.right[17] = {
+  DBUIFunc = {
+    provider = DBUIFunc,
+    icon = '   ',
+    highlight = {colors.yellow,colors.bg},
+  }
 }
 
--- gls.right[4] = {
---   ScrollBar = {
---     provider = 'ScrollBar',
---     highlight = {colors.blue,colors.purple},
---   }
--- }
---
--- gls.right[3] = {
---   Vista = {
---     provider = VistaPlugin,
---     separator = ' ',
---     separator_highlight = {colors.bg,colors.line_bg},
---     highlight = {colors.fg,colors.line_bg,'bold'},
---   }
--- }
+gls.right[3] = {
+  Vista = {
+    provider = VistaPlugin,
+    separator = ' ',
+    separator_highlight = {colors.bg,colors.line_bg},
+    highlight = {colors.fg,colors.line_bg,'bold'},
+  }
+} ]]
 
-gls.short_line_left[1] = {
+table.insert(gls.short_line_left, {
   BufferType = {
     provider = 'FileTypeName',
     separator = '',
@@ -335,10 +406,10 @@ gls.short_line_left[1] = {
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
   }
-}
+})
 
 
-gls.short_line_right[1] = {
+table.insert(gls.short_line_right, {
   BufferIcon = {
     provider= 'BufferIcon',
     separator = '',
@@ -346,4 +417,4 @@ gls.short_line_right[1] = {
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
   }
-}
+})
