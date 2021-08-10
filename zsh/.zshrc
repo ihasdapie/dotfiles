@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-fortune | cowthink
+fortune | cowthink -f small
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -263,34 +263,34 @@ compinit -d
 
 
 
-# Completion for kitty
-_kitty() {
-    local src
-    # Send all words up to the word the cursor is currently on
-    src=$(printf "%s
-" "${(@)words[1,$CURRENT]}" | kitty +complete zsh)
-    if [[ $? == 0 ]]; then
-        eval ${src}
-    fi
-}
-compdef _kitty kitty
+# # Completion for kitty
+# _kitty() {
+#     local src
+#     # Send all words up to the word the cursor is currently on
+#     src=$(printf "%s
+# " "${(@)words[1,$CURRENT]}" | kitty +complete zsh)
+#     if [[ $? == 0 ]]; then
+#         eval ${src}
+#     fi
+# }
+# compdef _kitty kitty
 
-# Plugins
-# antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+# # Plugins
+# # antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
 
 
-# zsh autosuggestions
-#
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20 # max lneght of buffer to auttosugest to
-export ZSH_AUTOSUGGEST_USE_ASYNC=1 # allow for async suggestion fetching
-export ZSH_AUTOSUGGEST_HISTORY_IGNORE=" "
+# # zsh autosuggestions
+# #
+# export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20 # max lneght of buffer to auttosugest to
+# export ZSH_AUTOSUGGEST_USE_ASYNC=1 # allow for async suggestion fetching
+# export ZSH_AUTOSUGGEST_HISTORY_IGNORE=" "
 
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# # pyenv
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init --path)"
 
 
 # zprof

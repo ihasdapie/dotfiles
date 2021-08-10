@@ -72,16 +72,27 @@ wk.register( {
           p = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
           o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
           d = {"<cmd>Bdelete %<CR>", "delete current buffer"},
-          B = {"<cmd>Buffers<CR>", "list buffers"},
+          b = {"<cmd>Buffers<CR>", "list buffers"},
       },
 
       c = {
           name = "+code",
           c = {"<cmd>CocList --auto-preview --ignore-case commands<CR>", "list avaliable commands"},
+          L = {
+            name = "+lint",
+            w = {":%s/\\s\\+$//e<CR>", "Delete all whitespace"},
+          },
+
           l = {
               name = "+lsp",
               r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},
               R = {"<cmd>CocRebuild<CR>", "rebuild coc.nvim"},
+          },
+          p = {
+              name = "+pick",
+              h = {"<cmd>Pickachu color hex<CR>", "hex color"},
+              f = {"<cmd>Pickachu file<CR>", "file"},
+              d = {"<cmd>Pickachu date<CR>", "date"},
           }
 
       },
@@ -99,12 +110,25 @@ wk.register( {
 
       g = {
         name = "+git",
-        G = {"<cmd>Git<CR>", "Status"},
+        G = {"<cmd>Git<CR>", "status"},
 
-        h = {
-          name = "+hunk",
-
+        F = {
+          name = "+fugitive",
+            G = {"<cmd>Git<CR>", "status"},
+            b = {"<cmd>Git blame<CR>", "blame"},
         },
+
+
+
+        f = {"<cmd>GFiles<CR>", "search git files"},
+        s = {"<cmd>Gitsigns stage_hunk<CR>", "stage hunk"},
+        S = {"<cmd>Gitsigns undo_stage_hunk<CR>", "undo_stage hunk"},
+        n = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
+        p = {"<cmd>Gitsigns prev_hunk<CR>", "previous hunk"},
+        B = {"<cmd>Gitsigns stage_buffer<CR>", "stage buffer"},
+        r = {"<cmd>Gitsigns reset_hunk<CR>", "reset hunk"},
+        R = {"<cmd>Gitsigns reset_buffer<CR>", "reset buffer"},
+        P = {"<cmd>Gitsigns preview_hunk<CR>", "preview hunk"},
         l = {
           name = "+list",
           c = {"<cmd>Commits<CR>", "Commits"},
@@ -115,7 +139,15 @@ wk.register( {
 
       h = {
         name = "+help",
-        t = {"<cmd>Colors<CR>", "Colorscheme"},
+        t = {"<cmd>Colors<CR>", "colorscheme"},
+        c = {"<cmd>Commands<CR>", "commands"},
+        s = {"<cmd>Helptags<CR>", "search help"},
+        h = {
+          name = "+history",
+          f = {"<cmd>History<CR>", "recent files"},
+          c = {"<cmd>History:<CR>", "recent commands"},
+          s = {"<cmd>History/<CR>", "recent searchs"},
+        },
         p = {
           name = "+packages",
           i = {"<cmd>PlugInstall<CR>", "install Packages"},
@@ -127,8 +159,9 @@ wk.register( {
             r = {"<cmd>Reload<CR>", "Reload Configuration"},
             b = {"<cmd>Whichkey<CR>", "Which-key"}
         },
-        s = {"<cmd>Helptags<CR>", "search help"}
       },
+
+
 
       l = {
         name = "+list",
@@ -148,23 +181,28 @@ wk.register( {
 
       w = {
         name = "+window",
-        s = {"<cmd>split<CR>", "Horizontal split"},
-        v = {"<cmd>vsplit<CR>", "Vertical split"},
-        c = {"<cmd>close<CR>", "Close"},
-        d = {"<cmd>close<CR>", "Close"},
-        q = {"<cmd>close<CR>", "Close"},
-        p = {"<cmd>Windows<CR>", "Pick"},
-        W = {"<cmd>Windows<CR>", "Pick"},
-        h = {"<cmd>wincmd h<CR>", "Select left"},
-        j = {"<cmd>wincmd j<CR>", "Select below"},
-        k = {"<cmd>wincmd k<CR>", "Select above"},
-        l = {"<cmd>wincmd l<CR>", "Select right"},
+        s = {"<cmd>split<CR>", "horizontal split"},
+        v = {"<cmd>vsplit<CR>", "vertical split"},
+        c = {"<cmd>close<CR>", "close"},
+        d = {"<cmd>close<CR>", "close"},
+        q = {"<cmd>close<CR>", "close"},
+        p = {"<cmd>Windows<CR>", "pick"},
+        W = {"<cmd>Windows<CR>", "pick"},
 
-        T = {"<cmd>wincmd T<CR>", "Break out to new tab"},
-        x = {"<cmd>wincmd x<CR>", "Swap windows"},
-        [">"] = {"<cmd>20 wincmd > <CR>", "Increase size"},
-        ["<lt>"] = {"<cmd>20 wincmd <lt> <CR>", "Decrease size"},
-        ["="] = {"<cmd>wincmd = <CR>", "Equal size"},
+        h = {"<cmd>wincmd h<CR>", "select left"},
+        j = {"<cmd>wincmd j<CR>", "select below"},
+        k = {"<cmd>wincmd k<CR>", "select above"},
+        l = {"<cmd>wincmd l<CR>", "select right"},
+        H = {"<cmd>wincmd H<CR>", "move to very left"},
+        J = {"<cmd>wincmd J<CR>", "move to very bottom"},
+        K = {"<cmd>wincmd K<CR>", "move to very top"},
+        L = {"<cmd>wincmd L<CR>", "move to very right"},
+
+        T = {"<cmd>wincmd T<CR>", "break out to new tab"},
+        x = {"<cmd>wincmd x<CR>", "swap windows"},
+        [">"] = {"<cmd>20 wincmd > <CR>", "increase size"},
+        ["<lt>"] = {"<cmd>20 wincmd <lt> <CR>", "decrease size"},
+        ["="] = {"<cmd>wincmd = <CR>", "equal size"},
 
         K = {"<cmd>wincmd K<CR>", "Arrange horizontally"},
         H = {"<cmd>wincmd H<CR>", "Arrange vertically"},
@@ -205,6 +243,8 @@ wk.register( {
         u = {"<cmd>UndotreeToggle<CR>", "toggle undotree"},
         p = {"<cmd>call Prose_mode()<CR>", "toggle prose mode"},
         v = {"<cmd>Vista!!<CR>", 'toggle vista symbol tree'},
+        c = {"<cmd>ColorizerToggle<CR>", "toggle colorization"},
+        e = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
         T = {
           name = "+treesitter",
           c = {"<cmd>TSContextToggle<CR>", "toggle context"},
@@ -223,28 +263,35 @@ wk.register( {
       o = {
           name = "+open",
           t = {"<cmd>FloatermNew<CR>", "new floatterm"},
-          f = {"<cmd>CocCommand explorer<CR>", "project sidebar"}
+          p = {"<cmd>CocCommand explorer<CR>", "project sidebar"}
 
       },
 
       q = {
         name = "+quit",
         a = {"<cmd>qa<CR>", "quit all"},
-
       },
 
     },
 
     ["<localleader>"] = {
+      -- Most of these are plugin-specific
       -- We want to change this up because <localleader> l conflicts with vimtex
-      -- and most of the bindings defined here are actually global!
         w = {"<cmd>w<CR>", "Save file"},
         p = {"\"+p", "Paste from system clipboard"},
-        h = {"<cmd>BufferLineCyclePrev<CR>", "Previous buffer"},
-        l = {"<cmd>BufferLineCycleNext<CR>", "Next buffer"},
-        j = {"<cmd>BufferLineMovePrev<CR>", "Move buffer left"},
-        k = {"<cmd>BufferLineMoveNextv<CR>", "Move buffer right"},
-        y = {"\"+y", "Copy to system clipboard"}
+        y = {"\"+y", "Copy to system clipboard"},
+
+        t = {
+          name = "+floaterm",
+          l = {"<cmd>FloatermNext<CR>", "next floaterm"},
+          j = {"<cmd>FloatermPrev<CR>", "prev floaterm"},
+          t = {"<cmd>FloatermToggle<CR>", "toggle floaterm"},
+          n = {"<cmd>FloatermNew<CR>", "new floaterm"},
+          q = {"<cmd>FloatermKill<CR>", "close floaterm"},
+          c = {"<cmd>FloatermKill<CR>", "close floaterm"},
+          d = {"<cmd>FloatermKill<CR>", "close floaterm"},
+        },
+
     }
   })
 

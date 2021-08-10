@@ -13,10 +13,20 @@ nnoremap <leader>sR :CocSearch
 nnoremap k gk
 nnoremap j gj
 
+vnoremap k gk
+vnoremap j gj
+
 "Allow <esc> to exit out of terminal mode
 tnoremap <Esc> <C-\><C-n>
-noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
-noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
+" noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
+" noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
+
+
+noremap <silent> <c-k> 20k
+noremap <silent> <c-j> 20j
+
+
+
 " use *, # to cycle through instances of current word
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
@@ -164,14 +174,11 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 " nnoremap <leader>ss :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR> 
 
 
-nnoremap <silent> <c-t> :NnnPicker %:p:h<cr>
-noremap <leader>md :MundoToggle <cr>
 
 
 
 " turn off highlights
 
-noremap <leader>cb :set clipboard+=unnamedplus<cr>
 nnoremap <leader>ps "+p
 
 

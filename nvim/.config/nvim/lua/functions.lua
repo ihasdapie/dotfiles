@@ -1,6 +1,6 @@
 -- Assorted utility functions
 
-M = {}
+local M = {}
 
 function _G.dump(...)
     local objects = vim.tbl_map(vim.inspect, {...})
