@@ -23,6 +23,23 @@ function M.cycle_number ()
     end
 end
 
+
+function M.cycle_prose ()
+    vim.wo.wrap = not vim.wo.wrap
+    vim.wo.linebreak = not vim.wo.linebreak
+
+end
+
+
+    
+--[[ function p(a)
+    print(vim.inspect(a))
+end
+
+--[[ A = vim.api
+F =vim.fn ]]
+
+
 -- function M.cycle_searchhl
 
 

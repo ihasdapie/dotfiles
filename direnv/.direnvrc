@@ -1,4 +1,3 @@
-
 # Sources & enables python-poetry virtualenvs
 # Use by adding 'layout_poetry' to .envrc
 layout_poetry() {
@@ -12,4 +11,5 @@ layout_poetry() {
   export POETRY_ACTIVE=1
   PATH_add "$VENV"
 }
+
 

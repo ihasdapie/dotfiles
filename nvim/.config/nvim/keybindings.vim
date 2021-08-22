@@ -31,28 +31,6 @@ noremap <silent> <c-j> 20j
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
-" coc.nvim goodies
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-else
-    inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" use <C-enter> to select coc suggestions
-inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 
 """""""""""""""""""""""""""""""""""""'
 " => [O]pen
@@ -168,7 +146,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cqf  <Plug>(coc-fix-current)
 
 " Remove trailing whitespace
 " nnoremap <leader>ss :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR> 

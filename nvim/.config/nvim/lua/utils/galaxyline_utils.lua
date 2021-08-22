@@ -27,6 +27,7 @@ end
 function M.stabline.utils.get_tabpage_bufname(tabpage_handle)
     local tab_info = F.gettabinfo(tabpage_handle)
     local first_window=  tab_info[1].windows[1]
+    -- try nvim_win_get_buf(window)...
     local buf_in_first_window = F.getwininfo(first_window)[1].bufnr
     local bufname = F.getbufinfo(buf_in_first_window)[1].name
     return bufname
