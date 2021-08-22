@@ -66,7 +66,16 @@ wk.setup {
 
 wk.register( {
 
+
+    g = {
+      F = {"<cmd>!xdg-open <cfile> &<CR>", "XDG-open in external program"},
+    },
+
+
+
     ["<leader>"] = {
+
+      ['<leader>'] = {"<cmd>WhichKey<CR>", "WhichKey bindings"},
       b = {
           name = "+buffer",
           p = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
@@ -78,9 +87,10 @@ wk.register( {
       c = {
           name = "+code",
           c = {"<cmd>CocList --auto-preview --ignore-case commands<CR>", "list avaliable commands"},
+          -- qf = {"<Plug>(coc-fx-current)", "coc-fix"},
           L = {
             name = "+lint",
-            w = {":%s/\\s\\+$//e<CR>", "Delete all whitespace"},
+            w = {":%s/\\s\\+$//e<CR>", "Delete all trailing whitespace"},
           },
 
           l = {
@@ -160,6 +170,7 @@ wk.register( {
             b = {"<cmd>Whichkey<CR>", "Which-key"}
         },
       },
+
 
 
 
@@ -245,6 +256,8 @@ wk.register( {
         v = {"<cmd>Vista!!<CR>", 'toggle vista symbol tree'},
         c = {"<cmd>ColorizerToggle<CR>", "toggle colorization"},
         e = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
+        s = {"<cmd>set spell! spell?<CR>", "spellcheck"},
+        f = {"za", "toggle fold under cursor"}, -- Just `za` but remapped under leader. Can remove.
         T = {
           name = "+treesitter",
           c = {"<cmd>TSContextToggle<CR>", "toggle context"},
@@ -258,13 +271,16 @@ wk.register( {
 
       m  = {
         name = "+misc",
+        c = {
+          name = "+change",
+          d = {"<cmd>cd %:p:h<CR>", "change cwd to current file"},
+        }
       },
 
       o = {
           name = "+open",
           t = {"<cmd>FloatermNew<CR>", "new floatterm"},
           p = {"<cmd>CocCommand explorer<CR>", "project sidebar"}
-
       },
 
       q = {

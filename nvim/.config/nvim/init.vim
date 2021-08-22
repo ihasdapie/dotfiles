@@ -6,7 +6,6 @@ set number
 set autoindent
 set smartindent
 set cursorline
-set shell=/bin/bash
 
 set guifont=FiraCode\ Nerd\ Font:h30
 " set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
@@ -27,14 +26,14 @@ set visualbell
 set confirm
 " set t_vb=
 set mouse=a
-set mousemodel=popup_setpos
+set mousemodel=popup_setpos 
 
 set noshowmode "to remove redundant --insert-- etc"
 set lazyredraw
 set nowrap "turn off wrapping"
 set timeoutlen=420
 
-set title titlestring=VIM\[%t\]\:%n titlelen=70
+set title titlestring=vim\[%t\]\:%n titlelen=70
 
 
 " Set python interpreters; this speeds up startup time but not necessary
@@ -71,6 +70,7 @@ set signcolumn=auto
 """" for coc.nvim
 " TextEdit might fail if hidden is not set.
 set hidden
+set pumblend=15 "pseudo-transparency for popup menu
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -128,11 +128,49 @@ if (has("termguicolors"))
 endif
 
 
-let g:loaded_netrw_Plugin = 1 "NeTrW iS bLoAT
-let g:loaded_netrw=1
+let g:loaded_gzip = 1
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
+
+let g:loaded_getscript = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_logiPat = 1
+let g:loaded_rrhelper = 1
+
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_netrwFileHandlers = 1
+
+
+
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Self-explanatory.
+set viewdir=~/dotfiles-private/nvim/view 
+augroup remember_folds
+  autocmd!
+  au BufWinLeave *.*  mkview
+  au BufWinEnter *.* silent! loadview
+augroup END
+
+
+
+
+
+
+
+
 
 " Make quickfix buffers nonlisted
 augroup qf
@@ -141,10 +179,10 @@ augroup qf
 augroup END
 
 
-" Map <Shift-Tab> to vim ommifunc completion
+" Map <Ctrl-x> TAB  to vim ommifunc completion
 " Useful in cases where coc.nvim isn't around, e.g. when working with
 " beancount 
-inoremap <S-TAB> <C-X><C-O>
+inoremap <C-x><tab> <C-x><C-o>
 
 " }}}
 
@@ -234,11 +272,6 @@ Plug 'kshenoy/vim-signature'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
 Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 
-" Plug 'dense-analysis/ale'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-
-
 " Performance improvements
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'tweekmonster/startuptime.vim/', {'on': 'StartupTime'}
@@ -248,7 +281,6 @@ Plug 'famiu/nvim-reload'
 
 " Eyecandy
 Plug 'kdav5758/TrueZen.nvim', {'on': ['TZMinimalist', 'TZAtaraxis']}
-
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mcchrish/nnn.vim', {'on': 'NnnPicker'}
 Plug 'wfxr/minimap.vim', {'on': ['MinimapToggle']}
@@ -264,11 +296,15 @@ Plug 'marko-cerovac/material.nvim',  {'on': ['Colors']}
 Plug 'sainnhe/sonokai',  {'on': ['Colors']}
 Plug 'navarasu/onedark.nvim', {'on': ['Colors']}
 Plug 'romgrk/doom-one.vim', {'on': ['Colors']}
-Plug 'dracula/vim'
+Plug 'srcery-colors/srcery-vim', {'on': ['Colors']}
+Plug 'b4skyx/serenade', {'on': ['Colors']}
+Plug 'EdenEast/nightfox.nvim', {'on': ['Colors']}
+Plug 'Luxed/ayu-vim' 
+
+" Plug 'dracula/vim', {'on': ['Colors']}
+" ^^ Dracula seems to break `Colors`  fzf command?
 " Plug 'ayu-theme/ayu-vim'
-" Plug '/home/ihasdapie/Projects/vim-dev/nvim-highlite'
 " Plug 'Shatur/neovim-ayu'
-Plug 'Luxed/ayu-vim'
 
 
 
@@ -277,8 +313,6 @@ Plug 'michaelb/sniprun', {'do': 'bash install.sh', 'on': ['SnipRun', ]}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'Yggdroot/indentLine'
-" Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'rafi/vim-venom', { 'for': 'python' }
 Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
 Plug 'tmsvg/pear-tree'
@@ -288,7 +322,6 @@ Plug 'ferrine/md-img-paste.vim'
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
 Plug 'tpope/vim-dadbod', {'on': ['DBUI', 'DB']}
-
 
 " Plug 'puremourning/vimspector'
 Plug 'nvim-lua/plenary.nvim'
@@ -305,11 +338,6 @@ Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
 Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc', 'pdc', 'markdown'], 'on': ['Pandoc']}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown'], 'on': ['Pandoc']}
 
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-" Plug 'axvr/org.vim', {'for': ['org']}
-
-
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground', {'on': ['TSPlaygroundToggle']}
@@ -318,46 +346,23 @@ Plug 'p00f/nvim-ts-rainbow'
 
 
 " Experimental
+"
+Plug 'ggandor/lightspeed.nvim'
 
 Plug 'mg979/vim-visual-multi'
 Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
-Plug 'tpope/vim-endwise', {'for': ['lua', 'make', 'matlab']}
-Plug 'kristijanhusak/orgmode.nvim'
-
+Plug 'kristijanhusak/orgmode.nvim', {'for': ['org']}
 
 Plug '~/Projects/vim-dev/nvim-bufferline.lua'
-Plug 'akinsho/nvim-toggleterm.lua'
+" Plug 'akinsho/nvim-toggleterm.lua'
 " Plug 'akinsho/nvim-bufferline.lua'
-" Plug 'romgrk/barbar.nvim'
 
-Plug 'norcalli/nvim-colorizer.lua'
-" Plug 'nathangrigg/vim-beancount'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 
-
-" I think this is removeable now?
-" Plug 'ryanoasis/vim-devicons'  
-
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-lua/popup.nvim'
 call plug#end()
 
 
-
 " }}}
-
-
-""""""""""""""""""
-" Fix cursorhold 
-"""""""""""""""""
-let g:cursorhold_updatetime = 100
-
-
-""""""""""
-" => Largefile
-"""""""""
-let g:LargeFile=50
-
 
 ": => Colorscheme {{{
 let g:sonokai_enable_italic=1
@@ -365,40 +370,44 @@ let g:sonokai_style="shusia"
 let g:sonokai_better_performance=1
 
 let g:tokyonight_italic_functions='true'
-let g:tokyonight_colors = {"comment": "#696969"}
 let g:tokyonight_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
 let g:tokyonight_style="storm"
 let g:tokyonight_dark_float='true'
 let g:tokyonight_hide_inactive_statusline='true'
 let g:tokyonight_colors = {"comment": "#696969"}
 
-let g:material_italic_functions='true'
-let g:material_colors = {"comment": "#696969"}
-let g:material_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
+let g:material_italic_functions=1
 let g:material_style="darker"
-let g:material_dark_float='true'
+let g:material_dark_float=1
 let g:material_hide_inactive_statusline='true'
 let g:material_colors = {"comment": "#696969"}
+
+let g:nightfox_italic_functions=1
+let g:nightfox_italic_keywords=1
+let g:nightfox_hide_inactive_statusline='true'
 
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 
-let ayucolor="mirage"
 let g:ayucolor="mirage" " for mirage version of theme
-
 lua vim.g.ayu_mirage = true
+
 let g:ayu_italic_comment = 1 " defaults to 0.
 let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
 
+let g:srcery_italic=1
+" let g:srcery_bg_passthrough = 1 
 
-" autocmd ColorScheme doom-one highlight Comment gui=italic
 colorscheme ayu
 
 "}}}
 
 ": => Vista {{{
 
+" let g:vista_icon_indent = ["╰─▶ ", "├─▶ "] 
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "] 
+
+
 let g:vista#renderer#enable_icon = 1
 let g:vista_echo_cursor_strategy = "both" " Floating windows & in prompt bar
 
@@ -472,14 +481,69 @@ command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <
 " }}}
 
 
-""""""""
-" => Polyglot
-""""""""""
-" Polyglot is slow but it is the best option atm will have to use it...
-let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
-
-
 " => Coc.nvim {{{
+
+" Signature help is really useful :)
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp') 
+" If it gets annoying, try this mapping:
+" inoremap <silent><localleader>s call CocActionAsync('showSignatureHelp')<CR>
+
+
+" Tab completion
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" C-space to show completion list again
+inoremap <silent><expr> <c-space> coc#refresh()
+
+xnoremap <leader>cF  <Plug>(coc-format-selected)
+nnoremap <leader>cF  <Plug>(coc-format-selected)
+
+" KK to show function docs in floating
+nnoremap <silent>KK :call <SID>show_documentation()<CR>
+" K to split out function docs in bottom buffer
+nnoremap <silent>K :call ShowDoc()<CR><C-e>
+
+" Use C-enter to select instead (so it doesn't mess up entering a newline at times)
+inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent> <C-x> <C-r>=ShowDoc()<CR><C-e>
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Coc Functions {{{
+function! s:check_back_space() abort
+    let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+
+function! ShowDoc() abort
+  let winid = get(g:, 'coc_last_float_win', -1)
+  if winid != -1
+    let bufnr = winbufnr(winid)
+    exe 'below sb '.bufnr
+    exe 'close '.winid
+  endif
+  return ''
+endfunction
+
+
 
 function! s:DisableFileExplorer()
     au! FileExplorer
@@ -493,29 +557,16 @@ function! s:OpenDirHere(dir)
     endif
 endfunction
 
-" Taken from vim-easytree plugin, and changed to use coc-explorer
-augroup CocExplorerDefault
-    autocmd VimEnter * call <SID>DisableFileExplorer()
-    autocmd BufEnter * call <SID>OpenDirHere(expand('%:p'))
-augroup end
-
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
 " Disable on files > 1mb
 autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
     \ TSBufDisable highlight
     \ TSBufDisable all
     \ syntax off
-    " \ IndentGuidesDisable 
+    \ IndentGuidesDisable 
     \ let b:coc_enabled=0 
-    \ echo "asdfasdf"
     \ endif
 
-
-" for coc.preferences.jumpCommand
-" opens coc jump-to-file in a new split if it isn't already opened.
+" Opens coc-definition in a new split if it isn't already opened.
 " TODO: Give option for floating.
 function! SplitIfNotOpen(...)
     let fname = a:1
@@ -536,8 +587,9 @@ function! SplitIfNotOpen(...)
     " Execute the cursor movement command
     exe call
 endfunction
-
 command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
+
+" }}}
 
 " coc-extensions list
 let g:coc_global_extensions = [
@@ -602,6 +654,10 @@ function! Prose_mode()
     execute ":set wrap"
 endfunction
 
+
+
+
+
 " => Scratch Buffer
 function! Scratch()
     vsplit
@@ -624,9 +680,8 @@ lua require('orgmode-nvim_config')
 lua require('treesitter_config')
 lua require('which-key_config')
 lua require('gitsigns_config')
-lua require('toggleterm_config')
+" lua require('toggleterm_config')
 lua require('vimtex_bindings')
-lua require('colorizer').setup()
 
 
 
@@ -634,49 +689,6 @@ lua require('colorizer').setup()
 
 " }}}
 
-
-
-""""""""""""""""
-" --> UML
-"""""""""""""""
-let g:preview_uml_url='http://localhost:8888'
-
-""""""""""""""""""""
-" vimtex
-""""""""""""""""""""
-let g:tex_flavor = "latex"
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_quickfix_mode=0
-let g:tex_conceal='abdmg'
-
-
-"""""""""""""""""""""""
-"=>suda.vim
-""""""""""""""""""""""""
-let g:suda#prefix = 'suda://'
-" multiple protocols can be defined too
-let g:suda#prefix = ['suda://', 'sudo://', '_://']
-
-""""""""""""
-" => TOHtml
-""""""""""""
-" If this is set to 1, dynamic folds + js is inserted into generated html
-let g:html_number_lines = 0 " Omit line numbers in generated html
-let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copiable
-
-
-"""""""""""""
-"=> nnn.vim
-"""""""""""""
-let g:nnn#set_default_mappings=0
-let g:nnn#layout = { 'window': { 'width': 0.5, 'height': 0.7} }
-let g:nnn#repalce_netrw=1 " replace netrw when opening directory
-let g:nnn#command = 'NNN_COLORS="2136" NNN_TRASH=1 nnn -d'
-let g:nnn#action = {
-      \ '<c-t>': 'tab split',
-      \ '<c-x>': 'split',
-      \ '<c-v>': 'vsplit' }
 
 
 " => Treesitter {{{
@@ -687,6 +699,19 @@ set foldnestmax=10
 " }}}
 
 
+" => dadbod {{{
+
+let g:db_ui_use_nerd_fonts=1
+let g:db_ui_show_database_icon=1
+let g:db_ui_auto_execute_table_helpers=1
+" let g:db_ui_disable_mappings=1 " need to which-key map!
+
+
+
+" }}}
+
+" => Unorganized {{{
+ 
 
 """"""""""
 " => md-image-paste
@@ -772,25 +797,21 @@ let g:floaterm_position='bottom'
 """"""""""""""""""'
 let g:dashboard_default_executive = "fzf"
 
-let g:dashboard_custom_header = [
-    \ '',
-    \'███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗',
-    \'████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║',
-    \'██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║',
-    \'██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
-    \'██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
-    \'╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝',
-    \'                                                  ']
 
-" let g:dashboard_custom_shortcut={
-" \ 'last_session'       : 'SPC s l',
-" \ 'find_history'       : 'SPC s h f',
-" \ 'find_file'          : 'SPC f f',
-" \ 'new_file'           : 'SPC T n',
-" \ 'change_colorscheme' : 'SPC h t',
-" \ 'find_word'          : 'SPC s p',
-" \ 'book_marks'         : 'SPC l m',
-" \ }
+let g:dashboard_custom_shortcut={
+\ 'last_session'       : 'SPC s l',
+\ 'find_history'       : 'SPC s h f',
+\ 'find_file'          : 'SPC f f',
+\ 'new_file'           : 'SPC T n',
+\ 'change_colorscheme' : 'SPC h t',
+\ 'find_word'          : 'SPC s p',
+\ 'book_marks'         : 'SPC l m',
+\ }
+
+
+
+lua require('dashboard_config')
+
 " let g:dashboard_custom_shortcut_icon={}
 
 " let g:dashboard_custom_shortcut_icon['last_session'] = ' '
@@ -802,13 +823,17 @@ let g:dashboard_custom_header = [
 " let g:dashboard_custom_shortcut_icon['book_marks'] = ' '
 
 
-" let g:dashboard_seperator = "                 "
+let g:dashboard_seperator = "                 "
 
 " let g:dashboard_custom_section={
-"   \ 'buffer_list': {
-"       \ 'description': [' List Files' . g:dashboard_seperator . 'SPC b b'],
-"       \ 'command': 'Files' }
-"   \ }
+"             \ 'buffer_list': {
+"                 \ 'description': ['  Recent Files' . g:dashboard_seperator . 'SPC f r'],
+"                 \ 'command': 'Files' },
+"                 \ 'pick_project': {
+"                     \ 'description': ['冷 Pick Project' . g:dashboard_seperator . 'SPC p c'],
+"                     \ 'command': 'FzfSwitchProject'}
+" }
+"             \ }
 
 
 
@@ -819,13 +844,10 @@ let g:dashboard_custom_header = [
 " This absolutely massacres startup time for repo without virtualenv...
 let g:venom_use_tools = 1
 let g:venom_tools = {
-  \ 'poetry': 'poetry env info -p',
-  \ 'pipenv': 'pipenv --venv'
+  \ 'poetry': 'poetry env info -p'
   \ }
-
-autocmd User VenomActivated
-            \ CocRestart
-
+  " 'pipenv': 'pipenv --venv'
+autocmd User VenomActivated CocRestart
 
 
 """"""""""""""""
@@ -834,23 +856,82 @@ autocmd User VenomActivated
 let g:pandoc#syntax#codeblocks#embeds#langs = ['python', 'tex', 'rust', 'c', 'cpp', 'lua', 'matlab']
 
 
-""""""""""""""
-" Private Configuration
-""""""""""""""
-source ~/dotfiles-private/nvim/private.vim
+
+""""""""""""""""
+" --> UML
+"""""""""""""""
+let g:preview_uml_url='http://localhost:8888'
+
+""""""""""""""""""""
+" vimtex
+""""""""""""""""""""
+let g:tex_flavor = "latex"
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode=0
+let g:tex_conceal='abdmg'
+
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : '',
+            \ 'callback' : 1,
+            \ 'continuous' : 1,
+            \ 'executable' : 'latexmk',
+            \ 'hooks' : [],
+            \ 'options' : [
+                \   '-verbose',
+                \   '-file-line-error',
+                \   '-synctex=1',
+                \   '-interaction=nonstopmode',
+                \   '-shell-escape'
+                \ ],
+                \}
+
+"""""""""""""""""""""""
+"=>suda.vim
+""""""""""""""""""""""""
+let g:suda#prefix = 'suda://'
+" multiple protocols can be defined too
+let g:suda#prefix = ['suda://', 'sudo://', '_://']
+
+""""""""""""
+" => TOHtml
+""""""""""""
+" If this is set to 1, dynamic folds + js is inserted into generated html
+let g:html_number_lines = 0 " Omit line numbers in generated html
+let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copiable
 
 
+"""""""""""""
+"=> nnn.vim
+"""""""""""""
+let g:nnn#set_default_mappings=0
+let g:nnn#layout = { 'window': { 'width': 0.8, 'height': 0.7} }
+let g:nnn#repalce_netrw=1 " replace netrw when opening directory
+let g:nnn#command = 'NNN_COLORS="2136" NNN_TRASH=1 nnn -d'
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-x>': 'split',
+      \ '<c-v>': 'vsplit' }
 
-" => dadbod {{{
+""""""""
+" => Polyglot
+""""""""""
+" Polyglot is slow but it is the best option atm will have to use it...
+let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
+""""""""""""""""""
+" Fix cursorhold 
+"""""""""""""""""
+let g:cursorhold_updatetime = 100
 
-let g:db_ui_use_nerd_fonts=1
-let g:db_ui_show_database_icon=1
-" let g:db_ui_disable_mappings=1 " need to which-key map!
 
+""""""""""
+" => Largefile
+"""""""""
+let g:LargeFile=50
 
-
+ 
+ 
 " }}}
-
 
 """"""""""""""
 " Graveyard
@@ -858,7 +939,10 @@ let g:db_ui_show_database_icon=1
 " source ~/.config/nvim/graveyard.vim
 
 
-
+""""""""""""""
+" Private Configuration
+""""""""""""""
+source ~/dotfiles-private/nvim/private.vim
 
 
 

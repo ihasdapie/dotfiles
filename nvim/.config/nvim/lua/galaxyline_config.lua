@@ -116,14 +116,14 @@ local buffer_not_empty = function()
   return false
 end
 
-table.insert(gls.left, {
+gls.left[1] = {
   FirstElement = {
     provider = function() return ' ' end,
     highlight = {colors.blue,colors.line_bg}
   }, }
-)
 
-table.insert(gls.left, {
+
+gls.left[2] = {
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
@@ -168,39 +168,38 @@ table.insert(gls.left, {
       -- return alias[vim_mode] .. '   '
     end,
     highlight = {colors.red,colors.line_bg,'bold'},
-  }, })
+  }, }
 
-
-table.insert(gls.left, {
+gls.left[3] = {
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.line_bg},
   },
-})
+}
 
-table.insert(gls.left, {
+gls.left[4] = {
   FileName = {
     provider = {'FileName','FileSize'},
     condition = buffer_not_empty,
     highlight = {colors.fg,colors.line_bg,'bold'}
   }
-})
+}
 
-table.insert(gls.left, {
+gls.left[5] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.orange,colors.line_bg},
   }
-})
-table.insert(gls.left, {
+}
+gls.left[6] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {'#8FBCBB',colors.line_bg,'bold'},
   }
-})
+}
 
 local checkwidth = function()
   local squeeze_width  = vim.fn.winwidth(0) / 2
@@ -210,82 +209,78 @@ local checkwidth = function()
   return false
 end
 
-table.insert(gls.left, {
-  DiffAdd = {
-    provider = 'DiffAdd',
-    condition = checkwidth,
-    icon = '   ',
-    highlight = {colors.green,colors.line_bg},
-  }
-})
-table.insert(gls.left, {
-  DiffModified = {
-    provider = 'DiffModified',
-    condition = checkwidth,
-    icon = ' ',
-    highlight = {colors.orange,colors.line_bg},
-  }
-})
-table.insert(gls.left, {
-  DiffRemove = {
-    provider = 'DiffRemove',
-    condition = checkwidth,
-    icon = ' ',
-    highlight = {colors.red,colors.line_bg},
-  }
-})
-table.insert(gls.left, {
-  LeftEnd = {
-    provider = function() return '' end,
-    separator = '',
-    separator_highlight = {colors.bg,colors.line_bg},
-    highlight = {colors.line_bg,colors.line_bg}
-  }
-})
+gls.left[7] = {
+DiffAdd = {
+  provider = 'DiffAdd',
+  condition = checkwidth,
+  icon = '   ',
+  highlight = {colors.green,colors.line_bg},
+}
+}
+gls.left[8] = {
+DiffModified = {
+  provider = 'DiffModified',
+  condition = checkwidth,
+  icon = ' ',
+  highlight = {colors.orange,colors.line_bg},
+}
+}
+gls.left[9] = {
+DiffRemove = {
+  provider = 'DiffRemove',
+  condition = checkwidth,
+  icon = ' ',
+  highlight = {colors.red,colors.line_bg},
+}
+}
+gls.left[10] = {
+LeftEnd = {
+  provider = function() return '' end,
+  separator = '',
+  separator_highlight = {colors.bg,colors.line_bg},
+  highlight = {colors.line_bg,colors.line_bg}
+}
+}
 
-table.insert(gls.left, {
-    TrailingWhiteSpace = {
-     provider = TrailingWhiteSpace,
-     icon = '  ',
-     highlight = {colors.yellow,colors.bg},
-    }
-})
+gls.left[11] = {
+  TrailingWhiteSpace = {
+   provider = TrailingWhiteSpace,
+   icon = '  ',
+   highlight = {colors.yellow,colors.bg},
+  }
+}
 
-table.insert(gls.left, {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.bg}
-  }
-})
-table.insert(gls.left, {
-  Space = {
-    provider = function () return ' ' end
-  }
-})
-table.insert(gls.left, {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.yellow,colors.bg},
-  }
-})
+gls.left[12] = {
+DiagnosticError = {
+  provider = 'DiagnosticError',
+  icon = '  ',
+  highlight = {colors.red,colors.bg}
+}
+}
+gls.left[13] = { Space = { provider = function () return ' ' end } }
 
-table.insert(gls.left, {
-    CocStatus = {
-     provider = CocStatus,
-     highlight = {colors.green,colors.bg},
-     icon = '  🗱'
-    }
-})
+gls.left[14] = {
+DiagnosticWarn = {
+  provider = 'DiagnosticWarn',
+  icon = '  ',
+  highlight = {colors.yellow,colors.bg},
+} }
 
-table.insert(gls.left, {
-  CocFunc = {
-    provider = CocFunc,
-    -- icon = '  λ ',
-    highlight = {colors.fg_green, colors.bg},
+gls.left[15] = {
+  CocStatus = {
+   provider = CocStatus,
+   highlight = {colors.green,colors.bg},
+   icon = '  🗱'
   }
-})
+}
+
+gls.left[16] = {
+CocFunc = {
+  provider = CocFunc,
+  -- icon = '  λ ',
+  highlight = {colors.fg_green, colors.bg},
+}
+}
 
 
 DBUIFunc = utils.misc.db_ui_info
@@ -322,57 +317,60 @@ local function get_condition(type)
 end
 
 
+-- TODO: Reload ends up inserting again. Refactor back to index.
 
-table.insert(gls.right, {
+gls.right[1] = {
   TabInfoLeft = {
     condition = get_condition('checkleft'),
     provider = utils.stabline.render_left_tabs(nil, '│', 'name_only'),
+    -- provider = utils.stabline.render_left_tabs(nil, '│', 'name_only'),
     -- seperator = '┼',
-    highlight = {colors.fg, colors.bg}
+    highlight = {colors.fg, colors.bg},
+    separator = "",
   }
-})
+}
 
 
-table.insert(gls.right, {
+gls.right[2] = {
   TabInfoCurrent = {
     provider = utils.stabline.render_current_tab(nil, '│', '│', 'name_only'),
-    highlight = {colors.yellow, colors.line_bg, 'bold'},
+    highlight = {colors.fg, colors.darkblue, 'bold'},
   }
-})
+}
 
-table.insert(gls.right, {
+gls.right[3] = {
   TabInfoRight = {
     condition = get_condition('checkright'),
     provider = utils.stabline.render_right_tabs(nil, '│', 'name_only'),
     highlight = {colors.fg, colors.bg}
   }
-})
+}
 
 
-table.insert(gls.right, {
+gls.right[4] = {
   FileFormat = {
     provider = 'FileFormat',
     separator = ' ',
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.fg,colors.line_bg,'bold'},
   }
-})
-table.insert(gls.right, {
+}
+gls.right[5] = {
   LineInfo = {
     provider = 'LineColumn',
     separator = ' | ',
     separator_highlight = {colors.blue,colors.line_bg},
     highlight = {colors.fg,colors.line_bg},
   },
-})
-table.insert(gls.right, {
+}
+gls.right[6] = {
   PerCent = {
     provider = 'LinePercent',
     separator = ' ',
     separator_highlight = {colors.line_bg,colors.line_bg},
     highlight = {colors.cyan,colors.darkblue,'bold'},
   }
-})
+}
 
 --[[ gls.right[5] = {
   ScrollBar = {
@@ -398,7 +396,7 @@ gls.right[3] = {
   }
 } ]]
 
-table.insert(gls.short_line_left, {
+gls.short_line_left[1] = {
   BufferType = {
     provider = 'FileTypeName',
     separator = '',
@@ -406,10 +404,10 @@ table.insert(gls.short_line_left, {
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
   }
-})
+}
 
 
-table.insert(gls.short_line_right, {
+gls.short_line_right[2] = {
   BufferIcon = {
     provider= 'BufferIcon',
     separator = '',
@@ -417,4 +415,4 @@ table.insert(gls.short_line_right, {
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
   }
-})
+}

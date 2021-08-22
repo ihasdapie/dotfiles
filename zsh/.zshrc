@@ -220,7 +220,7 @@ xp () {
 #### FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-export FZF_DEFAULT_OPTS='--height 69% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 69% --layout=reverse --border --algo=v1 --ansi' # TODO Test v1, v2?
 export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
