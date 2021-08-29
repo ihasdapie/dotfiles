@@ -148,6 +148,7 @@ alias ha='hunter -i -g kitty'
 alias za='zathura'
 alias mpv='mpv -hwdec' # enable hardware decoding for mpv
 alias less='less --incsearch'
+alias rm='trash'
 
 ##################
 # My Aliases END
@@ -174,7 +175,7 @@ export PATH=$PATH:$HOME/.emacs.d/bin/
 
 
 #######  NNN
-export NNN_PLUG="p:preview-tui-ext;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
+export NNN_PLUG="P:preview-tabbed;p:preview-tui-ext;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
 export NNN_OPTS="de"

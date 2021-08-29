@@ -16,14 +16,17 @@ nnoremap j gj
 vnoremap k gk
 vnoremap j gj
 
+
 "Allow <esc> to exit out of terminal mode
 tnoremap <Esc> <C-\><C-n>
 " noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
 " noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
 
+inoremap <C-x><tab> <C-x><C-o>
 
-noremap <silent> <c-k> 20k
-noremap <silent> <c-j> 20j
+
+noremap <silent> <c-k> 15k
+noremap <silent> <c-j> 15j
 
 
 

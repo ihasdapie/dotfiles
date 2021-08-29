@@ -6,9 +6,9 @@
 (setq c-set-style "k&r")
 (setq c-basic-offset 4)
 
-(setq doom-font (font-spec :family "VictorMono" :size 15 :weight 'Medium)
-      doom-variable-pitch-font (font-spec :family "azuki_font" :size 17 :weight 'Bold)
-      doom-big-font (font-spec :family "VictorMono" :size 50))
+(setq doom-font (font-spec :family "PragmataPro Liga" :size 15 :weight 'Medium)
+      doom-variable-pitch-font (font-spec :family "Nunito" :size 17 :weight 'Bold)
+      doom-big-font (font-spec :family "PragmataPro Liga" :size 50))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -17,7 +17,7 @@
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
-(setq doom-theme 'doom-gruvbox-light)
+(setq doom-theme 'doom-city-lights)
 
 (setq org-hide-emphasis-markers t) ;; hide /.../ *...*, etc
 (add-hook 'org-mode-hook 'variable-pitch-mode) ;; use variable pitch font for org files

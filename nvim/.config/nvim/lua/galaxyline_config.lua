@@ -221,7 +221,7 @@ gls.left[8] = {
 DiffModified = {
   provider = 'DiffModified',
   condition = checkwidth,
-  icon = ' ',
+  icon = '  ',
   highlight = {colors.orange,colors.line_bg},
 }
 }
@@ -229,7 +229,7 @@ gls.left[9] = {
 DiffRemove = {
   provider = 'DiffRemove',
   condition = checkwidth,
-  icon = ' ',
+  icon = '  ',
   highlight = {colors.red,colors.line_bg},
 }
 }
@@ -242,13 +242,13 @@ LeftEnd = {
 }
 }
 
-gls.left[11] = {
+--[[ gls.left[11] = {
   TrailingWhiteSpace = {
    provider = TrailingWhiteSpace,
    icon = '  ',
    highlight = {colors.yellow,colors.bg},
   }
-}
+} ]]
 
 gls.left[12] = {
 DiagnosticError = {
@@ -257,7 +257,11 @@ DiagnosticError = {
   highlight = {colors.red,colors.bg}
 }
 }
-gls.left[13] = { Space = { provider = function () return ' ' end } }
+gls.left[13] = {
+  Space = {
+    provider = function () return ' ' end,
+    highlight = {colors.bg, colors.bg}
+} }
 
 gls.left[14] = {
 DiagnosticWarn = {
@@ -270,7 +274,7 @@ gls.left[15] = {
   CocStatus = {
    provider = CocStatus,
    highlight = {colors.green,colors.bg},
-   icon = '  🗱'
+   icon = ' 🗱 '
   }
 }
 

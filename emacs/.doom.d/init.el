@@ -25,7 +25,7 @@
        ;;ido               ; the other *other* search engine...
        (ivy +prescient)              ; a search engine for love and life
 
-       :ui
+
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
@@ -179,7 +179,7 @@
 
        :email
        ;;(mu4e +gmail)
-       ;;notmuch
+       ;;notmu
        ;;(wanderlust +gmail)
 
        :app
