@@ -5,10 +5,48 @@ require('bufferline').setup{
         numbers="both",
         separator_style="thin",
         enforce_regular_tabs=false,
-        tab_indicator_options = {
-            show=false,
-            style='title'
-        },
+        show_tab_indicators = true,
+        tab_indicator_style = function(tab)
+            if not tab.name or tab.name == "" then
+                return "裡"
+            end
+
+            local loaded, webdev_icons
+            if loaded == nil then
+                loaded, webdev_icons = pcall(require, "nvim-web-devicons")
+            end
+
+            if loaded then
+                local icon = webdev_icons.get_icon(tab.name, vim.fn.expand("#"..tab.mru_buf..":e"))
+                if not icon or icon == "" then
+                    return vim.fn.fnamemodify(tab.name, ":t")
+                    -- return tab.name:match("^.+/(.+)$") .. " 裡"
+                else
+                    -- return tab.name:match("^.+/(.+)$") .. " " .. icon
+                    return vim.fn.fnamemodify(tab.name, ':t') .. " " .. icon
+                end
+            end
+        end
+    }
+}
+
+local wk = require('which-key')
+
+wk.register({
+        name = "+bufferline",
+        h = {"<cmd>BufferLineCyclePrev<CR>", "Previous buffer"},
+        l = {"<cmd>BufferLineCycleNext<CR>", "Next buffer"},
+        j = {"<cmd>BufferLineMovePrev<CR>", "Move buffer left"},
+        k = {"<cmd>BufferLineMoveNext<CR>", "Move buffer right"},
+    }, {
+        mode = 'n',
+        prefix = "<localleader>b"
+    })
+
+
+
+
+
 
         -- offsets = {
             --[[ {filetype="vista", text="vista"},
@@ -44,26 +82,6 @@ require('bufferline').setup{
 
             return buffer_a_tabnr < buffer_b_tabnr
         end ]]
-    }
-}
-
-local wk = require('which-key')
-
-wk.register({
-        name = "+bufferline",
-        h = {"<cmd>BufferLineCyclePrev<CR>", "Previous buffer"},
-        l = {"<cmd>BufferLineCycleNext<CR>", "Next buffer"},
-        j = {"<cmd>BufferLineMovePrev<CR>", "Move buffer left"},
-        k = {"<cmd>BufferLineMoveNext<CR>", "Move buffer right"},
-    }, {
-        mode = 'n',
-        prefix = "<localleader>b"
-    })
-
-
-
-
-
 
 
 

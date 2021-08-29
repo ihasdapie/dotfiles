@@ -68,7 +68,7 @@ wk.register( {
 
 
     g = {
-      F = {"<cmd>!xdg-open <cfile> &<CR>", "XDG-open in external program"},
+      F = {"<cmd>silent! !xdg-open <cfile> &<CR>", "XDG-open in external program"},
     },
 
 

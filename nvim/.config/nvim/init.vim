@@ -2,16 +2,14 @@
 
 
 " => General Settings {{{
-set number
-set autoindent
-set smartindent
-set cursorline
 
 set guifont=FiraCode\ Nerd\ Font:h30
 " set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
 
-" set foldcolumn=auto
-set rtp+=~/.config/nvim/lua         " Make lua configs 'require' -able
+set rtp+=~/.config/nvim/
+set rtp+=~/.config/nvim/lua/
+
+lua require('tmp_init')
 
 filetype plugin on
 filetype indent on
@@ -24,8 +22,6 @@ au FocusGained,BufEnter * silent! checktime " Silent or else `q:` or `q/` get me
 filetype off
 set visualbell
 set confirm
-" set t_vb=
-set mouse=a
 set mousemodel=popup_setpos 
 
 set noshowmode "to remove redundant --insert-- etc"
@@ -36,11 +32,12 @@ set timeoutlen=420
 set title titlestring=vim\[%t\]\:%n titlelen=70
 
 
+
+
+
 " Set python interpreters; this speeds up startup time but not necessary
 let g:python3_host_prog="/usr/bin/python3"
 let g:python_host_prog="/usr/bin/python2"
-
-
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
 set shortmess=atc
@@ -139,9 +136,6 @@ let g:loaded_getscriptPlugin = 1
 let g:loaded_vimball = 1
 let g:loaded_vimballPlugin = 1
 
-let g:loaded_matchit = 1
-let g:loaded_matchparen = 1
-let g:loaded_2html_plugin = 1
 let g:loaded_logiPat = 1
 let g:loaded_rrhelper = 1
 
@@ -149,9 +143,6 @@ let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
 let g:loaded_netrwFileHandlers = 1
-
-
-
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -163,12 +154,6 @@ augroup remember_folds
   au BufWinLeave *.*  mkview
   au BufWinEnter *.* silent! loadview
 augroup END
-
-
-
-
-
-
 
 
 
@@ -246,6 +231,12 @@ let g:asmsyntax='nasm'
 
 " }}}
 
+""""""""
+" => Polyglot
+""""""""""
+" Polyglot is slow but it is the best option atm will have to use it...
+let g:polyglot_disabled = ['org']
+let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
 " => vim-plug {{{
 " auto-installation script
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -269,6 +260,7 @@ Plug 'ihasdapie/vim-snippets'
 Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill', 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kshenoy/vim-signature' 
+Plug 'ggandor/lightspeed.nvim'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
 Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 
@@ -276,13 +268,12 @@ Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'tweekmonster/startuptime.vim/', {'on': 'StartupTime'}
 Plug 'vim-scripts/LargeFile'
-Plug 'famiu/nvim-reload'
+Plug 'famiu/nvim-reload', {'on': ['Reload', 'Restart']}
 
 
 " Eyecandy
 Plug 'kdav5758/TrueZen.nvim', {'on': ['TZMinimalist', 'TZAtaraxis']}
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'mcchrish/nnn.vim', {'on': 'NnnPicker'}
 Plug 'wfxr/minimap.vim', {'on': ['MinimapToggle']}
 Plug 'glepnir/dashboard-nvim'
 
@@ -290,15 +281,9 @@ Plug 'glepnir/dashboard-nvim'
 
 " Colourschemes
 Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
-Plug 'folke/tokyonight.nvim',  {'on': ['Colors']}
 Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
-Plug 'marko-cerovac/material.nvim',  {'on': ['Colors']}
-Plug 'sainnhe/sonokai',  {'on': ['Colors']}
 Plug 'navarasu/onedark.nvim', {'on': ['Colors']}
-Plug 'romgrk/doom-one.vim', {'on': ['Colors']}
-Plug 'srcery-colors/srcery-vim', {'on': ['Colors']}
 Plug 'b4skyx/serenade', {'on': ['Colors']}
-Plug 'EdenEast/nightfox.nvim', {'on': ['Colors']}
 Plug 'Luxed/ayu-vim' 
 
 " Plug 'dracula/vim', {'on': ['Colors']}
@@ -322,6 +307,7 @@ Plug 'ferrine/md-img-paste.vim'
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
 Plug 'tpope/vim-dadbod', {'on': ['DBUI', 'DB']}
+Plug 'mg979/vim-visual-multi'
 
 " Plug 'puremourning/vimspector'
 Plug 'nvim-lua/plenary.nvim'
@@ -346,11 +332,9 @@ Plug 'p00f/nvim-ts-rainbow'
 
 
 " Experimental
-"
-Plug 'ggandor/lightspeed.nvim'
 
-Plug 'mg979/vim-visual-multi'
-Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
+" Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
+
 Plug 'kristijanhusak/orgmode.nvim', {'for': ['org']}
 
 Plug '~/Projects/vim-dev/nvim-bufferline.lua'
@@ -358,6 +342,8 @@ Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 " Plug 'akinsho/nvim-bufferline.lua'
 
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+
 
 call plug#end()
 
@@ -365,38 +351,12 @@ call plug#end()
 " }}}
 
 ": => Colorscheme {{{
-let g:sonokai_enable_italic=1
-let g:sonokai_style="shusia"
-let g:sonokai_better_performance=1
-
-let g:tokyonight_italic_functions='true'
-let g:tokyonight_sidebars = ["vista", "qf", "vista_kind", "terminal", "packer" ]
-let g:tokyonight_style="storm"
-let g:tokyonight_dark_float='true'
-let g:tokyonight_hide_inactive_statusline='true'
-let g:tokyonight_colors = {"comment": "#696969"}
-
-let g:material_italic_functions=1
-let g:material_style="darker"
-let g:material_dark_float=1
-let g:material_hide_inactive_statusline='true'
-let g:material_colors = {"comment": "#696969"}
-
-let g:nightfox_italic_functions=1
-let g:nightfox_italic_keywords=1
-let g:nightfox_hide_inactive_statusline='true'
-
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 
 let g:ayucolor="mirage" " for mirage version of theme
-lua vim.g.ayu_mirage = true
-
 let g:ayu_italic_comment = 1 " defaults to 0.
 let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
-
-let g:srcery_italic=1
-" let g:srcery_bg_passthrough = 1 
 
 colorscheme ayu
 
@@ -509,8 +469,6 @@ nnoremap <silent>K :call ShowDoc()<CR><C-e>
 
 " Use C-enter to select instead (so it doesn't mess up entering a newline at times)
 inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-inoremap <silent> <C-x> <C-r>=ShowDoc()<CR><C-e>
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -675,14 +633,14 @@ endfunction
 
 lua require('galaxyline_config')
 lua require('nvim-bufferline_config')
-" lua require('barbar_config')
 lua require('orgmode-nvim_config')
 lua require('treesitter_config')
 lua require('which-key_config')
 lua require('gitsigns_config')
-" lua require('toggleterm_config')
 lua require('vimtex_bindings')
-
+" lua require('todo-comments_config')
+" lua require('telescope_config')
+" lua require('toggleterm_config')
 
 
 
@@ -795,46 +753,7 @@ let g:floaterm_position='bottom'
 """""""""""""""""
 " => dashboard-nvim
 """"""""""""""""""'
-let g:dashboard_default_executive = "fzf"
-
-
-let g:dashboard_custom_shortcut={
-\ 'last_session'       : 'SPC s l',
-\ 'find_history'       : 'SPC s h f',
-\ 'find_file'          : 'SPC f f',
-\ 'new_file'           : 'SPC T n',
-\ 'change_colorscheme' : 'SPC h t',
-\ 'find_word'          : 'SPC s p',
-\ 'book_marks'         : 'SPC l m',
-\ }
-
-
-
 lua require('dashboard_config')
-
-" let g:dashboard_custom_shortcut_icon={}
-
-" let g:dashboard_custom_shortcut_icon['last_session'] = ' '
-" let g:dashboard_custom_shortcut_icon['find_history'] = 'ﭯ '
-" let g:dashboard_custom_shortcut_icon['find_file'] = ' '
-" let g:dashboard_custom_shortcut_icon['new_file'] = ' '
-" let g:dashboard_custom_shortcut_icon['change_colorscheme'] = ' '
-" let g:dashboard_custom_shortcut_icon['find_word'] = ' '
-" let g:dashboard_custom_shortcut_icon['book_marks'] = ' '
-
-
-let g:dashboard_seperator = "                 "
-
-" let g:dashboard_custom_section={
-"             \ 'buffer_list': {
-"                 \ 'description': ['  Recent Files' . g:dashboard_seperator . 'SPC f r'],
-"                 \ 'command': 'Files' },
-"                 \ 'pick_project': {
-"                     \ 'description': ['冷 Pick Project' . g:dashboard_seperator . 'SPC p c'],
-"                     \ 'command': 'FzfSwitchProject'}
-" }
-"             \ }
-
 
 
 """"""""""""""
@@ -901,28 +820,10 @@ let g:html_number_lines = 0 " Omit line numbers in generated html
 let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copiable
 
 
-"""""""""""""
-"=> nnn.vim
-"""""""""""""
-let g:nnn#set_default_mappings=0
-let g:nnn#layout = { 'window': { 'width': 0.8, 'height': 0.7} }
-let g:nnn#repalce_netrw=1 " replace netrw when opening directory
-let g:nnn#command = 'NNN_COLORS="2136" NNN_TRASH=1 nnn -d'
-let g:nnn#action = {
-      \ '<c-t>': 'tab split',
-      \ '<c-x>': 'split',
-      \ '<c-v>': 'vsplit' }
 
-""""""""
-" => Polyglot
-""""""""""
-" Polyglot is slow but it is the best option atm will have to use it...
-let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
 """"""""""""""""""
 " Fix cursorhold 
-"""""""""""""""""
-let g:cursorhold_updatetime = 100
-
+""""""""""""""""" let g:cursorhold_updatetime = 100
 
 """"""""""
 " => Largefile
@@ -946,6 +847,46 @@ source ~/dotfiles-private/nvim/private.vim
 
 
 
+
+
+
+
+call wilder#setup({'modes': [':', '/', '?'],
+      \ 'next_key': '<Tab>',
+      \ 'previous_key': '<S-Tab>',
+      \ })
+
+call wilder#set_option('use_python_remote_plugin', 0)
+
+
+
+autocmd CmdlineEnter * ++once call s:wilder_init()
+
+function! s:wilder_init() abort
+
+    call wilder#set_option('pipeline', [
+                \   wilder#branch(
+                \     wilder#cmdline_pipeline({
+                \       'use_python': 0, 
+                \       'fuzzy': 0, 
+                \     }),
+                \     wilder#vim_search_pipeline(),
+                \   ),
+                \ ])
+
+    call wilder#set_option('renderer', wilder#renderer_mux({
+                \ ':': wilder#popupmenu_renderer({
+                \   'highlighter': wilder#basic_highlighter(),
+                \   'left': [
+                    \     wilder#popupmenu_devicons(),
+                    \   ]
+                        \ }),
+                        \ '/': wilder#wildmenu_renderer({
+                        \   'highlighter': wilder#basic_highlighter(),
+                        \ }),
+                        \ }))
+
+endfunction
 
 
 

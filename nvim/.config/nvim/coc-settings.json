@@ -13,6 +13,7 @@
 
         /* "coc.source.coc-tabnine.priority": 50, */
         "tabnine.priority": 50,
+        "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
 
         "diagnostic.displayByAle": false,
 

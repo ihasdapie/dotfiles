@@ -22,14 +22,16 @@ end
 
 -- requires cowsay, fortune, shuf
 
-local footer = {'', "Install `fortune`, `cowsay`, and `shuf` for cows in your dashboard!", ''}
+local footer = {'', "Have `fortune`, `cowsay`, and `shuf` for cows in your dashboard!", 'Cowfiles should be in `/usr/share/fortune`. If not, just edit the path in dashboard_config.lua', ''}
 
 if os.execute('which shuf') and os.execute('which fortune') and os.execute('which cowsay') then
+    -- This adds another 40ms to startuptime...
     footer = split_str(io.popen('fortune -s | cowsay -f $(ls /usr/share/cows | shuf -n1)'):read('*a'), '\n')
     table.insert(footer, #footer+1, '')
 end
 
 vim.g.dashboard_custom_footer = footer
+vim.g.dashboard_default_executive = 'fzf'
 
 
 
@@ -51,7 +53,7 @@ vim.g.dashboard_custom_section = {
         command = 'Files'
     },
     pick_project = {
-        description = make_dashboard_entry('冷 Pick Project', 'SPC p c', dashboard_entry_length),
+        description = make_dashboard_entry('  Pick Project', 'SPC p c', dashboard_entry_length),
         command = 'FzfSwitchProject'
     },
 
@@ -76,7 +78,7 @@ vim.g.dashboard_custom_section = {
     },
 
     marks = {
-        description = make_dashboard_entry(' Bookmarks', 'SPC l m', dashboard_entry_length),
+        description = make_dashboard_entry('  Bookmarks', 'SPC l m', dashboard_entry_length),
         command = 'Marks'
     },
 

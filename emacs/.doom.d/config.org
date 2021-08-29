@@ -24,9 +24,9 @@ Set indents to 4 spaces.
 
 ** Fonts
 #+begin_src elisp
-(setq doom-font (font-spec :family "VictorMono" :size 15 :weight 'Medium)
-      doom-variable-pitch-font (font-spec :family "azuki_font" :size 17 :weight 'Bold)
-      doom-big-font (font-spec :family "VictorMono" :size 50))
+(setq doom-font (font-spec :family "PragmataPro Liga" :size 15 :weight 'Medium)
+      doom-variable-pitch-font (font-spec :family "Nunito" :size 17 :weight 'Bold)
+      doom-big-font (font-spec :family "PragmataPro Liga" :size 50))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -38,7 +38,7 @@ Set indents to 4 spaces.
 #+end_src
 ** Theme
 #+begin_src elisp
-(setq doom-theme 'doom-gruvbox-light)
+(setq doom-theme 'doom-city-lights)
 #+end_src
 
 
