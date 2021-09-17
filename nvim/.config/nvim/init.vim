@@ -1,6 +1,5 @@
 " vim:fileencoding=utf-8:foldmethod=marker
 
-
 " => General Settings {{{
 
 set guifont=FiraCode\ Nerd\ Font:h30
@@ -32,9 +31,6 @@ set timeoutlen=420
 set title titlestring=vim\[%t\]\:%n titlelen=70
 
 
-
-
-
 " Set python interpreters; this speeds up startup time but not necessary
 let g:python3_host_prog="/usr/bin/python3"
 let g:python_host_prog="/usr/bin/python2"
@@ -53,6 +49,13 @@ if has('persistent_undo')
     let &undodir = target_path    " finally, enable undo persistence.
     set undofile
 endif 
+
+
+
+
+
+
+
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -80,6 +83,7 @@ set cmdheight=1
 set conceallevel=2
 
 " }}}
+
 
 " => User Interface {{{
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -169,10 +173,17 @@ augroup END
 " beancount 
 inoremap <C-x><tab> <C-x><C-o>
 
+" Saner behaviour of `n` and `N`
+nnoremap <expr> n  'Nn'[v:searchforward]
+xnoremap <expr> n  'Nn'[v:searchforward]
+onoremap <expr> n  'Nn'[v:searchforward]
+
+nnoremap <expr> N  'nN'[v:searchforward]
+xnoremap <expr> N  'nN'[v:searchforward]
+onoremap <expr> N  'nN'[v:searchforward]
 " }}}
 
-
-" => augroups{{{
+" => augroups {{{
 augroup pandoc_syntax
     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
     au! BufNewFile,BufFilePre,BufRead *.pdc set filetype=markdown.pandoc
@@ -230,6 +241,7 @@ augroup END
 let g:asmsyntax='nasm'
 
 " }}}
+"
 
 """"""""
 " => Polyglot
@@ -237,7 +249,12 @@ let g:asmsyntax='nasm'
 " Polyglot is slow but it is the best option atm will have to use it...
 let g:polyglot_disabled = ['org']
 let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
+
+
+
 " => vim-plug {{{
+
+
 " auto-installation script
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))
 "   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -257,7 +274,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'ihasdapie/vim-snippets'
-Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill', 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
+Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill',
+            \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
+            \ 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kshenoy/vim-signature' 
 Plug 'ggandor/lightspeed.nvim'
@@ -298,7 +318,7 @@ Plug 'michaelb/sniprun', {'do': 'bash install.sh', 'on': ['SnipRun', ]}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'rafi/vim-venom', { 'for': 'python' }
+" Plug 'rafi/vim-venom', { 'for': 'python' }
 Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-surround'
@@ -309,13 +329,13 @@ Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
 Plug 'tpope/vim-dadbod', {'on': ['DBUI', 'DB']}
 Plug 'mg979/vim-visual-multi'
 
-" Plug 'puremourning/vimspector'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 
 " Other
 Plug 'weirongxu/plantuml-previewer.vim', {'for': 'plantuml'}
-Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']} "dependency for plantuml-previewer
+Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
+            \ 'OpenBrowserSearch', 'OpenBrowserSmartSearch']}
 
 " Language Syntax
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'pdc', 'pandoc']}
@@ -335,20 +355,24 @@ Plug 'p00f/nvim-ts-rainbow'
 
 " Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
 
-Plug 'kristijanhusak/orgmode.nvim', {'for': ['org']}
-
+Plug 'kristijanhusak/orgmode.nvim', {'for': ['org'], 'branch': 'tree-sitter'}
 Plug '~/Projects/vim-dev/nvim-bufferline.lua'
-" Plug 'akinsho/nvim-toggleterm.lua'
-" Plug 'akinsho/nvim-bufferline.lua'
-
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
-Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
+" Plug 'edluffy/hologram.nvim'
 
+
+" Debugger
+
+Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
+            \ '<Plug>VimspectorBalloonEval', 'AbortInstall', 'DebugInfo', 'Install', 'Reset',
+            \ 'ShowOutput', 'ToggleLog', 'Update', 'Watch']}
 
 call plug#end()
-
-
 " }}}
+
+
+
 
 ": => Colorscheme {{{
 let g:gruvbox_bold=1
@@ -362,7 +386,7 @@ colorscheme ayu
 
 "}}}
 
-": => Vista {{{
+" => Vista {{{
 
 " let g:vista_icon_indent = ["╰─▶ ", "├─▶ "] 
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "] 
@@ -392,7 +416,7 @@ let g:vista_disable_statusline=1
 let g:vista#renderer#ctags='kind'
 let g:vista_floating_delay=200
 
-"}}}
+" }}}
 
 " => FZF {{{
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
@@ -438,6 +462,9 @@ function s:MKDir(...)
     return mkdir(fnamemodify(a:1, ':p:h'), 'p')
 endfunction
 command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <args>
+
+
+
 " }}}
 
 
@@ -631,22 +658,30 @@ endfunction
 
 " => Lua Configurations {{{
 
+" lua require('plugins')
+" lua require('impatient')
 lua require('galaxyline_config')
 lua require('nvim-bufferline_config')
-lua require('orgmode-nvim_config')
-lua require('treesitter_config')
 lua require('which-key_config')
 lua require('gitsigns_config')
+
+" Since neorg defines a treesitter parser, we must run this before our
+" treesitter setup()
+" lua require('neorg_config')  
+
+lua require('treesitter_config')
 lua require('vimtex_bindings')
+
 " lua require('todo-comments_config')
 " lua require('telescope_config')
-" lua require('toggleterm_config')
-
-
-
 
 " }}}
 
+
+" -> Orgmode.nvim {{{
+
+
+"  }}}
 
 
 " => Treesitter {{{
@@ -655,6 +690,7 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldnestmax=10
 " }}}
+lua require('orgmode-nvim_config')
 
 
 " => dadbod {{{
@@ -761,13 +797,9 @@ lua require('dashboard_config')
 """"""""""""""
 
 " This absolutely massacres startup time for repo without virtualenv...
-let g:venom_use_tools = 1
-let g:venom_tools = {
-  \ 'poetry': 'poetry env info -p'
-  \ }
-  " 'pipenv': 'pipenv --venv'
-autocmd User VenomActivated CocRestart
-
+" let g:venom_use_tools = 1
+" let g:venom_tools = { 'poetry': 'poetry env info -p'}
+" autocmd User VenomActivated CocRestart
 
 """"""""""""""""
 " => Pandoc
@@ -834,11 +866,6 @@ let g:LargeFile=50
  
 " }}}
 
-""""""""""""""
-" Graveyard
-""""""""""""""
-" source ~/.config/nvim/graveyard.vim
-
 
 """"""""""""""
 " Private Configuration
@@ -848,8 +875,19 @@ source ~/dotfiles-private/nvim/private.vim
 
 
 
+"""""""""""""""
+" Lightspeed.nvim
+"""""""""""""""
+
+" make `f`, `t` work as per normal in macros
+" Issue will be resolved soon, https://github.com/ggandor/lightspeed.nvim/issues/14
+nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
+nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
+nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
+nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
 
 
+" => Wilder.nvim {{{
 
 call wilder#setup({'modes': [':', '/', '?'],
       \ 'next_key': '<Tab>',
@@ -893,4 +931,5 @@ endfunction
 
 
 
+" }}}
 

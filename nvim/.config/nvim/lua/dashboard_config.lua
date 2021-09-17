@@ -21,10 +21,12 @@ end
 
 
 -- requires cowsay, fortune, shuf
-
 local footer = {'', "Have `fortune`, `cowsay`, and `shuf` for cows in your dashboard!", 'Cowfiles should be in `/usr/share/fortune`. If not, just edit the path in dashboard_config.lua', ''}
+local cowsay_enabled = true
 
-if os.execute('which shuf') and os.execute('which fortune') and os.execute('which cowsay') then
+
+-- if os.execute('which shuf') and os.execute('which fortune') and os.execute('which cowsay') then
+if cowsay_enabled then
     -- This adds another 40ms to startuptime...
     footer = split_str(io.popen('fortune -s | cowsay -f $(ls /usr/share/cows | shuf -n1)'):read('*a'), '\n')
     table.insert(footer, #footer+1, '')
@@ -48,12 +50,20 @@ vim.g.dashboard_custom_section = {
         description = make_dashboard_entry('  Explore Keybindings', 'SPC SPC' , dashboard_entry_length),
         command = 'WhichKey'
     },
-    buffer_list= {
+    recent_list= {
         description= make_dashboard_entry('  Recent Files', 'SPC f r', dashboard_entry_length),
+        command = 'History'
+    },
+    find_files = {
+        description= make_dashboard_entry('  Find Files', 'SPC f f', dashboard_entry_length),
         command = 'Files'
     },
+    edit_config = {
+        description= make_dashboard_entry('  Config Files', 'SPC f P', dashboard_entry_length),
+        command = 'FZF ~/.config/nvim'
+    },
     pick_project = {
-        description = make_dashboard_entry('  Pick Project', 'SPC p c', dashboard_entry_length),
+        description = make_dashboard_entry('  Pick Project', 'SPC p p', dashboard_entry_length),
         command = 'FzfSwitchProject'
     },
 
