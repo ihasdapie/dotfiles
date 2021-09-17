@@ -23,9 +23,9 @@
        (company +childframe)          ; the ultimate code completion backend
        ;; (helm +fuzzy)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +prescient)              ; a search engine for love and life
+       (ivy +icons)              ; a search engine for love and life
 
-
+       :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
@@ -35,8 +35,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
-       ;; ligatures         ; ligatures and symbols to make your code pretty again !
-       ;; (ligatures +extra)          ; ligatures and symbols to make your code pretty again
+       (ligatures +extra)          ; ligatures and symbols to make your code pretty again
        ; minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions

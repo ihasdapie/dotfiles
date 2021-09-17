@@ -19,6 +19,8 @@
 
         /* Coc-Python  */
 
+        "python.formatting.provider": "black",
+
         "python.linting.pylintEnabled": true,
         "python.linting.pylintArgs": ["--disable=R,C"],
         "python.linting.flake8Enabled": true,

@@ -7,7 +7,7 @@
 (setq c-basic-offset 4)
 
 (setq doom-font (font-spec :family "PragmataPro Liga" :size 15 :weight 'Medium)
-      doom-variable-pitch-font (font-spec :family "Nunito" :size 17 :weight 'Bold)
+      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 14)
       doom-big-font (font-spec :family "PragmataPro Liga" :size 50))
 
 (after! doom-themes
@@ -21,6 +21,7 @@
 
 (setq org-hide-emphasis-markers t) ;; hide /.../ *...*, etc
 (add-hook 'org-mode-hook 'variable-pitch-mode) ;; use variable pitch font for org files
+(add-hook 'org-mode-hook 'org-bullets-mode)
 (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$")) ;; use all files in ~org for agenda
 
 ;; Use fancy fonts in org

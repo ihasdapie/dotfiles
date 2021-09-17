@@ -107,6 +107,31 @@ wk.register( {
 
       },
 
+      e = {
+        name = "+edit",
+        -- From https://github.com/mhinz/vim-galore
+        -- Takes a register (default *) and opens it in command-line window for editing
+        -- Use it like this <leader>er or "q<leader>er.
+        r = {":<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>", "Edit register"}
+      },
+
+      d = {
+        name = "+debug",
+        c = {"<Plug>VimspectorContinue", "start or continue"},
+        S = {"<Plug>VimspectorStop", "stop"},
+        R = {"<Plug>VimspectorRestart", "restart"},
+        P = {"<Plug>VimspectorPause", "pause debugger"},
+        b = {"<Plug>VimspectorToggleBreakpoint", "toggle breakpoint"},
+        B = {"<Plug>VimspectorToggleConditionalBreakpoint", "toggle conditional breakpoint"},
+        F = {"<Plug>VimspectorAddFunctionBreakpoint", "add function breakpoint"},
+        C = {"<Plug>VimspectorRunToCursor", "run to cursor"},
+        n = {"<Plug>VimspectorStepOver", "step over"},
+        N = {"<Plug>VimspectorStepInto", "step into"},
+        o = {"<Plug>VimspectorStepOut", "step out of current"},
+        i = {"<Plug>VimspectorBalloonEval", "debug inspect"},
+        u = {"<Plug>VimspectorUpFrame", "up stack"},
+        d = {"<Plug>VimspectorDownFrame", "down stack"},
+      },
 
       f = {
         name = "+files",
@@ -192,6 +217,7 @@ wk.register( {
 
       w = {
         name = "+window",
+        m = {"<cmd>WinShift<CR>", "rearrange windows"},
         s = {"<cmd>split<CR>", "horizontal split"},
         v = {"<cmd>vsplit<CR>", "vertical split"},
         c = {"<cmd>close<CR>", "close"},
