@@ -64,17 +64,12 @@ wk.setup {
   },
 }
 
-wk.register( {
-
-
+wk.register( { -- Normal mode mappings
     g = {
       F = {"<cmd>silent! !xdg-open <cfile> &<CR>", "XDG-open in external program"},
     },
 
-
-
     ["<leader>"] = {
-
       ['<leader>'] = {"<cmd>WhichKey<CR>", "WhichKey bindings"},
       b = {
           name = "+buffer",
@@ -86,8 +81,10 @@ wk.register( {
 
       c = {
           name = "+code",
+          a = {"<Plug>(coc-codeaction-selected", "codeaction"},
           c = {"<cmd>CocList --auto-preview --ignore-case commands<CR>", "list avaliable commands"},
-          -- qf = {"<Plug>(coc-fx-current)", "coc-fix"},
+          f = {"<Plug>(coc-fix-current)", "code fix"},
+          r = {"<Plug>(coc-rename)", "rename"},
           L = {
             name = "+lint",
             w = {":%s/\\s\\+$//e<CR>", "Delete all trailing whitespace"},
@@ -103,9 +100,13 @@ wk.register( {
               h = {"<cmd>Pickachu color hex<CR>", "hex color"},
               f = {"<cmd>Pickachu file<CR>", "file"},
               d = {"<cmd>Pickachu date<CR>", "date"},
-          }
+            },
+          R = {
+              name = "+run",
+              r = {"<cmd>SnipRun<CR>", 'sniprun'}
+            },
 
-      },
+          },
 
       e = {
         name = "+edit",
@@ -146,13 +147,12 @@ wk.register( {
       g = {
         name = "+git",
         G = {"<cmd>Git<CR>", "status"},
+        c = {"<cmd>Commits<CR>", "commits"},
 
         F = {
           name = "+fugitive",
-            G = {"<cmd>Git<CR>", "status"},
             b = {"<cmd>Git blame<CR>", "blame"},
         },
-
 
 
         f = {"<cmd>GFiles<CR>", "search git files"},
@@ -203,6 +203,8 @@ wk.register( {
         name = "+list",
         y = {"<cmd>CocList -A --normal yank<CR>", "yank"},
         o = {"<cmd>CocList -A outline<CR>", "outline"},
+        s = {"<cmd>CocList -A symbols<CR>", "outline"},
+        d = {"<cmd>CocList -A diagnostics", "diagnostics"},
         m = {"<cmd>Marks<CR>", "marks"},
 
 
@@ -226,6 +228,8 @@ wk.register( {
         p = {"<cmd>Windows<CR>", "pick"},
         W = {"<cmd>Windows<CR>", "pick"},
 
+        t = {"<cmd>MaximizerToggle!<CR>", "toggle maximize window"},
+
         h = {"<cmd>wincmd h<CR>", "select left"},
         j = {"<cmd>wincmd j<CR>", "select below"},
         k = {"<cmd>wincmd k<CR>", "select above"},
@@ -241,8 +245,6 @@ wk.register( {
         ["<lt>"] = {"<cmd>20 wincmd <lt> <CR>", "decrease size"},
         ["="] = {"<cmd>wincmd = <CR>", "equal size"},
 
-        K = {"<cmd>wincmd K<CR>", "Arrange horizontally"},
-        H = {"<cmd>wincmd H<CR>", "Arrange vertically"},
       },
 
 
@@ -322,6 +324,7 @@ wk.register( {
         w = {"<cmd>w<CR>", "Save file"},
         p = {"\"+p", "Paste from system clipboard"},
         y = {"\"+y", "Copy to system clipboard"},
+        lf = {"<cmd>luafile %<CR>", "run current lua file"},
 
         t = {
           name = "+floaterm",
@@ -338,18 +341,41 @@ wk.register( {
   })
 
 
+wk.register({ -- Visual mode mappings
+    c = {
+      name="+code",
+      a = {"<Plug>(coc-codeaction-selected", "codeaction"},
+
+      R = {
+        name="+run",
+        r = {"<cmd>SnipRun", "sniprun"},
+      }
+      }
+
+  }, {mode='x'})
+
+
+
+wk.register({ -- insert mode mappings (Leader = <C-x>))
+   f = {"fzf#vim#complete#path('rg--files')", "Insert file name", expr=true},
+   ['<tab>'] = {"<C-x><C-o>", "complete omnifunc"},
+   i = {"<C-x><C-o>", "complete omnifunc"},
+
+
+
+
+  },
+  {mode='i',
+    prefix="<C-x>"})
+
+
+
+
+
+
+
+
 
 
 
 -- TODO: Map <cmd>Man<CR> somewhere -- gives vim help for thing under cursor
---
---
---
---
---
---
---
---
---
---
---

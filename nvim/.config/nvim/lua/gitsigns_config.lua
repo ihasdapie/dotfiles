@@ -2,7 +2,7 @@
 require('gitsigns').setup {
     current_line_blame = true,
     _refresh_staged_on_update = false,
-    watch_index = {
+    watch_gitdir = {
         interval = 10000,
     },
     update_debounce = 1000,

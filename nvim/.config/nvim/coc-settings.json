@@ -1,9 +1,13 @@
 {
+
         "coc.source.emoji.filetypes": [
                 "gitcommit",
                 "markdown",
                 "pandoc",
         ],
+
+        "rust-analyzer.checkOnSave.command": "clippy",
+
         "coc.preferences.rootPatterns": [".git", ".hg", ".vim", ".projections.json"],
         "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
         "coc.preferences.currentFunctionSymbolAutoUpdate": true,
@@ -15,7 +19,6 @@
         "tabnine.priority": 50,
         "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
 
-        "diagnostic.displayByAle": false,
 
         /* Coc-Python  */
 
@@ -91,6 +94,9 @@
         }, */
 
         /* Coc-Diagnostics */
+
+        "diagnostic.level": "hint",
+        "diagnostic.displayByAle": false,
         "diagnostic.errorSign": "",
         "diagnostic.warningSign": "",
         "diagnostic.infoSign": "",
@@ -109,6 +115,15 @@
         "Lua.diagnostics.globals": [
                 "vim"
         ],
+
+        "languageserver": {
+                "svls": {
+                        "command": "svls",
+                        "filetypes": ["systemverilog"]
+                }
+        },
+
+        "highlight.colorNames.enable": false
 
         /* "languageserver": { */
                 /*   "golang": { */

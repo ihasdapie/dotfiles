@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-fortune | cowthink -f small
+fortune | cowthink  -f small
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -149,6 +149,7 @@ alias za='zathura'
 alias mpv='mpv -hwdec' # enable hardware decoding for mpv
 alias less='less --incsearch'
 alias rm='trash'
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 ##################
 # My Aliases END
@@ -212,7 +213,7 @@ nn () {
     fi
 }
 
-xp () {
+xd () {
   cd $(xplr)
 }
 

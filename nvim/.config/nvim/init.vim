@@ -2,8 +2,7 @@
 
 " => General Settings {{{
 
-set guifont=FiraCode\ Nerd\ Font:h30
-" set guifont=Victor\ Mono\ Bold\ Nerd\ Font\ Complete\ Mono:h30
+set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua/
@@ -36,7 +35,8 @@ let g:python3_host_prog="/usr/bin/python3"
 let g:python_host_prog="/usr/bin/python2"
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
-set shortmess=atc
+set report=99999 " Increase threshold for reporting number of lines changed
+set shortmess=atcF " 'F' gets rid of the annoying echoing filename
 
 " guard for distributions lacking the 'persistent_undo' feature.
 if has('persistent_undo')
@@ -266,7 +266,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
 Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
@@ -278,7 +278,10 @@ Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'Floaterm
             \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
             \ 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" glepnir isn't maintaining plugins atm
+Plug 'NTBBloodbath/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'windwp/windline.nvim'
 Plug 'kshenoy/vim-signature' 
 Plug 'ggandor/lightspeed.nvim'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
@@ -305,6 +308,7 @@ Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
 Plug 'navarasu/onedark.nvim', {'on': ['Colors']}
 Plug 'b4skyx/serenade', {'on': ['Colors']}
 Plug 'Luxed/ayu-vim' 
+Plug 'rose-pine/neovim'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -339,7 +343,8 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
 
 " Language Syntax
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'pdc', 'pandoc']}
-Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
+" Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
+Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
 Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc', 'pdc', 'markdown'], 'on': ['Pandoc']}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown'], 'on': ['Pandoc']}
@@ -359,7 +364,9 @@ Plug 'kristijanhusak/orgmode.nvim', {'for': ['org'], 'branch': 'tree-sitter'}
 Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
+Plug 'szw/vim-maximizer', {'on': ['MaximizerToggle']}
 " Plug 'edluffy/hologram.nvim'
+Plug 'lewis6991/impatient.nvim'
 
 
 " Debugger
@@ -371,7 +378,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 call plug#end()
 " }}}
 
-
+lua require('impatient')
 
 
 ": => Colorscheme {{{
@@ -382,6 +389,7 @@ let g:ayucolor="mirage" " for mirage version of theme
 let g:ayu_italic_comment = 1 " defaults to 0.
 let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
 
+let g:rose_pine_variant = 'moon'
 colorscheme ayu
 
 "}}}
@@ -409,7 +417,7 @@ let g:vista_executive_for = {
     \ 'lua': 'coc'
     \ }
 
-let g:vista_fzf_preview=['down:69%']
+" let g:vista_fzf_preview=['down:69%']
 let g:vista_keep_f_colors=1
 let g:vista_finder_alternative_executives=['coc', 'ctags']
 let g:vista_disable_statusline=1
@@ -438,9 +446,8 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -448,6 +455,12 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --follow --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 " create file with subdirectories if needed :E
 function s:MKDir(...)
@@ -495,7 +508,11 @@ nnoremap <silent>KK :call <SID>show_documentation()<CR>
 nnoremap <silent>K :call ShowDoc()<CR><C-e>
 
 " Use C-enter to select instead (so it doesn't mess up entering a newline at times)
-inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm() : "\ijj>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+" TODO Remove "ijj>u" to be inserted...
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -659,7 +676,7 @@ endfunction
 " => Lua Configurations {{{
 
 " lua require('plugins')
-" lua require('impatient')
+" lua require('windline_config')
 lua require('galaxyline_config')
 lua require('nvim-bufferline_config')
 lua require('which-key_config')
@@ -671,6 +688,7 @@ lua require('gitsigns_config')
 
 lua require('treesitter_config')
 lua require('vimtex_bindings')
+lua require('dashboard_config')
 
 " lua require('todo-comments_config')
 " lua require('telescope_config')
@@ -705,7 +723,12 @@ let g:db_ui_auto_execute_table_helpers=1
 " }}}
 
 " => Unorganized {{{
- 
+
+
+""""""""""""""
+" => vim-maximizer
+"""""""""""""""""
+let g:maximizer_set_default_mapping=0
 
 """"""""""
 " => md-image-paste
@@ -786,10 +809,6 @@ let g:floaterm_height = 0.420
 let g:floaterm_position='bottom'
 
 
-"""""""""""""""""
-" => dashboard-nvim
-""""""""""""""""""'
-lua require('dashboard_config')
 
 
 """"""""""""""
@@ -836,6 +855,18 @@ let g:vimtex_compiler_latexmk = {
                 \   '-shell-escape'
                 \ ],
                 \}
+
+" Enable "<Alt-i>" keybinding for adding \item in enumerate/itemize
+call vimtex#imaps#add_map({
+      \ 'lhs' : '<m-i>',
+      \ 'rhs' : '\item ',
+      \ 'leader'  : '',
+      \ 'wrapper' : 'vimtex#imaps#wrap_environment',
+      \ 'context' : ["itemize", "enumerate"],
+      \})
+
+
+
 
 """""""""""""""""""""""
 "=>suda.vim
@@ -923,13 +954,17 @@ function! s:wilder_init() abort
                         \   'highlighter': wilder#basic_highlighter(),
                         \ }),
                         \ }))
-
 endfunction
 
 
-
-
-
-
 " }}}
+
+
+
+" open file in default external program
+command! -bang -nargs=* -complete=file Open :silent! !xdg-open <args> &
+
+
+
+
 
