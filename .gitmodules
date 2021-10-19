@@ -1,3 +1,6 @@
 [submodule "mailspring/.config/Mailspring/mailspring"]
 	path = mailspring/.config/Mailspring/mailspring
 	url = git@github.com:dracula/mailspring.git
+[submodule "kitty/.config/kitty/kitty-themes"]
+	path = kitty/.config/kitty/kitty-themes
+	url = https://github.com/ihasdapie/kitty-themes

@@ -28,7 +28,7 @@ local cowsay_enabled = true
 -- if os.execute('which shuf') and os.execute('which fortune') and os.execute('which cowsay') then
 if cowsay_enabled then
     -- This adds another 40ms to startuptime...
-    footer = split_str(io.popen('fortune -s | cowsay -f $(ls /usr/share/cows | shuf -n1)'):read('*a'), '\n')
+    footer = split_str(io.popen('fortune -s | cowsay -f $(ls /usr/share/cows | shuf -n 1)'):read('*a'), '\n')
     table.insert(footer, #footer+1, '')
 end
 
