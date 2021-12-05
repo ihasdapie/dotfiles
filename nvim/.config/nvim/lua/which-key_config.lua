@@ -1,4 +1,3 @@
-
 local wk = require('which-key')
 
 wk.setup {
@@ -82,19 +81,19 @@ wk.register( { -- Normal mode mappings
       c = {
           name = "+code",
           a = {"<Plug>(coc-codeaction-selected", "codeaction"},
-          c = {"<cmd>CocList --auto-preview --ignore-case commands<CR>", "list avaliable commands"},
+          c = {"<cmd>CocList --ignore-case commands<CR>", "list avaliable commands"},
           f = {"<Plug>(coc-fix-current)", "code fix"},
           r = {"<Plug>(coc-rename)", "rename"},
-          L = {
-            name = "+lint",
-            w = {":%s/\\s\\+$//e<CR>", "Delete all trailing whitespace"},
-          },
-
           l = {
               name = "+lsp",
               r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},
               R = {"<cmd>CocRebuild<CR>", "rebuild coc.nvim"},
           },
+          L = {
+            name = "+lint",
+            w = {":%s/\\s\\+$//e<CR>", "Delete all trailing whitespace"},
+          },
+
           p = {
               name = "+pick",
               h = {"<cmd>Pickachu color hex<CR>", "hex color"},
@@ -133,6 +132,7 @@ wk.register( { -- Normal mode mappings
         u = {"<Plug>VimspectorUpFrame", "up stack"},
         d = {"<Plug>VimspectorDownFrame", "down stack"},
       },
+
 
       f = {
         name = "+files",
@@ -255,7 +255,7 @@ wk.register( { -- Normal mode mappings
         P = {"<cmd>RG<CR>", "all files at cwd + regex"},
         B = {"<cmd>Lines<CR>", "open buffers"}, b = {"<cmd>BLines<CR>", "current buffer"},
         s = {"<cmd>Vista finder<CR>", "symbols"},
-        r = {":CocSearch", "search-and-replace"},
+        r = {":CocSearch ", "search-and-replace"},
         h = {
             name = "+history",
             c = {"<cmd>History:<CR>", "commands"},
@@ -360,8 +360,6 @@ wk.register({ -- insert mode mappings (Leader = <C-x>))
    f = {"fzf#vim#complete#path('rg--files')", "Insert file name", expr=true},
    ['<tab>'] = {"<C-x><C-o>", "complete omnifunc"},
    i = {"<C-x><C-o>", "complete omnifunc"},
-
-
 
 
   },

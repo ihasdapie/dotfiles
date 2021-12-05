@@ -10,6 +10,7 @@ vim.o.cursorline = true
 -- vim.o.history = 500
 vim.o.mouse='a'
 
+vim.g.did_load_filetypes = 1
 
 
 --[[

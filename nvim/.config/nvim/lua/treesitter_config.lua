@@ -22,7 +22,8 @@ require'nvim-treesitter.configs'.setup {
         },
     },
     rainbow = {
-        enable = true
+        enable = true,
+        colors = require('ayu').rainbow_colors
     },
     refactor = {
         highlight_definitions = {enable = true},

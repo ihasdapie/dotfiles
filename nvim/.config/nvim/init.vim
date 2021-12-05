@@ -51,7 +51,17 @@ if has('persistent_undo')
 endif 
 
 
+if !isdirectory(expand('~/.config/nvim/view/'))
+    silent ! mkdir -p ~/.config/nvim/view
+endif
+set viewdir=~/.config/nvim/view/
 
+
+augroup remember_folds
+  autocmd!
+  au BufWinLeave *.*  mkview
+  au BufWinEnter *.* silent! loadview
+augroup END
 
 
 
@@ -83,7 +93,6 @@ set cmdheight=1
 set conceallevel=2
 
 " }}}
-
 
 " => User Interface {{{
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -129,6 +138,8 @@ if (has("termguicolors"))
 endif
 
 
+
+""" Disable built in plugins {{{
 let g:loaded_gzip = 1
 let g:loaded_tar = 1
 let g:loaded_tarPlugin = 1
@@ -148,18 +159,13 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
 let g:loaded_netrwFileHandlers = 1
 
+
+""" }}}
+
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Self-explanatory.
-set viewdir=~/dotfiles-private/nvim/view 
-augroup remember_folds
-  autocmd!
-  au BufWinLeave *.*  mkview
-  au BufWinEnter *.* silent! loadview
-augroup END
-
-
 
 " Make quickfix buffers nonlisted
 augroup qf
@@ -238,6 +244,13 @@ augroup ASM
     au BufRead *.asm setfiletype asm
 augroup END
 
+augroup ARM
+    au BufNewfile *.s setfiletype arm
+    au BufRead *.s setfiletype arm
+augroup END
+
+
+
 let g:asmsyntax='nasm'
 
 " }}}
@@ -249,8 +262,6 @@ let g:asmsyntax='nasm'
 " Polyglot is slow but it is the best option atm will have to use it...
 let g:polyglot_disabled = ['org']
 let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for trailing whitespace
-
-
 
 " => vim-plug {{{
 
@@ -266,7 +277,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'junegunn/fzf'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
 Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
@@ -286,6 +297,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
 Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
+Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
+Plug 'szw/vim-maximizer', {'on': ['MaximizerToggle']}
 
 " Performance improvements
 Plug 'antoinemadec/FixCursorHold.nvim'
@@ -305,10 +318,14 @@ Plug 'glepnir/dashboard-nvim'
 " Colourschemes
 Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
 Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
-Plug 'navarasu/onedark.nvim', {'on': ['Colors']}
 Plug 'b4skyx/serenade', {'on': ['Colors']}
-Plug 'Luxed/ayu-vim' 
-Plug 'rose-pine/neovim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'Luxed/ayu-vim'
+Plug 'FrenzyExists/aquarium-vim'
+Plug 'Mangeshrex/uwu.vim'
+Plug 'navarasu/onedark.nvim'
+Plug 'catppuccin/nvim'
+
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -321,13 +338,14 @@ Plug 'rose-pine/neovim'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh', 'on': ['SnipRun', ]}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
-Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'nathanaelkane/vim-indent-guides'
+Plug 'lukas-reineke/indent-blankline.nvim'
 " Plug 'rafi/vim-venom', { 'for': 'python' }
 Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-surround'
 Plug 'folke/which-key.nvim'
-Plug 'ferrine/md-img-paste.vim'
+Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex']}
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
 Plug 'tpope/vim-dadbod', {'on': ['DBUI', 'DB']}
@@ -342,7 +360,7 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
             \ 'OpenBrowserSearch', 'OpenBrowserSmartSearch']}
 
 " Language Syntax
-Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'pdc', 'pandoc']}
+Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
 " Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
 Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
@@ -357,23 +375,34 @@ Plug 'p00f/nvim-ts-rainbow'
 
 
 " Experimental
+"
+Plug 'ARM9/arm-syntax-vim'
 
 " Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
 
-Plug 'kristijanhusak/orgmode.nvim', {'for': ['org'], 'branch': 'tree-sitter'}
+Plug 'kristijanhusak/orgmode.nvim'
+" Plug 'kristijanhusak/orgmode.nvim'
 Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
-Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
-Plug 'szw/vim-maximizer', {'on': ['MaximizerToggle']}
-" Plug 'edluffy/hologram.nvim'
 Plug 'lewis6991/impatient.nvim'
+
+" Replace `filetype.vim` which is really slow
+" However this breaks :CocConfig which loads a `.json` file even though the
+" filetype should be `.jsonc`
+Plug 'nathom/filetype.nvim'
+Plug 'github/copilot.vim'
+
+" I can't seem to find another way emacs-like file finder without one of these
+" two plugins...
+Plug 'conweller/findr.vim', {'on': ['Findr', 'FindrBuffers', 'FindrLocList', 'FindrQFList']}
+Plug 'liuchengxu/vim-clap', {'on': ['Clap']}
 
 
 " Debugger
 
 Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
-            \ '<Plug>VimspectorBalloonEval', 'AbortInstall', 'DebugInfo', 'Install', 'Reset',
-            \ 'ShowOutput', 'ToggleLog', 'Update', 'Watch']}
+            \ '<Plug>VimspectorBalloonEval', 'VimspectorAbortInstall', 'VimspectorDebugInfo', 'VimspectorInstall', 'VimspectorReset',
+            \ 'VimspectorShowOutput', 'VimspectorToggleLog', 'VimspectorUpdate', 'VimspectorWatch']}
 
 call plug#end()
 " }}}
@@ -385,13 +414,47 @@ lua require('impatient')
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 
+let g:onedark_style = 'dark'
+let g:onedark_transparent_background=1
+let g:onedark_toggle_style_keymap = '<leader>hT'
+let g:onedark_diagnostics_undercurl=1
+let g:onedark_italic_comments=1
+
 let g:ayucolor="mirage" " for mirage version of theme
 let g:ayu_italic_comment = 1 " defaults to 0.
 let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
 
-let g:rose_pine_variant = 'moon'
-colorscheme ayu
+function! s:custom_ayu_colors()
+        call ayu#hi('MatchParen', 'fg', 'fg_idle', 'underline')
+endfunction
 
+augroup custom_colors
+  autocmd!
+  autocmd ColorScheme ayu call s:custom_ayu_colors()
+augroup END
+
+" lua << EOF
+" local nightfox = require('nightfox')
+" -- This function set the configuration of nightfox. If a value is not passed in the setup function
+" -- it will be taken from the default configuration above
+" nightfox.setup({
+"   fox = "nightfox",
+"   -- transparent=true,
+"   terminal_colors=true,
+"   styles = {
+"     comments = "bold,italic", -- change style of comments to be italic
+"     keywords = "bold", -- change style of keywords to be bold
+"     functions = "italic" -- styles can be a comma separated list
+"   },
+" })
+" -- Load the configuration set above and apply the colorscheme
+" EOF
+
+let g:aquarium_style = "dark"
+
+lua require('catppuccin_config')
+
+colorscheme catppuccin
 "}}}
 
 " => Vista {{{
@@ -454,13 +517,22 @@ function! RipgrepFzf(query, fullscreen)
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --follow --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
+
+" Rg with reload: RG
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+command! -bang -nargs=* RgHidden
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --no-heading --color=always --follow --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+
+
 
 " create file with subdirectories if needed :E
 function s:MKDir(...)
@@ -475,7 +547,6 @@ function s:MKDir(...)
     return mkdir(fnamemodify(a:1, ':p:h'), 'p')
 endfunction
 command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <args>
-
 
 
 " }}}
@@ -593,10 +664,13 @@ command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
 
 " }}}
 
-" coc-extensions list
+" python-input usually gives inferior results to just the language server and it also doesn't do the icons right
+let g:coc_sources_disable_map = {
+            \ 'python': ['python-import']  
+            \ }
+
 let g:coc_global_extensions = [
             \ 'coc-yank',
-            \ 'coc-tabnine',
             \ 'coc-snippets',
             \ 'coc-marketplace',
             \ 'coc-html-css-support',
@@ -625,6 +699,7 @@ let g:coc_global_extensions = [
             \ 'coc-db'
             \ ]
 
+            " \ 'coc-tabnine',
 
 
 " }}}
@@ -649,9 +724,12 @@ function! Toggle_transparent()
     endif
 endfunction
 
+
+
+
 " Focus mode
 function! Prose_mode()
-    execute ":TZMinimalist"
+    execute ":Copilot disable"
     execute ":set linebreak"
     execute ":set wrap"
 endfunction
@@ -671,6 +749,7 @@ function! Scratch()
     file scratch
 endfunction
 
+
 " }}}
 
 " => Lua Configurations {{{
@@ -681,6 +760,7 @@ lua require('galaxyline_config')
 lua require('nvim-bufferline_config')
 lua require('which-key_config')
 lua require('gitsigns_config')
+lua require('indent-blankline_config')
 
 " Since neorg defines a treesitter parser, we must run this before our
 " treesitter setup()
@@ -767,11 +847,9 @@ let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', '
 " au TermLeave * IndentGuidesEnable
 
 
-""""""""""""""""""""""""
-" => Indentline
- """"""""""""
-" let g:indent_blankline_use_treesitter = v:true
-" let g:indentLine_fileType = ['help', 'qf', 'quickfix', 'whichkey', 'WhichKey', 'nofile', 'terminal', 'nofile', "dashboard"]
+
+
+""""""""""""
 " => keybinds
 """""""""""
 silent source ~/.config/nvim/keybindings.vim
@@ -856,15 +934,6 @@ let g:vimtex_compiler_latexmk = {
                 \ ],
                 \}
 
-" Enable "<Alt-i>" keybinding for adding \item in enumerate/itemize
-call vimtex#imaps#add_map({
-      \ 'lhs' : '<m-i>',
-      \ 'rhs' : '\item ',
-      \ 'leader'  : '',
-      \ 'wrapper' : 'vimtex#imaps#wrap_environment',
-      \ 'context' : ["itemize", "enumerate"],
-      \})
-
 
 
 
@@ -898,25 +967,19 @@ let g:LargeFile=50
 " }}}
 
 
-""""""""""""""
-" Private Configuration
-""""""""""""""
-source ~/dotfiles-private/nvim/private.vim
-
-
-
-
-"""""""""""""""
-" Lightspeed.nvim
-"""""""""""""""
-
+" Lightspeed.nvim {{{ 
 " make `f`, `t` work as per normal in macros
-" Issue will be resolved soon, https://github.com/ggandor/lightspeed.nvim/issues/14
 nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
 nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
 nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
 nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
+" }}}
 
+""" => Vimspector {{{
+
+let g:vimspector_base_dir=expand('$HOME/.config/nvim/vimspector-config')
+
+"}}}
 
 " => Wilder.nvim {{{
 
@@ -926,6 +989,7 @@ call wilder#setup({'modes': [':', '/', '?'],
       \ })
 
 call wilder#set_option('use_python_remote_plugin', 0)
+
 
 
 
@@ -960,9 +1024,94 @@ endfunction
 " }}}
 
 
+" => Copilot {{{
+let g:copilot_filetypes = {
+            \ 'findr.findr-files': v:false,
+            \ 'findr.findr-buffers': v:false,
+            \ 'findr.findr-qf': v:false,
+            \}
+" }}}
+
+
+
 
 " open file in default external program
 command! -bang -nargs=* -complete=file Open :silent! !xdg-open <args> &
+
+
+
+
+
+
+""" WIP {{{
+
+
+" FZFExplore works well except that we need to press "enter" to go up or down
+" a level
+" TFile overcomes that with "C-u" but we would ideally have <tab> completion
+
+
+" Search pattern across repository files
+function! FzfExplore(...)
+    let inpath = substitute(a:1, "'", '', 'g')
+    if inpath == "" || matchend(inpath, '/') == strlen(inpath)
+        execute "cd" getcwd() . '/' . inpath
+        let cwpath = getcwd() . '/'
+        call fzf#run(fzf#wrap(fzf#vim#with_preview({'source': 'ls -1ap', 'dir': cwpath, 'sink': 'FZFExplore', 'options': ['--prompt', cwpath]})))
+    else
+        let file = getcwd() . '/' . inpath
+        execute "e" file
+    endif
+endfunction
+
+command! -nargs=* FZFExplore call FzfExplore(shellescape(<q-args>))
+
+function! TFile(dir)
+  if empty(a:dir)
+    let dir = getcwd()
+  else
+    let dir = a:dir
+  endif
+  let parentdir = fnamemodify(dir, ':h')
+  let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'ctrl-u'] }))
+
+  " hack to retain original sink used by fzf#vim#files
+  let origspec = copy(spec)
+
+  unlet spec.sinklist
+  unlet spec['sink*']
+  function spec.sinklist(lines) closure
+    if len(a:lines) < 2
+      return
+    endif
+    if a:lines[0] == 'ctrl-u'
+      call TFile(parentdir)
+    else
+      call origspec.sinklist(a:lines)
+    end
+  endfunction
+  call fzf#vim#files(dir, spec)
+endfunction
+
+command! -nargs=* TFile call TFile(<q-args>)
+
+
+
+" }}}
+
+
+
+
+
+
+
+""""""""""""""
+" Private Configuration
+""""""""""""""
+if empty(glob('~/.config/nvim/private.vim'))
+    silent !touch ~/.config/nvim/private.vim
+endif
+source ~/.config/nvim/private.vim
 
 
 
