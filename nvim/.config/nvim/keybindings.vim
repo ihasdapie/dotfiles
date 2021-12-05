@@ -39,23 +39,8 @@ nnoremap <leader>cmr :MatlabCliRunCell <cr>
 nnoremap <leader>cgv :w <CR> :GraphvizCompile <CR>
 nnoremap <leader>clf :w<cr> :luafile %<cr>
 
-
-
-
 " Can't seem to map this one in which-key.nvim
 vnoremap <LocalLeader>y "+y 
-
-
-
-
-
-
-
-
-
-
-
-nnoremap <leader>ps "+p
 " map <leader>cf :copen <cr>
 "
 "
@@ -97,7 +82,6 @@ nmap <leader>cf :copen <cr>
 
 " turn off highlights
 
-nnoremap <leader>ps "+p
 
 
 

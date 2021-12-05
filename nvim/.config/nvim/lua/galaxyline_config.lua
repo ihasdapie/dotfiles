@@ -251,6 +251,16 @@ gls.left[3] = {
 }
 
 gls.left[4] = {
+    spacer = {
+        provider = function () return " " end,
+        condition = buffer_not_empty,
+        highlight = {colors.line_bg, colors.line_bg}
+    }
+}
+
+
+
+gls.left[5] = {
   FileName = {
     provider = {fileinfo.get_current_file_name,fileinfo.get_file_size},
     condition = buffer_not_empty,
@@ -258,14 +268,14 @@ gls.left[4] = {
   }
 }
 
-gls.left[5] = {
+gls.left[6] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.providers.vcs').check_git_workspace,
     highlight = {colors.orange,colors.line_bg},
   }
 }
-gls.left[6] = {
+gls.left[7] = {
   GitBranch = {
     provider = vcs.get_git_branch,
     condition = require('galaxyline.providers.vcs').check_git_workspace,
@@ -281,14 +291,14 @@ local checkwidth = function()
   return false
 end
 
-gls.left[7] = {
+gls.left[8] = {
   Spacer = {
     provider = function() return " " end,
     highlight = {colors.line_bg, colors.line_bg}
   }
 }
 
-gls.left[8] = {
+gls.left[9] = {
   DiffAdd = {
     provider = vcs.diff_add,
     condition = checkwidth,
@@ -296,7 +306,7 @@ gls.left[8] = {
     highlight = {colors.green,colors.line_bg},
   }
 }
-gls.left[9] = {
+gls.left[10] = {
   DiffModified = {
     provider = vcs.diff_modified,
     condition = checkwidth,
@@ -304,7 +314,7 @@ gls.left[9] = {
     highlight = {colors.orange,colors.line_bg},
   }
 }
-gls.left[10] = {
+gls.left[11] = {
   DiffRemove = {
     provider = vcs.diff_remove,
     condition = checkwidth,
@@ -312,7 +322,7 @@ gls.left[10] = {
     highlight = {colors.red,colors.line_bg},
   }
 }
-gls.left[11] = {
+gls.left[12] = {
   LeftEnd = {
     provider = function() return '' end,
     separator = '',
@@ -330,7 +340,7 @@ gls.left[11] = {
 } ]]
 
 
-gls.left[12] = {
+gls.left[13] = {
   DiagnosticError = {
     provider = diagnostic.get_diagnostic_error,
     icon = '  ',
@@ -338,28 +348,28 @@ gls.left[12] = {
   }
 }
 
-gls.left[13] = {
+gls.left[14] = {
   DiagnosticWarn = {
     provider = diagnostic.get_diagnostic_warn,
     icon = '  ',
     highlight = {colors.yellow,colors.bg},
 } }
 
-gls.left[14] = {
+gls.left[15] = {
   DiagnosticHint = {
     provider = diagnostic.get_diagnostic_hint,
     icon = '  ',
     highlight = {colors.blue, colors.bg},
 } }
 
-gls.left[15] = {
+gls.left[16] = {
   DiagnosticInfo = {
     provider = diagnostic.get_diagnostic_info,
     icon = '  ',
     highlight = {colors.magenta,colors.bg},
 } }
 
-gls.left[16] = {
+gls.left[17] = {
   CocStatus = {
     provider = CocStatus,
     highlight = {colors.green,colors.bg},
@@ -367,7 +377,7 @@ gls.left[16] = {
   }
 }
 
-gls.left[17] = {
+gls.left[18] = {
   CocFunc = {
     provider = CocFunc,
     -- icon = '  λ ',

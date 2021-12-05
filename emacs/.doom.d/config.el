@@ -17,7 +17,7 @@
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-ayu-mirage)
 
 (setq org-hide-emphasis-markers t) ;; hide /.../ *...*, etc
 (add-hook 'org-mode-hook 'variable-pitch-mode) ;; use variable pitch font for org files

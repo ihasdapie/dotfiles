@@ -1,12 +1,11 @@
 # zmodload zsh/zprof
-fortune | cowthink  -f small
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+
+paste <(fortune | cowsay -f small) <(cal) | column  -s $'\t' -t
+# instant prompt causes some rescaling jank...
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -122,8 +121,9 @@ add-zsh-hook preexec set-title-preexec
 ##################
 alias vim="nvim"
 alias vimnorc="nvim -u NONE"
-alias ll="ls -alh --color=auto"
-alias ls="ls --color=auto"
+alias min="nvim -u ~/.config/nvim/minimal.vim"
+alias ll="ls -alh --color=auto --hyperlink"
+alias ls="ls --color=auto --hyperlink"
 alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
 alias klipboard="kitty +kitten clipboard"
@@ -135,7 +135,7 @@ alias free='free -m'                                            # Show sizes in 
 alias du='du --block-size=MiB --human-readable --apparent-size'
 alias lg='lazygit'
 alias gitu='git add --all && git commit && git push'
-alias gitdeployall="git remote | xargs -L1 git push --all"
+alias gitpushall="git remote | xargs -L1 git push --all"
 alias yayclean="yay -Qtdq | yay -Rns -" 
 alias t="trash"
 alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
@@ -150,7 +150,7 @@ alias mpv='mpv -hwdec' # enable hardware decoding for mpv
 alias less='less --incsearch'
 alias rm='trash'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
+alias feh='feh --scale-down --auto-zoom'
 ##################
 # My Aliases END
 ##################
@@ -172,6 +172,7 @@ export PATH=$PATH:$HOME/Scripts/exec/
 export PATH=$PATH:$HOME/go/bin/
 export PATH=$PATH:$HOME/.poetry/bin/
 export PATH=$PATH:$HOME/.emacs.d/bin/
+export PATH=$PATH:$HOME/.local/bin
 
 
 
@@ -222,7 +223,7 @@ xd () {
 #### FZF
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-export FZF_DEFAULT_OPTS='--height 69% --layout=reverse --border --algo=v1 --ansi' # TODO Test v1, v2?
+export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
 export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
@@ -291,4 +292,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 
+
 # zprof
+
+export QSYS_ROOTDIR="/home/ihasdapie/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
