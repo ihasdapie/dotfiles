@@ -319,13 +319,10 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
 Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
 Plug 'b4skyx/serenade', {'on': ['Colors']}
-Plug 'EdenEast/nightfox.nvim'
-Plug 'Luxed/ayu-vim'
-Plug 'FrenzyExists/aquarium-vim'
-Plug 'Mangeshrex/uwu.vim'
+Plug 'Luxed/ayu-vim', {'on': ['Colors']}
 Plug 'navarasu/onedark.nvim'
 Plug 'catppuccin/nvim'
-
+Plug 'Yagua/nebulous.nvim'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -382,7 +379,7 @@ Plug 'ARM9/arm-syntax-vim'
 
 Plug 'kristijanhusak/orgmode.nvim'
 " Plug 'kristijanhusak/orgmode.nvim'
-Plug '~/Projects/vim-dev/nvim-bufferline.lua'
+" Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'lewis6991/impatient.nvim'
 
@@ -396,6 +393,8 @@ Plug 'github/copilot.vim'
 " two plugins...
 Plug 'conweller/findr.vim', {'on': ['Findr', 'FindrBuffers', 'FindrLocList', 'FindrQFList']}
 Plug 'liuchengxu/vim-clap', {'on': ['Clap']}
+Plug 'nanozuki/tabby.nvim'
+
 
 
 " Debugger
@@ -433,28 +432,11 @@ augroup custom_colors
   autocmd ColorScheme ayu call s:custom_ayu_colors()
 augroup END
 
-" lua << EOF
-" local nightfox = require('nightfox')
-" -- This function set the configuration of nightfox. If a value is not passed in the setup function
-" -- it will be taken from the default configuration above
-" nightfox.setup({
-"   fox = "nightfox",
-"   -- transparent=true,
-"   terminal_colors=true,
-"   styles = {
-"     comments = "bold,italic", -- change style of comments to be italic
-"     keywords = "bold", -- change style of keywords to be bold
-"     functions = "italic" -- styles can be a comma separated list
-"   },
-" })
-" -- Load the configuration set above and apply the colorscheme
-" EOF
-
-let g:aquarium_style = "dark"
-
 lua require('catppuccin_config')
+lua require('nebulous_config')
 
-colorscheme catppuccin
+
+colorscheme nebulous
 "}}}
 
 " => Vista {{{
@@ -757,7 +739,7 @@ endfunction
 " lua require('plugins')
 " lua require('windline_config')
 lua require('galaxyline_config')
-lua require('nvim-bufferline_config')
+" lua require('nvim-bufferline_config')
 lua require('which-key_config')
 lua require('gitsigns_config')
 lua require('indent-blankline_config')
@@ -765,7 +747,7 @@ lua require('indent-blankline_config')
 " Since neorg defines a treesitter parser, we must run this before our
 " treesitter setup()
 " lua require('neorg_config')  
-
+lua require("tabby_config")
 lua require('treesitter_config')
 lua require('vimtex_bindings')
 lua require('dashboard_config')
