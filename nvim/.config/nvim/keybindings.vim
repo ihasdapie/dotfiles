@@ -17,6 +17,10 @@ vnoremap k gk
 vnoremap j gj
 
 
+""" Coc-snippets
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+
 "Allow <esc> to exit out of terminal mode
 tnoremap <Esc> <C-\><C-n>
 " noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>

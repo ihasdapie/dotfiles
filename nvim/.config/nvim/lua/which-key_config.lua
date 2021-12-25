@@ -1,5 +1,6 @@
 local wk = require('which-key')
 
+
 wk.setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
@@ -72,8 +73,10 @@ wk.register( { -- Normal mode mappings
       ['<leader>'] = {"<cmd>WhichKey<CR>", "WhichKey bindings"},
       b = {
           name = "+buffer",
-          p = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
-          o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
+          n = {"<cmd>bnext<CR>", "Next buffer"},
+          p = {"<cmd>bprev<CR>", "Previous buffer"},
+          -- P = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
+          -- o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
           d = {"<cmd>Bdelete %<CR>", "delete current buffer"},
           b = {"<cmd>Buffers<CR>", "list buffers"},
       },
@@ -323,6 +326,7 @@ wk.register( { -- Normal mode mappings
       -- We want to change this up because <localleader> l conflicts with vimtex
         w = {"<cmd>w<CR>", "Save file"},
         p = {"\"+p", "Paste from system clipboard"},
+        P = {"<cmd>call mdip#MarkdownClipboardImage()<CR>", "Paste image system clipboard"},
         y = {"\"+y", "Copy to system clipboard"},
         lf = {"<cmd>luafile %<CR>", "run current lua file"},
 

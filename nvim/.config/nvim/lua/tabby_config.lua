@@ -1,3 +1,5 @@
+
+
 local filename = require('tabby.filename')
 local util = require('tabby.util')
 
@@ -7,6 +9,9 @@ local hl_tabline_sel = util.extract_nvim_hl('TabLineSel')
 local hl_tabline_fill = util.extract_nvim_hl('TabLineFill')
 
 
+
+
+-- TODO: This palette doesn't work great with some themes
 local palette = {
     accent = hl_tabline_sel.bg, -- orange
     accent_sec = hl_tabline_sel.bg, -- fg4
@@ -15,6 +20,7 @@ local palette = {
     fg = hl_normal.fg, -- fg2
   }
 
+-- print(vim.inspect(palette))
 
 
 local cwd = function()
@@ -26,14 +32,10 @@ end
 local line = {
   hl = { fg = palette.fg, bg = palette.bg },
   layout = 'active_wins_at_tail',
-  head = {
-    { cwd, hl = { fg = palette.bg, bg = palette.accent } },
-    { '', hl = { fg = palette.accent, bg = palette.bg } },
-  },
   active_tab = {
     label = function(tabid)
       return {
-        '  ' .. tabname(tabid) .. ' ', hl = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
+        '  ' .. tabname(tabid) .. ' ', hl = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
       }
     end,
     left_sep = { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
@@ -42,7 +44,7 @@ local line = {
   inactive_tab = {
     label = function(tabid)
       return {
-        '  ' .. tabname(tabid) .. ' ',
+        '   '.. tabname(tabid) .. ' ',
         hl = { fg = palette.fg, bg = palette.bg_sec, style = 'bold' },
       }
     end,
@@ -71,7 +73,7 @@ local line = {
   },
   tail = {
     { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
-    { '  ', hl = { fg = palette.bg, bg = palette.accent_sec } },
+    -- { '  ', hl = { fg = palette.bg, bg = palette.accent_sec } },
   },
 }
 require('tabby').setup({ tabline = line })

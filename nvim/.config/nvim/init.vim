@@ -5,7 +5,7 @@
 set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
 
 set rtp+=~/.config/nvim/
-set rtp+=~/.config/nvim/lua/
+set rtp+=~/.config/nvim/lua
 
 lua require('tmp_init')
 
@@ -27,7 +27,7 @@ set lazyredraw
 set nowrap "turn off wrapping"
 set timeoutlen=420
 
-set title titlestring=vim\[%t\]\:%n titlelen=70
+set title titlestring=%t\:\ %n titlelen=70
 
 
 " Set python interpreters; this speeds up startup time but not necessary
@@ -62,6 +62,28 @@ augroup remember_folds
   au BufWinLeave *.*  mkview
   au BufWinEnter *.* silent! loadview
 augroup END
+
+
+" # Function to permanently delete views created by 'mkview'
+" https://stackoverflow.com/questions/28384159/vim-how-to-remove-clear-views-created-by-mkview-from-inside-of-vim
+function! MyDeleteView()
+	let path = fnamemodify(bufname('%'),':p')
+	" vim's odd =~ escaping for /
+	let path = substitute(path, '=', '==', 'g')
+	if empty($HOME)
+	else
+		let path = substitute(path, '^'.$HOME, '\~', '')
+	endif
+	let path = substitute(path, '/', '=+', 'g') . '='
+	" view directory
+	let path = &viewdir.'/'.path
+	call delete(path)
+	echo "Deleted: ".path
+endfunction
+command Delview call MyDeleteView()
+" Lower-case user commands: http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
+cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delview')<CR>
+
 
 
 
@@ -126,11 +148,8 @@ set incsearch
 " For regular expressions turn magic on
 set magic
 
-" Show matching brackets when text indicator is over them
-set showmatch
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
+" do not show matching brackets when text indicator is over them
+set noshowmatch
 
 " set true colors
 if (has("termguicolors"))
@@ -190,9 +209,10 @@ onoremap <expr> N  'nN'[v:searchforward]
 " }}}
 
 " => augroups {{{
+" # Use the pandoc markdown syntax highlighting file instead
 augroup pandoc_syntax
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-    au! BufNewFile,BufFilePre,BufRead *.pdc set filetype=markdown.pandoc
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=pandoc
+    au! BufNewFile,BufFilePre,BufRead *.pdc set filetype=pandoc
 augroup END
 
 
@@ -323,6 +343,7 @@ Plug 'Luxed/ayu-vim', {'on': ['Colors']}
 Plug 'navarasu/onedark.nvim'
 Plug 'catppuccin/nvim'
 Plug 'Yagua/nebulous.nvim'
+Plug 'rebelot/kanagawa.nvim'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -357,7 +378,8 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
             \ 'OpenBrowserSearch', 'OpenBrowserSmartSearch']}
 
 " Language Syntax
-Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+" Plug 'lervag/vimtex'
 " Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
 Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
@@ -374,6 +396,7 @@ Plug 'p00f/nvim-ts-rainbow'
 " Experimental
 "
 Plug 'ARM9/arm-syntax-vim'
+Plug 'ihasdapie/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
 
 " Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
 
@@ -389,6 +412,7 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'nathom/filetype.nvim'
 Plug 'github/copilot.vim'
 
+
 " I can't seem to find another way emacs-like file finder without one of these
 " two plugins...
 Plug 'conweller/findr.vim', {'on': ['Findr', 'FindrBuffers', 'FindrLocList', 'FindrQFList']}
@@ -398,15 +422,15 @@ Plug 'nanozuki/tabby.nvim'
 
 
 " Debugger
-
 Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
             \ '<Plug>VimspectorBalloonEval', 'VimspectorAbortInstall', 'VimspectorDebugInfo', 'VimspectorInstall', 'VimspectorReset',
             \ 'VimspectorShowOutput', 'VimspectorToggleLog', 'VimspectorUpdate', 'VimspectorWatch']}
 
 call plug#end()
-" }}}
 
+" }}}
 lua require('impatient')
+lua require('plugins')
 
 
 ": => Colorscheme {{{
@@ -432,12 +456,14 @@ augroup custom_colors
   autocmd ColorScheme ayu call s:custom_ayu_colors()
 augroup END
 
-lua require('catppuccin_config')
-lua require('nebulous_config')
 
 
 colorscheme nebulous
+
+
+
 "}}}
+
 
 " => Vista {{{
 
@@ -547,6 +573,13 @@ inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " C-space to show completion list again
@@ -664,7 +697,6 @@ let g:coc_global_extensions = [
             \ 'coc-explorer',
             \ 'coc-diagnostic',
             \ 'coc-actions',
-            \ 'coc-vimtex',
             \ 'coc-vetur',
             \ 'coc-tsserver',
             \ 'coc-toml',
@@ -682,6 +714,7 @@ let g:coc_global_extensions = [
             \ ]
 
             " \ 'coc-tabnine',
+            " \ 'coc-vimtex',
 
 
 " }}}
@@ -736,24 +769,6 @@ endfunction
 
 " => Lua Configurations {{{
 
-" lua require('plugins')
-" lua require('windline_config')
-lua require('galaxyline_config')
-" lua require('nvim-bufferline_config')
-lua require('which-key_config')
-lua require('gitsigns_config')
-lua require('indent-blankline_config')
-
-" Since neorg defines a treesitter parser, we must run this before our
-" treesitter setup()
-" lua require('neorg_config')  
-lua require("tabby_config")
-lua require('treesitter_config')
-lua require('vimtex_bindings')
-lua require('dashboard_config')
-
-" lua require('todo-comments_config')
-" lua require('telescope_config')
 
 " }}}
 
@@ -770,7 +785,6 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldnestmax=10
 " }}}
-lua require('orgmode-nvim_config')
 
 
 " => dadbod {{{
@@ -884,6 +898,7 @@ let g:floaterm_position='bottom'
 " => Pandoc
 """"""""""""""""
 let g:pandoc#syntax#codeblocks#embeds#langs = ['python', 'tex', 'rust', 'c', 'cpp', 'lua', 'matlab']
+let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
 
 
 
