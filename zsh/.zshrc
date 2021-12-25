@@ -1,7 +1,7 @@
 # zmodload zsh/zprof
 
 
-paste <(fortune | cowsay -f small) <(cal) | column  -s $'\t' -t
+paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # instant prompt causes some rescaling jank...
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -120,6 +120,7 @@ add-zsh-hook preexec set-title-preexec
 # My Aliases START
 ##################
 alias vim="nvim"
+alias vimf='vim $(fzf)'
 alias vimnorc="nvim -u NONE"
 alias min="nvim -u ~/.config/nvim/minimal.vim"
 alias ll="ls -alh --color=auto --hyperlink"
