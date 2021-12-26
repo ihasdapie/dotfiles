@@ -18,6 +18,7 @@ require("tabby_config")
 require('treesitter_config')
 require('vimtex_bindings')
 require('dashboard_config')
+require('nvim-autopairs_config')
 
 
 

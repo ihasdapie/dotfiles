@@ -360,7 +360,12 @@ Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'lukas-reineke/indent-blankline.nvim'
 " Plug 'rafi/vim-venom', { 'for': 'python' }
 Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
-Plug 'tmsvg/pear-tree'
+" Plug 'tmsvg/pear-tree'
+Plug 'windwp/nvim-autopairs'
+Plug 'windwp/nvim-ts-autotag'
+
+
+
 Plug 'tpope/vim-surround'
 Plug 'folke/which-key.nvim'
 Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex']}
@@ -573,6 +578,7 @@ inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
+
 " inoremap <silent><expr> <TAB>
 "       \ pumvisible() ? coc#_select_confirm() :
 "       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -812,14 +818,6 @@ let g:maximizer_set_default_mapping=0
 let g:mdip_imgdir = 'img'
 let g:mdip_imgname = 'image'
 
-
-"""""""""""
-" => Peartree
-"""""""""""
-let g:pear_tree_repeatable_expand=0 " get expected behaviour when autoinserting closures
-let g:pear_tree_smart_openers=1
-let g:pear_tree_smart_closers=1
-let g:pear_tree_smart_backspace=1
 
 
 

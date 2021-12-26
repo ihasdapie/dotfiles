@@ -83,18 +83,16 @@ wk.register( { -- Normal mode mappings
 
       c = {
           name = "+code",
-          a = {"<Plug>(coc-codeaction-selected", "codeaction"},
+          a = {"<Plug>(coc-codeaction)", "code action"},
           c = {"<cmd>CocList --ignore-case commands<CR>", "list avaliable commands"},
           f = {"<Plug>(coc-fix-current)", "code fix"},
           r = {"<Plug>(coc-rename)", "rename"},
-          l = {
-              name = "+lsp",
+          l = {"<Plug>(coc-codelens-action)", "code lens action"},
+          m = {
+              name = "+misc",
               r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},
               R = {"<cmd>CocRebuild<CR>", "rebuild coc.nvim"},
-          },
-          L = {
-            name = "+lint",
-            w = {":%s/\\s\\+$//e<CR>", "Delete all trailing whitespace"},
+              w = {":%s/\\s\\+$//e<CR>", "Delete all trailing whitespace"},
           },
 
           p = {
@@ -342,6 +340,17 @@ wk.register( { -- Normal mode mappings
         },
 
     }
+  })
+
+
+
+wk.register({ -- base-level mappings
+    ["[g"]=  {"<Plug>(coc-diagnostic-prev)", "previous coc-diagnostic"},
+    ["]g"]=  {"<Plug>(coc-diagnostic-next)", "next coc-diagnostic"},
+    ["gd"]=  {"<Plug>(coc-definition)", "coc-definition"},
+    ["gy"]=  {"<Plug>(coc-type-definition)", "coc-type-definition"},
+    ["gi"]=  {"<Plug>(coc-implementation)", "coc-implementation"},
+    ["gr"]=  {"<Plug>(coc-references)", "coc-references"},
   })
 
 
