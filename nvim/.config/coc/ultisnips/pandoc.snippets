@@ -436,10 +436,6 @@ snippet xx "cross" iA
 \times 
 endsnippet
 
-priority 100
-snippet ** "cdot" iA
-\cdot 
-endsnippet
 
 context "math()"
 snippet norm "norm" iA
@@ -492,10 +488,6 @@ snippet compl "complement" iA
 ^{c}
 endsnippet
 
-context "math()"
-snippet \\\ "setminus" iA
-\setminus
-endsnippet
 
 snippet >> ">>" iA
 \gg
@@ -525,6 +517,7 @@ snippet cc "subset" Ai
 \subset 
 endsnippet
 
+context "math()"
 snippet notin "not in " iA
 \not\in 
 endsnippet
@@ -534,9 +527,6 @@ snippet inn "in " iA
 \in 
 endsnippet
 
-snippet NN "n" iA
-\N
-endsnippet
 
 snippet Nn "cap" iA
 \cap 
@@ -627,6 +617,12 @@ priority 10
 context "math()"
 snippet "hat" "hat" riA
 \hat{$1}$0
+endsnippet
+
+priority 10
+context "math()"
+snippet "vec" "vec" riA
+\vec{$1}$0
 endsnippet
 
 priority 100

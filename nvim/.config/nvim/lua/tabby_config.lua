@@ -20,7 +20,17 @@ local palette = {
     fg = hl_normal.fg, -- fg2
   }
 
--- print(vim.inspect(palette))
+-- define a default palette
+local palette = {
+    accent = "#FFCC66",
+    accent_sec = "#D4BFFF",
+    bg = "#1F2430", -- bg1
+    bg_sec = "#5C6773", -- bg2
+    fg = "#CBCCC6", -- fg2
+  }
+
+
+
 
 
 local cwd = function()
@@ -55,11 +65,11 @@ local line = {
     label = function(winid)
       return {
         '  ' .. filename.unique(winid) .. ' ',
-        hl = { fg = palette.bg, bg = palette.accent_sec },
+        hl = { fg = palette.bg, bg = palette.accent },
       }
     end,
-    left_sep = { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
-    right_sep = { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
+    left_sep = { '', hl = { fg = palette.accent, bg = palette.bg } },
+    right_sep = { '', hl = { fg = palette.accent, bg = palette.bg } },
   },
   win = {
     label = function(winid)
@@ -72,8 +82,8 @@ local line = {
     right_sep = { '', hl = { fg = palette.bg_sec, bg = palette.bg } },
   },
   tail = {
-    { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
-    -- { '  ', hl = { fg = palette.bg, bg = palette.accent_sec } },
+    { '', hl = { fg = palette.accent, bg = palette.bg } },
+    -- { '  ', hl = { fg = palette.bg, bg = palette.accent } },
   },
 }
 require('tabby').setup({ tabline = line })
