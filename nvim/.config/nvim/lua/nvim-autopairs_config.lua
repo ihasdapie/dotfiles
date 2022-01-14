@@ -11,12 +11,10 @@ npairs.setup({
 -- `tex` math
 npairs.add_rule(Rule("$","$","tex"))
 npairs.add_rule(Rule("$$","$$","md"))
-
-
-npairs.add_rule(Rule("$$","$$","pandoc"))
+npairs.add_rule(Rule("$$ "," $$","pandoc"))
 
 -- for hugo inline katex
-npairs.add_rule(Rule("\\(","\\\\)","pandoc"))
+npairs.add_rule(Rule("\\( "," \\\\)","pandoc"))
 
 
 -- spaces in brackets
@@ -44,6 +42,10 @@ npairs.add_rules {
           return opts.prev_char:match('.%]') ~= nil
       end)
       :use_key(']')
+
+
+
+
 }
 
 

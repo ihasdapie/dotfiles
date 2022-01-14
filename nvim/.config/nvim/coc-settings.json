@@ -150,7 +150,8 @@
                 }
         },
 
-        "highlight.colorNames.enable": false
+        "highlight.colorNames.enable": false,
+
 
         /* "languageserver": { */
                 /*   "golang": { */

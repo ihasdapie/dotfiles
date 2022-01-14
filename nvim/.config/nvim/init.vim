@@ -416,6 +416,7 @@ Plug 'lewis6991/impatient.nvim'
 " filetype should be `.jsonc`
 Plug 'nathom/filetype.nvim'
 Plug 'github/copilot.vim'
+Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
 
 " I can't seem to find another way emacs-like file finder without one of these
@@ -423,6 +424,7 @@ Plug 'github/copilot.vim'
 Plug 'conweller/findr.vim', {'on': ['Findr', 'FindrBuffers', 'FindrLocList', 'FindrQFList']}
 Plug 'liuchengxu/vim-clap', {'on': ['Clap']}
 Plug 'nanozuki/tabby.nvim'
+Plug 'tpope/vim-repeat'
 
 
 
@@ -434,7 +436,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 call plug#end()
 
 " }}}
-lua require('impatient')
+" lua require('impatient')
 lua require('plugins')
 
 
@@ -463,7 +465,7 @@ augroup END
 
 
 
-colorscheme nebulous
+colorscheme kanagawa
 
 
 
