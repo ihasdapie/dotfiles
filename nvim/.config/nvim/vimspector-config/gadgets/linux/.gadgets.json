@@ -1,5 +1,24 @@
 {
   "adapters": {
+    "CodeLLDB": {
+      "command": [
+        "${gadgetDir}/CodeLLDB/adapter/codelldb",
+        "--port",
+        "${unusedLocalPort}"
+      ],
+      "configuration": {
+        "args": [],
+        "cargo": {},
+        "cwd": "${workspaceRoot}",
+        "env": {},
+        "name": "lldb",
+        "terminal": "integrated",
+        "type": "lldb"
+      },
+      "name": "CodeLLDB",
+      "port": "${unusedLocalPort}",
+      "type": "CodeLLDB"
+    },
     "debugpy": {
       "command": [
         "/usr/bin/python3",
@@ -11,9 +30,110 @@
       },
       "name": "debugpy"
     },
+    "delve": {
+      "command": [
+        "${gadgetDir}/delve/bin/dlv",
+        "dap",
+        "--listen",
+        "${listenOn}:${port}",
+        "*${dlvFlags}"
+      ],
+      "port": "${port}",
+      "tty": true,
+      "variables": {
+        "dlvFlags": "",
+        "listenOn": "127.0.0.1",
+        "port": "${unusedLocalPort}"
+      }
+    },
+    "lua-local": {
+      "command": [
+        "node",
+        "${gadgetDir}/local-lua-debugger-vscode/extension/debugAdapter.js"
+      ],
+      "configuration": {
+        "extensionPath": "${gadgetDir}/local-lua-debugger-vscode",
+        "interpreter": "lua"
+      },
+      "name": "lua-local"
+    },
     "multi-session": {
       "host": "${host}",
       "port": "${port}"
+    },
+    "tclpro": {
+      "attach": {
+        "pidSelect": "none"
+      },
+      "command": [
+        "${gadgetDir}/tclpro/bin/debugadapter"
+      ],
+      "configuration": {
+        "args": [
+          "*${args}"
+        ],
+        "cwd": "${workspaceRoot}",
+        "extensionDirs": [
+          "${workspaceRoot}/.tclpro/extensions",
+          "${HOME}/.tclpro/extensions"
+        ],
+        "target": "${file}",
+        "tclsh": "tclsh"
+      },
+      "name": "tclpro",
+      "type": "tclpro"
+    },
+    "vscode-bash": {
+      "command": [
+        "node",
+        "${gadgetDir}/vscode-bash-debug/out/bashDebug.js"
+      ],
+      "configuration": {
+        "args": [],
+        "cwd": "${workspaceRoot}",
+        "env": {},
+        "pathBash": "bash",
+        "pathBashdb": "${BASHDB_HOME}/bashdb",
+        "pathBashdbLib": "${BASHDB_HOME}",
+        "pathCat": "cat",
+        "pathMkfifo": "mkfifo",
+        "pathPkill": "pkill",
+        "program": "${file}",
+        "request": "launch",
+        "terminalKind": "integrated",
+        "type": "bashdb"
+      },
+      "name": "bashdb",
+      "variables": {
+        "BASHDB_HOME": "${gadgetDir}/vscode-bash-debug/bashdb_dir"
+      }
+    },
+    "vscode-cpptools": {
+      "attach": {
+        "pidProperty": "processId",
+        "pidSelect": "ask"
+      },
+      "command": [
+        "${gadgetDir}/vscode-cpptools/debugAdapters/bin/OpenDebugAD7"
+      ],
+      "configuration": {
+        "args": [],
+        "cwd": "${workspaceRoot}",
+        "environment": [],
+        "type": "cppdbg"
+      },
+      "name": "cppdbg"
+    },
+    "vscode-go": {
+      "command": [
+        "node",
+        "${gadgetDir}/vscode-go/dist/debugAdapter.js"
+      ],
+      "configuration": {
+        "cwd": "${workspaceRoot}",
+        "dlvToolPath": "${gadgetDir}/delve/bin/dlv"
+      },
+      "name": "delve"
     }
   }
 }
