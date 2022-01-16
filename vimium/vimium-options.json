@@ -1,0 +1,210 @@
+{
+  "settingsVersion": "1.67",
+  "exclusionRules": [
+    {
+      "pattern": "https?://mail.google.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://colab.research.google.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://slides.google.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://sheets.google.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https:?//teleconsole.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https:?//www.circuitlab.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https:?//www.overleaf.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://repl.it/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://repl.it/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://gadzikowski.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://gadzikowski.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://coolwanglu.github.io/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://coolwanglu.github.io/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://replit.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://localhost:8888/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://localhost:8888/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://jupyter.scinet.utoronto.ca/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://jupyter.scinet.utoronto.ca/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://jupyterhub.helios.calculquebec.ca/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://jupyterhub.helios.calculquebec.ca/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://127.0.0.1:44521/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://127.0.0.1:44521/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://studentaidbc.ca/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://studentaidbc.ca/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://app.popsql.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://app.popsql.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://localhost:5000/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://localhost:5000/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://webwit.nl/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://webwit.nl/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.onlinepianist.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://www.onlinepianist.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://leetcode.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://leetcode.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://vm.autoronto.ca:10030/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://vm.autoronto.ca:10030/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://colab.research.google.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.hackerrank.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://www.hackerrank.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://app.crowdmark.com/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://app.crowdmark.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://app.crowdmark.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://.*.ngrok.io/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://92e6-128-100-201-39.ngrok.io/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://app.coderpad.io/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://codeshare.io/*",
+      "passKeys": ".*"
+    },
+    {
+      "pattern": "https?://app.codesignal.com/*",
+      "passKeys": ".*"
+    }
+  ],
+  "filterLinkHints": false,
+  "waitForEnterForFilteredHints": true,
+  "hideHud": false,
+  "keyMappings": "unmap /",
+  "linkHintCharacters": "sadfjklewcmpgh",
+  "linkHintNumbers": "0123456789",
+  "newTabUrl": "about:newtab",
+  "nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
+  "previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
+  "regexFindMode": true,
+  "ignoreKeyboardLayout": false,
+  "scrollStepSize": 150,
+  "smoothScroll": false,
+  "grabBackFocus": false,
+  "searchEngines": "w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\n# g: https://www.google.com/search?q=%s Google\n# l: https://www.google.com/search?q=%s&btnI I'm feeling lucky...\n# y: https://www.youtube.com/results?search_query=%s Youtube\n# gm: https://www.google.com/maps?q=%s Google maps\n# b: https://www.bing.com/search?q=%s Bing\n# d: https://duckduckgo.com/?q=%s DuckDuckGo\n# az: https://www.amazon.com/s/?field-keywords=%s Amazon\n# qw: https://www.qwant.com/?q=%s Qwant",
+  "searchUrl": "https://www.google.com/search?q=",
+  "userDefinedLinkHintCss": "#vimiumHintMarkerContainer div.internalVimiumHintMarker, #vimiumHintMarkerContainer div.vimiumHintMarker {\n  padding: 3px 4px;\n  background: #444;\n  border: none;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n\n#vimiumHintMarkerContainer div span {\n  color: #fff;\n  text-shadow: none;\n}\n\n#vimiumHintMarkerContainer div > .matchingCharacter {\n  opacity: 0.4;\n}\n\n#vimiumHintMarkerContainer div > .matchingCharacter ~ span {\n  color: hotpink;\n}\n\n#vomnibar {\n  background: #444;\n  border: none;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  animation: show 200ms cubic-bezier(0, 0, 0.2, 1) forwards;\n}\n\n@keyframes show {\n  0% {\n    transform: translateY(50px);\n    opacity: 0;\n  }\n  100% {\n    transform: translateY(0);\n    opacity: 1;\n  }\n}\n\n#vomnibar .vomnibarSearchArea,\n#vomnibar input {\n  color: #fff;\n  background: transparent;\n  border: none;\n}\n\n#vomnibar .vomnibarSearchArea {\n  padding: 10px 30px;\n}\n\n#vomnibar input {\n  padding: 0;\n}\n\n#vomnibar ul {\n  padding: 0;\n  background: #444;\n  border-top: 1px solid #333;\n}\n\n#vomnibar li {\n  padding: 10px;\n  border-bottom: 1px solid #333;\n}\n\n#vomnibar li .vomnibarTopHalf,\n#vomnibar li .vomnibarBottomHalf {\n  padding: 3px 0;\n}\n\n#vomnibar li .vomnibarSource {\n  color: #aaa;\n}\n\n#vomnibar li em,\n#vomnibar li .vomnibarTitle {\n  color: #aaa;\n}\n\n#vomnibar li .vomnibarUrl {\n  color: #777;\n}\n\n#vomnibar li .vomnibarMatch {\n  color: hotpink;\n  font-weight: normal;\n}\n\n#vomnibar li .vomnibarTitle .vomnibarMatch {\n  color: hotpink;\n}\n\n#vomnibar li.vomnibarSelected {\n  background-color: #333;\n}\n\ndiv.vimiumHUD {\n  background: #444;\n  border: none;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n}\n\ndiv.vimiumHUD span#hud-find-input,\ndiv.vimiumHUD .vimiumHUDSearchAreaInner {\n  color: #fff;\n}\n\ndiv.vimiumHUD .hud-find {\n  background-color: transparent;\n  border: none;\n}\n\ndiv.vimiumHUD .vimiumHUDSearchArea {\n  background-color: transparent;\n}"
+}

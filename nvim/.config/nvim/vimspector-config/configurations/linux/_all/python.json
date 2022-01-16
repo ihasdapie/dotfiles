@@ -1,6 +1,6 @@
 {
   "configurations": {
-    "<name>: Launch": {
+    "python-default": {
       "adapter": "debugpy",
       "configuration": {
         "name": "<name>: Launch",
