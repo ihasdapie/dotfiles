@@ -1,6 +1,8 @@
 local wk = require('which-key')
 
 
+
+
 wk.setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
@@ -88,6 +90,7 @@ wk.register( { -- Normal mode mappings
           f = {"<Plug>(coc-fix-current)", "code fix"},
           r = {"<Plug>(coc-rename)", "rename"},
           l = {"<Plug>(coc-codelens-action)", "code lens action"},
+          d = {"<cmd>lua require('neogen').generate()<CR>", "generate documentation template"},
           m = {
               name = "+misc",
               r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},

@@ -15,6 +15,8 @@ require('treesitter_config')
 require('vimtex_bindings')
 require('dashboard_config')
 require('nvim-autopairs_config')
+require('neogen_config')
+
 
 
 
@@ -23,6 +25,7 @@ require('nvim-autopairs_config')
 -- require('nvim-bufferline_config')
 -- require('windline_config')
 -- require('neorg_config')
+
 
 
 

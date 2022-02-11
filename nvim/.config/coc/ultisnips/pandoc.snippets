@@ -27,25 +27,54 @@
 
 
 
+snippet define "define" i
+
+___
+
+*Define*: $1
+
+___
+$0
+
+endsnippet
+
+
+
+
 snippet shcd "Shortcode" i
 {{< $1 >}}$0
 endsnippet
 
+snippet bold "bold" i
+**$1**$0
+endsnippet
 
-snippet ilm "Inline Math" wA
+
+context "math()"
+snippet qd "qquad" wA
+\qquad$1
+endsnippet
+
+
+snippet |\ "Inline Math" wA
+\\\\( $1 \\\\)$0
+endsnippet
+
+snippet mk "Inline Math" wA
 \\\\( $1 \\\\)$0
 endsnippet
 
 
-snippet mk "Inline Math" wA
-\$\$ $1 \$\$$0
-endsnippet
+# snippet mk "Inline Math" wA
+# \$\$ $1 \$\$$0
+# endsnippet
 
 
 # Snippets from https://github.com/gillescastel/latex-snippets/
 
 global !p
 def math():
+  # TODO: Add support for inline math in markdown katex w/ \\(  \\)
 	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 
 def comment(): 
@@ -58,7 +87,11 @@ def env(name):
 endglobal
 
 
-snippet table "Table environment" b
+
+
+
+
+snippet textable "Table environment" b
 \begin{table}[${1:htpb}]
 	\centering
 	\caption{${2:caption}}
@@ -140,20 +173,22 @@ snippet // "Fraction" iA
 \\frac{$1}{$2}$0
 endsnippet
 
-snippet / "Fraction" i
+snippet / "Fraction" ie
 \\frac{${VISUAL}}{$1}$0
 endsnippet
 
 context "math()"
-snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrA
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrAe
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
+
+
 priority 1000
 context "math()"
-snippet '^.*\)/' "() frac" wrA
+snippet '^.*\)/' "() frac" wrAe
 `!p
-stripped = match.string[:-1]
+stripped = match.string[:-1].replace('\frac', '\\frac') # so that this will work with coc-snippets
 depth = 0
 i = len(stripped) - 1
 while True:
@@ -164,6 +199,23 @@ while True:
 snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 `{$1}$0
 endsnippet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 context "math()"
 snippet '([A-Za-z])(\d)' "auto subscript" wrA
@@ -320,8 +372,14 @@ snippet rd "to the ... power" iA
 ^{($1)}$0
 endsnippet
 
+context "math()"
 snippet __ "subscript" iA
 _{$1}$0
+endsnippet
+
+context "math()"
+snippet ^^ "superscript" iA
+^{$1}$0
 endsnippet
 
 snippet ooo "\infty" iA
@@ -432,6 +490,13 @@ snippet nabl "nabla" iA
 endsnippet
 
 context "math()"
+snippet varep "varepsilon" iA
+\varepsilon
+endsnippet
+
+
+
+context "math()"
 snippet xx "cross" iA
 \times 
 endsnippet
@@ -507,9 +572,6 @@ snippet set "set" wA
 \\{$1\\} $0
 endsnippet
 
-snippet || "mid" iA
- \mid 
-endsnippet
 
 
 context "math()"
@@ -595,6 +657,13 @@ snippet bigfun "Big function" iA
 	$1: $2 &\longrightarrow $3 \\\\
 	$4 &\longmapsto $1($4) = $0
 .\end{align*}
+endsnippet
+
+snippet bigeq "Big equation" i
+$$ \begin{aligned}
+	$1 &= $2 \cr
+	&= $3 \cr
+\end{aligned} $$
 endsnippet
 
 snippet cvec "column vector" iA

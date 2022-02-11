@@ -91,8 +91,8 @@ cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delvie
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=200
-set redrawtime=4000
+set updatetime=150
+set redrawtime=1500
 
 set expandtab
 set shiftwidth=4
@@ -340,10 +340,10 @@ Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
 Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
 Plug 'b4skyx/serenade', {'on': ['Colors']}
 Plug 'Luxed/ayu-vim', {'on': ['Colors']}
-Plug 'navarasu/onedark.nvim'
 Plug 'catppuccin/nvim'
 Plug 'Yagua/nebulous.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'theniceboy/nvim-deus'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -425,6 +425,7 @@ Plug 'conweller/findr.vim', {'on': ['Findr', 'FindrBuffers', 'FindrLocList', 'Fi
 Plug 'liuchengxu/vim-clap', {'on': ['Clap']}
 Plug 'nanozuki/tabby.nvim'
 Plug 'tpope/vim-repeat'
+Plug 'danymat/neogen'
 
 
 
@@ -436,8 +437,9 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 call plug#end()
 
 " }}}
-" lua require('impatient')
+lua require('impatient')
 lua require('plugins')
+
 
 
 ": => Colorscheme {{{
@@ -994,27 +996,29 @@ autocmd CmdlineEnter * ++once call s:wilder_init()
 
 function! s:wilder_init() abort
 
-    call wilder#set_option('pipeline', [
-                \   wilder#branch(
-                \     wilder#cmdline_pipeline({
-                \       'use_python': 0, 
-                \       'fuzzy': 0, 
-                \     }),
-                \     wilder#vim_search_pipeline(),
-                \   ),
-                \ ])
+  call wilder#set_option('pipeline', [
+        \   wilder#branch(
+        \     wilder#cmdline_pipeline({
+        \       'use_python': 0, 
+        \       'fuzzy': 0, 
+        \     }),
+        \     wilder#vim_search_pipeline(),
+        \   ),
+        \ ])
 
-    call wilder#set_option('renderer', wilder#renderer_mux({
-                \ ':': wilder#popupmenu_renderer({
-                \   'highlighter': wilder#basic_highlighter(),
-                \   'left': [
-                    \     wilder#popupmenu_devicons(),
-                    \   ]
-                        \ }),
-                        \ '/': wilder#wildmenu_renderer({
-                        \   'highlighter': wilder#basic_highlighter(),
-                        \ }),
-                        \ }))
+  call wilder#set_option('renderer', wilder#renderer_mux({
+        \ ':': wilder#popupmenu_renderer({
+        \   'highlighter': wilder#basic_highlighter(),
+        \   'left': [
+          \     wilder#popupmenu_devicons(),
+          \   ]
+          \ }),
+          \ '/': wilder#wildmenu_renderer({
+          \   'highlighter': wilder#basic_highlighter(),
+          \   'apply_incsearch_fix': v:true,
+          \   
+          \ }),
+          \ }))
 endfunction
 
 
@@ -1027,13 +1031,18 @@ let g:copilot_filetypes = {
             \ 'findr.findr-buffers': v:false,
             \ 'findr.findr-qf': v:false,
             \}
+
+let g:copilot_no_tab_map = v:true
+imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+
+
 " }}}
 
 
 
 
 " open file in default external program
-command! -bang -nargs=* -complete=file Open :silent! !xdg-open <args> &
+command! -bang -nargs=* -complete=file Open :silent! !xdg-open <args> & 
 
 
 
@@ -1109,6 +1118,18 @@ if empty(glob('~/.config/nvim/private.vim'))
     silent !touch ~/.config/nvim/private.vim
 endif
 source ~/.config/nvim/private.vim
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

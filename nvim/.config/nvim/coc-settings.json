@@ -32,6 +32,8 @@
 
 		/* coc-vimtex */
 
+		"ltex.enabled": true,
+
 		"coc.source.vimtex.filetypes": [
 			"tex",
 			"plaintex",
@@ -151,6 +153,7 @@
         },
 
         "highlight.colorNames.enable": false,
+        "markdown-preview-enhanced.liveUpdate": true,
 
 
         /* "languageserver": { */

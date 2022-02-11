@@ -54,7 +54,7 @@ local line = {
   inactive_tab = {
     label = function(tabid)
       return {
-        '   '.. tabname(tabid) .. ' ',
+        '  '.. tabname(tabid) .. ' ',
         hl = { fg = palette.fg, bg = palette.bg_sec, style = 'bold' },
       }
     end,
