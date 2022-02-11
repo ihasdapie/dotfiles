@@ -14,7 +14,7 @@ npairs.add_rule(Rule("$$","$$","md"))
 npairs.add_rule(Rule("$$ "," $$","pandoc"))
 
 -- for hugo inline katex
-npairs.add_rule(Rule("\\( "," \\\\)","pandoc"))
+npairs.add_rule(Rule("\\( "," \\\\","pandoc"))  -- no need for closing bracket since the default bracket rule appends that for us
 
 
 -- spaces in brackets
