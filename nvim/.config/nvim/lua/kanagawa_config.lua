@@ -1,3 +1,5 @@
+default_colors = require('kanagawa.colors').setup()
+
 require('kanagawa').setup({
     undercurl = true,           -- enable undercurls
     commentStyle = "italic",
@@ -10,5 +12,44 @@ require('kanagawa').setup({
     specialException = true,    -- special highlight for exception handling keywords 
     transparent = false,        -- do not set background color
     colors = {},
-    overrides = {},
+    overrides = {
+        GitSignsCurrentLineBlame = {
+            fg = default_colors.winterYellow, bg = default_colors.sumiInk3,
+        },
+    },
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
