@@ -408,6 +408,7 @@ Plug 'p00f/nvim-ts-rainbow'
 " Experimental
 "
 Plug 'ARM9/arm-syntax-vim'
+Plug 'nathom/filetype.nvim'
 " Plug 'ihasdapie/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
 
 " Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
@@ -416,12 +417,11 @@ Plug 'kristijanhusak/orgmode.nvim'
 " Plug 'kristijanhusak/orgmode.nvim'
 " Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
-Plug 'lewis6991/impatient.nvim'
+" Plug 'lewis6991/impatient.nvim'
 
 " Replace `filetype.vim` which is really slow
 " However this breaks :CocConfig which loads a `.json` file even though the
 " filetype should be `.jsonc`
-Plug 'nathom/filetype.nvim'
 Plug 'github/copilot.vim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
@@ -444,7 +444,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 call plug#end()
 
 " }}}
-lua require('impatient')
+" lua require('impatient')
 lua require('plugins')
 
 
@@ -924,7 +924,7 @@ let g:tex_flavor = "latex"
 let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_quickfix_mode=0
-let g:tex_conceal='abdmg'
+let g:tex_conceal='abdmgs'
 
 let g:vimtex_compiler_latexmk = {
             \ 'build_dir' : '',
