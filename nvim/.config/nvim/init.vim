@@ -2,22 +2,29 @@
 
 " => General Settings {{{
 
+
+
+filetype plugin indent on
+
+" Set to auto read when a file is changed from the outside
+
+set history=500 
+set autoread
+
+" Silent or else `q:` or `q/` get messed up
+au FocusGained,BufEnter * silent! checktime 
+filetype off
+
 set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua
 
-lua require('tmp_init')
 
-filetype plugin on
-filetype indent on
-
-set history=500 " Set to auto read when a file is changed from the outside
-set autoread
-au FocusGained,BufEnter * silent! checktime " Silent or else `q:` or `q/` get messed up
+lua require("tmp_init")
 
 
-filetype off
+
 set visualbell
 set confirm
 set mousemodel=popup_setpos 
@@ -54,6 +61,7 @@ endif
 if !isdirectory(expand('~/.config/nvim/view/'))
     silent ! mkdir -p ~/.config/nvim/view
 endif
+
 set viewdir=~/.config/nvim/view/
 
 
@@ -384,9 +392,8 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
 
 " Language Syntax
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
-" Plug 'lervag/vimtex'
-" Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
-Plug 'daeyun/vim-matlab'
+Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
+" Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
 Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc', 'pdc', 'markdown'], 'on': ['Pandoc']}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown'], 'on': ['Pandoc']}
@@ -401,7 +408,7 @@ Plug 'p00f/nvim-ts-rainbow'
 " Experimental
 "
 Plug 'ARM9/arm-syntax-vim'
-Plug 'ihasdapie/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'ihasdapie/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
 
 " Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
 
@@ -720,7 +727,8 @@ let g:coc_global_extensions = [
             \ 'coc-go',
             \ 'coc-fish',
             \ 'coc-clangd',
-            \ 'coc-db'
+            \ 'coc-db',
+            \ 'coc-vimtex',
             \ ]
 
             " \ 'coc-tabnine',
