@@ -27,6 +27,7 @@ find
 - nodejs > 16
 - fzf
 - ripgrep
+- pynvim
 
 Optional
 - matlab
