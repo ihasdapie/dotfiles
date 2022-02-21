@@ -41,7 +41,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 nnoremap <leader>cmr :MatlabCliRunCell <cr>
 nnoremap <leader>cgv :w <CR> :GraphvizCompile <CR>
-nnoremap <leader>clf :w<cr> :luafile %<cr>
+" nnoremap <leader>clf :w<cr> :luafile %<cr>
 
 " Can't seem to map this one in which-key.nvim
 vnoremap <LocalLeader>y "+y 

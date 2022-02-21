@@ -85,7 +85,8 @@ wk.register( { -- Normal mode mappings
 
       c = {
           name = "+code",
-          a = {"<Plug>(coc-codeaction)", "code action"},
+          A = {"<Plug>(coc-codeaction)", "code action"},
+          a = {"<Plug>(coc-codeaction-line)", "code action (line)"},
           c = {"<cmd>CocList --ignore-case commands<CR>", "list avaliable commands"},
           f = {"<Plug>(coc-fix-current)", "code fix"},
           r = {"<Plug>(coc-rename)", "rename"},

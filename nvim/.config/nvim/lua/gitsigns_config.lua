@@ -9,9 +9,9 @@ require('gitsigns').setup {
     keymaps = {
         noremap=true,
     },
-    current_line_blame_opts = {
+    --[[ current_line_blame_opts = {
         virt_text_pos = 'right_align',
-    }
+    } ]]
     -- use_decoration_api = false,
     -- debug_mode = true,
 

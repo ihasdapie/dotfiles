@@ -2,7 +2,22 @@
 
 " So that you can get vimtex features in markdown & pandoc
 " This will look like it fails (hence the silent!) but it will work
+
+" Unmap a bunch of vimtex imaps that get in the way of markdown editing
 silent! call vimtex#init()
+" au BufReadPost *,silent! iunmap #-
+
+
+
+" iunmap #-
+" iunmap #c
+" iunmap #f
+" iunmap #/
+" iunmap #B
+" iunmap #b
+
+
+
 
 
 " below doens't quite work yet (not compatabile with snippets) 

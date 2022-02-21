@@ -26,6 +26,7 @@
         "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
         /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
 
+
         /* Coc-Explorer */
         "explorer.icon.enableNerdfont": true,
         "explorer.icon.source": "nvim-web-devicons",
