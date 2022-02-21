@@ -1,7 +1,16 @@
 
 
 require('neogen').setup {
-  enabled = true
+  enabled = true,
+  languages = {
+    python = {
+      template = {
+        annotation_convention = "reST"
+      }
+    }
+
+
+  }
 }
 
 

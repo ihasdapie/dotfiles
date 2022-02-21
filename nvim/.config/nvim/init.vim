@@ -697,9 +697,13 @@ command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
 " }}}
 
 " python-input usually gives inferior results to just the language server and it also doesn't do the icons right
-let g:coc_sources_disable_map = {
-            \ 'python': ['python-import']  
-            \ }
+" let g:coc_sources_disable_map = {
+"             \ 'python': ['python-import']  
+"             \ }
+" Deprecated as of https://github.com/neoclide/coc.nvim/commit/7f2dd00637ef5adde7f89249e857c5e15e1504df
+
+
+
 
 let g:coc_global_extensions = [
             \ 'coc-yank',
