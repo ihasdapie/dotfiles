@@ -417,7 +417,7 @@ Plug 'kristijanhusak/orgmode.nvim'
 " Plug 'kristijanhusak/orgmode.nvim'
 " Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
-" Plug 'lewis6991/impatient.nvim'
+Plug 'lewis6991/impatient.nvim'
 
 " Replace `filetype.vim` which is really slow
 " However this breaks :CocConfig which loads a `.json` file even though the
@@ -444,7 +444,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 call plug#end()
 
 " }}}
-" lua require('impatient')
+lua require('impatient')
 lua require('plugins')
 
 
