@@ -376,7 +376,7 @@ Plug 'windwp/nvim-ts-autotag'
 
 Plug 'tpope/vim-surround'
 Plug 'folke/which-key.nvim'
-Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex']}
+Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex', 'tex']}
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
 Plug 'tpope/vim-dadbod', {'on': ['DBUI', 'DB']}
@@ -833,6 +833,21 @@ let g:maximizer_set_default_mapping=0
 """"""""""
 let g:mdip_imgdir = 'img'
 let g:mdip_imgname = 'image'
+
+" Enable pasting for latex as well
+function! g:MyLatexPasteImage(relpath)
+  execute "normal! i\\begin{figure}[htpb]\r\\centering\r\\includegraphics[width=0.8\\linewidth]{" . a:relpath . "}\r\\caption{}\r\\label{fig:}\r\\end{figure}"
+    execute "normal! kki"
+endfunction
+autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
+autocmd FileType tex let g:PasteImageFunction = 'g:MyLatexPasteImage'
+
+" \begin{figure}[htpb]
+" 	\centering
+" 	\includegraphics[width=0.8\textwidth]{}
+" 	\caption{}
+" 	\label{fig:}
+" \end{figure}
 
 
 

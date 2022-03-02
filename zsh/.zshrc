@@ -129,7 +129,7 @@ alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
 alias klipboard="kitty +kitten clipboard"
 alias kssh="kitty +kitten ssh"
-alias cp="cp -i"                                                # Confirm before overwriting something
+alias cp="cp -i -b"                                                # Confirm before overwriting something
 alias mv="mv -i"                                                # Confirm before overwrite
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB

@@ -39,6 +39,13 @@ snippet bbb "Bold Text" wA
 endsnippet
 
 
+context "math()"
+snippet qd "qquad" wA
+\qquad$1
+endsnippet
+
+
+
 
 
 global !p
@@ -149,19 +156,33 @@ snippet iff "iff" Ai
 \iff
 endsnippet
 
-snippet mk "Math" wA
-$${1}$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
-	snip.rv = ' '
-else:
-	snip.rv = ''
-`$2
+
+snippet mk "Inline Math" wA
+$ $1 $ $0
 endsnippet
+
+snippet eqn "Equation" wA
+\begin{equation}
+	$1
+	\label{eq:$2}
+\end{equation}
+$3
+endsnippet
+
+snippet mtl "multline" wA
+\begin{multline}
+	$1
+	\label{eq:$2}
+\end{multicol}
+$3
+endsnippet
+
+
 
 snippet dm "Math" wA
 \[
 ${1:${VISUAL}}
-.\] $0
+\] $0
 endsnippet
 
 snippet ali "Align" bA
@@ -176,20 +197,22 @@ snippet // "Fraction" iA
 \\frac{$1}{$2}$0
 endsnippet
 
-snippet / "Fraction" i
+snippet / "Fraction" ie
 \\frac{${VISUAL}}{$1}$0
 endsnippet
 
 context "math()"
-snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrA
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrAe
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
+
 priority 1000
 context "math()"
-snippet '^.*\)/' "() frac" wrA
+snippet '^.*\)/' "() frac" wrAe
 `!p
-stripped = match.string[:-1]
+# stripped = match.string[:-1]
+stripped = match.string[:-1].replace('\frac', '\\frac') # so that this will work with coc-snippets
 depth = 0
 i = len(stripped) - 1
 while True:
@@ -202,13 +225,8 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 endsnippet
 
 context "math()"
-snippet '([A-Za-z])(\d)' "auto subscript" wrA
+snippet '([A-Za-z])(\d)' "auto subscript" wrAe
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
-endsnippet
-
-context "math()"
-snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 
 
@@ -359,6 +377,38 @@ endsnippet
 snippet __ "subscript" iA
 _{$1}$0
 endsnippet
+
+snippet ^^ "superscript" iA
+^{$1}$0
+endsnippet
+
+snippet varep "varepsilon" iA
+\varepsilon
+endsnippet
+
+
+
+snippet bigeq "Big equation" i
+\begin{equation}
+	\begin{split}
+		$1 &= $2 \\\\
+		$3 &= $4 \\\\
+	\end{split}
+	\label{eq:$5}
+\end{equation}
+$0
+endsnippet
+
+
+
+snippet bigeq "Big equation" i
+$$ \begin{aligned}
+	$1 &= $2 \cr
+	&= $3 \cr
+\end{aligned} $$
+endsnippet
+
+
 
 snippet ooo "\infty" iA
 \infty
@@ -683,6 +733,111 @@ endsnippet
 snippet DD "D" iA
 \mathbb{D}
 endsnippet
+
+
+
+
+
+
+# ---------------- NotesTeX ----------------
+
+
+snippet mnfig "Margin Figure" b
+\begin{marginfigure}
+	\includegraphics{$1}
+	\caption{fig:$2}
+\end{marginfigure}
+$0
+endsnippet
+
+snippet mntb "margintable" b
+\begin{margintable}
+	\vspace{.1in}
+	\begin{tabularx}{\marginparwidth}{$1}
+	\hline
+	$1 & $2 \\
+	\hline
+	\end{tabularx}
+	\caption{tbl:$3}
+\end{margintable}
+$4
+endsnippet
+
+
+snippet rmk "remark" b
+\begin{remark}
+$1
+\end{remark}
+$0
+endsnippet
+
+
+
+
+snippet dfn "Definition" b
+\begin{definition}
+$1
+\end{definition}
+$0
+endsnippet
+
+
+snippet thm "Theorem" b
+\begin{theorem}
+$1
+\end{theorem}
+$0
+endsnippet
+
+snippet lma "Lemma" b
+\begin{lemma}
+$1
+\end{lemma}
+$0
+endsnippet
+
+snippet prf "Proof" b
+\begin{proof}
+$1
+\end{proof}
+$0
+endsnippet
+
+snippet exm "example" b
+\begin{example}
+$1
+\end{example}
+$0
+endsnippet
+
+snippet thm "Theorem" b
+\begin{theorem}
+$1
+\end{theorem}
+$0
+endsnippet
+
+
+snippet blq "Blockquote" b
+\begin{blockquote}
+$1
+\end{blockquote}
+$0
+endsnippet
+
+
+
+priority 10
+context "math()"
+snippet "vec" "vec" riA
+\vec{$1}$0
+endsnippet
+
+
+
+
+
+
 
 # vim:ft=snippets
 

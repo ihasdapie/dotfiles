@@ -90,6 +90,7 @@
 
 
 
+
         /* "suggest.completionItemKindLabels": {
                 "method": "  ",
                 "function": "  ",
@@ -127,12 +128,12 @@
         "diagnostic.level": "hint",
         "diagnostic.displayByAle": false,
         "diagnostic.errorSign": "",
-        "diagnostic.warningSign": "",
-        "diagnostic.infoSign": "",
+        "diagnostic.warningSign": "", "diagnostic.infoSign": "",
         "diagnostic.hintSign": "",
 
         /* Coc-Snippets */
         "snippets.snipmate.enable": false,
+		"snippets.priority": 99,
 
         /* Coc-lua */
         // We want to be able to develop for neovim...

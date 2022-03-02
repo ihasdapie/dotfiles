@@ -44,7 +44,8 @@ _G.whichkey_latex = function ()
           X = "vimtex reload-state",
           s = "vimtex toggle-main",
           a = "vimtex context-menu",
-          L = "vimtex compile-selected"
+          L = "vimtex compile-selected",
+          ["<CR>"] = {"i\\item ", "insert \\item"}
         }
       }
     })

@@ -328,7 +328,7 @@ wk.register( { -- Normal mode mappings
       -- We want to change this up because <localleader> l conflicts with vimtex
         w = {"<cmd>w<CR>", "Save file"},
         p = {"\"+p", "Paste from system clipboard"},
-        P = {"<cmd>call mdip#MarkdownClipboardImage()<CR>", "Paste image system clipboard"},
+        P = {"<cmd>call mdip#MarkdownClipboardImage()<CR>", "Paste image"},
         y = {"\"+y", "Copy to system clipboard"},
         lf = {"<cmd>luafile %<CR>", "run current lua file"},
 
