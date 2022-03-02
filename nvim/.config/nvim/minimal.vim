@@ -171,6 +171,7 @@ Plug 'Luxed/ayu-vim'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi'
+Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
 
 call plug#end()
 " }}}
