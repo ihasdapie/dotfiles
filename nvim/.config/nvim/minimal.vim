@@ -167,9 +167,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Luxed/ayu-vim'
+Plug 'rebelot/kanagawa.nvim'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 Plug 'tpope/vim-surround'
+Plug 'b3nj5m1n/kommentary'
 Plug 'mg979/vim-visual-multi'
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
 
@@ -179,10 +180,7 @@ call plug#end()
 
 
 ": => Colorscheme {{{
-let g:ayucolor="mirage" " for mirage version of theme
-let g:ayu_italic_comment = 1 " defaults to 0.
-let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
-colorscheme ayu
+colorscheme kanagawa
 "}}}
 
 

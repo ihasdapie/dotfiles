@@ -1,4 +1,17 @@
-default_colors = require('kanagawa.colors').setup()
+local default_colors = require('kanagawa.colors').setup()
+
+vim.opt.fillchars:append({
+    horiz = '━',
+    horizup = '┻',
+    horizdown = '┳',
+    vert = '┃',
+    vertleft = '┫',
+    vertright = '┣',
+    verthoriz = '╋',
+})
+
+
+
 
 require('kanagawa').setup({
     undercurl = true,           -- enable undercurls
@@ -11,6 +24,8 @@ require('kanagawa').setup({
     specialReturn = true,       -- special highlight for the return keyword
     specialException = true,    -- special highlight for exception handling keywords 
     transparent = false,        -- do not set background color
+    dimInactive = false,
+    globalStatus = true,
     colors = {},
     overrides = {
         GitSignsCurrentLineBlame = {
@@ -18,8 +33,6 @@ require('kanagawa').setup({
         },
     },
 })
-
-
 
 
 

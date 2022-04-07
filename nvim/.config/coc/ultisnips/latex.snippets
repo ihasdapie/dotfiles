@@ -1,3 +1,5 @@
+
+# vim:ft=snippets
 # A valid snippet should starts with:
 #
 #		snippet trigger_word [ "description" [ options ] ]
@@ -24,6 +26,30 @@
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
 
+
+
+
+
+
+
+
+
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def notmath():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '0'
+
+def comment(): 
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+	return x != '0' and y != '0'
+
+endglobal
+
 snippet ttt "Monospace Text" wA
 \texttt{$1} $0
 endsnippet
@@ -48,18 +74,6 @@ endsnippet
 
 
 
-global !p
-def math():
-	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
-
-def comment(): 
-	return vim.eval('vimtex#syntax#in_comment()') == '1'
-
-def env(name):
-	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
-	return x != '0' and y != '0'
-
-endglobal
 
 
 snippet template "Basic template" b
@@ -97,7 +111,8 @@ snippet beg "begin{} / end{}" bA
 endsnippet
 
 priority 100
-snippet ... "ldots" iA
+context "math()"
+snippet ... "ldots" i
 \ldots
 endsnippet
 
@@ -113,7 +128,7 @@ snippet table "Table environment" b
 endsnippet
 
 snippet fig "Figure environment" b
-\begin{figure}[${1:htpb}]
+\begin{figure}[${1:H}]
 	\centering
 	${2:\includegraphics[width=0.8\textwidth]{$3}}
 	\caption{${4:$3}}
@@ -156,18 +171,27 @@ snippet iff "iff" Ai
 \iff
 endsnippet
 
-
 snippet mk "Inline Math" wA
 $ $1 $ $0
 endsnippet
 
-snippet eqn "Equation" wA
+snippet leqn "Labelled Equation" wA
 \begin{equation}
 	$1
 	\label{eq:$2}
 \end{equation}
 $3
 endsnippet
+
+snippet eqn "Anonymous Equation" wA
+\begin{equation}
+	$1
+\end{equation}
+$0
+endsnippet
+
+
+
 
 snippet mtl "multline" wA
 \begin{multline}
@@ -179,11 +203,11 @@ endsnippet
 
 
 
-snippet dm "Math" wA
-\[
-${1:${VISUAL}}
-\] $0
-endsnippet
+# snippet dm "Math" wA
+# \[
+# ${1:${VISUAL}}
+# \] $0
+# endsnippet
 
 snippet ali "Align" bA
 \begin{align*}
@@ -194,7 +218,7 @@ endsnippet
 
 context "math()"
 snippet // "Fraction" iA
-\\frac{$1}{$2}$0
+\frac{$1}{$2}$0
 endsnippet
 
 snippet / "Fraction" ie
@@ -205,6 +229,7 @@ context "math()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrAe
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
+
 
 
 priority 1000
@@ -351,8 +376,13 @@ endsnippet
 
 context "math()"
 snippet sq "\sqrt{}" iA
-\sqrt{${1:${VISUAL}}} $0
+\sqrt{$1} $0
 endsnippet
+
+
+
+
+
 
 context "math()"
 snippet sr "^2" iA
@@ -382,7 +412,7 @@ snippet ^^ "superscript" iA
 ^{$1}$0
 endsnippet
 
-snippet varep "varepsilon" iA
+snippet varep "varepsilon" wA
 \varepsilon
 endsnippet
 
@@ -512,10 +542,6 @@ snippet lll "l" iA
 \ell
 endsnippet
 
-context "math()"
-snippet nabl "nabla" iA
-\nabla 
-endsnippet
 
 context "math()"
 snippet xx "cross" iA
@@ -523,7 +549,7 @@ snippet xx "cross" iA
 endsnippet
 
 priority 100
-snippet ** "cdot" iA
+snippet ** "cdot" wA
 \cdot 
 endsnippet
 
@@ -532,11 +558,17 @@ snippet norm "norm" iA
 \|$1\|$0
 endsnippet
 
-priority 100
-context "math()"
-snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
-\\`!p snip.rv = match.group(1)`
-endsnippet
+# priority 100
+# context "math()"
+# snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+# \\`!p snip.rv = match.group(1)`
+# endsnippet
+
+# priority 200
+# context "math()"
+# snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+# \\`!p snip.rv = match.group(1)`
+# endsnippet
 
 priority 300
 context "math()"
@@ -544,11 +576,6 @@ snippet dint "integral" wA
 \int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
 
-priority 200
-context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
-\\`!p snip.rv = match.group(1)`
-endsnippet
 
 
 priority 100
@@ -578,10 +605,6 @@ snippet compl "complement" iA
 ^{c}
 endsnippet
 
-context "math()"
-snippet \\\ "setminus" iA
-\setminus
-endsnippet
 
 snippet >> ">>" iA
 \gg
@@ -611,6 +634,8 @@ snippet cc "subset" Ai
 \subset 
 endsnippet
 
+
+context "math()"
 snippet notin "not in " iA
 \not\in 
 endsnippet
@@ -690,7 +715,7 @@ snippet bigfun "Big function" iA
 \begin{align*}
 	$1: $2 &\longrightarrow $3 \\\\
 	$4 &\longmapsto $1($4) = $0
-.\end{align*}
+\end{align*}
 endsnippet
 
 snippet cvec "column vector" iA
@@ -726,10 +751,12 @@ Let $\Omega \subset \C$ be open.
 endsnippet
 
 
+context "math()"
 snippet HH "H" iA
 \mathbb{H}
 endsnippet
 
+context "math()"
 snippet DD "D" iA
 \mathbb{D}
 endsnippet
@@ -766,7 +793,7 @@ endsnippet
 
 snippet rmk "remark" b
 \begin{remark}
-$1
+	$1
 \end{remark}
 $0
 endsnippet
@@ -776,7 +803,7 @@ endsnippet
 
 snippet dfn "Definition" b
 \begin{definition}
-$1
+	$1
 \end{definition}
 $0
 endsnippet
@@ -784,35 +811,35 @@ endsnippet
 
 snippet thm "Theorem" b
 \begin{theorem}
-$1
+	$1
 \end{theorem}
 $0
 endsnippet
 
 snippet lma "Lemma" b
 \begin{lemma}
-$1
+	$1
 \end{lemma}
 $0
 endsnippet
 
 snippet prf "Proof" b
 \begin{proof}
-$1
+	$1
 \end{proof}
 $0
 endsnippet
 
 snippet exm "example" b
 \begin{example}
-$1
+	$1
 \end{example}
 $0
 endsnippet
 
 snippet thm "Theorem" b
 \begin{theorem}
-$1
+	$1
 \end{theorem}
 $0
 endsnippet
@@ -820,7 +847,7 @@ endsnippet
 
 snippet blq "Blockquote" b
 \begin{blockquote}
-$1
+	$1
 \end{blockquote}
 $0
 endsnippet
@@ -837,9 +864,46 @@ endsnippet
 
 
 
+# --------------
+# Course-specific snippets
 
 
-# vim:ft=snippets
+# ECE259
+
+context "math()"
+snippet '\s((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)vv' "symbol vec" wrAe
+\\vec{`!p snip.rv = match.group(1)`}$0
+endsnippet
+
+
+# ------
+
+
+
+
+# ----------------
+# English snippets
+
+snippet usu. "usually" wA
+usually
+endsnippet
+snippet Usu. "usually" wA
+Usually
+endsnippet
+
+
+
+
+# ---------------
+# General snippets
+
+context "math()"
+snippet ~= "approx" wA
+\approx $0
+endsnippet
+
+
+
 
 
 

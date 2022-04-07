@@ -1,6 +1,9 @@
 -- NOTE: This causes large slowdowns on remote files...
 -- Not 100% sure what is cuasing it but the problem is in this code
 -- I will presume it has something to do with getting the tabnames.
+--
+
+
 
 local gl = require('galaxyline')
 local utils = require('utils.galaxyline_utils')
@@ -331,13 +334,6 @@ gls.left[12] = {
   }
 }
 
---[[ gls.left[11] = {
-  TrailingWhiteSpace = {
-    provider = TrailingWhiteSpace,
-    icon = '  ',
-    highlight = {colors.yellow,colors.bg},
-  }
-} ]]
 
 
 gls.left[13] = {
@@ -384,8 +380,14 @@ gls.left[18] = {
     highlight = {colors.fg_green, colors.bg},
 } }
 
+--[[ gls.left[11] = {
+  TrailingWhiteSpace = {
+    provider = TrailingWhiteSpace,
+    icon = '  ',
+    highlight = {colors.yellow,colors.bg},
+  }
+} ]]
 
-DBUIFunc = utils.misc.db_ui_info
 
 
 
@@ -418,9 +420,8 @@ local function get_condition(type)
   return condition
 end
 
-
--- TODO: Reload ends up inserting again. Refactor back to index.
-
+-- TODO: Broken under currently latest neovim build
+--[[
 gls.right[1] = {
   TabInfoLeft = {
     condition = get_condition('checkleft'),
@@ -438,7 +439,7 @@ gls.right[2] = {
     provider = utils.stabline.render_current_tab(nil, '│', '│', 'name_only'),
     highlight = {colors.fg, colors.darkblue, 'bold'},
   }
-}
+}  
 
 gls.right[3] = {
   TabInfoRight = {
@@ -446,8 +447,7 @@ gls.right[3] = {
     provider = utils.stabline.render_right_tabs(nil, '│', 'name_only'),
     highlight = {colors.fg, colors.bg}
   }
-}
-
+} ]]
 
 gls.right[4] = {
   FileFormat = {
@@ -481,6 +481,9 @@ gls.right[6] = {
   }
 } ]]
 
+
+
+-- DBUIFunc = utils.misc.db_ui_info
 --[[ gls.right[17] = {
   DBUIFunc = {
     provider = DBUIFunc,

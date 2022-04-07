@@ -87,3 +87,4 @@ local line = {
   },
 }
 require('tabby').setup({ tabline = line })
+

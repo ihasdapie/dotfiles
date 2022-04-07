@@ -1,13 +1,12 @@
 -- Assorted utility functions
 
-local M = {}
 
-function _G.dump(...)
+function _G.NI_dump(...)
     local objects = vim.tbl_map(vim.inspect, {...})
     print(unpack(objects))
 end
 
-function M.cycle_number ()
+function _G.NI_cycle_number ()
     -- cycles between `set number`, `set relativenumber`, `set nonumber` ... and so forth
     local nu_isset = vim.o.number
     local rnu_isset = vim.o.relativenumber
@@ -23,10 +22,28 @@ function M.cycle_number ()
     end
 end
 
+function _G.NI_cycle_conceallevel()
+    local switch = {
+        [0] = 1,
+        [1] = 2,
+        [2] = 0,
+    }
+    vim.o.conceallevel = switch[vim.o.conceallevel]
+    print("conceallevel=" .. vim.o.conceallevel)
+end
 
-function M.cycle_prose ()
+
+
+function _G.NI_cycle_prose ()
     vim.wo.wrap = not vim.wo.wrap
     vim.wo.linebreak = not vim.wo.linebreak
+
+    --[[ " Focus mode
+function! Prose_mode()
+    " execute ":Copilot disable"
+    execute ":set linebreak!"
+    execute ":set wrap!"
+endfunction ]]
 
 end
 
@@ -41,10 +58,6 @@ F =vim.fn ]]
 
 
 -- function M.cycle_searchhl
-
-
-return M
-
 
 
 

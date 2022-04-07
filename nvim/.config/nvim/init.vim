@@ -36,6 +36,8 @@ set timeoutlen=420
 
 set title titlestring=%t\:\ %n titlelen=70
 
+set laststatus=3 " Enable global statusline
+
 
 " Set python interpreters; this speeds up startup time but not necessary
 let g:python3_host_prog="/usr/bin/python3"
@@ -351,7 +353,9 @@ Plug 'Luxed/ayu-vim', {'on': ['Colors']}
 Plug 'catppuccin/nvim'
 Plug 'Yagua/nebulous.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'twerth/ir_black'
 Plug 'theniceboy/nvim-deus'
+Plug 'Mofiqul/dracula.nvim'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -404,6 +408,11 @@ Plug 'nvim-treesitter/playground', {'on': ['TSPlaygroundToggle']}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'p00f/nvim-ts-rainbow'
 
+" Debugger
+Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
+            \ '<Plug>VimspectorBalloonEval', 'VimspectorAbortInstall', 'VimspectorDebugInfo', 'VimspectorInstall', 'VimspectorReset',
+            \ 'VimspectorShowOutput', 'VimspectorToggleLog', 'VimspectorUpdate', 'VimspectorWatch']}
+
 
 " Experimental
 "
@@ -434,12 +443,13 @@ Plug 'nanozuki/tabby.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'danymat/neogen'
 
+Plug 'jbyuki/nabla.nvim'
+
+" https://github.com/jbyuki/instant.nvim
+Plug 'jbyuki/venn.nvim'
 
 
-" Debugger
-Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
-            \ '<Plug>VimspectorBalloonEval', 'VimspectorAbortInstall', 'VimspectorDebugInfo', 'VimspectorInstall', 'VimspectorReset',
-            \ 'VimspectorShowOutput', 'VimspectorToggleLog', 'VimspectorUpdate', 'VimspectorWatch']}
+
 
 call plug#end()
 
@@ -471,7 +481,6 @@ augroup custom_colors
   autocmd!
   autocmd ColorScheme ayu call s:custom_ayu_colors()
 augroup END
-
 
 
 colorscheme kanagawa
@@ -606,9 +615,9 @@ xnoremap <leader>cF  <Plug>(coc-format-selected)
 nnoremap <leader>cF  <Plug>(coc-format-selected)
 
 " KK to show function docs in floating
-nnoremap <silent>KK :call <SID>show_documentation()<CR>
+nnoremap <silent>ZZ :call <SID>show_documentation()<CR>
 " K to split out function docs in bottom buffer
-nnoremap <silent>K :call ShowDoc()<CR><C-e>
+nnoremap <silent>Z :call ShowDoc()<CR><C-e>
 
 " Use C-enter to select instead (so it doesn't mess up entering a newline at times)
 inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm()
@@ -764,13 +773,6 @@ endfunction
 
 
 
-" Focus mode
-function! Prose_mode()
-    execute ":Copilot disable"
-    execute ":set linebreak"
-    execute ":set wrap"
-endfunction
-
 
 
 
@@ -836,7 +838,7 @@ let g:mdip_imgname = 'image'
 
 " Enable pasting for latex as well
 function! g:MyLatexPasteImage(relpath)
-  execute "normal! i\\begin{figure}[htpb]\r\\centering\r\\includegraphics[width=0.8\\linewidth]{" . a:relpath . "}\r\\caption{}\r\\label{fig:}\r\\end{figure}"
+  execute "normal! i\\begin{figure}[H]\r\\centering\r\\includegraphics[width=0.8\\linewidth]{" . a:relpath . "}\r\\caption{}\r\\label{fig:}\r\\end{figure}"
     execute "normal! kki"
 endfunction
 autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
@@ -881,12 +883,6 @@ silent source ~/.config/nvim/keybindings.vim
 " The rest of the keybindings can be found in ./lua/which-key_config.lua
 
 
-
-"""""""""""""""""""""""""""
-" => Assorted Functions
-"""""""""""""""""""""""""""""
-lua MYFUNC = require('functions')
-" Not sure if this is the right way to do it, but it works ?!
 
 
 
