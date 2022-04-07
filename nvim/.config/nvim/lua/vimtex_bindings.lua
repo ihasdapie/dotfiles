@@ -21,6 +21,7 @@ _G.whichkey_latex = function ()
       K = "vimtex doc-package",
 
       ['<localleader>'] = {
+
         l = {
           name = '+vimtex',
           i = "vimtex info",

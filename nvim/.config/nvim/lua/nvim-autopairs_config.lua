@@ -9,8 +9,7 @@ npairs.setup({
 
 
 -- `tex` math
-npairs.add_rule(Rule("$","$","tex"))
-npairs.add_rule(Rule("$$","$$","md"))
+npairs.add_rule(Rule("$$", "$$", "md"))
 npairs.add_rule(Rule("$$ "," $$","pandoc"))
 
 -- for hugo inline katex

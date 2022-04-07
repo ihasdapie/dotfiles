@@ -88,10 +88,11 @@ wk.register( { -- Normal mode mappings
           A = {"<Plug>(coc-codeaction)", "code action"},
           a = {"<Plug>(coc-codeaction-line)", "code action (line)"},
           c = {"<cmd>CocList --ignore-case commands<CR>", "list avaliable commands"},
-          f = {"<Plug>(coc-fix-current)", "code fix"},
-          r = {"<Plug>(coc-rename)", "rename"},
-          l = {"<Plug>(coc-codelens-action)", "code lens action"},
           d = {"<cmd>lua require('neogen').generate()<CR>", "generate documentation template"},
+          f = {"<Plug>(coc-fix-current)", "code fix"},
+          l = {"<Plug>(coc-codelens-action)", "code lens action"},
+          t = {"<cmd>Tags<CR>", "list tags"},
+          r = {"<Plug>(coc-rename)", "rename"},
           m = {
               name = "+misc",
               r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},
@@ -279,15 +280,15 @@ wk.register( { -- Normal mode mappings
 
       t = {
         name = "+toggle",
-        n = {"<cmd>lua MYFUNC.cycle_number()<CR>", "cycle line numbers"},
+        n = {"<cmd>lua NI_cycle_number()<CR>", "cycle line numbers"},
         t = {"<cmd>FloatermToggle<CR>", "toggle Floaterm"},
         h = {"<cmd>noh<CR>", "hide current search highlighting"},
         H = {"<cmd>set invhlsearch<CR>", "toggle search highlighting"},
-        i = {"<cmd>IndentGuidesToggle<CR>", "toggle indent guides"},
+        i = {"<cmd>IndentBlanklineToggle<CR>", "toggle indent guides"},
         u = {"<cmd>UndotreeToggle<CR>", "toggle undotree"},
-        p = {"<cmd>call Prose_mode()<CR>", "toggle prose mode"},
+        p = {"<cmd>lua NI_cycle_prose()<CR>", "toggle prose mode"},
         v = {"<cmd>Vista!!<CR>", 'toggle vista symbol tree'},
-        c = {"<cmd>ColorizerToggle<CR>", "toggle colorization"},
+        c = {"<cmd>lua NI_cycle_conceallevel()<CR>", "toggle conceallevel"},
         e = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
         s = {"<cmd>set spell! spell?<CR>", "spellcheck"},
         f = {"za", "toggle fold under cursor"}, -- Just `za` but remapped under leader. Can remove.
@@ -330,8 +331,9 @@ wk.register( { -- Normal mode mappings
         p = {"\"+p", "Paste from system clipboard"},
         P = {"<cmd>call mdip#MarkdownClipboardImage()<CR>", "Paste image"},
         y = {"\"+y", "Copy to system clipboard"},
-        lf = {"<cmd>luafile %<CR>", "run current lua file"},
-
+        -- lf = {"<cmd>luafile %<CR>", "run current lua file"},
+        v = {"<cmd>lua require('nabla').popup()<CR>", "preview LaTeX math"},
+        V = {"<cmd>lua Toggle_venn()<CR>", "toggle diagram drawer"},
         t = {
           name = "+floaterm",
           l = {"<cmd>FloatermNext<CR>", "next floaterm"},
@@ -353,7 +355,7 @@ wk.register({ -- base-level mappings
     ["]g"]=  {"<Plug>(coc-diagnostic-next)", "next coc-diagnostic"},
     ["gd"]=  {"<Plug>(coc-definition)", "coc-definition"},
     ["gy"]=  {"<Plug>(coc-type-definition)", "coc-type-definition"},
-    ["gi"]=  {"<Plug>(coc-implementation)", "coc-implementation"},
+    ["gI"]=  {"<Plug>(coc-implementation)", "coc-implementation"},
     ["gr"]=  {"<Plug>(coc-references)", "coc-references"},
   })
 

@@ -1,6 +1,6 @@
 
 
-
+require('functions')
 
 -- require('catppuccin_config')
 -- require('nebulous_config')
@@ -16,6 +16,7 @@ require('vimtex_bindings')
 require('dashboard_config')
 require('nvim-autopairs_config')
 require('neogen_config')
+require('venn_config')
 
 
 

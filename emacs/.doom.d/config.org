@@ -34,7 +34,7 @@ Set indents to 4 spaces.
 #+end_src
 ** Theme
 #+begin_src elisp
-(setq doom-theme 'doom-ayu-mirage)
+(setq doom-theme 'doom-one)
 #+end_src
 
 
