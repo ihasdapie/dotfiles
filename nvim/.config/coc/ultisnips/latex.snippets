@@ -309,7 +309,9 @@ snippet pmat "pmat" iA
 endsnippet
 
 snippet bmat "bmat" iA
-\begin{bmatrix} $1 \end{bmatrix} $0
+\begin{bmatrix} 
+$1 & $2 \\\\
+\end{bmatrix} $0
 endsnippet
 
 context "math()"
@@ -854,12 +856,6 @@ endsnippet
 
 
 
-priority 10
-context "math()"
-snippet "vec" "vec" riA
-\vec{$1}$0
-endsnippet
-
 
 
 
@@ -871,7 +867,7 @@ endsnippet
 # ECE259
 
 context "math()"
-snippet '\s((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)vv' "symbol vec" wrAe
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)vv' "symbol vec" wrAe
 \\vec{`!p snip.rv = match.group(1)`}$0
 endsnippet
 

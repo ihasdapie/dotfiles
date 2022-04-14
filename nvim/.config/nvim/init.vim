@@ -67,11 +67,11 @@ endif
 set viewdir=~/.config/nvim/view/
 
 
-augroup remember_folds
-  autocmd!
-  au BufWinLeave *.*  mkview
-  au BufWinEnter *.* silent! loadview
-augroup END
+" augroup remember_folds
+"   autocmd!
+"   au BufWinLeave *.*  mkview
+"   au BufWinEnter *.* silent! loadview
+" augroup END
 
 
 " # Function to permanently delete views created by 'mkview'
@@ -353,7 +353,6 @@ Plug 'Luxed/ayu-vim', {'on': ['Colors']}
 Plug 'catppuccin/nvim'
 Plug 'Yagua/nebulous.nvim'
 Plug 'rebelot/kanagawa.nvim'
-Plug 'twerth/ir_black'
 Plug 'theniceboy/nvim-deus'
 Plug 'Mofiqul/dracula.nvim'
 
@@ -396,7 +395,7 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
 
 " Language Syntax
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
-Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave']}
+Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave'], 'do': ':UpdateRemotePlugins'}
 " Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
 Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc', 'pdc', 'markdown'], 'on': ['Pandoc']}
@@ -447,6 +446,9 @@ Plug 'jbyuki/nabla.nvim'
 
 " https://github.com/jbyuki/instant.nvim
 Plug 'jbyuki/venn.nvim'
+
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'vim-test/vim-test'
 
 
 
@@ -942,19 +944,19 @@ let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmgs'
 
 let g:vimtex_compiler_latexmk = {
-            \ 'build_dir' : '',
-            \ 'callback' : 1,
-            \ 'continuous' : 1,
-            \ 'executable' : 'latexmk',
-            \ 'hooks' : [],
-            \ 'options' : [
-                \   '-verbose',
-                \   '-file-line-error',
-                \   '-synctex=1',
-                \   '-interaction=nonstopmode',
-                \   '-shell-escape'
-                \ ],
-                \}
+      \ 'build_dir' : '',
+      \ 'callback' : 1,
+      \ 'continuous' : 1,
+      \ 'executable' : 'latexmk',
+      \ 'hooks' : [],
+      \ 'options' : [
+        \ '-verbose',
+        \ '-file-line-error',
+        \ '-synctex=1',
+        \ '-interaction=nonstopmode',
+        \ '-shell-escape'
+        \ ],
+        \}
 
 
 
@@ -1123,6 +1125,22 @@ function! TFile(dir)
 endfunction
 
 command! -nargs=* TFile call TFile(<q-args>)
+
+
+
+" }}}
+
+
+" vim-test, vim-ultest {{{
+let g:ultest_use_pty = 1
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'kitty',
+  \ 'suite':   'kitty',
+\}
+
+
+let test#python#runner = 'pytest'
 
 
 
