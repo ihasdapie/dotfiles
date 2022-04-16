@@ -242,42 +242,46 @@ let g:suda#prefix = ['suda://', 'sudo://', '_://']
 
 " => Wilder.nvim {{{
 
-" call wilder#setup({'modes': [':', '/', '?'],
-"       \ 'next_key': '<Tab>',
-"       \ 'previous_key': '<S-Tab>',
-"       \ })
+call wilder#setup({'modes': [':', '/', '?'],
+      \ 'next_key': '<Tab>',
+      \ 'previous_key': '<S-Tab>',
+      \ })
 
-" call wilder#set_option('use_python_remote_plugin', 0)
-
-
+call wilder#set_option('use_python_remote_plugin', 0)
 
 
-" autocmd CmdlineEnter * ++once call s:wilder_init()
 
-" function! s:wilder_init() abort
 
-"     call wilder#set_option('pipeline', [
-"                 \   wilder#branch(
-"                 \     wilder#cmdline_pipeline({
-"                 \       'use_python': 0, 
-"                 \       'fuzzy': 0, 
-"                 \     }),
-"                 \     wilder#vim_search_pipeline(),
-"                 \   ),
-"                 \ ])
+autocmd CmdlineEnter * ++once call s:wilder_init()
 
-"     call wilder#set_option('renderer', wilder#renderer_mux({
-"                 \ ':': wilder#popupmenu_renderer({
-"                 \   'highlighter': wilder#basic_highlighter(),
-"                 \   'left': [
-"                     \     wilder#popupmenu_devicons(),
-"                     \   ]
-"                         \ }),
-"                         \ '/': wilder#wildmenu_renderer({
-"                         \   'highlighter': wilder#basic_highlighter(),
-"                         \ }),
-"                         \ }))
-" endfunction
+function! s:wilder_init() abort
+" https://github.com/gelguy/wilder.nvim/issues/107
+" Man command completions are slow. Ignore it
+	call wilder#set_option('pipeline', [
+				\ wilder#branch([ 
+				\     wilder#check({-> getcmdtype() ==# ':'}),
+				\     {ctx, x -> wilder#cmdline#parse(x).cmd ==# 'Man' ? v:true : v:false},
+				\   ]),
+				\   wilder#branch(
+				\     wilder#cmdline_pipeline({
+				\       'use_python': 0, 
+				\       'fuzzy': 0, 
+				\     }),
+				\     wilder#vim_search_pipeline(),
+				\   ),
+				\ ])
+
+	call wilder#set_option('renderer', wilder#renderer_mux({
+				\ ':': wilder#popupmenu_renderer({
+					\ 'highlighter': wilder#basic_highlighter(),
+					\ 'left': [ wilder#popupmenu_devicons(), ]
+				\ }),
+				\ '/': wilder#wildmenu_renderer({
+					\ 'highlighter': wilder#basic_highlighter(),
+					\ 'apply_incsearch_fix': v:true,
+				\ }),
+			\ }))
+endfunction
 
 
 " }}}

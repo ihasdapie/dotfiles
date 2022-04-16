@@ -1028,7 +1028,7 @@ function! s:wilder_init() abort
 				\ wilder#branch([ 
 				\     wilder#check({-> getcmdtype() ==# ':'}),
 				\     {ctx, x -> wilder#cmdline#parse(x).cmd ==# 'Man' ? v:true : v:false},
-				\   ]),
+				\   ],
 				\   wilder#branch(
 				\     wilder#cmdline_pipeline({
 				\       'use_python': 0, 
@@ -1036,7 +1036,7 @@ function! s:wilder_init() abort
 				\     }),
 				\     wilder#vim_search_pipeline(),
 				\   ),
-				\ ])
+				\ )])
 
 	call wilder#set_option('renderer', wilder#renderer_mux({
 				\ ':': wilder#popupmenu_renderer({
