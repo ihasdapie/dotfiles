@@ -449,6 +449,7 @@ Plug 'jbyuki/venn.nvim'
 
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'vim-test/vim-test'
+Plug 'ludovicchabant/vim-gutentags'
 
 
 

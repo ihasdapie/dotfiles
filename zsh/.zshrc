@@ -280,7 +280,7 @@ compdef _kitty kitty
 
 # # Plugins
 # # antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.sh
+source ~/.zsh_plugins.zsh
 
 
 # # zsh autosuggestions
