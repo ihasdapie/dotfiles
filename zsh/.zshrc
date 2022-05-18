@@ -294,6 +294,64 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 
+
+# some functions {{{
+
+cd() { builtin cd "$@" && ls; }
+
+blur_zathura() {
+  for wid in $(xdotool search --pid $(pidof zathura)); do
+            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+}
+
+kittycolor(){
+  BASE="$HOME/.config/kitty/kitty-themes/themes"
+  PICKED=$(fd . "$BASE" | sed 's/\(.*\)\/\(.*\)\.conf/\2/g' | fzf)
+  kitty @set-colors "$BASE/$PICKED.conf"
+}
+
+blur_kitty () {
+if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
+        for wid in $(xdotool search --pid $PPID); do
+            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
+fi 
+}
+
+nodeup() {
+  eval $(npm completion zsh)
+  [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+  source /usr/share/nvm/nvm.sh
+  source /usr/share/nvm/bash_completion
+  source /usr/share/nvm/install-nvm-exec
+}
+
+pyup() {
+  eval "$(pyenv init -)"
+}
+
+
+
+rosup2() {
+  export ROS_DOMAIN_ID=69
+  source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
+  source /usr/share/colcon_cd/function/colcon_cd.sh
+  source /opt/ros2/foxy/setup.zsh
+}
+
+upload_0x0 () {
+  curl -F "file=@$1" https://0x0.st
+}
+
+utias_vpn () {
+  openvpn $HOME/aUToronto/aUToronto_VPN/spec.ovpn
+}
+
+
+
+# }}}
+
+
+
 # export QSYS_ROOTDIR="/home/ihasdapie/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
 
 # zprof
