@@ -1,6 +1,6 @@
 
 
-local filename = require('tabby.filename')
+local filename = require('tabby.module.filename')
 local util = require('tabby.util')
 
 local hl_tabline = util.extract_nvim_hl('TabLine')

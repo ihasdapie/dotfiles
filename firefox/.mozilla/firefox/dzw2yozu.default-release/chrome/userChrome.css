@@ -104,7 +104,9 @@
 #urlbar:not([breakout][breakout-extend]) > #urlbar-background {
   border      : none !important;
   animation  : 0.15s !important;
-  background: rgba(0,0,0,0.69) !important; /* Urlbar transparency (/) */
+
+  /* Urlbar transparency (/) */
+  /* background: rgba(0,0,0,0.69) !important;  */
 }
 
 

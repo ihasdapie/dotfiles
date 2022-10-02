@@ -17,6 +17,8 @@ require('dashboard_config')
 require('nvim-autopairs_config')
 require('neogen_config')
 require('venn_config')
+require('gitlinker_config')
+require('hydra_config')
 
 
 

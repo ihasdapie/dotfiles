@@ -15,22 +15,22 @@ vim.opt.fillchars:append({
 
 require('kanagawa').setup({
     undercurl = true,           -- enable undercurls
-    commentStyle = "italic",
-    functionStyle = "italic",
-    keywordStyle = "bold",
-    statementStyle = "bold",
-    typeStyle = "NONE",
-    variablebuiltinStyle = "italic",
+    commentStyle = {italic = true},
+    functionStyle = {italic = true},
+    keywordStyle = {bold = true},
+    statementStyle = {bold = true} ,
+    -- typeStyle = "NONE",
+    variablebuiltinStyle = {italic = true},
     specialReturn = true,       -- special highlight for the return keyword
     specialException = true,    -- special highlight for exception handling keywords 
-    transparent = false,        -- do not set background color
-    dimInactive = false,
+    transparent = true,        -- do not set background color
+    dimInactive = true,
     globalStatus = true,
     colors = {},
     overrides = {
-        GitSignsCurrentLineBlame = {
+        --[[ GitSignsCurrentLineBlame = {
             fg = default_colors.winterYellow, bg = default_colors.sumiInk3,
-        },
+        }, ]]
     },
 })
 

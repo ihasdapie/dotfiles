@@ -3,9 +3,9 @@
 
 paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # instant prompt causes some rescaling jank...
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -22,16 +22,9 @@ fpath=(~/.zsh $fpath)
 ## Options section
 # setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-# setopt nocaseglob                                               # Case insensitive globbing
-setopt rcexpandparam                                            # Array expension with parameters
-# setopt nocheckjobs                                              # Don't warn about running processes when exiting
-setopt numericglobsort                                          # Sort filenames numerically when it makes sense
-setopt nobeep                                                   # No beep
-setopt appendhistory                                            # Immediately append history instead of overwriting
-setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
-setopt autocd                                                   # if only directory path is entered, cd there.
+# setopt nocaseglob                                               # Case insensitive globbing setopt rcexpandparam                                            # Array expension with parameters setopt nocheckjobs                                              # Don't warn about running processes when exiting setopt numericglobsort                                          # Sort filenames numerically when it makes sense setopt nobeep                                                   # No beep setopt appendhistory                                            # Immediately append history instead of overwriting setopt histignorealldups                                        # If a new command is a duplicate, remove the older one setopt autocd                                                   # if only directory path is entered, cd there.
 setopt EXTENDED_HISTORY
-setopt SHARE_HISTORY
+setopt NO_SHARE_HISTORY       # share history makes for weird behaviour on up when broadcasting
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_SPACE
@@ -128,7 +121,7 @@ alias ls="ls --color=auto --hyperlink"
 alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
 alias klipboard="kitty +kitten clipboard"
-alias kssh="kitty +kitten ssh"
+alias ssh="kitty +kitten ssh"
 alias cp="cp -i -b"                                                # Confirm before overwriting something
 alias mv="mv -i"                                                # Confirm before overwrite
 alias df='df -h'                                                # Human-readable sizes
@@ -153,6 +146,7 @@ alias rm='trash'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias py="ipython3"
 alias qc='qalc'
+alias valgrind='colour-valgrind'
 ##################
 # My Aliases END
 ##################
@@ -179,7 +173,7 @@ export PATH=$PATH:$HOME/.local/bin
 
 
 #######  NNN
-export NNN_PLUG="P:preview-tabbed;p:preview-tui-ext;j:autojump;f:fzopen;k:kdeconnect" # I should add more!
+export NNN_PLUG="P:preview-tabbed;p:preview-tui-ext;j:autojump;f:fzopen;k:kdeconnect;G:git-changes;g:git-status" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
 export NNN_OPTS="de"
@@ -329,15 +323,6 @@ pyup() {
   eval "$(pyenv init -)"
 }
 
-
-
-rosup2() {
-  export ROS_DOMAIN_ID=69
-  source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
-  source /usr/share/colcon_cd/function/colcon_cd.sh
-  source /opt/ros2/foxy/setup.zsh
-}
-
 upload_0x0 () {
   curl -F "file=@$1" https://0x0.st
 }
@@ -348,7 +333,77 @@ utias_vpn () {
 
 
 
+
 # }}}
+
+
+# OSRF {{{
+
+lstart() {
+  lxc config device remove osrf Xauthority
+  lxc config device add osrf Xauthority disk path=/home/ihasdapie/.Xauthority source=$XAUTHORITY
+  lxc start osrf
+}
+
+
+
+los () {
+  kitty @set-colors ~/.config/kitty/kitty-themes/themes/Argonaut.conf;
+  lxc exec osrf -- sudo --login --user ihasdapie;
+  kitty @set-colors ~/.config/kitty/kitty-themes/themes/kanagawa.conf;
+}
+
+alias ccd='colcon_cd'
+
+function rup_base () {
+  source /usr/share/colcon_cd/function/colcon_cd.sh
+  source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
+}
+
+
+# source reference (source checkout on rolling) ros2
+function rupr () {
+  source /home/ihasdapie/osrf/ros2_ws/install/setup.zsh
+  if [[ $# -ne 0 ]]; then
+    if [[ $1 == "test" ]]; then
+      if [[ -z PYTHONPATH ]]; then
+        export PYTHONPATH=/home/ihasdapie/osrf/ros2_ws/build/rclpy && echo "setting PYTHONPATH for rclpy"
+      else
+        export PYTHONPATH=$PYTHONPATH:/home/ihasdapie/osrf/ros2_ws/build/rclpy && echo "extending PYTHONPATH for rclpy"
+      fi
+    fi
+  fi
+  rup_base
+}
+
+# source ros2 service_introspection ws
+function rups () {
+  source /home/ihasdapie/osrf/service_introspection/install/setup.zsh
+  if [[ $# -ne 0 ]]; then
+    if [[ $1 == "test" ]]; then
+      if [[ -z PYTHONPATH ]]; then
+        export PYTHONPATH=/home/ihasdapie/osrf/service_introspection/build/rclpy && echo "setting PYTHONPATH for rclpy"
+      else
+        export PYTHONPATH=$PYTHONPATH:/home/ihasdapie/osrf/service_introspection/build/rclpy && echo "extending PYTHONPATH for rclpy"
+      fi
+    fi
+  fi
+  rup_base
+}
+
+
+
+
+# }}}
+
+
+
+
+# Pretty =less=
+export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
+
+
 
 
 

@@ -1,0 +1,34 @@
+--- hydra_config.lua	2022-06-26 17:13:28.774241507 -0700
++++ /tmp/nvimQ1WOkR/10	2022-06-26 17:20:49.420074470 -0700
+@@ -57,3 +57,31 @@
+       { 'q', nil, { exit = true, nowait = true } },
+    }
+ })
++
++      g = {
++        name = "+git",
++        G = {"<cmd>Git<CR>", "status"},
++        c = {"<cmd>Commits<CR>", "commits"},
++
++        F = {
++          name = "+fugitive",
++            b = {"<cmd>Git blame<CR>", "blame"},
++        },
++
++
++        f = {"<cmd>GFiles<CR>", "search git files"},
++        s = {"<cmd>Gitsigns stage_hunk<CR>", "stage hunk"},
++        S = {"<cmd>Gitsigns undo_stage_hunk<CR>", "undo_stage hunk"},
++        n = {"<cmd>Gitsigns next_hunk<CR>", "next hunk"},
++        p = {"<cmd>Gitsigns prev_hunk<CR>", "previous hunk"},
++        B = {"<cmd>Gitsigns stage_buffer<CR>", "stage buffer"},
++        r = {"<cmd>Gitsigns reset_hunk<CR>", "reset hunk"},
++        R = {"<cmd>Gitsigns reset_buffer<CR>", "reset buffer"},
++        P = {"<cmd>Gitsigns preview_hunk<CR>", "preview hunk"},
++        l = {
++          name = "+list",
++          c = {"<cmd>Commits<CR>", "Commits"},
++        },
++        y = {"Copy git link"}, -- Keybinding defined in gitlinker_config.lua
++      },
++

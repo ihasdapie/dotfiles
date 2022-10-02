@@ -79,14 +79,16 @@ wk.register( { -- Normal mode mappings
           p = {"<cmd>bprev<CR>", "Previous buffer"},
           -- P = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
           -- o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
-          d = {"<cmd>Bdelete %<CR>", "delete current buffer"},
+          d = {"<cmd>Bdelete<CR>", "delete current buffer"},
           b = {"<cmd>Buffers<CR>", "list buffers"},
       },
 
       c = {
           name = "+code",
           A = {"<Plug>(coc-codeaction)", "code action"},
-          a = {"<Plug>(coc-codeaction-line)", "code action (line)"},
+          L = {"<Plug>(coc-codeaction-line)", "code action (line)"},
+          a = {"<Plug>(coc-codeaction-cursor)", "code action(cursor)"},
+
           c = {"<cmd>CocList --ignore-case commands<CR>", "list avaliable commands"},
           d = {"<cmd>lua require('neogen').generate()<CR>", "generate documentation template"},
           f = {"<Plug>(coc-fix-current)", "code fix"},
@@ -106,10 +108,8 @@ wk.register( { -- Normal mode mappings
               f = {"<cmd>Pickachu file<CR>", "file"},
               d = {"<cmd>Pickachu date<CR>", "date"},
             },
-          R = {
-              name = "+run",
-              r = {"<cmd>SnipRun<CR>", 'sniprun'}
-            },
+          R =  {"<cmd>SnipRun<CR>", 'sniprun'},
+          C = {"<cmd>Copilot panel<CR>", 'copilot panel'},
 
           },
 
@@ -131,8 +131,8 @@ wk.register( { -- Normal mode mappings
         B = {"<Plug>VimspectorToggleConditionalBreakpoint", "toggle conditional breakpoint"},
         F = {"<Plug>VimspectorAddFunctionBreakpoint", "add function breakpoint"},
         C = {"<Plug>VimspectorRunToCursor", "run to cursor"},
-        n = {"<Plug>VimspectorStepOver", "step over"},
-        N = {"<Plug>VimspectorStepInto", "step into"},
+        N = {"<Plug>VimspectorStepOver", "step over"},
+        n = {"<Plug>VimspectorStepInto", "step into"},
         o = {"<Plug>VimspectorStepOut", "step out of current"},
         i = {"<Plug>VimspectorBalloonEval", "debug inspect"},
         u = {"<Plug>VimspectorUpFrame", "up stack"},
@@ -148,6 +148,8 @@ wk.register( { -- Normal mode mappings
         s = {"<cmd>w<CR>", "Save"},
         P = {"<cmd>Files ~/.config/nvim/<CR>", "Open config files"},
         n = {"<cmd>DashboardNewFile<CR>", "new file"},
+        d = {"<cmd>DiffChangesDiffToggle<CR>", "vimdiff unsaved buffer with saved"},
+        D = {"<cmd>DiffChangesDiffToggle<CR>", "show patch for unsaved buffer with saved"},
       },
 
       g = {
@@ -173,8 +175,8 @@ wk.register( { -- Normal mode mappings
         l = {
           name = "+list",
           c = {"<cmd>Commits<CR>", "Commits"},
-        }
-
+        },
+        y = {"Copy git link"}, -- Keybinding defined in gitlinker_config.lua
       },
 
 
@@ -334,6 +336,7 @@ wk.register( { -- Normal mode mappings
         -- lf = {"<cmd>luafile %<CR>", "run current lua file"},
         v = {"<cmd>lua require('nabla').popup()<CR>", "preview LaTeX math"},
         V = {"<cmd>lua Toggle_venn()<CR>", "toggle diagram drawer"},
+        n = {"<Plug>VimspectorStepInto", "debuggger: step into"},
         t = {
           name = "+floaterm",
           l = {"<cmd>FloatermNext<CR>", "next floaterm"},
@@ -361,21 +364,23 @@ wk.register({ -- base-level mappings
 
 
 wk.register({ -- Visual mode mappings
-    c = {
-      name="+code",
-      a = {"<Plug>(coc-codeaction-selected", "codeaction"},
-
-      R = {
-        name="+run",
-        r = {"<cmd>SnipRun", "sniprun"},
+    ["<leader>"] = {
+      c = {
+        name="+code",
+        a = {"<Plug>(coc-codeaction-selected)", "codeaction"},
+          R = {"<cmd>SnipRun<CR>", "sniprun"},
+        },
+        g = {
+          name="+git",
+          y = {"Copy git link"}, -- Keybinding defined in gitlinker_config.lua
+        }
       }
-      }
-
-  }, {mode='x'})
-
+    },
+    {mode='x'})
 
 
-wk.register({ -- insert mode mappings (Leader = <C-x>))
+
+  wk.register({ -- insert mode mappings (Leader = <C-x>))
    f = {"fzf#vim#complete#path('rg--files')", "Insert file name", expr=true},
    ['<tab>'] = {"<C-x><C-o>", "complete omnifunc"},
    i = {"<C-x><C-o>", "complete omnifunc"},

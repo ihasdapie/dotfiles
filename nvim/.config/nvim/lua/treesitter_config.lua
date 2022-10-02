@@ -1,6 +1,7 @@
 require'nvim-treesitter.configs'.setup {
     autotag = {
-        enable = true
+        enable = true,
+        filetypes =  {'html', 'javascript', 'ttypescript', 'xml', 'markdown'}
     },
     highlight = {
         enable = true,
@@ -39,6 +40,14 @@ require'nvim-treesitter.configs'.setup {
                 smart_rename = "trn"
             } ]]
         -- }
-    }
-
+    },
+    --[[ textsubjects = {
+        enable = true,
+        -- prev_selection = ',', -- (Optional) keymap to select the previous selection
+        keymaps = {
+            [';'] = 'textsubjects-smart',
+            ['.'] = 'textsubjects-container-outer',
+            [','] = 'textsubjects-container-inner',
+        },
+    }, ]]
 }
