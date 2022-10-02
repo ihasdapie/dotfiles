@@ -54,6 +54,10 @@ snippet ttt "Monospace Text" wA
 \texttt{$1} $0
 endsnippet
 
+snippet MK "Monospace Text" wA
+\texttt{$1} $0
+endsnippet
+
  
 snippet iii "Italic Text" wA
 \textit{$1} $0
@@ -61,7 +65,7 @@ endsnippet
 
 
 snippet bbb "Bold Text" wA
-\textbf{$1} $0
+\textbf{$1} $2 
 endsnippet
 
 
@@ -218,7 +222,7 @@ endsnippet
 
 context "math()"
 snippet // "Fraction" iA
-\frac{$1}{$2}$0
+\frac{$1}{$2}$3
 endsnippet
 
 snippet / "Fraction" ie
@@ -407,7 +411,15 @@ snippet rd "to the ... power" iA
 endsnippet
 
 snippet __ "subscript" iA
-_{$1}$0
+_{$1} $0
+endsnippet
+
+snippet PP "prime" iA
+^\prime
+endsnippet
+
+snippet ~~ "subscript" iA
+\tilde{$1}$0
 endsnippet
 
 snippet ^^ "superscript" iA
@@ -538,6 +550,11 @@ endsnippet
 context "math()"
 snippet mcal "mathcal" iA
 \mathcal{$1}$0
+endsnippet
+
+context "math()"
+snippet mbb "mathbb" iA
+\mathbb{$1}$0
 endsnippet
 
 snippet lll "l" iA
@@ -698,9 +715,9 @@ snippet case "cases" wA
 \end{cases}
 endsnippet
 
-snippet SI "SI" iA
-\SI{$1}{$2}
-endsnippet
+# snippet SI "SI" iA
+# \SI{$1}{$2}
+# endsnippet
 
 snippet bigfun "Big function" iA
 \begin{align*}
@@ -713,15 +730,10 @@ snippet cvec "column vector" iA
 \begin{pmatrix} ${1:x}_${2:1}\\\\ \vdots\\\\ $1_${2:n} \end{pmatrix}
 endsnippet
 
-priority 10
-context "math()"
-snippet "bar" "bar" riA
-\overline{$1}$0
-endsnippet
 
 priority 100
 context "math()"
-snippet "([a-zA-Z])bar" "bar" riA
+snippet "((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)bar" "bar" riA
 \overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
@@ -741,16 +753,6 @@ snippet letw "let omega" iA
 Let $\Omega \subset \C$ be open.
 endsnippet
 
-
-context "math()"
-snippet HH "H" iA
-\mathbb{H}
-endsnippet
-
-context "math()"
-snippet DD "D" iA
-\mathbb{D}
-endsnippet
 
 
 
@@ -843,6 +845,24 @@ snippet blq "Blockquote" b
 $0
 endsnippet
 
+snippet Lst "Code listing" b
+\begin{listing}[H]
+\caption{$2}
+\label{code:$3}
+\begin{minted}{$4}
+$5
+\end{minted}
+\end{listing}
+endsnippet
+
+snippet lst "Code listing" b
+\begin{listing}[H]
+\begin{minted}{$1}
+$2
+\end{minted}
+\end{listing}
+$0
+endsnippet
 
 
 
@@ -863,18 +883,18 @@ endsnippet
 
 # ------
 
-
-
-
-# ----------------
-# English snippets
-
-snippet usu. "usually" wA
-usually
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)~~' "symbol tilde" wrAe
+\\tilde{`!p snip.rv = match.group(1)`}$0
 endsnippet
-snippet Usu. "usually" wA
-Usually
+
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)uu' "symbol underline" wrAe
+\\underline{`!p snip.rv = match.group(1)`}$0
 endsnippet
+
+
 
 
 
@@ -886,10 +906,6 @@ context "math()"
 snippet ~= "approx" wA
 \approx $0
 endsnippet
-
-
-
-
 
 
 

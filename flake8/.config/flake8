@@ -1,16 +1,17 @@
 [flake8]
-ignore=
-    E303, # ignore too many blank lines
-    E251, # spaces around equals 
-    E226, # whitespace around operator
-    E302, # expected 2 blank lines, instead found three
+max-line-length = 99
+import-order-style = google
 
+# ignore=
+#    E303, # ignore too many blank lines
+#    E251, # spaces around equals 
+#    E226, # whitespace around operator
+#    E302, # expected 2 blank lines, instead found three
 # whitespace related stuff is easy enough to fix and super annoying to see pop up
-    W391, # blank space at end of file
-    W293, # blank line contains whitespace
-    W291, # trailing whitespace
+#    W391, # blank space at end of file
+#    W293, # blank line contains whitespace
+#    W291, # trailing whitespace
 
 
 
 
-max-line-length = 79

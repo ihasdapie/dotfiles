@@ -1,35 +1,35 @@
 swipe:
-  2:
-    # going forwards and back in browser, dolphin, etc
-    right:
-      sendkey: "LEFTALT+right"
-    left: 
-      sendkey: "LEFTALT+left"
   3:
     # Switching Desktops
     up: 
       sendkey: "LEFTMETA+down"
-      # command: 'xdotool key super+Down'
     left:
-      sendkey: "LEFTMETA+left"
-      # command: 'xdotool key super+Left'
-    right:
       sendkey: "LEFTMETA+right"
-      # command: 'xdotool key super+Right'
+    right:
+      sendkey: "LEFTMETA+left"
     down: 
       sendkey: "LEFTMETA+up"
-      # command: 'xdotool key super+Up'
   4:
     right:
-      sendkey: "LEFTMETA+o"
-      # command: 'xdotool key super+o'
+      sendkey: "LEFTMETA+o" # on my system this is overview
     left: 
-      sendkey: "LEFTMETA+p"
-      # command: 'xdotool key super+p'
-    up: 
-      sendkey: "esc"
-    down: 
-      command: 'krunner'
+      sendkey: "LEFTMETA+p" # on my system this is present windows
+    down:
+      sendkey: ESC
+    # up: # 
+    #   sendkey: "LEFTALT+LEFTSHIFT+d"  # on my system this is present desktops
+
+# hold:
+#   4:
+#     command: 'krunner'
+
+rotate: # Easier gesture to do with one hand than pinching
+  2:
+    clockwise:
+      sendkey: 'LEFTALT+SPACE' # on my system this is krunner
+    counterclockwise:
+      sendkey: ESC
+
 
 
 

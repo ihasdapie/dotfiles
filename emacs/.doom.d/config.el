@@ -6,9 +6,9 @@
 (setq c-set-style "k&r")
 (setq c-basic-offset 4)
 
-(setq doom-font (font-spec :family "PragmataPro Liga" :size 15 :weight 'Medium)
-      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 14)
-      doom-big-font (font-spec :family "PragmataPro Liga" :size 50))
+(setq doom-font (font-spec :family "Rec Mono Duotone" :size 15 :weight 'Medium)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14)
+      doom-big-font (font-spec :family "Rec Mono Duotone" :size 50))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -62,6 +62,8 @@
         company-dabbrev-downcase 0
         company-lsp-cache-candidates 'auto)
 )
+
+(setq projectile-project-search-path '(("~/Projects" . 1) ("~/osrf" . 3)))
 
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)

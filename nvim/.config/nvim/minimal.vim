@@ -16,6 +16,8 @@ set history=500 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * silent! checktime " Silent or else `q:` or `q/` get messed up
 
+set nonumber
+
 
 filetype off
 set visualbell
@@ -173,6 +175,9 @@ Plug 'tpope/vim-surround'
 Plug 'b3nj5m1n/kommentary'
 Plug 'mg979/vim-visual-multi'
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+Plug 'folke/which-key.nvim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 " }}}
@@ -227,6 +232,7 @@ command! -bang -nargs=* RgHidden
   \   fzf#vim#with_preview(), <bang>0)
 
 silent source ~/.config/nvim/keybindings.vim
+lua require('which-key_config')
 " The rest of the keybindings can be found in ./lua/which-key_config.lua
 
 

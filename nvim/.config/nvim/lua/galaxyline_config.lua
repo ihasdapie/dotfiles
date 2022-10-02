@@ -261,11 +261,41 @@ gls.left[4] = {
     }
 }
 
+-- From https://github.com/glepnir/galaxyline.nvim/blob/main/lua/galaxyline/provider_fileinfo.lua
+
+local function buffer_is_readonly()
+  if vim.bo.filetype == 'help' then
+    return false
+  end
+  return vim.bo.readonly
+end
+
+local function file_with_icons(file, modified_icon, readonly_icon)
+  if vim.fn.empty(file) == 1 then return '' end
+
+  modified_icon = modified_icon or ''
+  readonly_icon = readonly_icon or ''
+
+  if buffer_is_readonly() then
+    file = readonly_icon .. ' ' ..file
+  end
+
+  if vim.bo.modifiable  and vim.bo.modified then
+    file = file .. ' ' ..modified_icon
+  end
+
+  return ' ' .. file .. ' '
+end
+
+local function get_shorten_file_name(mmodified_icon, readonly_icon)
+  local file = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.expand('%:p'), ':~:.'), 6)
+  return file_with_icons(file, mmodified_icon, readonly_icon)
+end
 
 
 gls.left[5] = {
   FileName = {
-    provider = {fileinfo.get_current_file_name,fileinfo.get_file_size},
+    provider = {get_shorten_file_name,fileinfo.get_file_size},
     condition = buffer_not_empty,
     highlight = {colors.fg,colors.line_bg,'bold'}
   }

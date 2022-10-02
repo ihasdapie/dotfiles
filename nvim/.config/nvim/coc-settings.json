@@ -1,10 +1,10 @@
 {
-        "_vim_": { "modeline": "/* vim: set ft=jsonc noet ts=4 sw=4: */" },
         "coc.source.emoji.filetypes": [
                 "gitcommit",
                 "markdown",
                 "pandoc"
         ],
+		"suggest.noselect": true, // Accept first suggestion on TAB
 
         "rust-analyzer.checkOnSave.command": "clippy",
         "coc.preferences.rootPatterns": [".git", ".hg", ".vim", ".projections.json"],
@@ -13,16 +13,17 @@
 
 
         /* "coc.source.coc-tabnine.priority": 50, */
-        "tabnine.priority": 50,
-        "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
+        // "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
 
         /* Coc-Python  */
 
         "python.formatting.provider": "black",
-        /* "python.linting.pylintEnabled": true,
-        "python.linting.pylintArgs": ["--disable=R,C", "--generated-members=numpy.*,torch.*"], */
+        // "python.linting.pylintEnabled": true,
+        // "python.linting.pylintArgs": ["--disable=R,C", "--generated-members=numpy.*,torch.*"],
         "python.linting.flake8Enabled": true,
-        /* "python.linting.mypyEnabled": true, */
+		"python.linting.flake8Args": ["--max-line-length=120", "--import-order-style=google"],
+        // "python.linting.mypyEnabled": true,
+		"python.linting.pydocstyleEnabled": true,
         "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
         /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
 
@@ -33,7 +34,6 @@
 
 		/* coc-vimtex */
 
-		"ltex.enabled": true,
 
 		"coc.source.vimtex.filetypes": [
 			"tex",
@@ -73,17 +73,8 @@
                 "folder" : " ",
                 "snippet" : " ",
                 "typeParameter" : " ",
-                "default" : " ",
+                "default" : " "
         },
-
-
-
-
-
-
-
-
-
 
 
 
@@ -131,6 +122,10 @@
         "diagnostic.warningSign": "", "diagnostic.infoSign": "",
         "diagnostic.hintSign": "",
 
+		// "diagnostic.messageTarget": "echo",
+		// "diagnostic.virtualText": true,
+		// "diagnostic.checkCurrentLine": true,
+
         /* Coc-Snippets */
         "snippets.snipmate.enable": false,
 		"snippets.priority": 99,
@@ -149,13 +144,21 @@
 
         "languageserver": {
                 "svls": {
-                        "command": "svls",
-                        "filetypes": ["systemverilog"]
-                }
-        },
+					"command": "svls",
+					"filetypes": ["systemverilog"]
+				}
+		},
+
+
 
         "highlight.colorNames.enable": false,
-        "markdown-preview-enhanced.liveUpdate": true,
+        "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.3/clangd_14.0.3/bin/clangd",
+		"clangd.arguments": [
+			"--background-index",
+			"--all-scopes-completion",
+			"--header-insertion=iwyu",
+			"--clang-tidy"],
+		"clangd.fallbackFlags": ["-std=c++17"]
 
 
         /* "languageserver": { */

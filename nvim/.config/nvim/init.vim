@@ -6,6 +6,12 @@
 
 filetype plugin indent on
 
+let mapleader=" "   " leader mappings with SPC
+let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcut for some leader actions
+
+" Early mapping here to prevent lightspeed.nvim from overriding it
+map <localleader> lua require("which-key").show(",", {mode = "n", auto = true})<CR>
+
 " Set to auto read when a file is changed from the outside
 
 set history=500 
@@ -15,7 +21,8 @@ set autoread
 au FocusGained,BufEnter * silent! checktime 
 filetype off
 
-set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
+" set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
+set guifont=Recursive:h12
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua
@@ -23,7 +30,8 @@ set rtp+=~/.config/nvim/lua
 
 lua require("tmp_init")
 
-
+set number
+" set signcolumn=number
 
 set visualbell
 set confirm
@@ -37,6 +45,9 @@ set timeoutlen=420
 set title titlestring=%t\:\ %n titlelen=70
 
 set laststatus=3 " Enable global statusline
+
+" Use rg for vimgrep
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 
 " Set python interpreters; this speeds up startup time but not necessary
@@ -101,13 +112,12 @@ cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delvie
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=150
-set redrawtime=1500
+set updatetime=100
+set redrawtime=1000
 
 set expandtab
 set shiftwidth=4
-" set colorcolumn=80
-set signcolumn=auto
+set colorcolumn=100
 
 """" for coc.nvim
 " TextEdit might fail if hidden is not set.
@@ -312,8 +322,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
 Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-fugitive'
-Plug 'lewis6991/gitsigns.nvim'
 Plug 'ihasdapie/vim-snippets'
 Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill',
             \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
@@ -331,7 +339,7 @@ Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
 Plug 'szw/vim-maximizer', {'on': ['MaximizerToggle']}
 
 " Performance improvements
-Plug 'antoinemadec/FixCursorHold.nvim'
+" Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'tweekmonster/startuptime.vim/', {'on': 'StartupTime'}
 Plug 'vim-scripts/LargeFile'
 Plug 'famiu/nvim-reload', {'on': ['Reload', 'Restart']}
@@ -341,9 +349,13 @@ Plug 'famiu/nvim-reload', {'on': ['Reload', 'Restart']}
 Plug 'kdav5758/TrueZen.nvim', {'on': ['TZMinimalist', 'TZAtaraxis']}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'wfxr/minimap.vim', {'on': ['MinimapToggle']}
-Plug 'glepnir/dashboard-nvim'
+Plug 'ihasdapie/dashboard-nvim'
 
 
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'ruifm/gitlinker.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Colourschemes
 Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
@@ -355,6 +367,7 @@ Plug 'Yagua/nebulous.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'theniceboy/nvim-deus'
 Plug 'Mofiqul/dracula.nvim'
+Plug 'Everblush/everblush.nvim'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -367,11 +380,8 @@ Plug 'Mofiqul/dracula.nvim'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh', 'on': ['SnipRun', ]}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
-" Plug 'nathanaelkane/vim-indent-guides'
 Plug 'lukas-reineke/indent-blankline.nvim'
-" Plug 'rafi/vim-venom', { 'for': 'python' }
 Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
-" Plug 'tmsvg/pear-tree'
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 
@@ -414,18 +424,17 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
-"
+Plug 'edluffy/hologram.nvim'
+Plug 'godlygeek/tabular'
+Plug 'anuvyklack/hydra.nvim'
+Plug 'anuvyklack/keymap-layer.nvim'
 Plug 'ARM9/arm-syntax-vim'
-Plug 'nathom/filetype.nvim'
-" Plug 'ihasdapie/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
-
 " Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
-
-Plug 'kristijanhusak/orgmode.nvim'
-" Plug 'kristijanhusak/orgmode.nvim'
+Plug 'nvim-orgmode/orgmode'
 " Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
-Plug 'lewis6991/impatient.nvim'
+" Plug '/home/ihasdapie/Projects/vim-dev/empy.vim'
+" Plug 'ihasdapie/empy.vim'
 
 " Replace `filetype.vim` which is really slow
 " However this breaks :CocConfig which loads a `.json` file even though the
@@ -449,10 +458,13 @@ Plug 'jbyuki/venn.nvim'
 
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'vim-test/vim-test'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
+Plug 'jmcantrell/vim-diffchanges'
+Plug 'tpope/vim-dispatch'
+Plug 'lewis6991/impatient.nvim'
 
 
-
+Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
 
 call plug#end()
 
@@ -527,7 +539,8 @@ let g:vista_floating_delay=200
 
 " => FZF {{{
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.96, 'relative': v:true, 'yoffset': 0.0 } }
+" let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1 } }
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9, 'highlight': 'Todo'} }
 let g:fzf_preview_window = ['down:69%', 'ctrl-/']
 
 let g:fzf_colors =
@@ -546,7 +559,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'
+  let command_fmt = 'rg -U --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'  " -U for multi-line search w/ '.' matching \n
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -597,19 +610,23 @@ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 
 " Tab completion
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
 
 " inoremap <silent><expr> <TAB>
 "       \ pumvisible() ? coc#_select_confirm() :
 "       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 "       \ <SID>check_back_space() ? "\<TAB>" :
 "       \ coc#refresh()
-
-
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " C-space to show completion list again
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -623,7 +640,9 @@ nnoremap <silent>ZZ :call <SID>show_documentation()<CR>
 nnoremap <silent>Z :call ShowDoc()<CR><C-e>
 
 " Use C-enter to select instead (so it doesn't mess up entering a newline at times)
-inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm()
+" inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <C-CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
@@ -706,6 +725,18 @@ function! SplitIfNotOpen(...)
 endfunction
 command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
 
+
+" signature help and format
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+
+
 " }}}
 
 " python-input usually gives inferior results to just the language server and it also doesn't do the icons right
@@ -747,8 +778,6 @@ let g:coc_global_extensions = [
             \ 'coc-vimtex',
             \ ]
 
-            " \ 'coc-tabnine',
-            " \ 'coc-vimtex',
 
 
 " }}}
@@ -907,7 +936,7 @@ let g:csv_nomap_space = 1
 " => vim-floaterm
 """"""""""""""""""
 let g:floaterm_width = 1.0
-let g:floaterm_height = 0.420
+let g:floaterm_height = 0.5
 let g:floaterm_position='bottom'
 
 
@@ -1010,15 +1039,13 @@ let g:vimspector_base_dir=expand('$HOME/.config/nvim/vimspector-config')
 "
 " TODO: Fancify wilder.nvim (new options are avaliable!)
 
+
 call wilder#setup({'modes': [':', '/', '?'],
       \ 'next_key': '<Tab>',
       \ 'previous_key': '<S-Tab>',
       \ })
 
 call wilder#set_option('use_python_remote_plugin', 0)
-
-
-
 
 autocmd CmdlineEnter * ++once call s:wilder_init()
 
@@ -1144,6 +1171,8 @@ let test#strategy = {
   \ 'suite':   'kitty',
 \}
 
+let g:ultest_deprecation_notice=0
+
 
 let test#python#runner = 'pytest'
 
@@ -1152,7 +1181,20 @@ let test#python#runner = 'pytest'
 " }}}
 
 
+" Gutentags {{{
 
+let g:gutentags_cache_dir="~/dotfiles-private/gutentags"
+
+
+" }}}
+
+
+" leetcode {{{
+
+let g:leetcode_browser='firefox'
+
+
+" }}}
 
 
 
@@ -1164,6 +1206,8 @@ if empty(glob('~/.config/nvim/private.vim'))
     silent !touch ~/.config/nvim/private.vim
 endif
 source ~/.config/nvim/private.vim
+
+
 
 
 

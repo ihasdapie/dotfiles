@@ -3,8 +3,9 @@ local Rule = require("nvim-autopairs.rule")
 
 npairs.setup({
     enable_check_bracket_line = false,
-    ignored_next_char = "[%w%.]", -- will ignore alphanumeric and `.` symbol
+    ignored_next_char = "[%(%w%.%'%\"]", -- will ignore alphanumeric, ., ', and " symbols
     check_ts = true,
+    enable_afterqot = true,
 })
 
 
@@ -41,10 +42,6 @@ npairs.add_rules {
           return opts.prev_char:match('.%]') ~= nil
       end)
       :use_key(']')
-
-
-
-
 }
 
 

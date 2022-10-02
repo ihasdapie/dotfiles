@@ -1,7 +1,7 @@
 require("nebulous").setup {
   variant = "fullmoon",
   disable = {
-    background = true,
+    background = false,
     endOfBuffer = false,
   },
   italic = {

@@ -1,8 +1,6 @@
 """""""""""""""""""""""""""""""""""""'
 " => [M]isc
 """""""""""""""""""""""""""""""""""""'
-let mapleader=" "   " leader mappings with SPC
-let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcut for some leader actions
 
 
 "Emacs-like M-x
@@ -28,8 +26,8 @@ tnoremap <Esc> <C-\><C-n>
 
 
 noremap <silent> <c-k> 15k
-noremap <silent> <c-j> 15j
-noremap <silent> <c-l> 10l
+noremap <silent> <c-j> 15je
+noremap <silent> <c-l> 10le
 noremap <silent> <c-h> 10h
 
 
