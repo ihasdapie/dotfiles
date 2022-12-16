@@ -310,13 +310,15 @@ wk.register( { -- Normal mode mappings
         c = {
           name = "+change",
           d = {"<cmd>cd %:p:h<CR>", "change cwd to current file"},
-        }
+        },
+        d = {'<cmd>lua require("duck").hatch()<CR>', "release a duck"},
+        D = {'<cmd>lua require("duck").cook()<CR>', "cook a duck"},
       },
 
       o = {
           name = "+open",
           t = {"<cmd>FloatermNew<CR>", "new floatterm"},
-          p = {"<cmd>CocCommand explorer<CR>", "project sidebar"}
+          p = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
       },
 
       q = {
@@ -340,7 +342,7 @@ wk.register( { -- Normal mode mappings
         t = {
           name = "+floaterm",
           l = {"<cmd>FloatermNext<CR>", "next floaterm"},
-          j = {"<cmd>FloatermPrev<CR>", "prev floaterm"},
+          h = {"<cmd>FloatermPrev<CR>", "prev floaterm"},
           t = {"<cmd>FloatermToggle<CR>", "toggle floaterm"},
           n = {"<cmd>FloatermNew<CR>", "new floaterm"},
           q = {"<cmd>FloatermKill<CR>", "close floaterm"},

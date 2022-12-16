@@ -2,8 +2,9 @@
 
 require('functions')
 
--- require('catppuccin_config')
--- require('nebulous_config')
+--[[ require('catppuccin_config')
+require('nebulous_config') ]]
+
 require('kanagawa_config')
 require("tabby_config")
 require('orgmode-nvim_config')
@@ -19,6 +20,8 @@ require('neogen_config')
 require('venn_config')
 require('gitlinker_config')
 require('hydra_config')
+require('leap_config')
+require('colorful-winsep_config')
 
 
 
