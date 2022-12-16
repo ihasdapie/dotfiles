@@ -327,12 +327,12 @@ Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'Floaterm
             \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
             \ 'FloatermShow', 'FloatermToggle', 'FloatermUpdate', 'FloatermFirst']}
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " glepnir isn't maintaining plugins atm
-Plug 'NTBBloodbath/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'NTBBloodbath/galaxyline.nvim' , {'branch': 'main'}
 " Plug 'windwp/windline.nvim'
 Plug 'kshenoy/vim-signature' 
-Plug 'ggandor/lightspeed.nvim'
+Plug 'ggandor/leap.nvim'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
 Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
@@ -358,6 +358,7 @@ Plug 'ruifm/gitlinker.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 " Colourschemes
+Plug 'nyoom-engineering/oxocarbon.nvim'
 Plug 'gruvbox-community/gruvbox',  {'on': ['Colors']}
 Plug 'ihasdapie/spaceducky',  {'on': ['Colors']}
 Plug 'b4skyx/serenade', {'on': ['Colors']}
@@ -424,21 +425,22 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
-Plug 'edluffy/hologram.nvim'
-Plug 'godlygeek/tabular'
+Plug 'lewis6991/impatient.nvim'
+" Plug 'edluffy/hologram.nvim'
+" https://github.com/jbyuki/instant.nvim
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug '~/Projects/vim-dev/nvim-bufferline.lua'
+" Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
+" Plug '/home/ihasdapie/Projects/vim-dev/empy.vim'
+" Plug 'ihasdapie/empy.vim'
+Plug 'tamton-aquib/duck.nvim'
+Plug 'nvim-zh/colorful-winsep.nvim'
+Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'anuvyklack/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
 Plug 'ARM9/arm-syntax-vim'
-" Plug '~/Projects/vim-dev/SCHLAD-list.nvim', {'for': ['markdown', 'txt', 'org']}
 Plug 'nvim-orgmode/orgmode'
-" Plug '~/Projects/vim-dev/nvim-bufferline.lua'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
-" Plug '/home/ihasdapie/Projects/vim-dev/empy.vim'
-" Plug 'ihasdapie/empy.vim'
-
-" Replace `filetype.vim` which is really slow
-" However this breaks :CocConfig which loads a `.json` file even though the
-" filetype should be `.jsonc`
 Plug 'github/copilot.vim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
@@ -450,18 +452,14 @@ Plug 'liuchengxu/vim-clap', {'on': ['Clap']}
 Plug 'nanozuki/tabby.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'danymat/neogen'
-
 Plug 'jbyuki/nabla.nvim'
-
-" https://github.com/jbyuki/instant.nvim
 Plug 'jbyuki/venn.nvim'
 
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
-Plug 'vim-test/vim-test'
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-test/vim-test', {'on': ['TestClass', 'TestFile', 'TestNearest', 'TestSuite', 'TestVisit']}
 Plug 'jmcantrell/vim-diffchanges'
 Plug 'tpope/vim-dispatch'
-Plug 'lewis6991/impatient.nvim'
+
 
 
 Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
@@ -557,6 +555,7 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg -U --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'  " -U for multi-line search w/ '.' matching \n
@@ -1023,10 +1022,10 @@ let g:LargeFile=50
 
 " Lightspeed.nvim {{{ 
 " make `f`, `t` work as per normal in macros
-nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
-nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
-nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
-nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
+" nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
+" nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
+" nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
+" nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
 " }}}
 
 """ => Vimspector {{{

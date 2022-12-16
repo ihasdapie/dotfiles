@@ -2,6 +2,8 @@
 
 
 paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
+# krabby random
+
 # instant prompt causes some rescaling jank...
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"

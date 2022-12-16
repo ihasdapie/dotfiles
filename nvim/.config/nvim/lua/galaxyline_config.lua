@@ -8,14 +8,11 @@
 local gl = require('galaxyline')
 local utils = require('utils.galaxyline_utils')
 local gls = gl.section
-local diagnostic = require("galaxyline.providers.diagnostic")
-local vcs = require("galaxyline.providers.vcs")
-local fileinfo = require("galaxyline.providers.fileinfo")
-local extension = require("galaxyline.providers.extensions")
-local buffer = require("galaxyline.providers.buffer")
-local search = require("galaxyline.providers.search")
-local whitespace = require("galaxyline.providers.whitespace")
-local lspclient = require("galaxyline.providers.lsp")
+local diagnostic = require("galaxyline.provider_diagnostic")
+local vcs = require("galaxyline.provider_vcs")
+local fileinfo = require("galaxyline.provider_fileinfo")
+local extension = require("galaxyline.provider_extensions")
+local buffer = require("galaxyline.provider_buffer")
 local M = {}
 
 gl.short_line_list = {
@@ -198,6 +195,8 @@ gls.left[1] = {
 }, }
 
 
+
+
 gls.left[2] = {
   ViMode = {
     provider = function()
@@ -222,7 +221,7 @@ gls.left[2] = {
         t  = 'TERMINAL',
         ['!']  = 'SHELL',
       }
-      local mode_color = {
+      --[[ local mode_color = {
         n = colors.green,
         i = colors.blue,v=colors.magenta,[''] = colors.blue,V=colors.blue,
         c = colors.red,no = colors.magenta,s = colors.orange,S=colors.orange,
@@ -235,12 +234,10 @@ gls.left[2] = {
         rm = colors.red,
         R  = colors.yellow,
         Rv = colors.magenta,
-      }
-      local vim_mode = vim.fn.mode()
-      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
-      -- return alias[vim_mode] .. '   '
-      return alias[vim_mode] .. ' '
-      -- return alias[vim_mode] .. '   '
+      } ]]
+      -- TODO(ihasdapie): fix blinking when moving cursor caused by repeated calls to :hi
+      -- vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
+      return alias[vim.fn.mode()] .. ' '
     end,
     highlight = {colors.red,colors.line_bg,'bold'},
 }, }
@@ -249,7 +246,7 @@ gls.left[3] = {
   FileIcon = {
     provider = fileinfo.get_file_icon,
     condition = buffer_not_empty,
-    highlight = {require('galaxyline.providers.fileinfo').get_file_icon_color,colors.line_bg},
+    highlight = {fileinfo.get_file_icon_color,colors.line_bg},
   },
 }
 
@@ -304,14 +301,14 @@ gls.left[5] = {
 gls.left[6] = {
   GitIcon = {
     provider = function() return '  ' end,
-    condition = require('galaxyline.providers.vcs').check_git_workspace,
+    condition = vcs.check_git_workspace,
     highlight = {colors.orange,colors.line_bg},
   }
 }
 gls.left[7] = {
   GitBranch = {
     provider = vcs.get_git_branch,
-    condition = require('galaxyline.providers.vcs').check_git_workspace,
+    condition = vcs.check_git_workspace,
     highlight = {'#8FBCBB',colors.line_bg,'bold'},
   }
 }

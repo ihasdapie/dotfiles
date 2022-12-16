@@ -23,15 +23,23 @@ require('kanagawa').setup({
     variablebuiltinStyle = {italic = true},
     specialReturn = true,       -- special highlight for the return keyword
     specialException = true,    -- special highlight for exception handling keywords 
-    transparent = true,        -- do not set background color
+    transparent = false,        -- do not set background color
     dimInactive = true,
     globalStatus = true,
-    colors = {},
+    colors = {
+        -- change background to ibm carbon
+        sumiInk1 = '#161616',
+        sumiInk0 = '#101010'
+    },
     overrides = {
         --[[ GitSignsCurrentLineBlame = {
             fg = default_colors.winterYellow, bg = default_colors.sumiInk3,
         }, ]]
+        CocMenuSel = {
+            bg = default_colors.boatYellow1,
+        },
     },
+    theme = "default"
 })
 
 

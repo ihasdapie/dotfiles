@@ -51,21 +51,21 @@ def env(name):
 endglobal
 
 snippet ttt "Monospace Text" wA
-\texttt{$1} $0
+\texttt{$1}$0
 endsnippet
 
 snippet MK "Monospace Text" wA
-\texttt{$1} $0
+\texttt{$1}$0
 endsnippet
 
  
 snippet iii "Italic Text" wA
-\textit{$1} $0
+\textit{$1}$0
 endsnippet
 
 
 snippet bbb "Bold Text" wA
-\textbf{$1} $2 
+\textbf{$1}$2 
 endsnippet
 
 
@@ -176,7 +176,7 @@ snippet iff "iff" Ai
 endsnippet
 
 snippet mk "Inline Math" wA
-$ $1 $ $0
+$ $1 $$0
 endsnippet
 
 snippet leqn "Labelled Equation" wA
@@ -290,10 +290,12 @@ snip.rv = subprocess.check_output(['wolframscript', '-code', code])
 `
 endsnippet
 
+context "math()"
 snippet == "equals" iA
 &= $1 \\\\
 endsnippet
 
+context "math()"
 snippet != "equals" iA
 \neq 
 endsnippet
@@ -357,7 +359,7 @@ snippet conj "conjugate" iA
 endsnippet
 
 snippet sum "sum" w
-\sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+\sum_{${1:1}}^{n=${2:\infty}} ${3:a_i}
 endsnippet
 
 snippet taylor "taylor" w
@@ -405,13 +407,8 @@ snippet td "to the ... power" iA
 ^{$1}$0
 endsnippet
 
-context "math()"
-snippet rd "to the ... power" iA
-^{($1)}$0
-endsnippet
-
 snippet __ "subscript" iA
-_{$1} $0
+_{$1}$0
 endsnippet
 
 snippet PP "prime" iA
@@ -462,10 +459,12 @@ snippet rij "mrij" i
 (${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
 endsnippet
 
+context "math()"
 snippet <= "leq" iA
 \le 
 endsnippet
 
+context "math()"
 snippet >= "geq" iA
 \ge 
 endsnippet
@@ -589,7 +588,6 @@ endsnippet
 # \\`!p snip.rv = match.group(1)`
 # endsnippet
 
-priority 300
 context "math()"
 snippet dint "integral" wA
 \int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
@@ -597,17 +595,27 @@ endsnippet
 
 
 
-priority 100
 context "math()"
 snippet -> "to" iA
 \to 
 endsnippet
 
-priority 200
 context "math()"
 snippet <-> "leftrightarrow" iA
 \leftrightarrow
 endsnippet
+
+context "math()"
+snippet ~> "rightsquigarrow" iA
+\rightsquigarrow
+endsnippet
+
+context "math()"
+snippet proc "proc" iA
+\proc{$1}($2)$0
+endsnippet
+
+
 
 context "math()"
 snippet !> "mapsto" iA
@@ -653,15 +661,14 @@ snippet cc "subset" Ai
 \subset 
 endsnippet
 
-
-context "math()"
-snippet notin "not in " iA
-\not\in 
-endsnippet
-
 context "math()"
 snippet inn "in " iA
 \in 
+endsnippet
+
+context "math()"
+snippet st. "such that" iA
+\text{ st. }
 endsnippet
 
 snippet NN "n" iA
@@ -865,6 +872,20 @@ $0
 endsnippet
 
 
+snippet cdbx "codebox" b
+\begin{codebox}
+\Procname{$\proc{$1}($2)$}
+	$3
+\end{codebox}
+$0
+endsnippet
+
+
+snippet eQ "double equals" wA
+\equal\equal
+endsnippet
+
+
 
 
 
@@ -894,7 +915,14 @@ snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)uu' "symbol underline
 \\underline{`!p snip.rv = match.group(1)`}$0
 endsnippet
 
+# ---------------
+# code snippet
 
+
+context "math()"
+snippet lep "le_p" iA
+\le_p
+endsnippet
 
 
 
@@ -909,8 +937,10 @@ endsnippet
 
 
 
-
-
+context "math()"
+snippet jwt "freqthing" wA
+j \omega_$1 t $0
+endsnippet
 
 
 

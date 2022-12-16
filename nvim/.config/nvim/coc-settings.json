@@ -4,7 +4,7 @@
                 "markdown",
                 "pandoc"
         ],
-		"suggest.noselect": true, // Accept first suggestion on TAB
+        "suggest.noselect": true, // Accept first suggestion on TAB
 
         "rust-analyzer.checkOnSave.command": "clippy",
         "coc.preferences.rootPatterns": [".git", ".hg", ".vim", ".projections.json"],
@@ -21,9 +21,9 @@
         // "python.linting.pylintEnabled": true,
         // "python.linting.pylintArgs": ["--disable=R,C", "--generated-members=numpy.*,torch.*"],
         "python.linting.flake8Enabled": true,
-		"python.linting.flake8Args": ["--max-line-length=120", "--import-order-style=google"],
+        "python.linting.flake8Args": ["--max-line-length=120", "--import-order-style=google"],
         // "python.linting.mypyEnabled": true,
-		"python.linting.pydocstyleEnabled": true,
+        "python.linting.pydocstyleEnabled": true,
         "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
         /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
 
@@ -32,16 +32,16 @@
         "explorer.icon.enableNerdfont": true,
         "explorer.icon.source": "nvim-web-devicons",
 
-		/* coc-vimtex */
+        /* coc-vimtex */
 
 
-		"coc.source.vimtex.filetypes": [
-			"tex",
-			"plaintex",
-			"latex",
-			"markdown",
-			"pandoc"
-		],
+        "coc.source.vimtex.filetypes": [
+                "tex",
+                "plaintex",
+                "latex",
+                "markdown",
+                "pandoc"
+        ],
 
 
 
@@ -122,13 +122,13 @@
         "diagnostic.warningSign": "", "diagnostic.infoSign": "",
         "diagnostic.hintSign": "",
 
-		// "diagnostic.messageTarget": "echo",
-		// "diagnostic.virtualText": true,
-		// "diagnostic.checkCurrentLine": true,
+        // "diagnostic.messageTarget": "echo",
+        // "diagnostic.virtualText": true,
+        // "diagnostic.checkCurrentLine": true,
 
         /* Coc-Snippets */
         "snippets.snipmate.enable": false,
-		"snippets.priority": 99,
+        "snippets.priority": 99,
 
         /* Coc-lua */
         // We want to be able to develop for neovim...
@@ -140,34 +140,34 @@
         "Lua.diagnostics.globals": [
                 "vim"
         ],
-		"Lua.workspace.maxPreload": 2000,
+        "Lua.workspace.maxPreload": 2000,
 
         "languageserver": {
                 "svls": {
-					"command": "svls",
-					"filetypes": ["systemverilog"]
-				}
-		},
+                        "command": "svls",
+                        "filetypes": ["systemverilog"]
+                }
+        },
 
 
 
         "highlight.colorNames.enable": false,
         "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.3/clangd_14.0.3/bin/clangd",
-		"clangd.arguments": [
-			"--background-index",
-			"--all-scopes-completion",
-			"--header-insertion=iwyu",
-			"--clang-tidy"],
-		"clangd.fallbackFlags": ["-std=c++17"]
+        "clangd.arguments": [
+                "--background-index",
+                "--all-scopes-completion",
+                "--header-insertion=iwyu",
+                "--clang-tidy"]
+                // "clangd.fallbackFlags": ["-std=c++17"]
 
 
-        /* "languageserver": { */
-                /*   "golang": { */
-                        /*     "command": "gopls", */
-                        /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
-                        /*     "filetypes": ["go"] */
-                        /*   } */
-                        /* }, */
-        /* "coc.source.omni.enable": true,
-        "coc.source.omni.filetypes": ["markdown", "md", "beancount", "org"], */
+                /* "languageserver": { */
+                        /*   "golang": { */
+                                /*     "command": "gopls", */
+                                /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
+                                /*     "filetypes": ["go"] */
+                                /*   } */
+                                /* }, */
+                                /* "coc.source.omni.enable": true,
+                                "coc.source.omni.filetypes": ["markdown", "md", "beancount", "org"], */
 }
