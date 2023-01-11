@@ -14,7 +14,7 @@
 
 
 :root {
-  --navbarWidth     : 80vw; /* Set width of navbar. Use px or vw. */
+  --navbarWidth     : 75vw; /* Set width of navbar. Use px or vw. */
   --animationSpeed  : 0.15s;
 }
 
@@ -73,9 +73,9 @@
 
 /* Oneline tweak */
 
-#TabsToolbar {
+/* #TabsToolbar {
   margin-left   : var(--navbarWidth) !important;
-}
+} */
 
 #nav-bar {
   margin-right  : calc(100vw - var(--navbarWidth)) !important;

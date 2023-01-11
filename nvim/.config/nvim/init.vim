@@ -434,7 +434,7 @@ Plug 'lewis6991/impatient.nvim'
 " Plug '/home/ihasdapie/Projects/vim-dev/empy.vim'
 " Plug 'ihasdapie/empy.vim'
 Plug 'tamton-aquib/duck.nvim'
-Plug 'nvim-zh/colorful-winsep.nvim'
+Plug 'nvim-zh/colorful-winsep.nvim', {'commit': 'dbdf5ac62273385638c'}
 Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'anuvyklack/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
