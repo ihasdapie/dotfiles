@@ -16,10 +16,6 @@ fi
 
 # autojump (xen0n/autojump-rs)
 
-# git completions
-fpath=(~/.zsh $fpath)
-
-
 
 ## Options section
 # setopt correct                                                  # Auto correct mistakes
@@ -47,8 +43,6 @@ HISTFILE=~/.zhistory
 HISTSIZE=6969 # number loaded into memory
 SAVEHIST=7500 # number saved
 
-export EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/nvim
 
 ## Keybindings section
 bindkey -e
@@ -417,17 +411,22 @@ if [ "$(uname)" = "Darwin" ]; then
     [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
     [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
     eval "$(/usr/libexec/path_helper)"
+    export EDITOR=/opt/homebrew/bin/nvim
+    export VISUAL=/opt/homebrew/bin/nvim
 
-    elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
-        source /usr/share/autojump/autojump.zsh
-        source /usr/share/fzf/completion.zsh
-        source /usr/share/fzf/key-bindings.zsh
-        eval $(npm completion zsh)
-        [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-        source /usr/share/nvm/nvm.sh
-        source /usr/share/nvm/bash_completion
-        source /usr/share/nvm/install-nvm-exec
-        alias open='xdg-open'
+
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    source /usr/share/autojump/autojump.zsh
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
+    eval $(npm completion zsh)
+    [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+    source /usr/share/nvm/nvm.sh
+    source /usr/share/nvm/bash_completion
+    source /usr/share/nvm/install-nvm-exec
+    alias open='xdg-open'
+    export EDITOR=/usr/bin/nvim
+    export VISUAL=/usr/bin/nvim
 fi
 
 source ~/.zshrc.local
