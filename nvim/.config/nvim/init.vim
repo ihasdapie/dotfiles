@@ -307,11 +307,11 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 
 
 " auto-installation script
-" if empty(glob('~/.config/nvim/autoload/plug.vim'))
-"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -321,7 +321,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
 Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'ihasdapie/vim-snippets'
 Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill',
             \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
@@ -455,13 +455,12 @@ Plug 'danymat/neogen'
 Plug 'jbyuki/nabla.nvim'
 Plug 'jbyuki/venn.nvim'
 
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
-Plug 'vim-test/vim-test', {'on': ['TestClass', 'TestFile', 'TestNearest', 'TestSuite', 'TestVisit']}
+" TODO(ihasdapie): vim-ultest sets some bad autocmds and is deprecated. Use
+" neotest
+" Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+" Plug 'vim-test/vim-test', {'on': ['TestClass', 'TestFile', 'TestNearest', 'TestSuite', 'TestVisit']}
 Plug 'jmcantrell/vim-diffchanges'
 Plug 'tpope/vim-dispatch'
-
-
-
 Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
 
 call plug#end()
