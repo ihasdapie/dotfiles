@@ -2,3 +2,9 @@ commands
 list_history.dat
 memos.json
 extensions/
+history.json
+explorer-actions
+lists
+mru
+snippets-mru
+suggest.txt

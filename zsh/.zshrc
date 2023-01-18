@@ -13,12 +13,8 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
+
 # autojump (xen0n/autojump-rs)
-source /usr/share/autojump/autojump.zsh
-
-# git completions
-fpath=(~/.zsh $fpath)
-
 
 
 ## Options section
@@ -47,8 +43,6 @@ HISTFILE=~/.zhistory
 HISTSIZE=6969 # number loaded into memory
 SAVEHIST=7500 # number saved
 
-export EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/nvim
 
 ## Keybindings section
 bindkey -e
@@ -124,11 +118,11 @@ alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
 alias klipboard="kitty +kitten clipboard"
 alias ssh="kitty +kitten ssh"
-alias cp="cp -i -b"                                                # Confirm before overwriting something
+alias cp="cp -i"                                                # Confirm before overwriting something
 alias mv="mv -i"                                                # Confirm before overwrite
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
-alias du='du --block-size=MiB --human-readable --apparent-size'
+alias du='du --human-readable --apparent-size'
 alias lg='lazygit'
 alias gitu='git add --all && git commit && git push'
 alias gitpushall="git remote | xargs -L1 git push --all"
@@ -138,7 +132,6 @@ alias fzfp="fzf --preview '([[ -f {} ]] && (bat --style=numbers --color=always {
 alias qemu='qemu-system-x86_64'
 alias grep='grep --color'
 alias kc='kdeconnect-cli'
-alias open='xdg-open'
 alias ra='ranger'
 alias ha='hunter -i -g kitty'
 alias za='zathura'
@@ -171,6 +164,7 @@ export PATH=$PATH:$HOME/go/bin/
 export PATH=$PATH:$HOME/.poetry/bin/
 export PATH=$PATH:$HOME/.emacs.d/bin/
 export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:/opt/homebrew/bin
 
 
 
@@ -219,8 +213,6 @@ xd () {
 
 
 #### FZF
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
 export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 
@@ -293,7 +285,6 @@ eval "$(pyenv init --path)"
 
 # some functions {{{
 
-cd() { builtin cd "$@" && ls; }
 
 blur_zathura() {
   for wid in $(xdotool search --pid $(pidof zathura)); do
@@ -313,13 +304,6 @@ if [[ $(ps --no-header -p $PPID -o comm) == 'kitty' ]]; then
 fi 
 }
 
-nodeup() {
-  eval $(npm completion zsh)
-  [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-  source /usr/share/nvm/nvm.sh
-  source /usr/share/nvm/bash_completion
-  source /usr/share/nvm/install-nvm-exec
-}
 
 pyup() {
   eval "$(pyenv init -)"
@@ -404,6 +388,48 @@ function rups () {
 # Pretty =less=
 export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
+
+if [ "$(uname)" = "Darwin" ]; then
+    source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+    alias ll="ls -alh --color=auto"
+    alias ls="ls --color=auto"
+    [ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
+    # Setup fzf
+    # ---------
+    if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
+        PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
+    fi
+
+    # Auto-completion
+    # ---------------
+    [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
+
+    # Key bindings
+    # ------------
+    source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+    eval "$(/usr/libexec/path_helper)"
+    export EDITOR=/opt/homebrew/bin/nvim
+    export VISUAL=/opt/homebrew/bin/nvim
+
+
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    source /usr/share/autojump/autojump.zsh
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
+    eval $(npm completion zsh)
+    [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+    source /usr/share/nvm/nvm.sh
+    source /usr/share/nvm/bash_completion
+    source /usr/share/nvm/install-nvm-exec
+    alias open='xdg-open'
+    export EDITOR=/usr/bin/nvim
+    export VISUAL=/usr/bin/nvim
+fi
+
+source ~/.zshrc.local
 
 
 
