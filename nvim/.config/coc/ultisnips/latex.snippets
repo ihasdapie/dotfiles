@@ -1,4 +1,3 @@
-
 # vim:ft=snippets
 # A valid snippet should starts with:
 #
@@ -116,7 +115,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet ... "ldots" i
+snippet .... "ldots" wA
 \ldots
 endsnippet
 
@@ -341,7 +340,7 @@ snippet lr{ "left\{ right\}" i
 \left\\{ ${1:${VISUAL}} \right\\} $0
 endsnippet
 
-snippet lrb "left\{ right\}" i
+snippet lrb "left\{ right\}" wA
 \left\\{ ${1:${VISUAL}} \right\\} $0
 endsnippet
 
@@ -407,6 +406,7 @@ snippet td "to the ... power" iA
 ^{$1}$0
 endsnippet
 
+context "math()"
 snippet __ "subscript" iA
 _{$1}$0
 endsnippet
@@ -926,7 +926,6 @@ endsnippet
 
 
 
-
 # ---------------
 # General snippets
 
@@ -942,7 +941,15 @@ snippet jwt "freqthing" wA
 j \omega_$1 t $0
 endsnippet
 
+context "notmath() and not env('minted')"
+snippet _ "escape_underscore" iA
+\_
+endsnippet
 
+context "notmath() and not env('minted')"
+snippet & "escape_ampersand" iA
+\&
+endsnippet
 
 
 
