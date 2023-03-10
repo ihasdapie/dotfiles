@@ -1,3 +1,6 @@
 nvim/.config/nvim/vimspector-config/gadgets/*
 .DS_Store
 zsh/.zsh/cache/*
+!firefox/.mozilla/firefox/my_profile/user.js
+!firefox/.mozilla/firefox/my_profile/chrome/userChrome.css
+firefox/.mozilla/firefox/*
