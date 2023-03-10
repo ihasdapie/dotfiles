@@ -1,5 +1,7 @@
-extensions/*
+commands
+list_history.dat
 memos.json
+extensions/
 history.json
 explorer-actions
 lists
