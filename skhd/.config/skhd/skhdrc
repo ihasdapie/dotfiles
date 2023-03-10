@@ -1,0 +1,36 @@
+# prevents skhd from monitoring events for listed processes.
+lcmd + shift - h    : /opt/homebrew/bin/yabai -m window --focus west  || /opt/homebrew/bin/yabai -m display --focus west
+lcmd + shift - j    : /opt/homebrew/bin/yabai -m window --focus south || /opt/homebrew/bin/yabai -m display --focus south
+lcmd + shift - k    : /opt/homebrew/bin/yabai -m window --focus north || /opt/homebrew/bin/yabai -m display --focus north
+lcmd + shift - l    : /opt/homebrew/bin/yabai -m window --focus east  || /opt/homebrew/bin/yabai -m display --focus east
+
+lcmd + shift - u   : /opt/homebrew/bin/yabai -m window --swap west
+lcmd + shift - i   : /opt/homebrew/bin/yabai -m window --swap south
+lcmd + shift - o   : /opt/homebrew/bin/yabai -m window --swap north
+lcmd + shift - p   : /opt/homebrew/bin/yabai -m window --swap east
+
+lcmd + shift - v   : /opt/homebrew/bin/yabai -m window --warp west
+lcmd + shift - b   : /opt/homebrew/bin/yabai -m window --warp south
+lcmd + shift - n   : /opt/homebrew/bin/yabai -m window --warp north
+lcmd + shift - m   : /opt/homebrew/bin/yabai -m window --warp east
+
+
+
+
+# options: zoom-parent, zoom-fullscreen, native-fullscreen
+alt + shift - m    : /opt/homebrew/bin/yabai -m window --toggle zoom-parent
+alt + shift - o    : /opt/homebrew/bin/yabai -m config layout bsp
+alt + shift - i    : /opt/homebrew/bin/yabai -m config layout float
+alt + shift - f    : /opt/homebrew/bin/yabai -m window --toggle float
+alt + shift - s    : /opt/homebrew/bin/yabai -m window --toggle split
+alt + shift - r    : /opt/homebrew/bin/yabai -m space --rotate 90
+alt + shift - t    : yabai -m query --windows --window | jq -re '.["is-topmost"]' | xargs -I {} bash -c "if [[ '{}' = 'true' ]]; then yabai -m window --layer normal; elif [[ '{}' = 'false' ]]; then yabai -m window --layer above; fi"
+
+lctrl + ralt + shift - t    : kitty --single-instance -d /Users/ihasdapie
+
+
+lcmd + lctrl - left : /opt/homebrew/bin/yabai -m window --space prev
+lcmd + lctrl - right : /opt/homebrew/bin/yabai -m window --space next
+# alt + shift - <     : /opt/homebrew/bin/yabai -m space --focus prev
+# alt + shift - >      : /opt/homebrew/bin/yabai -m space --focus next
+lcmd + lctrl - n   : /opt/homebrew/bin/yabai -m space --create

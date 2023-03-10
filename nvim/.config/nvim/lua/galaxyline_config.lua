@@ -366,7 +366,7 @@ gls.left[12] = {
 gls.left[13] = {
   DiagnosticError = {
     provider = diagnostic.get_diagnostic_error,
-    icon = '  ',
+    icon = '   ',
     highlight = {colors.red,colors.bg}
   }
 }
@@ -374,21 +374,21 @@ gls.left[13] = {
 gls.left[14] = {
   DiagnosticWarn = {
     provider = diagnostic.get_diagnostic_warn,
-    icon = '  ',
+    icon = '   ',
     highlight = {colors.yellow,colors.bg},
 } }
 
 gls.left[15] = {
   DiagnosticHint = {
     provider = diagnostic.get_diagnostic_hint,
-    icon = '  ',
+    icon = '   ',
     highlight = {colors.blue, colors.bg},
 } }
 
 gls.left[16] = {
   DiagnosticInfo = {
     provider = diagnostic.get_diagnostic_info,
-    icon = '  ',
+    icon = '   ',
     highlight = {colors.magenta,colors.bg},
 } }
 
@@ -396,14 +396,14 @@ gls.left[17] = {
   CocStatus = {
     provider = CocStatus,
     highlight = {colors.green,colors.bg},
-    icon = ' 🗱 '
+    icon = '  ▷ '
   }
 }
 
-gls.left[18] = {
+gls.left[17] = {
   CocFunc = {
     provider = CocFunc,
-    -- icon = '  λ ',
+    icon = '  λ ',
     highlight = {colors.fg_green, colors.bg},
 } }
 

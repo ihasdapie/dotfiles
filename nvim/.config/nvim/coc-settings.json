@@ -1,173 +1,175 @@
 {
-        "coc.source.emoji.filetypes": [
-                "gitcommit",
-                "markdown",
-                "pandoc"
-        ],
-        "suggest.noselect": true, // Accept first suggestion on TAB
+    "colors.enable": true
+    "coc.source.emoji.filetypes": [
+        "gitcommit",
+        "markdown",
+        "pandoc"
+    ],
+    "suggest.noselect": true, // Accept first suggestion on TAB
 
-        "rust-analyzer.checkOnSave.command": "clippy",
-        "coc.preferences.rootPatterns": [".git", ".hg", ".vim", ".projections.json"],
-        "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
-        "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-
-
-        /* "coc.source.coc-tabnine.priority": 50, */
-        // "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
-
-        /* Coc-Python  */
-
-        "python.formatting.provider": "black",
-        // "python.linting.pylintEnabled": true,
-        // "python.linting.pylintArgs": ["--disable=R,C", "--generated-members=numpy.*,torch.*"],
-        "python.linting.flake8Enabled": true,
-        "python.linting.flake8Args": ["--max-line-length=120", "--import-order-style=google"],
-        // "python.linting.mypyEnabled": true,
-        "python.linting.pydocstyleEnabled": true,
-        "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
-        /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "coc.preferences.rootPatterns": [".git", ".hg", ".vim", ".projections.json"],
+    "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
 
-        /* Coc-Explorer */
-        "explorer.icon.enableNerdfont": true,
-        "explorer.icon.source": "nvim-web-devicons",
+    /* "coc.source.coc-tabnine.priority": 50, */
+    // "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
 
-        /* coc-vimtex */
+    /* Coc-Python  */
 
-
-        "coc.source.vimtex.filetypes": [
-                "tex",
-                "plaintex",
-                "latex",
-                "markdown",
-                "pandoc"
-        ],
-
-
+    "python.formatting.provider": "black",
+    // "python.linting.pylintEnabled": true,
+    // "python.linting.pylintArgs": ["--disable=R,C", "--generated-members=numpy.*,torch.*"],
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=120", "--import-order-style=google"],
+    // "python.linting.mypyEnabled": true,
+    "python.linting.pydocstyleEnabled": true,
+    "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
+    /* "coc.preferences.formatOnSaveFiletypes": ["python"], */
 
 
-        "suggest.completionItemKindLabels": {
-                // NOTE: 2-length itemkindlabels get screwed up by transparent pum
-                "keyword" : " ",
-                "variable" : " ",
-                "value" : " ",
-                "function" : "𝑓",
-                "operator" : "Ψ",
-                "method" : "",
-                "constructor" : " ",
-                "reference" : "渚",
-                "constant" : " ",
-                "struct" : "\ufb44", // This char is weird?? nf-mdi-file_tree פּ
-                "class" : " ",
-                "interface" : " ",
-                "text" : " ",
-                "enum" : " ",
-                "enumMember" : " ",
-                "module" : " ", // why does this show up in different sizes?
-                "color" : " ",
-                "property" : " ",
-                "field" : "料",
-                "unit" : " ",
-                "event" : "鬒",
-                "file" : " ",
-                "folder" : " ",
-                "snippet" : " ",
-                "typeParameter" : " ",
-                "default" : " "
-        },
+    /* Coc-Explorer */
+    "explorer.icon.enableNerdfont": true,
+    "explorer.icon.source": "nvim-web-devicons",
+
+    /* coc-vimtex */
+
+
+    "coc.source.vimtex.filetypes": [
+        "tex",
+        "plaintex",
+        "latex",
+        "markdown",
+        "pandoc"
+    ],
 
 
 
 
-
-
-
-        /* "suggest.completionItemKindLabels": {
-                "method": "  ",
-                "function": "  ",
-                "variable": "[]",
-                "field": "  ",
-                "typeParameter": "<>",
-                "constant": "  ",
-                "class": " פּ ",
-                "interface": " 蘒",
-                "struct": "  ",
-                "event": "  ",
-                "operator": "  ",
-                "module": "  ",
-                "property": "  ",
-                "enum": " 練",
-                "reference": "  ",
-                "keyword": "  ",
-                "file": "  ",
-                "folder": " ﱮ ",
-                "color": "  ",
-                "unit": " 塞 ",
-                "snippet": "  ",
-                "text": "  ",
-                "constructor": "  ",
-                "value": "  ",
-                "enumMember": "  "
-        }, */
+    "suggest.completionItemKindLabels": {
+        // NOTE: 2-length itemkindlabels get screwed up by transparent pum
+        "keyword" : " ",
+        "variable" : " ",
+        "value" : " ",
+        "function" : "𝑓",
+        "operator" : "Ψ",
+        "method" : "",
+        "constructor" : " ",
+        "reference" : "渚",
+        "constant" : " ",
+        "struct" : "\ufb44", // This char is weird?? nf-mdi-file_tree פּ
+        "class" : " ",
+        "interface" : " ",
+        "text" : " ",
+        "enum" : " ",
+        "enumMember" : " ",
+        "module" : " ", // why does this show up in different sizes?
+        "color" : " ",
+        "property" : " ",
+        "field" : "料",
+        "unit" : " ",
+        "event" : "鬒",
+        "file" : " ",
+        "folder" : " ",
+        "snippet" : " ",
+        "typeParameter" : " ",
+        "default" : " "
+    },
 
 
 
 
 
-        /* Coc-Diagnostics */
 
-        "diagnostic.level": "hint",
-        "diagnostic.displayByAle": false,
-        "diagnostic.errorSign": "",
-        "diagnostic.warningSign": "", "diagnostic.infoSign": "",
-        "diagnostic.hintSign": "",
 
-        // "diagnostic.messageTarget": "echo",
-        // "diagnostic.virtualText": true,
-        // "diagnostic.checkCurrentLine": true,
-
-        /* Coc-Snippets */
-        "snippets.snipmate.enable": false,
-        "snippets.priority": 99,
-
-        /* Coc-lua */
-        // We want to be able to develop for neovim...
-        "Lua.workspace.library": {
-                "/usr/share/nvim/runtime/lua": true,
-                "/usr/share/nvim/runtime/lua/vim": true,
-                "/usr/share/nvim/runtime/lua/vim/lsp": true
-        },
-        "Lua.diagnostics.globals": [
-                "vim"
-        ],
-        "Lua.workspace.maxPreload": 2000,
-
-        "languageserver": {
-                "svls": {
-                        "command": "svls",
-                        "filetypes": ["systemverilog"]
-                }
-        },
+    /* "suggest.completionItemKindLabels": {
+        "method": "  ",
+        "function": "  ",
+        "variable": "[]",
+        "field": "  ",
+        "typeParameter": "<>",
+        "constant": "  ",
+        "class": " פּ ",
+        "interface": " 蘒",
+        "struct": "  ",
+        "event": "  ",
+        "operator": "  ",
+        "module": "  ",
+        "property": "  ",
+        "enum": " 練",
+        "reference": "  ",
+        "keyword": "  ",
+        "file": "  ",
+        "folder": " ﱮ ",
+        "color": "  ",
+        "unit": " 塞 ",
+        "snippet": "  ",
+        "text": "  ",
+        "constructor": "  ",
+        "value": "  ",
+        "enumMember": "  "
+    }, */
 
 
 
-        "highlight.colorNames.enable": false,
-        "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.3/clangd_14.0.3/bin/clangd",
-        "clangd.arguments": [
-                "--background-index",
-                "--all-scopes-completion",
-                "--header-insertion=iwyu",
-                "--clang-tidy"]
-                // "clangd.fallbackFlags": ["-std=c++17"]
 
 
-                /* "languageserver": { */
-                        /*   "golang": { */
-                                /*     "command": "gopls", */
-                                /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
-                                /*     "filetypes": ["go"] */
-                                /*   } */
-                                /* }, */
-                                /* "coc.source.omni.enable": true,
-                                "coc.source.omni.filetypes": ["markdown", "md", "beancount", "org"], */
+    /* Coc-Diagnostics */
+
+    "diagnostic.level": "hint",
+    "diagnostic.displayByAle": false,
+    "diagnostic.errorSign": "",
+    "diagnostic.warningSign": "", "diagnostic.infoSign": "",
+    "diagnostic.hintSign": "",
+
+    // "diagnostic.messageTarget": "echo",
+    // "diagnostic.virtualText": true,
+    // "diagnostic.checkCurrentLine": true,
+
+    /* Coc-Snippets */
+    "snippets.snipmate.enable": false,
+    "snippets.priority": 99,
+
+    /* Coc-lua */
+    // We want to be able to develop for neovim...
+    "Lua.workspace.library": {
+        "/usr/share/nvim/runtime/lua": true,
+        "/usr/share/nvim/runtime/lua/vim": true,
+        "/usr/share/nvim/runtime/lua/vim/lsp": true
+    },
+    "Lua.diagnostics.globals": [
+        "vim"
+    ],
+    "Lua.workspace.maxPreload": 2000,
+
+    "languageserver": {
+        "svls": {
+            "command": "svls",
+            "filetypes": ["systemverilog"]
+        }
+    },
+
+
+
+    "highlight.colorNames.enable": false,
+    "clangd.arguments": [
+        "--background-index",
+        "--all-scopes-completion",
+        "--header-insertion=iwyu",
+        "--clang-tidy"
+    ],
+    "clangd.path": "~/dotfiles/nvim/.config/coc/extensions/coc-clangd-data/install/15.0.6/clangd_15.0.6/bin/clangd",
+    // "clangd.fallbackFlags": ["-std=c++20"]
+
+
+    /* "languageserver": { */
+        /*   "golang": { */
+            /*     "command": "gopls", */
+            /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
+            /*     "filetypes": ["go"] */
+            /*   } */
+            /* }, */
+            /* "coc.source.omni.enable": true,
+            "coc.source.omni.filetypes": ["markdown", "md", "beancount", "org"], */
 }

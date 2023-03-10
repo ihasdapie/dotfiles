@@ -28,18 +28,21 @@ require('kanagawa').setup({
     globalStatus = true,
     colors = {
         -- change background to ibm carbon
-        sumiInk1 = '#161616',
-        sumiInk0 = '#101010'
+        palette = {
+            sumiInk1 = '#161616',
+            sumiInk0 = '#101010'
+        },
     },
-    overrides = {
+    overrides = function(colors) return {
         --[[ GitSignsCurrentLineBlame = {
             fg = default_colors.winterYellow, bg = default_colors.sumiInk3,
         }, ]]
         CocMenuSel = {
             bg = default_colors.boatYellow1,
         },
-    },
-    theme = "default"
+    }
+    end,
+    theme = "wave"
 })
 
 
