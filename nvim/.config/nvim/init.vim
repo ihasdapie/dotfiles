@@ -307,11 +307,11 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 
 
 " auto-installation script
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" endif
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -425,7 +425,9 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'embear/vim-uncrustify'
 Plug 'lewis6991/impatient.nvim'
+" Plug 'esensar/nvim-dev-container'
 " Plug 'edluffy/hologram.nvim'
 " https://github.com/jbyuki/instant.nvim
 " Plug 'ludovicchabant/vim-gutentags'
@@ -434,7 +436,7 @@ Plug 'lewis6991/impatient.nvim'
 " Plug '/home/ihasdapie/Projects/vim-dev/empy.vim'
 " Plug 'ihasdapie/empy.vim'
 Plug 'tamton-aquib/duck.nvim'
-Plug 'nvim-zh/colorful-winsep.nvim', {'commit': 'dbdf5ac62273385638c'}
+" Plug 'nvim-zh/colorful-winsep.nvim', {'commit': 'dbdf5ac62273385638c'}
 Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'anuvyklack/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
@@ -467,7 +469,6 @@ call plug#end()
 
 " }}}
 lua require('impatient')
-lua require('plugins')
 
 
 
@@ -500,6 +501,14 @@ colorscheme kanagawa
 
 
 "}}}
+
+lua require('plugins')
+
+" => Uncrustify {{{
+
+let g:uncrustify_config_file="~/dotfiles-private/misc/uncrustify.cfg"
+
+" }}}
 
 
 " => Vista {{{
@@ -982,7 +991,8 @@ let g:vimtex_compiler_latexmk = {
         \ '-file-line-error',
         \ '-synctex=1',
         \ '-interaction=nonstopmode',
-        \ '-shell-escape'
+        \ '-shell-escape',
+        \ '-pvc'
         \ ],
         \}
 
@@ -1012,7 +1022,7 @@ let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copi
 """"""""""
 " => Largefile
 """""""""
-let g:LargeFile=50
+let g:LargeFile=10
 
  
  

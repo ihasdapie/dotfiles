@@ -116,7 +116,7 @@ endsnippet
 priority 100
 context "math()"
 snippet .... "ldots" wA
-\ldots
+\ldots, 
 endsnippet
 
 snippet table "Table environment" b
@@ -290,7 +290,7 @@ snip.rv = subprocess.check_output(['wolframscript', '-code', code])
 endsnippet
 
 context "math()"
-snippet == "equals" iA
+snippet === "equals" iA
 &= $1 \\\\
 endsnippet
 
@@ -383,7 +383,7 @@ endsnippet
 
 context "math()"
 snippet sq "\sqrt{}" iA
-\sqrt{$1} $0
+\sqrt{$1}$0
 endsnippet
 
 
@@ -756,6 +756,12 @@ snippet "([a-zA-Z])hat" "hat" riA
 \hat{`!p snip.rv=match.group(1)`}
 endsnippet
 
+priority 100
+context "math()"
+snippet "([a-zA-Z])tilde" "tilde" riA
+\tilde{`!p snip.rv=match.group(1)`}
+endsnippet
+
 snippet letw "let omega" iA
 Let $\Omega \subset \C$ be open.
 endsnippet
@@ -935,6 +941,10 @@ snippet ~= "approx" wA
 endsnippet
 
 
+context "math()"
+snippet Rnn "R^n" iA
+\mathbb{R}^n
+endsnippet
 
 context "math()"
 snippet jwt "freqthing" wA
@@ -951,6 +961,9 @@ snippet & "escape_ampersand" iA
 \&
 endsnippet
 
+snippet %% "escape_percent" iA
+\%
+endsnippet
 
 
 

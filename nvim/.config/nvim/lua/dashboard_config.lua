@@ -22,13 +22,14 @@ end
 
 -- requires cowsay, fortune, shuf
 local footer = {'', "Have `fortune`, `cowsay`, and `shuf` for cows in your dashboard!", 'Cowfiles should be in `/usr/share/fortune`. If not, just edit the path in dashboard_config.lua', ''}
-local cowsay_enabled = false
+local cowsay_enabled = true
 
 
 -- if os.execute('which shuf') and os.execute('which fortune') and os.execute('which cowsay') then
 if cowsay_enabled then
     -- This adds another 40ms to startuptime...
-    footer = split_str(io.popen('fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1)'):read('*a'), '\n')
+    -- footer = split_str(io.popen('fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1)'):read('*a'), '\n')
+    footer = split_str(io.popen('fortune | cowsay -f small'):read('*a'), '\n')
     table.insert(footer, #footer+1, '')
 end
 

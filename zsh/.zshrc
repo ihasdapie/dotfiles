@@ -28,6 +28,7 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt nomatch
 setopt globdots # GLOBDOTS lets files beginning with a . be matched without explicitly specifying the dot.
+setopt auto_cd
 
 
 # expire duplicates first
@@ -122,7 +123,6 @@ alias cp="cp -i"                                                # Confirm before
 alias mv="mv -i"                                                # Confirm before overwrite
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
-alias du='du --human-readable --apparent-size'
 alias lg='lazygit'
 alias gitu='git add --all && git commit && git push'
 alias gitpushall="git remote | xargs -L1 git push --all"
@@ -154,17 +154,6 @@ alias valgrind='colour-valgrind'
 ##################
 # My Path Exports
 ##################
-export PATH=$PATH:$HOME/Applications/
-export PATH=$PATH:$HOME/.gem/ruby/2.7.0/bin/
-export PATH=$PATH:$HOME/.cargo/bin/
-export PATH=$PATH:/usr/local/i386elfgcc/bin/
-export PATH=$PATH:$HOME/Scripts/exec/
-export PATH=$PATH:$HOME/Scripts/exec/
-export PATH=$PATH:$HOME/go/bin/
-export PATH=$PATH:$HOME/.poetry/bin/
-export PATH=$PATH:$HOME/.emacs.d/bin/
-export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:/opt/homebrew/bin
 
 
 
@@ -214,7 +203,9 @@ xd () {
 
 #### FZF
 export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
-export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
+# export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
+
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -276,10 +267,6 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20 # max lneght of buffer to auttosugest 
 export ZSH_AUTOSUGGEST_HISTORY_IGNORE=" "
 
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
 
 
 
@@ -305,10 +292,6 @@ fi
 }
 
 
-pyup() {
-  eval "$(pyenv init -)"
-}
-
 upload_0x0 () {
   curl -F "file=@$1" https://0x0.st
 }
@@ -323,64 +306,6 @@ utias_vpn () {
 # }}}
 
 
-# OSRF {{{
-
-lstart() {
-  lxc config device remove osrf Xauthority
-  lxc config device add osrf Xauthority disk path=/home/ihasdapie/.Xauthority source=$XAUTHORITY
-  lxc start osrf
-}
-
-
-
-los () {
-  kitty @set-colors ~/.config/kitty/kitty-themes/themes/Argonaut.conf;
-  lxc exec osrf -- sudo --login --user ihasdapie;
-  kitty @set-colors ~/.config/kitty/kitty-themes/themes/kanagawa.conf;
-}
-
-alias ccd='colcon_cd'
-
-function rup_base () {
-  source /usr/share/colcon_cd/function/colcon_cd.sh
-  source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
-}
-
-
-# source reference (source checkout on rolling) ros2
-function rupr () {
-  source /home/ihasdapie/osrf/ros2_ws/install/setup.zsh
-  if [[ $# -ne 0 ]]; then
-    if [[ $1 == "test" ]]; then
-      if [[ -z PYTHONPATH ]]; then
-        export PYTHONPATH=/home/ihasdapie/osrf/ros2_ws/build/rclpy && echo "setting PYTHONPATH for rclpy"
-      else
-        export PYTHONPATH=$PYTHONPATH:/home/ihasdapie/osrf/ros2_ws/build/rclpy && echo "extending PYTHONPATH for rclpy"
-      fi
-    fi
-  fi
-  rup_base
-}
-
-# source ros2 service_introspection ws
-function rups () {
-  source /home/ihasdapie/osrf/service_introspection/install/setup.zsh
-  if [[ $# -ne 0 ]]; then
-    if [[ $1 == "test" ]]; then
-      if [[ -z PYTHONPATH ]]; then
-        export PYTHONPATH=/home/ihasdapie/osrf/service_introspection/build/rclpy && echo "setting PYTHONPATH for rclpy"
-      else
-        export PYTHONPATH=$PYTHONPATH:/home/ihasdapie/osrf/service_introspection/build/rclpy && echo "extending PYTHONPATH for rclpy"
-      fi
-    fi
-  fi
-  rup_base
-}
-
-
-
-
-# }}}
 
 
 
@@ -390,9 +315,19 @@ export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
 if [ "$(uname)" = "Darwin" ]; then
+    export PATH=$PATH:$HOME/.cargo/bin/
+    export PATH=$PATH:$HOME/.poetry/bin/
+    eval "$(/usr/libexec/path_helper)"
+    export PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH
+    # pyenv (after brew export to put pyenv shims first)
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+
     source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
     alias ll="ls -alh --color=auto"
     alias ls="ls --color=auto"
+    alias du='du -h'
     [ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
     # Setup fzf
     # ---------
@@ -407,18 +342,32 @@ if [ "$(uname)" = "Darwin" ]; then
     # Key bindings
     # ------------
     source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-    eval "$(/usr/libexec/path_helper)"
+
+    function nodeup () {
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+        [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+    }
     export EDITOR=/opt/homebrew/bin/nvim
     export VISUAL=/opt/homebrew/bin/nvim
+    export HOMEBREW_NO_AUTO_UPDATE=1
 
 
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    export PATH=$PATH:$HOME/Applications/
+    export PATH=$PATH:$HOME/.gem/ruby/2.7.0/bin/
+    export PATH=$PATH:$HOME/.cargo/bin/
+    export PATH=$PATH:/usr/local/i386elfgcc/bin/
+    export PATH=$PATH:$HOME/Scripts/exec/
+    export PATH=$PATH:$HOME/go/bin/
+    export PATH=$PATH:$HOME/.poetry/bin/
+    export PATH=$PATH:$HOME/.emacs.d/bin/
+    export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:/opt/homebrew/bin
     source /usr/share/autojump/autojump.zsh
     source /usr/share/fzf/completion.zsh
     source /usr/share/fzf/key-bindings.zsh
+    alias du='du --human-readable --apparent-size'
     eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
     source /usr/share/nvm/nvm.sh

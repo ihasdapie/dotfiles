@@ -1,1 +1,2 @@
 set spell
+TSDisable highlight

@@ -3,7 +3,7 @@ local Rule = require("nvim-autopairs.rule")
 
 npairs.setup({
     enable_check_bracket_line = false,
-    ignored_next_char = "[%(%w%.%'%\"]", -- will ignore alphanumeric, ., ', and " symbols
+    ignored_next_char = "[%(%w%.%'%\"%$]", -- will ignore alphanumeric, ., ', $, and " symbols
     check_ts = true,
     enable_afterqot = true,
 })
