@@ -365,14 +365,16 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.local/bin
     export PATH=$PATH:/opt/homebrew/bin
     source /usr/share/autojump/autojump.zsh
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
+    # source /usr/share/fzf/completion.zsh
+    # source /usr/share/fzf/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
     eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-    source /usr/share/nvm/nvm.sh
-    source /usr/share/nvm/bash_completion
-    source /usr/share/nvm/install-nvm-exec
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
     alias open='xdg-open'
     export EDITOR=/usr/bin/nvim
     export VISUAL=/usr/bin/nvim
