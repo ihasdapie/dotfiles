@@ -158,7 +158,7 @@ alias valgrind='colour-valgrind'
 
 
 #######  NNN
-export NNN_PLUG="P:preview-tabbed;p:preview-tui-ext;j:autojump;f:fzopen;k:kdeconnect;G:git-changes;g:git-status" # I should add more!
+export NNN_PLUG="p:preview-tui;j:autojump;f:fzopen;k:kdeconnect;G:git-changes;g:git-status" # I should add more!
 export NNN_FIFO=/tmp/nnn.fifo
 export NNN_COLORS="2136" 
 export NNN_OPTS="de"
@@ -363,7 +363,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.poetry/bin/
     export PATH=$PATH:$HOME/.emacs.d/bin/
     export PATH=$PATH:$HOME/.local/bin
-    export PATH=$PATH:/opt/homebrew/bin
     source /usr/share/autojump/autojump.zsh
     # source /usr/share/fzf/completion.zsh
     # source /usr/share/fzf/key-bindings.zsh
@@ -373,6 +372,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+
 
 
     alias open='xdg-open'
