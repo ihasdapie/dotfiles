@@ -83,7 +83,7 @@ vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(
 
 
 
-nmap <leader>cf :copen <cr>
+nmap <leader>co :copen <cr>
 
 " turn off highlights
 
