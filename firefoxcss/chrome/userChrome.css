@@ -1,0 +1,199 @@
+/*=============================================================================*
+ *                               ONELINE PROTON                                *
+ *                                                                             *
+ * description    : An oneline userChrome.css theme for Firefox, which aims to *
+ *                  keep the Proton experience.                                *
+ * compatibility  : Firefox 89+                                                *
+ * repository     : https://github.com/lr-tech/OnelineProton/                  *
+ *                                                                             *
+ * THANKS FOR USING MY USERCHROME! <3                                          *
+ *============================================================================*/
+
+
+/* S E T T I N G S */
+
+
+:root {
+  --navbarWidth     : 75vw; /* Set width of navbar. Use px or vw. */
+  --animationSpeed  : 0.15s;
+}
+
+
+/* Remove firefox mic/sharing indicator */
+#webrtcIndicator {
+  display: none;
+}
+
+
+/* H I D I N G   E L E M E N T S */
+/* Comment or uncomment depending of what elements you want to hide */
+
+/* Back button */
+/* #back-button {display: none !important} */
+
+/* Hide back button only when disabled */
+#back-button[disabled="true"] {display: none !important}
+
+/* Forward button */
+/* #forward-button {display: none !important} */
+
+/* Hide forward button only when disabled */
+#forward-button[disabled="true"] {display: none !important}
+
+/* "Shield" icon */
+#tracking-protection-icon-container {display: none !important}
+
+/* Site information button */
+#identity-box {display: none !important}
+
+/* This is the "Search with" indicator on the urlbar */
+/* #urlbar-search-mode-indicator {display: none !important} */
+
+/* Zoom button */
+/* #urlbar-zoom-button {display: none !important} */
+
+/* Page action (right three dash button) */
+/* #pageActionButton {display: none !important} */
+
+/* These are the buttons on the right of the urlbar */
+/* #page-action-buttons {display: none !important} */
+
+/* #urlbar-label-box {display: none !important} */
+
+/* This one is the hamburger menu! */
+/* CAUTION: if you hide this some popups may be bugged */
+/* #PanelUI-button {display: none !important} */
+
+/* Tab close button */
+/* .tab-close-button {display: none !important} */
+
+
+/*============================================================================*/
+
+
+/* Oneline tweak */
+
+/* #TabsToolbar {
+  margin-left   : var(--navbarWidth) !important;
+} */
+
+#nav-bar {
+  margin-right  : calc(85vw - var(--navbarWidth)) !important;
+  margin-left   : calc(85vw - var(--navbarWidth)) !important;
+  background    : transparent !important;
+  box-shadow    : none !important;
+}
+
+#urlbar-container {
+  min-width   : 10px !important;
+}
+
+:root[uidensity="compact"] #nav-bar {
+  margin-top  : -37px !important;
+  height      : 37px !important;
+}
+
+:root:not([uidensity="compact"]):not([uidensity="touch"]) #nav-bar {
+  margin-top  : -44px !important;
+  height      : 44px !important;
+}
+
+:root[uidensity="touch"] #nav-bar {
+  margin-top  : -49px !important;
+  height      : 49px !important;
+}
+
+#urlbar:not([breakout][breakout-extend]) > #urlbar-background {
+  border      : none !important;
+  animation  : 0.15s !important;
+
+  /* Urlbar transparency (/) */
+  /* background: rgba(0,0,0,0.69) !important;  */
+}
+
+
+/* Hide urlbar elements when not active */
+
+.urlbar-icon, #userContext-indicator, #userContext-label {
+  fill              : transparent !important;
+  background-color  : transparent !important;
+  color             : transparent !important;
+  animation        : var(--animationSpeed) !important;
+}
+
+#urlbar:hover .urlbar-icon,
+#urlbar:active .urlbar-icon, 
+#urlbar[focused] .urlbar-icon {
+  fill        : var(--toolbar-color) !important;
+}
+
+
+/* animations */
+toolbarbutton,
+.toolbarbutton-icon,
+.subviewbutton,
+.urlbar-input-box, 
+#identity-box,
+#tracking-protection-icon-container,
+[anonid=urlbar-go-button],
+.urlbar-icon-wrapper,
+#tracking-protection-icon,
+#identity-box image,
+stack,
+vbox,
+tab:not(:active) .tab-background,
+tab:not([beforeselected-visible])::after,
+tab[visuallyselected] .tab-background::before,
+tab[visuallyselected] .tab-background::before,
+.tab-close-button {
+  animation        : var(--animationSpeed) !important;
+}
+
+
+/* Hide main tabs toolbar */
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+    opacity: 0;
+    pointer-events: none;
+}
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+    visibility: collapse !important;
+}
+
+
+/* Sidebar min and max width removal */
+#sidebar-box {
+    max-width: none !important;
+    min-width: 0px !important;
+}
+/* Hide splitter, when using Tree Style Tab. */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] + #sidebar-splitter {
+    display: none !important;
+}
+/* Hide sidebar header, when using Tree Style Tab. */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+    visibility: collapse;
+}
+
+/* Shrink sidebar until hovered, when using Tree Style Tab. */
+:root {
+    --thin-tab-width: 30px;
+    --wide-tab-width: 200px;
+}
+#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
+    min-width: var(--wide-tab-width) !important;
+    max-width: none !important;
+}
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
+    position: relative !important;
+    transition: all 100ms !important;
+    min-width: var(--thin-tab-width) !important;
+    max-width: var(--thin-tab-width) !important;
+}
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover {
+    transition: all 200ms !important;
+    transition-delay: 0.2s !important;
+    min-width: var(--wide-tab-width) !important;
+    max-width: var(--wide-tab-width) !important;
+    margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
+    z-index: 1;
+}
