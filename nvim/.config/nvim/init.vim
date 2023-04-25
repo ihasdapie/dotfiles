@@ -426,6 +426,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'rickhowe/spotdiff.vim'
 Plug 'embear/vim-uncrustify'
 Plug 'lewis6991/impatient.nvim'
 " Plug 'esensar/nvim-dev-container'

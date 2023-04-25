@@ -3,3 +3,6 @@ nvim/.config/coc/commands
 nvim/.config/coc/list_history.dat
 .DS_Store
 zsh/.zsh/cache/*
+!firefox/.mozilla/firefox/my_profile/user.js
+!firefox/.mozilla/firefox/my_profile/chrome/userChrome.css
+firefox/.mozilla/firefox/*
