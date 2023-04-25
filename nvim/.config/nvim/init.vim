@@ -369,6 +369,7 @@ Plug 'rebelot/kanagawa.nvim'
 Plug 'theniceboy/nvim-deus'
 Plug 'Mofiqul/dracula.nvim'
 Plug 'Everblush/everblush.nvim'
+Plug 'sainnhe/sonokai'
 
 " Plug 'dracula/vim', {'on': ['Colors']}
 " ^^ Dracula seems to break `Colors`  fzf command?
@@ -486,14 +487,14 @@ let g:ayucolor="mirage" " for mirage version of theme
 let g:ayu_italic_comment = 1 " defaults to 0.
 let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldColumn will have a higher contrast instead of using the Normal background
 
-function! s:custom_ayu_colors()
-        call ayu#hi('MatchParen', 'fg', 'fg_idle', 'underline')
-endfunction
+" function! s:custom_ayu_colors()
+"         call ayu#hi('MatchParen', 'fg', 'fg_idle', 'underline')
+" endfunction
 
-augroup custom_colors
-  autocmd!
-  autocmd ColorScheme ayu call s:custom_ayu_colors()
-augroup END
+" augroup custom_colors
+"   autocmd!
+"   autocmd ColorScheme ayu call s:custom_ayu_colors()
+" augroup END
 
 
 colorscheme kanagawa
@@ -975,8 +976,8 @@ let g:preview_uml_url='http://localhost:8888'
 " vimtex
 """"""""""""""""""""
 let g:tex_flavor = "latex"
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_view_method = 'zathura'
+" let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_method = 'skim' " TODO: change this to zathura depending on platform
 let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmgs'
 
