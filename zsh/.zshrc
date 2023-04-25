@@ -317,6 +317,7 @@ export LESS=' -R '
 if [ "$(uname)" = "Darwin" ]; then
     export PATH=$PATH:$HOME/.cargo/bin/
     export PATH=$PATH:$HOME/.poetry/bin/
+    eval $(brew shellenv)
     eval "$(/usr/libexec/path_helper)"
     export PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH
     # pyenv (after brew export to put pyenv shims first)
@@ -325,8 +326,8 @@ if [ "$(uname)" = "Darwin" ]; then
     eval "$(pyenv init -)"
 
     source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-    alias ll="ls -alh --color=auto"
-    alias ls="ls --color=auto"
+    alias ll="ls -ialh --color=auto"
+    alias ls="gls --color=auto --hyperlink"
     alias du='du -h'
     [ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
     # Setup fzf

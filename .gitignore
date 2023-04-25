@@ -1,3 +1,5 @@
 nvim/.config/nvim/vimspector-config/gadgets/*
+nvim/.config/coc/commands
+nvim/.config/coc/list_history.dat
 .DS_Store
 zsh/.zsh/cache/*
