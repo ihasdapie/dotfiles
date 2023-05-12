@@ -6,3 +6,5 @@ zsh/.zsh/cache/*
 !firefox/.mozilla/firefox/my_profile/user.js
 !firefox/.mozilla/firefox/my_profile/chrome/userChrome.css
 firefox/.mozilla/firefox/*
+ncspot/.config/ncspot/userstate.cbor
+
