@@ -1,6 +1,5 @@
 # zmodload zsh/zprof
 
-
 paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # krabby random
 

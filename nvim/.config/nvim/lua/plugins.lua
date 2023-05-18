@@ -1,6 +1,7 @@
 
 
 require('functions')
+require('cmp_config')
 
 --[[ require('catppuccin_config')
 require('nebulous_config') ]]
