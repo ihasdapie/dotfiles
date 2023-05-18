@@ -51,8 +51,8 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 
 " Set python interpreters; this speeds up startup time but not necessary
-let g:python3_host_prog="/usr/bin/python3"
-let g:python_host_prog="/usr/bin/python2"
+" let g:python3_host_prog="/usr/bin/python3"
+" let g:python_host_prog="/usr/bin/python2"
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
 set report=99999 " Increase threshold for reporting number of lines changed
@@ -316,7 +316,25 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
+
+
+Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+
+
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
@@ -426,6 +444,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plug 'rickhowe/spotdiff.vim'
 Plug 'embear/vim-uncrustify'
 Plug 'lewis6991/impatient.nvim'
