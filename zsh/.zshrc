@@ -344,11 +344,9 @@ if [ "$(uname)" = "Darwin" ]; then
     # ------------
     source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
 
-    function nodeup () {
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
-        [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-    }
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
     export EDITOR=/opt/homebrew/bin/nvim
     export VISUAL=/opt/homebrew/bin/nvim
     export HOMEBREW_NO_AUTO_UPDATE=1
