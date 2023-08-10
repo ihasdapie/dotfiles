@@ -19,8 +19,8 @@ vnoremap j gj
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 
-"Allow <esc> to exit out of terminal mode
-tnoremap <Esc> <C-\><C-n>
+tnoremap <C-n> <C-\><C-n>
+
 " noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
 " noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
 
