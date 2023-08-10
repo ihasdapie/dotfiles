@@ -123,7 +123,7 @@
     "diagnostic.warningSign": "", "diagnostic.infoSign": "",
     "diagnostic.hintSign": "",
 
-    // "diagnostic.messageTarget": "echo",
+    // "diagnostic.virtualText": true,
     // "diagnostic.virtualText": true,
     // "diagnostic.checkCurrentLine": true,
 
