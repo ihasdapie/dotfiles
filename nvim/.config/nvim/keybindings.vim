@@ -20,7 +20,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 
 tnoremap <C-n> <C-\><C-n>
-
 " noremap <silent> <c-k> :call smooth_scroll#up(&scroll/2, 0, 2)<CR>
 " noremap <silent> <c-j> :call smooth_scroll#down(&scroll/2, 0, 2)<CR>
 

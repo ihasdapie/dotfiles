@@ -1,3 +1,4 @@
+// vim:ft=jsonc
 {
     "colors.enable": true
     "coc.source.emoji.filetypes": [
@@ -62,7 +63,8 @@
         "class" : " ",
         "interface" : " ",
         "text" : " ",
-        "enum" : " ",
+        // "enum" : " ",
+        "enum": " 練",
         "enumMember" : " ",
         "module" : " ", // why does this show up in different sizes?
         "color" : " ",
@@ -97,7 +99,6 @@
         "operator": "  ",
         "module": "  ",
         "property": "  ",
-        "enum": " 練",
         "reference": "  ",
         "keyword": "  ",
         "file": "  ",
@@ -150,15 +151,14 @@
         }
     },
 
-
-
-        "highlight.colorNames.enable": false,
-        "clangd.arguments": [
-                "--background-index",
-                "--all-scopes-completion",
+    "highlight.colorNames.enable": false,
+    "clangd.arguments": [
+        "--background-index",
+                // "--all-scopes-completion",
                 "--header-insertion=iwyu",
-                "--clang-tidy"
-              ],
+                "--compile-commands-dir=${workspaceFolder}/",
+                "--clang-tidy"]
+                // "clangd.fallbackFlags": ["-std=c++17"]
 
 
     /* "languageserver": { */

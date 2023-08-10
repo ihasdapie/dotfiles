@@ -285,8 +285,8 @@ local function file_with_icons(file, modified_icon, readonly_icon)
 end
 
 local function get_shorten_file_name(mmodified_icon, readonly_icon)
-  local file = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.expand('%:p'), ':~:.'), 6)
-  return file_with_icons(file, mmodified_icon, readonly_icon)
+  -- local file = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.expand('%:p'), ':~:.'), 6)
+  return file_with_icons(vim.fn.expand('%:p'), mmodified_icon, readonly_icon)
 end
 
 

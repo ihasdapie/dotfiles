@@ -7,7 +7,7 @@ require('nebulous_config') ]]
 
 require('kanagawa_config')
 require("tabby_config")
-require('orgmode-nvim_config')
+-- require('orgmode-nvim_config')
 require('galaxyline_config')
 require('which-key_config')
 require('gitsigns_config')
