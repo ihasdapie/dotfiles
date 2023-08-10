@@ -29,7 +29,7 @@ local cowsay_enabled = true
 if cowsay_enabled then
     -- This adds another 40ms to startuptime...
     -- footer = split_str(io.popen('fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1)'):read('*a'), '\n')
-    footer = split_str(io.popen('fortune | cowsay -f small'):read('*a'), '\n')
+    footer = split_str(io.popen('fortune | cowsay'):read('*a'), '\n')
     table.insert(footer, #footer+1, '')
 end
 

@@ -58,6 +58,3 @@ F =vim.fn ]]
 
 
 -- function M.cycle_searchhl
-
-
-
