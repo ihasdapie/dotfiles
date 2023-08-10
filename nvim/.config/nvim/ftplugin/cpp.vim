@@ -1,2 +1,2 @@
-setlocal ts=2 sw=2 expandtab
+setlocal ts=4 sw=4 expandtab
 set nonumber

@@ -321,7 +321,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
 Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'ihasdapie/vim-snippets'
 Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill',
             \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
@@ -382,10 +382,10 @@ Plug 'sainnhe/sonokai'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh', 'on': ['SnipRun', ]}
 Plug 'b3nj5m1n/kommentary'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
-Plug 'lukas-reineke/indent-blankline.nvim'
+" Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'DougBeney/pickachu', {'on': ['Pick', 'Pickachu']}
 Plug 'windwp/nvim-autopairs'
-Plug 'windwp/nvim-ts-autotag'
+" Plug 'windwp/nvim-ts-autotag'
 
 
 
@@ -407,7 +407,7 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
 
 " Language Syntax
 Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
-Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave'], 'do': ':UpdateRemotePlugins'}
+" Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave'], 'do': ':UpdateRemotePlugins'}
 " Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
 Plug 'vim-pandoc/vim-pandoc', {'for': ['pandoc', 'pdc', 'markdown'], 'on': ['Pandoc']}
@@ -416,8 +416,8 @@ Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown']
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground', {'on': ['TSPlaygroundToggle']}
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'p00f/nvim-ts-rainbow'
+" Plug 'nvim-treesitter/nvim-treesitter-refactor'
+" Plug 'p00f/nvim-ts-rainbow'
 
 " Debugger
 Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
@@ -426,6 +426,9 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'mcchrish/nnn.vim'
+Plug 'lambdalisue/fern.vim'
+Plug 'samjwill/nvim-unception'
 Plug 'rickhowe/spotdiff.vim'
 Plug 'embear/vim-uncrustify'
 Plug 'lewis6991/impatient.nvim'
@@ -443,7 +446,7 @@ Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'anuvyklack/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
 Plug 'ARM9/arm-syntax-vim'
-Plug 'nvim-orgmode/orgmode'
+" Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
@@ -533,6 +536,7 @@ let g:vista_executive_for = {
     \ 'python': 'coc', 
     \ 'rust': 'coc',
     \ 'c' : 'coc',
+    \ 'cpp' : 'coc',
     \ 'lua': 'coc'
     \ }
 
@@ -547,8 +551,9 @@ let g:vista_floating_delay=200
 
 " => FZF {{{
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-" let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1 } }
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9, 'highlight': 'Todo'} }
+" let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
+let g:fzf_layout = { 'right': '40%' }
+" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
 let g:fzf_preview_window = ['down:69%', 'ctrl-/']
 
 let g:fzf_colors =
@@ -583,6 +588,11 @@ command! -bang -nargs=* Rg
 
 " Rg with reload: RG
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+command! -bang -nargs=* RgWordUnderCursor
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --follow --smart-case -- '.shellescape(expand('<cword>')), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* RgHidden
   \ call fzf#vim#grep(
@@ -777,7 +787,6 @@ let g:coc_global_extensions = [
             \ 'coc-sh',
             \ 'coc-rust-analyzer',
             \ 'coc-pyright',
-            \ 'coc-lua',
             \ 'coc-json',
             \ 'coc-java',
             \ 'coc-go',
@@ -1234,4 +1243,4 @@ source ~/.config/nvim/private.vim
 
 
 
-
+let g:fern#renderer = "nvim-web-devicons"

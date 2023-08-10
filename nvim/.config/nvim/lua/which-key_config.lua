@@ -95,6 +95,7 @@ wk.register( { -- Normal mode mappings
           l = {"<Plug>(coc-codelens-action)", "code lens action"},
           t = {"<cmd>Tags<CR>", "list tags"},
           r = {"<Plug>(coc-rename)", "rename"},
+          s = {"<cmd>CocCommand clangd.switchSourceHeader<CR>", "switch source/header (clangd-only)"},
           m = {
               name = "+misc",
               r = {"<cmd>CocRestart<CR>", "Restart coc.nvim"},
@@ -269,7 +270,8 @@ wk.register( { -- Normal mode mappings
             c = {"<cmd>History:<CR>", "commands"},
             s = {"<cmd>History/<CR>", "search"},
             f = {"<cmd>History<CR>", "files"}
-        }
+        },
+        w = {"<cmd>RgWordUnderCursor<CR>", "word under cursor"},
       },
 
       T = {
@@ -291,7 +293,7 @@ wk.register( { -- Normal mode mappings
         p = {"<cmd>lua NI_cycle_prose()<CR>", "toggle prose mode"},
         v = {"<cmd>Vista!!<CR>", 'toggle vista symbol tree'},
         c = {"<cmd>lua NI_cycle_conceallevel()<CR>", "toggle conceallevel"},
-        e = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
+        e = {"<cmd>NnnExplorer<CR>", "NnnExplorer sidebar"},
         s = {"<cmd>set spell! spell?<CR>", "spellcheck"},
         f = {"za", "toggle fold under cursor"}, -- Just `za` but remapped under leader. Can remove.
         T = {
