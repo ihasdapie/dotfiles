@@ -6,9 +6,8 @@ require('gitsigns').setup {
         interval = 10000,
     },
     update_debounce = 1000,
-    keymaps = {
-        noremap=true,
-    },
+    on_attach = function(bufnr)
+    end
     --[[ current_line_blame_opts = {
         virt_text_pos = 'right_align',
     } ]]
