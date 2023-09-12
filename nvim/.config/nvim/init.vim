@@ -51,8 +51,8 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 
 " Set python interpreters; this speeds up startup time but not necessary
-let g:python3_host_prog="/usr/bin/python3"
-let g:python_host_prog="/usr/bin/python2"
+" let g:python3_host_prog="/usr/bin/python3"
+" let g:python_host_prog="/usr/bin/python2"
 
 "set diff=meld; "Use meld for diff as I'm bad with vimdiff
 set report=99999 " Increase threshold for reporting number of lines changed
@@ -76,6 +76,22 @@ if !isdirectory(expand('~/.config/nvim/view/'))
 endif
 
 set viewdir=~/.config/nvim/view/
+
+
+""""""""""""""
+" Private Configuration
+""""""""""""""
+if empty(glob('~/.config/nvim/private.vim'))
+    silent !touch ~/.config/nvim/private.vim
+endif
+source ~/.config/nvim/private.vim
+
+
+
+
+
+
+
 
 
 " augroup remember_folds
@@ -307,11 +323,11 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 
 
 " auto-installation script
-" if empty(glob('~/.config/nvim/autoload/plug.vim'))
-"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -321,7 +337,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
 Plug 'benwainwright/fzf-project', {'on': ['FzfSwitchProject', 'FzfChooseProjectFile']}
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'ihasdapie/vim-snippets'
 Plug 'voldikss/vim-floaterm', {'on': ['FloatermFirst', 'FloatermHide', 'FloatermKill',
             \ 'FloatermLast', 'FloatermNew', 'FloatermNext', 'FloatermPrev', 'FloatermSend', 
@@ -470,10 +486,25 @@ Plug 'jmcantrell/vim-diffchanges'
 Plug 'tpope/vim-dispatch'
 Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 call plug#end()
 
 " }}}
 lua require('impatient')
+
+": => vim-go {{{
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+
+"}}}
 
 
 
@@ -1214,22 +1245,6 @@ let g:leetcode_browser='firefox'
 
 
 " }}}
-
-
-
-
-""""""""""""""
-" Private Configuration
-""""""""""""""
-if empty(glob('~/.config/nvim/private.vim'))
-    silent !touch ~/.config/nvim/private.vim
-endif
-source ~/.config/nvim/private.vim
-
-
-
-
-
 
 
 
