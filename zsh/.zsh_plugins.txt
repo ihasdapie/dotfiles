@@ -3,3 +3,4 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 hlissner/zsh-autopair
+marlonrichert/zsh-autocomplete

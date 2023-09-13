@@ -1,6 +1,7 @@
 # zmodload zsh/zprof
 
 
+export PATH=$PATH:/usr/games
 paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # krabby random
 
@@ -200,8 +201,8 @@ xd () {
 }
 
 
-
 #### FZF
+[ -f $HOME/dotfiles-private/fzf/fzf_history ] || mkdir -p ~/dotfiles-private/fzf; touch $HOME/dotfiles-private/fzf/fzf_history
 export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
 # export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
@@ -258,8 +259,22 @@ _kitty() {
 compdef _kitty kitty
 
 # # Plugins
-# # antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.zsh
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
+
+# Ensure you have a .zsh_plugins.txt file where you can add plugins.
+[[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
+
+# Lazy-load antidote.
+fpath+=(${ZDOTDIR:-~}/.antidote)
+autoload -Uz $fpath[-1]/antidote
+
+# Generate static file in a subshell when .zsh_plugins.txt is updated.
+if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+  (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
+fi
+
+# Source your static plugins file.
+source $zsh_plugins
 
 
 # # zsh autosuggestions
@@ -365,6 +380,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     source /usr/share/autojump/autojump.zsh
     # source /usr/share/fzf/completion.zsh
     # source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
     eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
@@ -392,10 +408,6 @@ source ~/.zshrc.local
 # export QSYS_ROOTDIR="/home/ihasdapie/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
 
 # zprof
-
-
-
-
 
 
 
