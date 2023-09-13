@@ -1,6 +1,6 @@
 # zmodload zsh/zprof
 
-
+export PATH=$PATH:/usr/games
 paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # krabby random
 
@@ -202,6 +202,11 @@ xd () {
 
 
 #### FZF
+
+# create fzf_history if it doesn't exist
+[ -f $HOME/dotfiles-private/fzf/fzf_history ] || touch $HOME/dotfiles-private/fzf/fzf_history
+
+
 export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
 # export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
@@ -330,19 +335,7 @@ if [ "$(uname)" = "Darwin" ]; then
     alias ls="gls --color=auto --hyperlink"
     alias du='du -h'
     [ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
-    # Setup fzf
-    # ---------
-    if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
-        PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
-    fi
 
-    # Auto-completion
-    # ---------------
-    [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
-
-    # Key bindings
-    # ------------
-    source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
 
     export NVM_DIR="$HOME/.nvm"
     [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
