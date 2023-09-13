@@ -157,7 +157,7 @@
                 // "--all-scopes-completion",
                 "--header-insertion=iwyu",
                 "--compile-commands-dir=${workspaceFolder}/",
-                "--clang-tidy"]
+                "--clang-tidy"],
                 // "clangd.fallbackFlags": ["-std=c++17"]
 
 
@@ -170,4 +170,6 @@
             /* }, */
             /* "coc.source.omni.enable": true,
             "coc.source.omni.filetypes": ["markdown", "md", "beancount", "org"], */
+
+    "go.goplsPath": "/opt/go/path/bin/gopls",
 }
