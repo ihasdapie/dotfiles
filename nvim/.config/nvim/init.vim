@@ -486,7 +486,7 @@ Plug 'jmcantrell/vim-diffchanges'
 Plug 'tpope/vim-dispatch'
 Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
