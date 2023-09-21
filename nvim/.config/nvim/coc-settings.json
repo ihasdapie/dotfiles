@@ -154,22 +154,47 @@
     "highlight.colorNames.enable": false,
     "clangd.arguments": [
         "--background-index",
-                // "--all-scopes-completion",
-                "--header-insertion=iwyu",
-                "--compile-commands-dir=${workspaceFolder}/",
-                "--clang-tidy"],
-                // "clangd.fallbackFlags": ["-std=c++17"]
+        // "--all-scopes-completion",
+        "--header-insertion=iwyu",
+        "--compile-commands-dir=${workspaceFolder}/",
+        "--clang-tidy"],
+        // "clangd.fallbackFlags": ["-std=c++17"]
+
+                // "languageserver": {
+                //     "go": {
+                //         "command": "gopls",
+                //         "rootPatterns": ["go.mod", ".vim/", ".git/", ".svn/"],
+                //         "filetypes": ["go"],
+                //         "initializationOptions": {
+                //             "usePlaceholders": true
+                //         }
+                //     }
+                // },
 
 
-    /* "languageserver": { */
-        /*   "golang": { */
-            /*     "command": "gopls", */
-            /*     "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"], */
-            /*     "filetypes": ["go"] */
-            /*   } */
-            /* }, */
-            /* "coc.source.omni.enable": true,
-            "coc.source.omni.filetypes": ["markdown", "md", "beancount", "org"], */
 
-    "go.goplsPath": "/opt/go/path/bin/gopls",
+
+
+            "go.goplsOptions": {
+                "verboseOutput": true,
+                "completeUnimported": true,
+                "usePlaceholders": true,
+                "hoverKind": "FullDocumentation",
+                "expandWorkspaceToModule": false,
+                "env": {
+                    "GO111MODULE": "off"
+                }
+            },
+            "go.goplsEnv": {
+                "GO111MODULE": "off"
+            },
+            "go.disable": {
+                "workspaceFolders": false
+            },
+            "go.enable": true,
+            "snippets.ultisnips.directories": [
+                "UltiSnips",
+                "gosnippets/UltiSnips"
+            ],
+            "suggest.detailMaxLength": 120
 }
