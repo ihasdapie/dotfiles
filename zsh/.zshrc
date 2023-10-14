@@ -317,9 +317,9 @@ export LESS=' -R '
 if [ "$(uname)" = "Darwin" ]; then
     export PATH=$PATH:$HOME/.cargo/bin/
     export PATH=$PATH:$HOME/.poetry/bin/
-    eval $(brew shellenv)
+    eval $(/opt/homebrew/bin/brew shellenv)
     eval "$(/usr/libexec/path_helper)"
-    export PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH
+    export PATH=$(/opt/homebrew/bin/brew --prefix)/bin:$(/opt/homebrew/bin/brew --prefix)/sbin:$PATH
     # pyenv (after brew export to put pyenv shims first)
     export PYENV_ROOT="$HOME/.pyenv"
     command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -344,9 +344,9 @@ if [ "$(uname)" = "Darwin" ]; then
     # ------------
     source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
 
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+    # export NVM_DIR="$HOME/.nvm"
+    # [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+    # [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
     export EDITOR=/opt/homebrew/bin/nvim
     export VISUAL=/opt/homebrew/bin/nvim
     export HOMEBREW_NO_AUTO_UPDATE=1
