@@ -124,7 +124,21 @@ wk.register( { -- Normal mode mappings
 
       d = {
         name = "+debug",
-        c = {"<Plug>VimspectorContinue", "start or continue"},
+        O = {"<cmd>lua require('dapui').open()<CR>", "open dapui"},
+        C = {"<cmd>lua require('dapui').close()<CR>", "close dapui"},
+
+        c = {"<cmd>lua require('dap').continue()<CR>", "continue"},
+        k = {"<cmd>lua require('dap').step_over()<CR>", "step over"},
+        l = {"<cmd>lua require('dap').step_into()<CR>", "step into"},
+        L = {"<cmd>lua require('dap').step_out()<CR>", "step out"},
+        p = {"<cmd>lua require('dap').pause()<CR>", "pause"},
+        b = {"<cmd>lua require('dap').toggle_breakpoint()<CR>", "breakpoint toggle"},
+        r = {"<cmd>lua require('dap').repl.open()<CR>", "repl"},
+        R = {"<cmd>lua require('dap').run_last()<CR>", "run last"},
+        x = {"<cmd>lua require('dap').terminate()<CR>", "termiante"},
+
+        -- [legacy] vimspector
+        --[[ c = {"<Plug>VimspectorContinue", "start or continue"},
         S = {"<Plug>VimspectorStop", "stop"},
         R = {"<Plug>VimspectorRestart", "restart"},
         P = {"<Plug>VimspectorPause", "pause debugger"},
@@ -137,7 +151,7 @@ wk.register( { -- Normal mode mappings
         o = {"<Plug>VimspectorStepOut", "step out of current"},
         i = {"<Plug>VimspectorBalloonEval", "debug inspect"},
         u = {"<Plug>VimspectorUpFrame", "up stack"},
-        d = {"<Plug>VimspectorDownFrame", "down stack"},
+        d = {"<Plug>VimspectorDownFrame", "down stack"}, ]]
       },
 
 
@@ -340,7 +354,10 @@ wk.register( { -- Normal mode mappings
         -- lf = {"<cmd>luafile %<CR>", "run current lua file"},
         v = {"<cmd>lua require('nabla').popup()<CR>", "preview LaTeX math"},
         V = {"<cmd>lua Toggle_venn()<CR>", "toggle diagram drawer"},
-        n = {"<Plug>VimspectorStepInto", "debuggger: step into"},
+        l = {"<cmd>lua require('dap').step_into()<CR>", "step into"},
+        l = {"<cmd>lua require('dap').step_over()<CR>", "step over"},
+        k = {"<cmd>lua require('dap').step_out()<CR>", "step out"},
+
         t = {
           name = "+floaterm",
           l = {"<cmd>FloatermNext<CR>", "next floaterm"},

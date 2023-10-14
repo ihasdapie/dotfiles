@@ -67,12 +67,12 @@ Hydra({
 
 
 
-local dbg_hint = [[
- _c_: Start/Continue    _S_: Stop                          _R_: Restart                 _P_: Pause
- _b_: Toggle breakpoint _B_: Toggle conditional breakpoint _F_: Add function breakpoint _C_: Run to cursor
- _N_: Step over         _n_: Step into                     _o_: Step out                _i_: Inspect symbol
- _u_: Up stack          _d_: Down stack
-]]
+-- local dbg_hint = [[
+ -- _c_: Start/Continue    _S_: Stop                          _R_: Restart                 _P_: Pause
+ -- _b_: Toggle breakpoint _B_: Toggle conditional breakpoint _F_: Add function breakpoint _C_: Run to cursor
+ -- _N_: Step over         _n_: Step into                     _o_: Step out                _i_: Inspect symbol
+ -- _u_: Up stack          _d_: Down stack
+-- ]]
 
 
 
@@ -80,7 +80,7 @@ local dbg_hint = [[
 
 
 
-Hydra({
+--[[ Hydra({
    hint = dbg_hint,
    config = {
       color = 'pink',
@@ -113,7 +113,7 @@ Hydra({
       {'u',  "<Plug>VimspectorUpFrame"},
       {'d',  "<Plug>VimspectorDownFrame"},
    }
-})
+}) ]]
 
 
 
