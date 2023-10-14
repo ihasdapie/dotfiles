@@ -47,6 +47,18 @@ endfunction ]]
 
 end
 
+function _G.NI_fzf_resize_window ()
+    local min_term_size = 175
+    local term_size = vim.o.co
+
+    if term_size < min_term_size then
+        vim.g.fzf_layout = {["width"] = "100%"} 
+    else
+        local fraction = min_term_size / term_size
+        vim.g.fzf_layout = {["right"] = (fraction * 100) .. "%"}
+    end
+end
+
 
     
 --[[ function p(a)

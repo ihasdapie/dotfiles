@@ -45,7 +45,7 @@ local line = {
   active_tab = {
     label = function(tabid)
       return {
-        '  ' .. tabname(tabid) .. ' ', hl = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
+        ' 󱗝 ' .. tabname(tabid) .. ' ', hl = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
       }
     end,
     left_sep = { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
@@ -54,7 +54,7 @@ local line = {
   inactive_tab = {
     label = function(tabid)
       return {
-        '  '.. tabname(tabid) .. ' ',
+        '  '.. tabname(tabid) .. ' ',
         hl = { fg = palette.fg, bg = palette.bg_sec, style = 'bold' },
       }
     end,
@@ -64,7 +64,7 @@ local line = {
   top_win = {
     label = function(winid)
       return {
-        '  ' .. filename.unique(winid) .. ' ',
+        '  ' .. filename.relative(winid) .. ' ',
         hl = { fg = palette.bg, bg = palette.accent },
       }
     end,
@@ -74,7 +74,7 @@ local line = {
   win = {
     label = function(winid)
       return {
-        '  ' .. filename.unique(winid) .. ' ',
+        '  ' .. filename.shorten(winid) .. ' ',
         hl = { fg = palette.fg, bg = palette.bg_sec },
       }
     end,
