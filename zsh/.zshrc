@@ -341,9 +341,9 @@ export LESS=' -R '
 if [ "$(uname)" = "Darwin" ]; then
     export PATH=$PATH:$HOME/.cargo/bin/
     export PATH=$PATH:$HOME/.poetry/bin/
-    eval $(/opt/homebrew/bin/brew shellenv)
+    eval $(brew shellenv)
     eval "$(/usr/libexec/path_helper)"
-    export PATH=$(/opt/homebrew/bin/brew --prefix)/bin:$(/opt/homebrew/bin/brew --prefix)/sbin:$PATH
+    export PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH
     # pyenv (after brew export to put pyenv shims first)
     export PYENV_ROOT="$HOME/.pyenv"
     command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
