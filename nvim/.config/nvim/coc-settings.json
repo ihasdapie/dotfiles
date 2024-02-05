@@ -1,6 +1,6 @@
 // vim:ft=jsonc
 {
-    "colors.enable": true
+    "colors.enable": true,
     "coc.source.emoji.filetypes": [
         "gitcommit",
         "markdown",
@@ -33,6 +33,9 @@
     /* Coc-Explorer */
     "explorer.icon.enableNerdfont": true,
     "explorer.icon.source": "nvim-web-devicons",
+    "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+    "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+    "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
 
     /* coc-vimtex */
 
@@ -52,18 +55,18 @@
         // NOTE: 2-length itemkindlabels get screwed up by transparent pum
         "keyword" : " ",
         "variable" : " ",
-        "value" : " ",
+        "value" : " ",
         "function" : "𝑓",
         "operator" : "Ψ",
         "method" : "",
         "constructor" : " ",
-        "reference" : " ",
-        "constant" : " ",
-        "struct" : " ",
+        "reference" : " ",
+        "constant" : " 󰀱 ",
+        "struct" : " ", // This char is weird?? nf-mdi-file_tree פּ
         "class" : " ",
         "interface": " ",
         "text" : " ",
-        "enum": "  ",
+        "enum" : " ",
         "enumMember" : " ",
         "module" : " ", // why does this show up in different sizes?
         "color" : " ",
@@ -74,7 +77,7 @@
         "file" : " ",
         "folder" : " ",
         "snippet" : " ",
-        "typeParameter" : " ",
+        "typeParameter" : "  ",
         "default" : " ",
     },
 
@@ -121,7 +124,9 @@
     "diagnostic.displayByAle": false,
     "diagnostic.errorSign": "",
     "diagnostic.warningSign": "", "diagnostic.infoSign": "",
-    "diagnostic.hintSign": "",
+    "diagnostic.hintSign": "",
+    "diagnostic.enableMessage": "jump",
+    "diagnostic.messageTarget": "float",
 
     // "diagnostic.virtualText": true,
     // "diagnostic.virtualText": true,
@@ -141,14 +146,8 @@
     "Lua.diagnostics.globals": [
         "vim"
     ],
-    "Lua.workspace.maxPreload": 2000,
-
-    "languageserver": {
-        "svls": {
-            "command": "svls",
-            "filetypes": ["systemverilog"]
-        }
-    },
+    "Lua.workspace.maxPreload": 5000,
+    "Lua.workspace.checkThirdParty": false,
 
     "highlight.colorNames.enable": false,
     "clangd.arguments": [
@@ -159,41 +158,82 @@
         "--clang-tidy"],
         // "clangd.fallbackFlags": ["-std=c++17"]
 
-                // "languageserver": {
-                //     "go": {
-                //         "command": "gopls",
-                //         "rootPatterns": ["go.mod", ".vim/", ".git/", ".svn/"],
-                //         "filetypes": ["go"],
-                //         "initializationOptions": {
-                //             "usePlaceholders": true
-                //         }
-                //     }
-                // },
 
 
 
 
 
-            "go.goplsOptions": {
-                "verboseOutput": true,
-                "completeUnimported": true,
-                "usePlaceholders": true,
-                "hoverKind": "FullDocumentation",
-                "expandWorkspaceToModule": false,
-                "env": {
-                    "GO111MODULE": "off"
-                }
+        "go.goplsOptions": {
+            "verboseOutput": true,
+            "completeUnimported": true,
+            "usePlaceholders": true,
+            "hoverKind": "FullDocumentation",
+            "memoryMode": "DegradeClosed",
+            "gofumpt": true,
+            "env": {
+                "GO111MODULE": "off",
+                "GOPACKAGESDRIVER": "/home/user/go-code-sparse/tools/ide/managed_gopadrv.sh",
             },
-            "go.goplsEnv": {
-                "GO111MODULE": "off"
-            },
-            "go.disable": {
-                "workspaceFolders": false
-            },
-            "go.enable": true,
-            "snippets.ultisnips.directories": [
-                "UltiSnips",
-                "gosnippets/UltiSnips"
+            "directoryFilters": [
+                "-**/bazel-bin",
+                "-**/bazel-out",
+                "-**/bazel-testlogs",
+                "-**/bazel-mypkg",
+                // "-**/bazel-pkgdrv",
+                "-**/bazel-go-code-sparse",
             ],
-            "suggest.detailMaxLength": 120
+            "analyses": {
+                "unusedparams": true,
+                "copylocks": true,
+                "fieldalignment": true,
+                "unusedwrite": true,
+                "unusedvariable": true,
+            },
+            "analysisProgressReporting": true
+            // "staticcheck": true,
+        },
+        "go.goplsArgs": [
+            "-remote=auto",
+        ],
+        // "go.goplsPath": "/home/user/go-code-sparse/bazel-pkgdrv/external/go_sdk/bin/gopls",
+        // "go.goplsPath": "/opt/go/path/bin/gopls",
+        // "go.goplsPath": "/home/user/.cache/bazel/_bazel_brianchen/a90508aae3789c1b13bcea1ff1de1cdf/external/go_sdk/,
+        // "go.goplsPath": "/home/user/.cache/bazel/_bazel_brianchen/a90508aae3789c1b13bcea1ff1de1cdf/external/go_sdk/bin/gopls",
+
+
+        "snippets.ultisnips.directories": [
+            "UltiSnips",
+            "gosnippets/UltiSnips"
+        ],
+        "suggest.labelMaxLength": 120,
+
+        "languageserver": {
+            // "uber.uberLanguageServer": {
+
+            //     // On a Go devpod, use the following:
+            //     "serverBinaryPath": "/home/user/go-code/tools/ide/ulsp/ulsp-daemon",
+            //     "serverConfigDirectory": "/home/user/go-code/tools/ide/ulsp/config:/home/user/.devexp/config",
+
+            //     "uber.uberLanguageServer.languageClientOptions": {
+            //         "documentSelector": [
+            //             {
+            //                 "scheme": "file",
+            //                 "language": "go"
+            //             },
+            //             {
+            //                 "scheme": "file",
+            //                 "language": "starlark"
+            //             },
+            //             {
+            //                 "scheme": "file",
+            //                 "language": "java"
+            //             },
+            //         ]
+            //     },
+            // },
+            "svls": {
+                "command": "svls",
+                "filetypes": ["systemverilog"]
+            }
+        }
 }
