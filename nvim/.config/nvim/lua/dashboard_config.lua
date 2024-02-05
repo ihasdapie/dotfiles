@@ -48,7 +48,7 @@ end
 vim.g.dashboard_custom_section = {
     -- Dashboard takes it alphabetically
     A_keybindings = {
-        description = make_dashboard_entry('  Explore Keybindings', 'SPC SPC' , dashboard_entry_length),
+        description = make_dashboard_entry('  Explore Keybindings', 'SPC SPC' , dashboard_entry_length),
         command = 'WhichKey'
     },
     recent_list= {
@@ -79,7 +79,7 @@ vim.g.dashboard_custom_section = {
     },
 
     search_documentation = {
-        description = make_dashboard_entry('  Search Documentation', 'SPC h s', dashboard_entry_length),
+        description = make_dashboard_entry('  Search Documentation', 'SPC h s', dashboard_entry_length),
         command = 'Helptags'
     },
 

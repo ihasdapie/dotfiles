@@ -442,6 +442,9 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental 
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'hylang/vim-hy'
+Plug 'dansomething/vim-hackernews'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
@@ -465,7 +468,7 @@ Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'anuvyklack/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
 Plug 'ARM9/arm-syntax-vim'
-" Plug 'nvim-orgmode/orgmode'
+Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
