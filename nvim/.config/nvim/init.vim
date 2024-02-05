@@ -449,7 +449,7 @@ Plug 'dansomething/vim-hackernews'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'chengzeyi/fzf-preview.vim'
-Plug 'nvim-neotest/neotest'
+" Plug 'nvim-neotest/neotest'
 
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
