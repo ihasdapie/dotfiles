@@ -278,15 +278,16 @@ local function file_with_icons(file, modified_icon, readonly_icon)
   end
 
   if vim.bo.modifiable  and vim.bo.modified then
-    file = file .. ' ' ..modified_icon
+    file = modified_icon ..' ' .. file
   end
 
   return ' ' .. file .. ' '
 end
 
 local function get_shorten_file_name(mmodified_icon, readonly_icon)
-  -- local file = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.expand('%:p'), ':~:.'), 6)
-  return file_with_icons(vim.fn.expand('%:p'), mmodified_icon, readonly_icon)
+  local file = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.expand('%:p'), ':~:.'), 6)
+  -- local file = vim.fn.expand('%:p')
+  return file_with_icons(file, mmodified_icon, readonly_icon)
 end
 
 
@@ -300,7 +301,7 @@ gls.left[5] = {
 
 gls.left[6] = {
   GitIcon = {
-    provider = function() return '  ' end,
+    provider = function() return '  ' end,
     condition = vcs.check_git_workspace,
     highlight = {colors.orange,colors.line_bg},
   }

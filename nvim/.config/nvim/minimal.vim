@@ -9,6 +9,8 @@ set rtp+=~/.config/nvim/lua/
 
 lua require('tmp_init')
 
+lua require('functions')
+
 filetype plugin on
 filetype indent on
 
