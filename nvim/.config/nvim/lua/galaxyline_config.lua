@@ -382,7 +382,7 @@ gls.left[14] = {
 gls.left[15] = {
   DiagnosticHint = {
     provider = diagnostic.get_diagnostic_hint,
-    icon = '   ',
+    icon = '   ',
     highlight = {colors.blue, colors.bg},
 } }
 
