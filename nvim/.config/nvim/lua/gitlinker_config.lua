@@ -37,6 +37,15 @@ require"gitlinker".setup({
                 if url_data.lend then url = url .. "-L" .. url_data.lend end
             end
             return url
+        end,
+        ["code.uber.internal"] = function(url_data)
+            local url = "https://sg.uberinternal.com/code.uber.internal/uber-code/"
+            url = url .. url_data.repo .. "@" .. url_data.rev .. "/-/blob/" .. url_data.file
+            if url_data.lstart then
+                url = url .. "?L" .. url_data.lstart
+                if url_data.lend then url = url .. "-L" .. url_data.lend end
+            end
+            return url
         end
     },
 -- default mapping to call url generation with action_callback
