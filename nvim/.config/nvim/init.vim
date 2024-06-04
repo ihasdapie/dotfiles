@@ -442,7 +442,8 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
             \ 'VimspectorShowOutput', 'VimspectorToggleLog', 'VimspectorUpdate', 'VimspectorWatch']}
 
 
-" Experimental 
+" Experimental
+Plug 'nanotee/zoxide.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'hylang/vim-hy'
 Plug 'dansomething/vim-hackernews'
@@ -453,6 +454,7 @@ Plug 'chengzeyi/fzf-preview.vim'
 
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
+Plug 'nvim-neotest/nvim-nio'
 
 Plug 'mcchrish/nnn.vim'
 Plug 'lambdalisue/fern.vim'
