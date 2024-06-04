@@ -20,7 +20,7 @@ lcmd + shift - m   : /opt/homebrew/bin/yabai -m window --warp east
 # options: zoom-parent, zoom-fullscreen, native-fullscreen
 alt + shift - m    : /opt/homebrew/bin/yabai -m window --toggle zoom-parent
 alt + shift - o    : /opt/homebrew/bin/yabai -m config layout bsp
-alt + shift - i    : /opt/homebrew/bin/yabai -m config layout float
+alt + shift - y    : /opt/homebrew/bin/yabai -m config layout float
 alt + shift - f    : /opt/homebrew/bin/yabai -m window --toggle float
 alt + shift - s    : /opt/homebrew/bin/yabai -m window --toggle split
 alt + shift - r    : /opt/homebrew/bin/yabai -m space --rotate 90

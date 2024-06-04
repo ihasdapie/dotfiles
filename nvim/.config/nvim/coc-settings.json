@@ -18,6 +18,9 @@
     // "tabnine.disable_filetypes": ["pandoc", "markdown", "latex", "html", "txt"],
 
     /* Coc-Python  */
+    "pyright.inlayHints.variableTypes": false,
+    "pyright.inlayHints.functionReturnTypes": false,
+    "pyright.inlayHints.parameterTypes": false,
 
     "python.formatting.provider": "black",
     // "python.linting.pylintEnabled": true,
@@ -196,5 +199,6 @@
                 "UltiSnips",
                 "gosnippets/UltiSnips"
             ],
-            "suggest.detailMaxLength": 120
+            "suggest.detailMaxLength": 120,
+            "snippets.ultisnips.pythonPrompt": false,
 }

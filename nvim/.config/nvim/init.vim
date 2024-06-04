@@ -442,6 +442,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental 
+Plug 'nvim-neotest/nvim-nio'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
@@ -613,7 +614,7 @@ let g:vista_floating_delay=200
 " => FZF {{{
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 " let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
-let g:fzf_layout = { 'right': '40%' }
+let g:fzf_layout = { 'right': '80%' }
 " let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
 let g:fzf_preview_window = ['down:69%', 'ctrl-/']
 
@@ -1051,6 +1052,7 @@ let g:tex_flavor = "latex"
 let g:vimtex_view_method = 'skim' " TODO: change this to zathura depending on platform
 let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmgs'
+let g:vimtex_matchparen_enabled=0 " Slow on large files"
 
 let g:vimtex_compiler_latexmk = {
       \ 'build_dir' : '',
