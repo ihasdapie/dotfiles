@@ -200,7 +200,7 @@
             "-remote=auto",
         ],
         // "go.goplsPath": "/home/user/go-code-sparse/bazel-pkgdrv/external/go_sdk/bin/gopls",
-        // "go.goplsPath": "/opt/go/path/bin/gopls",
+        "go.goplsPath": "/opt/go/path/bin/gopls",
         // "go.goplsPath": "/home/user/.cache/bazel/_bazel_brianchen/a90508aae3789c1b13bcea1ff1de1cdf/external/go_sdk/,
         // "go.goplsPath": "/home/user/.cache/bazel/_bazel_brianchen/a90508aae3789c1b13bcea1ff1de1cdf/external/go_sdk/bin/gopls",
 

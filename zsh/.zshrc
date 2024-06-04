@@ -397,6 +397,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export VISUAL=/usr/bin/nvim
 fi
 
+eval "$(zoxide init zsh)"
+
+
+
 source ~/.zshrc.local
 
 

@@ -98,6 +98,7 @@ wk.register( { -- Normal mode mappings
           g = {
               name = "+golang",
               f = {"<cmd>GoFillStruct<CR>", "fill struct"},
+              c = {"<cmd>GoCallers<CR>", "GoCallers"},
               t = {"<cmd>CocCommand go.test.toggle<CR>", "toggle go test"},
           },
           t = {"<cmd>Tags<CR>", "list tags"},
@@ -299,6 +300,8 @@ wk.register( { -- Normal mode mappings
       T = {
           name = "+tab",
           n = {"<cmd>tabnew<CR>", "new"},
+          l = {"<cmd>tabm +1<CR>", "move right"},
+          h = {"<cmd>tabm -1<CR>", "move left"},
           c = {"<cmd>tabclose<CR>", "close"},
           -- e = {'<cmd>tabedit <C-r>=expand(\"%:p:h\")<cr>', "edit"}
           e = {':tabedit <TAB>', "edit"}
@@ -344,6 +347,7 @@ wk.register( { -- Normal mode mappings
           name = "+open",
           t = {"<cmd>FloatermNew<CR>", "new floatterm"},
           p = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
+          f = {"<cmd>call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>", "open file in project sidebar"},
       },
 
       q = {
