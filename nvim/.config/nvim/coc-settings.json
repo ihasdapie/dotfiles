@@ -191,4 +191,5 @@
             ],
             "suggest.detailMaxLength": 120,
             "snippets.ultisnips.pythonPrompt": false,
-}
+},
+"snippets.ultisnips.pythonPrompt": false
