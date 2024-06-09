@@ -1,8 +1,6 @@
-
-
 require("telescope").setup {
   defaults = {
-    -- Your defaults config goes in here
+      layout_strategy = "flex",
   },
   pickers = {
     -- Your special builtin config goes in here
@@ -25,7 +23,7 @@ require("telescope").setup {
       theme = "dropdown"
     }
   },
-  --[[ extensions = {
+  extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
         override_generic_sorter = false, -- override the generic sorter
@@ -33,8 +31,8 @@ require("telescope").setup {
         case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
     }
-  } ]]
+  }
 }
 
 
--- require('telescope').load_extension('fzf')
+require('telescope').load_extension('fzf')

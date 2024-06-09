@@ -1,6 +1,6 @@
 // vim:ft=jsonc
 {
-    "colors.enable": true
+    "colors.enable": true,
     "coc.source.emoji.filetypes": [
         "gitcommit",
         "markdown",
@@ -36,6 +36,9 @@
     /* Coc-Explorer */
     "explorer.icon.enableNerdfont": true,
     "explorer.icon.source": "nvim-web-devicons",
+    "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+    "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+    "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
 
     /* coc-vimtex */
 
@@ -55,31 +58,30 @@
         // NOTE: 2-length itemkindlabels get screwed up by transparent pum
         "keyword" : " ",
         "variable" : " ",
-        "value" : " ",
+        "value" : " ",
         "function" : "𝑓",
         "operator" : "Ψ",
         "method" : "",
         "constructor" : " ",
-        "reference" : "渚",
-        "constant" : " ",
-        "struct" : "\ufb44", // This char is weird?? nf-mdi-file_tree פּ
+        "reference" : " ",
+        "constant" : " 󰀱 ",
+        "struct" : " ", // This char is weird?? nf-mdi-file_tree פּ
         "class" : " ",
-        "interface" : " ",
+        "interface": " ",
         "text" : " ",
-        // "enum" : " ",
-        "enum": " 練",
+        "enum" : " ",
         "enumMember" : " ",
         "module" : " ", // why does this show up in different sizes?
         "color" : " ",
         "property" : " ",
-        "field" : "料",
+        "field" : " ",
         "unit" : " ",
-        "event" : "鬒",
-        "file" : " ",
+        "event" : "",
+        "file" : " ",
         "folder" : " ",
         "snippet" : " ",
-        "typeParameter" : " ",
-        "default" : " "
+        "typeParameter" : "  ",
+        "default" : " ",
     },
 
 
@@ -115,6 +117,10 @@
         "enumMember": "  "
     }, */
 
+    "pyright.inlayHints.variableTypes": false,
+    "pyright.inlayHints.parameterTypes": false,
+    "pyright.inlayHints.functionReturnTypes": false,
+
 
 
 
@@ -125,7 +131,9 @@
     "diagnostic.displayByAle": false,
     "diagnostic.errorSign": "",
     "diagnostic.warningSign": "", "diagnostic.infoSign": "",
-    "diagnostic.hintSign": "",
+    "diagnostic.hintSign": "",
+    "diagnostic.enableMessage": "jump",
+    "diagnostic.messageTarget": "float",
 
     // "diagnostic.virtualText": true,
     // "diagnostic.virtualText": true,
@@ -145,14 +153,8 @@
     "Lua.diagnostics.globals": [
         "vim"
     ],
-    "Lua.workspace.maxPreload": 2000,
-
-    "languageserver": {
-        "svls": {
-            "command": "svls",
-            "filetypes": ["systemverilog"]
-        }
-    },
+    "Lua.workspace.maxPreload": 5000,
+    "Lua.workspace.checkThirdParty": false,
 
     "highlight.colorNames.enable": false,
     "clangd.arguments": [
@@ -163,41 +165,29 @@
         "--clang-tidy"],
         // "clangd.fallbackFlags": ["-std=c++17"]
 
-                // "languageserver": {
-                //     "go": {
-                //         "command": "gopls",
-                //         "rootPatterns": ["go.mod", ".vim/", ".git/", ".svn/"],
-                //         "filetypes": ["go"],
-                //         "initializationOptions": {
-                //             "usePlaceholders": true
-                //         }
-                //     }
-                // },
 
 
 
 
 
-            "go.goplsOptions": {
-                "verboseOutput": true,
-                "completeUnimported": true,
-                "usePlaceholders": true,
-                "hoverKind": "FullDocumentation",
-                "expandWorkspaceToModule": false,
-                "env": {
-                    "GO111MODULE": "off"
-                }
+        "go.goplsOptions": {
+            "verboseOutput": true,
+            "completeUnimported": true,
+            "usePlaceholders": true,
+            "hoverKind": "FullDocumentation",
+            "memoryMode": "DegradeClosed",
+            "gofumpt": true,
+            "env": {
+                "GO111MODULE": "off",
+                "GOPACKAGESDRIVER": "/home/user/go-code-sparse/tools/ide/managed_gopadrv.sh",
             },
-            "go.goplsEnv": {
-                "GO111MODULE": "off"
-            },
-            "go.disable": {
-                "workspaceFolders": false
-            },
-            "go.enable": true,
-            "snippets.ultisnips.directories": [
-                "UltiSnips",
-                "gosnippets/UltiSnips"
+            "directoryFilters": [
+                "-**/bazel-bin",
+                "-**/bazel-out",
+                "-**/bazel-testlogs",
+                "-**/bazel-mypkg",
+                // "-**/bazel-pkgdrv",
+                "-**/bazel-go-code-sparse",
             ],
             "suggest.detailMaxLength": 120,
             "snippets.ultisnips.pythonPrompt": false,

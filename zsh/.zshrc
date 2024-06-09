@@ -20,7 +20,13 @@ fi
 ## Options section
 # setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-# setopt nocaseglob                                               # Case insensitive globbing setopt rcexpandparam                                            # Array expension with parameters setopt nocheckjobs                                              # Don't warn about running processes when exiting setopt numericglobsort                                          # Sort filenames numerically when it makes sense setopt nobeep                                                   # No beep setopt appendhistory                                            # Immediately append history instead of overwriting setopt histignorealldups                                        # If a new command is a duplicate, remove the older one setopt autocd                                                   # if only directory path is entered, cd there.
+# setopt nocaseglob                                               # Case insensitive globbing
+setopt rcexpandparam                                            # Array expension with parameters
+# setopt nocheckjobs                                              # Don't warn about running processes when exiting
+setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+setopt nobeep                                                   # No beep 
+setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
+setopt autocd                                                   # if only directory path is entered, cd there.
 setopt EXTENDED_HISTORY
 setopt NO_SHARE_HISTORY       # share history makes for weird behaviour on up when broadcasting
 setopt APPEND_HISTORY
@@ -42,7 +48,7 @@ setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
 HISTSIZE=6969 # number loaded into memory
-SAVEHIST=7500 # number saved
+SAVEHIST=20000 # number saved
 
 
 ## Keybindings section
@@ -136,7 +142,7 @@ alias ra='ranger'
 alias ha='hunter -i -g kitty'
 alias za='zathura'
 alias mpv='mpv -hwdec' # enable hardware decoding for mpv
-alias less='less --incsearch'
+alias less='less'
 alias rm='trash'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias py="ipython3"
@@ -335,9 +341,9 @@ export LESS=' -R '
 if [ "$(uname)" = "Darwin" ]; then
     export PATH=$PATH:$HOME/.cargo/bin/
     export PATH=$PATH:$HOME/.poetry/bin/
-    eval $(/opt/homebrew/bin/brew shellenv)
+    eval $(brew shellenv)
     eval "$(/usr/libexec/path_helper)"
-    export PATH=$(/opt/homebrew/bin/brew --prefix)/bin:$(/opt/homebrew/bin/brew --prefix)/sbin:$PATH
+    export PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH
     # pyenv (after brew export to put pyenv shims first)
     export PYENV_ROOT="$HOME/.pyenv"
     command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -373,6 +379,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     # source /usr/share/fzf/key-bindings.zsh
     source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
+    unset NODE_EXTRA_CA_CERTS
     eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
     export NVM_DIR="$HOME/.nvm"
@@ -389,6 +396,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export EDITOR=/usr/bin/nvim
     export VISUAL=/usr/bin/nvim
 fi
+
+eval "$(zoxide init zsh)"
+
+
 
 source ~/.zshrc.local
 

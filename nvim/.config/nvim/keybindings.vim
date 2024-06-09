@@ -93,6 +93,8 @@ nmap <leader>co :copen <cr>
 noremap <leader>pi :call mdip#MarkdownClipboardImage() <cr>
 
 
+nnoremap <localleader>x :lua require("neotest").run.run(vim.fn.expand("%"))<CR>
+nnoremap <localleader>z :lua require("neotest").output_panel.open()<CR>
 
 
 
