@@ -39,13 +39,14 @@ end
 local tabname = function(tabid)
   return vim.api.nvim_tabpage_get_number(tabid)
 end
+
 local line = {
   hl = { fg = palette.fg, bg = palette.bg },
   layout = 'active_wins_at_tail',
   active_tab = {
     label = function(tabid)
       return {
-        ' 󱗝 ' .. tabname(tabid) .. ' ', hl = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
+        ' 󱗝 ' .. require('tabby.util').get_tab_name(tabid, tabname) .. ' ', hl = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
       }
     end,
     left_sep = { '', hl = { fg = palette.accent_sec, bg = palette.bg } },
@@ -54,7 +55,7 @@ local line = {
   inactive_tab = {
     label = function(tabid)
       return {
-        '  '.. tabname(tabid) .. ' ',
+        '  '.. require('tabby.util').get_tab_name(tabid, tabname) .. ' ',
         hl = { fg = palette.fg, bg = palette.bg_sec, style = 'bold' },
       }
     end,
