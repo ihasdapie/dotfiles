@@ -80,7 +80,8 @@ wk.register( { -- Normal mode mappings
           -- P = {"<cmd>BufferLinePick<CR>", "Bufferline Pick"},
           -- o = {"<cmd>BufferLineSortByRelativeDirectory<CR>", "Sort by relative directory"},
           d = {"<cmd>Bdelete<CR>", "delete current buffer"},
-          b = {"<cmd>Buffers<CR>", "list buffers"},
+          b = {"<cmd>Telescope buffers theme=ivy<CR>", "list buffers"},
+          -- b = {"<cmd>Buffers<CR>", "list buffers"},
       },
 
       c = {
@@ -92,7 +93,14 @@ wk.register( { -- Normal mode mappings
           c = {"<cmd>CocList --ignore-case commands<CR>", "list avaliable commands"},
           d = {"<cmd>lua require('neogen').generate()<CR>", "generate documentation template"},
           f = {"<Plug>(coc-fix-current)", "code fix"},
+          i = {"<cmd>call ShowDocFloat()<CR>", "info hover"},
           l = {"<Plug>(coc-codelens-action)", "code lens action"},
+          g = {
+              name = "+golang",
+              f = {"<cmd>GoFillStruct<CR>", "fill struct"},
+              c = {"<cmd>GoCallers<CR>", "GoCallers"},
+              t = {"<cmd>CocCommand go.test.toggle<CR>", "toggle go test"},
+          },
           t = {"<cmd>Tags<CR>", "list tags"},
           r = {"<Plug>(coc-rename)", "rename"},
           s = {"<cmd>CocCommand clangd.switchSourceHeader<CR>", "switch source/header (clangd-only)"},
@@ -124,7 +132,22 @@ wk.register( { -- Normal mode mappings
 
       d = {
         name = "+debug",
-        c = {"<Plug>VimspectorContinue", "start or continue"},
+        O = {"<cmd>lua require('dapui').open()<CR>", "open dapui"},
+        C = {"<cmd>lua require('dapui').close()<CR>", "close dapui"},
+
+        c = {"<cmd>lua require('dap').continue()<CR>", "continue"},
+        i = {"<cmd>lua require('dap.ui.widgets').hover()<CR>", "info"},
+        k = {"<cmd>lua require('dap').step_over()<CR>", "step over"},
+        l = {"<cmd>lua require('dap').step_into()<CR>", "step into"},
+        L = {"<cmd>lua require('dap').step_out()<CR>", "step out"},
+        p = {"<cmd>lua require('dap').pause()<CR>", "pause"},
+        b = {"<cmd>lua require('dap').toggle_breakpoint()<CR>", "breakpoint toggle"},
+        r = {"<cmd>lua require('dap').repl.open()<CR>", "repl"},
+        R = {"<cmd>lua require('dap').run_last()<CR>", "run last"},
+        x = {"<cmd>lua require('dap').terminate()<CR>", "termiante"},
+
+        -- [legacy] vimspector
+        --[[ c = {"<Plug>VimspectorContinue", "start or continue"},
         S = {"<Plug>VimspectorStop", "stop"},
         R = {"<Plug>VimspectorRestart", "restart"},
         P = {"<Plug>VimspectorPause", "pause debugger"},
@@ -137,7 +160,7 @@ wk.register( { -- Normal mode mappings
         o = {"<Plug>VimspectorStepOut", "step out of current"},
         i = {"<Plug>VimspectorBalloonEval", "debug inspect"},
         u = {"<Plug>VimspectorUpFrame", "up stack"},
-        d = {"<Plug>VimspectorDownFrame", "down stack"},
+        d = {"<Plug>VimspectorDownFrame", "down stack"}, ]]
       },
 
 
@@ -214,7 +237,7 @@ wk.register( { -- Normal mode mappings
         o = {"<cmd>CocList -A outline<CR>", "outline"},
         s = {"<cmd>CocList -A symbols<CR>", "outline"},
         d = {"<cmd>CocList -A diagnostics", "diagnostics"},
-        m = {"<cmd>Marks<CR>", "marks"},
+        m = {"<cmd>Telescope marks<CR>", "marks"},
 
 
       },
@@ -277,6 +300,8 @@ wk.register( { -- Normal mode mappings
       T = {
           name = "+tab",
           n = {"<cmd>tabnew<CR>", "new"},
+          l = {"<cmd>tabm +1<CR>", "move right"},
+          h = {"<cmd>tabm -1<CR>", "move left"},
           c = {"<cmd>tabclose<CR>", "close"},
           -- e = {'<cmd>tabedit <C-r>=expand(\"%:p:h\")<cr>', "edit"}
           e = {':tabedit <TAB>', "edit"}
@@ -296,6 +321,7 @@ wk.register( { -- Normal mode mappings
         e = {"<cmd>NnnExplorer<CR>", "NnnExplorer sidebar"},
         s = {"<cmd>set spell! spell?<CR>", "spellcheck"},
         f = {"za", "toggle fold under cursor"}, -- Just `za` but remapped under leader. Can remove.
+        l = {'<cmd>set autoread | au CursorHold * checktime | call feedkeys("G")<CR>', "toggle log tail mode"},
         T = {
           name = "+treesitter",
           c = {"<cmd>TSContextToggle<CR>", "toggle context"},
@@ -321,6 +347,7 @@ wk.register( { -- Normal mode mappings
           name = "+open",
           t = {"<cmd>FloatermNew<CR>", "new floatterm"},
           p = {"<cmd>CocCommand explorer<CR>", "project sidebar"},
+          f = {"<cmd>call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>", "open file in project sidebar"},
       },
 
       q = {
@@ -340,7 +367,11 @@ wk.register( { -- Normal mode mappings
         -- lf = {"<cmd>luafile %<CR>", "run current lua file"},
         v = {"<cmd>lua require('nabla').popup()<CR>", "preview LaTeX math"},
         V = {"<cmd>lua Toggle_venn()<CR>", "toggle diagram drawer"},
-        n = {"<Plug>VimspectorStepInto", "debuggger: step into"},
+        m = {"<cmd>lua require('dap').step_into()<CR>", "step into"},
+        l = {"<cmd>lua require('dap').step_over()<CR>", "step over"},
+        k = {"<cmd>lua require('dap').step_out()<CR>", "step out"},
+        r = {"<cmd>History:<CR>", "recent commands"},
+
         t = {
           name = "+floaterm",
           l = {"<cmd>FloatermNext<CR>", "next floaterm"},
@@ -388,8 +419,7 @@ wk.register({ -- Visual mode mappings
    f = {"fzf#vim#complete#path('rg--files')", "Insert file name", expr=true},
    ['<tab>'] = {"<C-x><C-o>", "complete omnifunc"},
    i = {"<C-x><C-o>", "complete omnifunc"},
-
-
+   s = {"<cmd>call CocActionAsync('showSignatureHelp')<CR>", "Show function signature help"},
   },
   {mode='i',
     prefix="<C-x>"})

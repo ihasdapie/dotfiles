@@ -1,6 +1,6 @@
 # zmodload zsh/zprof
 
-
+export PATH=$PATH:/usr/games
 paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # krabby random
 
@@ -20,7 +20,13 @@ fi
 ## Options section
 # setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-# setopt nocaseglob                                               # Case insensitive globbing setopt rcexpandparam                                            # Array expension with parameters setopt nocheckjobs                                              # Don't warn about running processes when exiting setopt numericglobsort                                          # Sort filenames numerically when it makes sense setopt nobeep                                                   # No beep setopt appendhistory                                            # Immediately append history instead of overwriting setopt histignorealldups                                        # If a new command is a duplicate, remove the older one setopt autocd                                                   # if only directory path is entered, cd there.
+# setopt nocaseglob                                               # Case insensitive globbing
+setopt rcexpandparam                                            # Array expension with parameters
+# setopt nocheckjobs                                              # Don't warn about running processes when exiting
+setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+setopt nobeep                                                   # No beep 
+setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
+setopt autocd                                                   # if only directory path is entered, cd there.
 setopt EXTENDED_HISTORY
 setopt NO_SHARE_HISTORY       # share history makes for weird behaviour on up when broadcasting
 setopt APPEND_HISTORY
@@ -42,7 +48,7 @@ setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
 HISTSIZE=6969 # number loaded into memory
-SAVEHIST=7500 # number saved
+SAVEHIST=20000 # number saved
 
 
 ## Keybindings section
@@ -199,8 +205,12 @@ xd () {
 }
 
 
-
 #### FZF
+
+# create fzf_history if it doesn't exist
+[ -f $HOME/dotfiles-private/fzf/fzf_history ] || touch $HOME/dotfiles-private/fzf/fzf_history
+
+
 export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
 # export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
@@ -257,8 +267,22 @@ _kitty() {
 compdef _kitty kitty
 
 # # Plugins
-# # antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.zsh
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
+
+# Ensure you have a .zsh_plugins.txt file where you can add plugins.
+[[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
+
+# Lazy-load antidote.
+fpath+=(${ZDOTDIR:-~}/.antidote)
+autoload -Uz $fpath[-1]/antidote
+
+# Generate static file in a subshell when .zsh_plugins.txt is updated.
+if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+  (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
+fi
+
+# Source your static plugins file.
+source $zsh_plugins
 
 
 # # zsh autosuggestions
@@ -328,23 +352,11 @@ if [ "$(uname)" = "Darwin" ]; then
     alias ls="gls --color=auto --hyperlink"
     alias du='du -h'
     [ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
-    # Setup fzf
-    # ---------
-    if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
-        PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
-    fi
 
-    # Auto-completion
-    # ---------------
-    [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
 
-    # Key bindings
-    # ------------
-    source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
-
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+    # export NVM_DIR="$HOME/.nvm"
+    # [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+    # [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
     export EDITOR=/opt/homebrew/bin/nvim
     export VISUAL=/opt/homebrew/bin/nvim
     export HOMEBREW_NO_AUTO_UPDATE=1
@@ -361,9 +373,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.emacs.d/bin/
     export PATH=$PATH:$HOME/.local/bin
     source /usr/share/autojump/autojump.zsh
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/fzf/completion.zsh] && source /usr/share/fzf/completion.zsh
+    [ -f /usr/share/fzf/key-bindings.zsh] && source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/doc/fzf/examples/key-bindings.zsh] && source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
+    unset NODE_EXTRA_CA_CERTS
     eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
     export NVM_DIR="$HOME/.nvm"
@@ -380,6 +394,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export EDITOR=/usr/bin/nvim
     export VISUAL=/usr/bin/nvim
 fi
+
+eval "$(zoxide init zsh)"
+
+
 
 source ~/.zshrc.local
 
@@ -401,7 +419,6 @@ fi
 
 
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-
-
+autoload -U +X bashcompinit && bashcompinit
