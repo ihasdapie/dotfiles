@@ -9,6 +9,8 @@ set rtp+=~/.config/nvim/lua/
 
 lua require('tmp_init')
 
+lua require('functions')
+
 filetype plugin on
 filetype indent on
 
@@ -178,6 +180,7 @@ Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'],
 Plug 'folke/which-key.nvim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 call plug#end()
 " }}}
@@ -333,7 +336,21 @@ vnoremap <LocalLeader>p "+p
 nnoremap <LocalLeader>p "+p
 
 
-
+function! KittyBufferHistoryClean()
+  set modifiable
+  set noconfirm
+  " clean ascii/ansi code  (starts with ^[)
+  silent! %s/\e\[[0-9:;]*m//g
+  silent! %s/[^[:alnum:][:punct:][:space:]]//g
+  silent! %s/\e\[[^\s]*\s//g
+  " remove empty spaces from end
+  silent! %s/\s*$//
+  let @/ = ""
+  set rnu
+  " map q to force quit
+  cnoremap q q!
+endfunction
+command! KittyBufferHistoryClean call KittyBufferHistoryClean()
 
 
 

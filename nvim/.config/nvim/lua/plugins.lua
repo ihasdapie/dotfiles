@@ -22,6 +22,8 @@ require('gitlinker_config')
 require('hydra_config')
 require('leap_config')
 require('colorful-winsep_config')
+require('dap_config')
+-- require('neotest_config')
 
 
 

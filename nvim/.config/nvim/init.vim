@@ -1,8 +1,9 @@
 " vim:fileencoding=utf-8:foldmethod=marker
 
 " => General Settings {{{
-
-
+if $VIM_PATH != ""
+        let $PATH = $VIM_PATH
+endif
 
 filetype plugin indent on
 
@@ -332,7 +333,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
@@ -355,7 +356,7 @@ Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
 Plug 'szw/vim-maximizer', {'on': ['MaximizerToggle']}
 
 " Performance improvements
-" Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'tweekmonster/startuptime.vim/', {'on': 'StartupTime'}
 Plug 'vim-scripts/LargeFile'
 Plug 'famiu/nvim-reload', {'on': ['Reload', 'Restart']}
@@ -442,9 +443,22 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'nanotee/zoxide.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'hylang/vim-hy'
+Plug 'dansomething/vim-hackernews'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'chengzeyi/fzf-preview.vim'
+" Plug 'nvim-neotest/neotest'
+
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'nvim-neotest/nvim-nio'
+
 Plug 'mcchrish/nnn.vim'
 Plug 'lambdalisue/fern.vim'
-Plug 'samjwill/nvim-unception'
+" Plug 'samjwill/nvim-unception'
 Plug 'rickhowe/spotdiff.vim'
 Plug 'embear/vim-uncrustify'
 Plug 'lewis6991/impatient.nvim'
@@ -462,7 +476,7 @@ Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'anuvyklack/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
 Plug 'ARM9/arm-syntax-vim'
-" Plug 'nvim-orgmode/orgmode'
+Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
@@ -488,12 +502,41 @@ Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCode
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" Startup time for these two is abysmal
+Plug 'google/vim-maktaba', {'on': ['Bazel']}
+Plug 'bazelbuild/vim-bazel', {'on': ['Bazel']}
+
 call plug#end()
 
 " }}}
 lua require('impatient')
 
 ": => vim-go {{{
+
+let g:go_gopls_enabled = 1
+
+" LSP will provide go-to-definition.
+let g:go_def_mapping_enabled = 0
+
+" LSP will provide completion.
+let g:go_code_completion_enabled = 0
+
+" LSP will provide inline documentation.
+let g:go_doc_keywordprg_enabled = 0
+
+" Don't run "go vet" or "revive" on save. LSP will lint.
+let g:go_metalinter_autosave_enabled = []
+
+" Don't run fmts on save
+let g:go_fmt_autosave = 1
+let g:go_imports_autosave = 1
+let g:go_fmt_command = "goimports"
+" let g:go_fmt_command="gopls"
+" let g:go_gopls_gofumpt=1
+
+
+" Check if coc works
+let g:go_def_mapping_enabled = 0
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -566,6 +609,7 @@ let g:vista_sidebar_width=35
 let g:vista_executive_for = {
     \ 'python': 'coc', 
     \ 'rust': 'coc',
+    \ 'go': 'coc',
     \ 'c' : 'coc',
     \ 'cpp' : 'coc',
     \ 'lua': 'coc'
@@ -583,7 +627,7 @@ let g:vista_floating_delay=200
 " => FZF {{{
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 " let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
-let g:fzf_layout = { 'right': '40%' }
+let g:fzf_layout = { 'right': '80%' }
 " let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
 let g:fzf_preview_window = ['down:69%', 'ctrl-/']
 
@@ -656,7 +700,6 @@ command -bang -bar -nargs=? -complete=file E :call s:MKDir(<f-args>) | e<bang> <
 " Signature help is really useful :)
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp') 
 " If it gets annoying, try this mapping:
-" inoremap <silent><localleader>s call CocActionAsync('showSignatureHelp')<CR>
 
 
 " Tab completion
@@ -684,10 +727,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 xnoremap <leader>cF  <Plug>(coc-format-selected)
 nnoremap <leader>cF  <Plug>(coc-format-selected)
 
-" KK to show function docs in floating
-nnoremap <silent>ZZ :call <SID>show_documentation()<CR>
-" K to split out function docs in bottom buffer
-nnoremap <silent>Z :call ShowDoc()<CR><C-e>
+nnoremap <silent>ZZ :call ShowDocFloat()<CR><C-e>
 
 " Use C-enter to select instead (so it doesn't mess up entering a newline at times)
 " inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm()
@@ -708,7 +748,7 @@ return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 
-function! s:show_documentation()
+function! ShowDocFloat()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
@@ -719,7 +759,7 @@ function! s:show_documentation()
 endfunction
 
 
-function! ShowDoc() abort
+function! ShowDocSplit() abort
   let winid = get(g:, 'coc_last_float_win', -1)
   if winid != -1
     let bufnr = winbufnr(winid)
@@ -1021,6 +1061,7 @@ let g:tex_flavor = "latex"
 let g:vimtex_view_method = 'skim' " TODO: change this to zathura depending on platform
 let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmgs'
+let g:vimtex_matchparen_enabled=0 " Slow on large files"
 
 let g:vimtex_compiler_latexmk = {
       \ 'build_dir' : '',
@@ -1066,8 +1107,8 @@ let g:html_prevent_copy = "fn" " Makes fold markers and numbers in html not copi
 """""""""
 let g:LargeFile=10
 
- 
- 
+
+
 " }}}
 
 
@@ -1245,6 +1286,56 @@ let g:leetcode_browser='firefox'
 
 
 " }}}
+
+
+" bazel {[{
+function BZL(command)
+  execute("wa")
+  execute("cd %:p:h")
+  let cmd = a:command
+  if cmd != "build" && cmd != "test"
+      let cmd = "build"
+      let file = expand("%")
+      if file =~# "^\\\\f\\\\+_test\\\\.go$"
+          let cmd = "test"
+      endif
+  endif
+  let dir = substitute(getcwd(), $WORKSPACE_ROOT . "/", "", "")
+  echo dir
+  "ignore noise in bazel build
+  let &errorformat  = "%-GERROR%.%#"
+  let &errorformat .= ",%-Gwarning%.%#"
+  let &errorformat .= ",%-G%.%#proto:%.%#"
+  let &errorformat .= ",%-GDEBUG%.%#"
+  "test error
+  let &errorformat .= ",gentestmain:\\\\ %.%#" . dir . "/%f:%l:%c:\\\\ %m"
+  let &errorformat .= ",gentestmain:\\\\ %.%#:%f:%l:%c:\\\\ %m"
+  "compile error
+  let &errorformat .= "," . dir . "/%f:%l:%c:\\\\ %m"
+  let &errorformat .= ",%f:%l:%c:\\\\ %m"
+  "assertion error
+  let &errorformat .= ",%E%.%#Error Trace:%.%#" . dir . "/%f:%l"
+  let &errorformat .= ",%C\\\\ %*\\\\sError:%m"
+  let &errorformat .= ",%Z\\\\ %*\\\\sTest:%*\\\\s%m"
+  let &errorformat .= ",%C\\\\ %*\\\\s%m"
+  "panic in test
+  let &errorformat .= ",%.%#%\\\\(runtime/panic%\\\\)%\\\\@=%m%.%#"
+  "stack trace
+  let &errorformat .= ",%.%#" . dir . "/%f:%l\\\\ %m"
+  "import error
+  let &errorformat .= ",%.%#" . dir . "/%f:\\\\ %\\\\(import %.%#%\\\\)%\\\\@=%m"
+  "discard anything else
+  let &errorformat .= ",%-G%.%#"
+  let &makeprg = "bazel " . cmd . " //" . dir . "/..."
+  :redir @b
+  " Use vim-dispatch to run the build in the background
+  :Make
+  :redir END
+  if len(getqflist()) > 0
+      execute("copen")
+  endif
+endfunction
+" }]}
 
 
 
