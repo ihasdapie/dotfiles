@@ -407,7 +407,7 @@ Plug 'windwp/nvim-autopairs'
 
 
 Plug 'tpope/vim-surround'
-Plug 'folke/which-key.nvim'
+Plug 'folke/which-key.nvim', {'tag': 'v2.1.0'}
 Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex', 'tex']}
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
@@ -727,7 +727,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 xnoremap <leader>cF  <Plug>(coc-format-selected)
 nnoremap <leader>cF  <Plug>(coc-format-selected)
 
-nnoremap <silent>ZZ :call ShowDocFloat()<CR><C-e>
+nnoremap <silent>ZZ call ShowDocFloat()<CR><C-e>
 
 " Use C-enter to select instead (so it doesn't mess up entering a newline at times)
 " inoremap <silent><expr> <C-enter> pumvisible() ? coc#_select_confirm()
@@ -856,8 +856,8 @@ let g:coc_global_extensions = [
             \ 'coc-toml',
             \ 'coc-sql',
             \ 'coc-sh',
-            \ 'coc-rust-analyzer',
             \ 'coc-pyright',
+            \ 'coc-rust-analyzer',
             \ 'coc-json',
             \ 'coc-java',
             \ 'coc-go',
@@ -866,6 +866,7 @@ let g:coc_global_extensions = [
             \ 'coc-db',
             \ 'coc-vimtex',
             \ ]
+            " \ 'coc-basedpyright',
 
 
 

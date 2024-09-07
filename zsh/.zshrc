@@ -349,7 +349,7 @@ if [ "$(uname)" = "Darwin" ]; then
     command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
 
-    source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+    # source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
     alias ll="ls -ialh --color=auto"
     alias ls="gls --color=auto --hyperlink"
     alias du='du -h'
