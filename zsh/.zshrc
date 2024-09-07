@@ -142,8 +142,7 @@ alias ra='ranger'
 alias ha='hunter -i -g kitty'
 alias za='zathura'
 alias mpv='mpv -hwdec' # enable hardware decoding for mpv
-alias less='less'
-alias rm='trash'
+alias less='less --incsearch'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias py="ipython3"
 alias qc='qalc'
@@ -330,9 +329,8 @@ utias_vpn () {
 # }}}
 
 
-
-
-
+# Prevent ls colour contrast being terrible for 777 dirs/files
+export LS_COLORS=':ow=01;33'
 
 # Pretty =less=
 export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
@@ -375,9 +373,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.emacs.d/bin/
     export PATH=$PATH:$HOME/.local/bin
     source /usr/share/autojump/autojump.zsh
-    # source /usr/share/fzf/completion.zsh
-    # source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    [ -f /usr/share/fzf/completion.zsh] && source /usr/share/fzf/completion.zsh
+    [ -f /usr/share/fzf/key-bindings.zsh] && source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/doc/fzf/examples/key-bindings.zsh] && source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
     unset NODE_EXTRA_CA_CERTS
     eval $(npm completion zsh)
@@ -403,8 +401,9 @@ eval "$(zoxide init zsh)"
 
 source ~/.zshrc.local
 
-
-
+if [ -z ${TMUX+x} ]; then
+else eval $(tmux show-env -s |grep '^SSH_');
+fi
 
 
 # export QSYS_ROOTDIR="/home/ihasdapie/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
