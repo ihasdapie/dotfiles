@@ -373,9 +373,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.emacs.d/bin/
     export PATH=$PATH:$HOME/.local/bin
     source /usr/share/autojump/autojump.zsh
-    [ -f /usr/share/fzf/completion.zsh] && source /usr/share/fzf/completion.zsh
-    [ -f /usr/share/fzf/key-bindings.zsh] && source /usr/share/fzf/key-bindings.zsh
-    [ -f /usr/share/doc/fzf/examples/key-bindings.zsh] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+    [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
     unset NODE_EXTRA_CA_CERTS
     eval $(npm completion zsh)
@@ -395,7 +395,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export VISUAL=/usr/bin/nvim
 fi
 
-eval "$(zoxide init zsh)"
 
 
 
