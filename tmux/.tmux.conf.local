@@ -375,9 +375,9 @@ set -g @tpm_plugins '          \
 
 
 # Swap left
-bind-key -r C-J swap-window -t -1
+bind-key -r C-J swap-window -t -1 \; select-window -t -1
 # Swap right
-bind-key -r C-K swap-window -t +1
+bind-key -r C-K swap-window -t +1 \; select-window -t +1
 
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
