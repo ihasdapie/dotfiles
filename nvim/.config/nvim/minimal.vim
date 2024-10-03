@@ -167,6 +167,7 @@ onoremap <expr> N  'nN'[v:searchforward]
 call plug#begin('~/.config/nvim/plugged')
 
 " Essentials
+Plug 'm00qek/baleia.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
