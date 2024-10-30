@@ -443,6 +443,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'hylang/vim-hy'
