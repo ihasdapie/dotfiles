@@ -473,7 +473,7 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'tamton-aquib/duck.nvim'
 " Plug 'nvim-zh/colorful-winsep.nvim', {'commit': 'dbdf5ac62273385638c'}
 Plug 'godlygeek/tabular', {'on': ['Tabularize']}
-Plug 'anuvyklack/hydra.nvim'
+Plug 'nvimtools/hydra.nvim'
 Plug 'anuvyklack/keymap-layer.nvim'
 Plug 'ARM9/arm-syntax-vim'
 Plug 'nvim-orgmode/orgmode'
