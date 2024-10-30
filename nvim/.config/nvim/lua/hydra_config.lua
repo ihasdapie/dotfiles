@@ -19,7 +19,6 @@ Hydra({
       invoke_on_body = true,
       hint = {
          position = 'bottom',
-         border = 'rounded'
       },
       on_enter = function()
          vim.bo.modifiable = true
