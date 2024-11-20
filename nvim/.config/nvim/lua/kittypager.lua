@@ -17,6 +17,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
     vim.api.nvim_buf_set_keymap(term_buf, 'n', 'q', '<Cmd>q<CR>', {})
     vim.api.nvim_buf_set_keymap(term_buf, 'n', '<ESC>', '<Cmd>q<CR>', {})
     local group = vim.api.nvim_create_augroup('kitty+page', {})
+    vim.opt.modifiable = true
 
     local setCursor = function()
         vim.api.nvim_feedkeys(tostring(INPUT_LINE_NUMBER) .. [[ggzt]], 'n', true)
