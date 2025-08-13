@@ -208,10 +208,9 @@ xd () {
 #### FZF
 
 # create fzf_history if it doesn't exist
-[ -f $HOME/dotfiles-private/fzf/fzf_history ] || touch $HOME/dotfiles-private/fzf/fzf_history
+[ -f $HOME/.fzf_history ] || touch $HOME/.fzf_history
 
-
-export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/dotfiles-private/fzf/fzf_history" # TODO Test v1, v2?
+export FZF_DEFAULT_OPTS="--height 69% --layout=reverse --border --algo=v1 --ansi --history $HOME/.fzf_history" # TODO Test v1, v2?
 # export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
 
@@ -230,7 +229,7 @@ _fzf_compgen_dir() {
 }
 
 #### DIRENV
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 
 ### COMPLETIONS #########
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
@@ -384,9 +383,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-    export PYENV_ROOT="$HOME/.pyenv"
-    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+    # export PYENV_ROOT="$HOME/.pyenv"
+    # command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    # eval "$(pyenv init -)"
 
 
 
