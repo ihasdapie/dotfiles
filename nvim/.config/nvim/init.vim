@@ -7,6 +7,7 @@ endif
 
 filetype plugin indent on
 
+
 let mapleader=" "   " leader mappings with SPC
 let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcut for some leader actions
 
@@ -445,6 +446,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 " Experimental
 Plug 'uhs-robert/oasis.nvim'
 Plug 'chrisbra/Colorizer'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'

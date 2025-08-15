@@ -1,7 +1,7 @@
 # zmodload zsh/zprof
 
-export PATH=$PATH:/usr/games
-paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
+# export PATH=$PATH:/usr/games
+# paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # krabby random
 
 # instant prompt causes some rescaling jank...
@@ -371,13 +371,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.poetry/bin/
     export PATH=$PATH:$HOME/.emacs.d/bin/
     export PATH=$PATH:$HOME/.local/bin
-    [ -f /usr/share/autojump/autojump.zsh ] || source /usr/share/autojump/autojump.zsh
+    [ -f /usr/share/autojump/autojump.zsh ] && source /usr/share/autojump/autojump.zsh
     [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
     [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
     [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
     unset NODE_EXTRA_CA_CERTS
-    eval $(npm completion zsh)
+    # eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
