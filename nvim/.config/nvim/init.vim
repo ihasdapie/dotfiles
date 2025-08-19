@@ -480,6 +480,7 @@ Plug 'ARM9/arm-syntax-vim'
 Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
 
