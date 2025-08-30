@@ -31,8 +31,8 @@
     // "python.linting.mypyEnabled": true,
     // "python.linting.pydocstyleEnabled": true,
     "python.venvPath": "/home/ihasdapie/.cache/pypoetry/virtualenvs",
-    "coc.preferences.formatOnSave": true,
-    "coc.preferences.formatOnSaveTimeout": 200,
+    // "coc.preferences.formatOnSave": true,
+    // "coc.preferences.formatOnSaveTimeout": 200,
     /* Coc-Explorer */
     "explorer.icon.enableNerdfont": true,
     "explorer.icon.source": "nvim-web-devicons",

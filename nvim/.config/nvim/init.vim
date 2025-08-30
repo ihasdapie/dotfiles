@@ -23,7 +23,7 @@ au FocusGained,BufEnter * silent! checktime
 filetype off
 
 " set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
-set guifont=Recursive:h12
+" set guifont=Recursive:h12
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua
