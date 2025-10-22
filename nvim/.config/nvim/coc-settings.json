@@ -149,7 +149,7 @@
         "completeUnimported": true,
         "usePlaceholders": true,
         "hoverKind": "FullDocumentation",
-        "memoryMode": "DegradeClosed",
+        // "memoryMode": "DegradeClosed",
         "gofumpt": true,
         "env": {
             "GO111MODULE": "off",
