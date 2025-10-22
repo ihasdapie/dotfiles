@@ -12,6 +12,8 @@ vim.o.mouse='a'
 
 vim.g.did_load_filetypes = 1
 
+vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
+
 
 --[[
 local function M.add_rtp(path)

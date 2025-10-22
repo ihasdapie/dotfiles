@@ -104,9 +104,6 @@
         "value": "  ",
         "enumMember": "  "
     }, */
-    "pyright.inlayHints.variableTypes": false,
-    "pyright.inlayHints.parameterTypes": false,
-    "pyright.inlayHints.functionReturnTypes": false,
     /* Coc-Diagnostics */
     "diagnostic.level": "hint",
     "diagnostic.displayByAle": false,
@@ -137,26 +134,27 @@
     "highlight.colorNames.enable": false,
     "clangd.arguments": [
         "--background-index",
-        "--all-scopes-completion",
-        // "--header-insertion=iwyu",
+        // "--all-scopes-completion",
+        "--header-insertion=iwyu",
         "--compile-commands-dir=${workspaceFolder}/",
         "--query-driver=bazel-firmware/external/tesla_clang/usr/bin/clang",
         "--clang-tidy",
-        "-j=48",
+        "-j=64",
         "--malloc-trim",
-        "--limit-references=10000",
-        "--limit-results=10000",
         "--enable-config",
         "--pch-storage=memory",
+        // "--limit-references=100000000",
+        // "--limit-results=100000000",
         // below is important to get #includes from other sources working, e.g. 
-        "--path-mappings=/data/briachen/CKT22245/.bazel/bazel/e5178882703a799d56ae48491a6f3efc-Autopilot_hw4/external=/usr_src/firmware/bazel-firmware/external"
         // "--path-mappings=/data/briachen/CKT22245/.bazel/bazel/e5178882703a799d56ae48491a6f3efc-Autopilot_hw4/external=/usr_src/firmware/bazel-firmware/external"
+        "--path-mappings=${workspaceFolder}/bazel-firmware/external=/usr_src/firmware/bazel-firmware/external"
     ],
-    // "clangd.fallbackFlags": [
-    //     "-std=c++20"
-    // ],
+    "clangd.path": "${workspaceFolder}/bazel-firmware/external/tesla_clang/usr/bin/clangd",
     // "clangd.path": "/data/briachen/CKT22245/.bazel/bazel/e5178882703a799d56ae48491a6f3efc-Autopilot_hw4/external/tesla_clang/usr/bin/clangd ",
-    "clangd.path": "/data/briachen/CKT22245/autopilot/bazel-firmware/external/tesla_clang/usr/bin/clangd",
+    "clangd.fallbackFlags": [
+        "-std=c++20"
+    ],
+    // "clangd.path": "/data/briachen/CKT22245/autopilot/bazel-firmware/external/tesla_clang/usr/bin/clangd",
     "go.goplsOptions": {
         "verboseOutput": true,
         "completeUnimported": true,
@@ -180,4 +178,6 @@
     "snippets.ultisnips.pythonPrompt": false,
     "copilot.enable": true,
     "copilot.kindLabel": " ",
+    // coc-calc highlights break on current coc.nvim
+    "calc.highlight": false,
 }

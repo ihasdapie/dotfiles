@@ -47,8 +47,8 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=6969 # number loaded into memory
-SAVEHIST=20000 # number saved
+HISTSIZE=10000 # number loaded into memory
+SAVEHIST=100000000 # number saved
 
 
 ## Keybindings section
@@ -390,8 +390,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 
 
     alias open='xdg-open'
-    export EDITOR=/usr/bin/nvim
-    export VISUAL=/usr/bin/nvim
+    export EDITOR=$(which nvim)
+    export VISUAL=$(which nvim)
 fi
 
 
@@ -407,9 +407,6 @@ fi
 # export QSYS_ROOTDIR="/home/ihasdapie/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
 
 # zprof
-
-
-
 
 
 

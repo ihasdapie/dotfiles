@@ -289,6 +289,7 @@ wk.register({  -- Normal mode mappings
             B = { "<cmd>Lines<CR>", "open buffers" },
             b = { "<cmd>BLines<CR>", "current buffer" },
             s = { "<cmd>Vista finder<CR>", "symbols" },
+            f = { "<cmd>GrugFar<CR>", "grug-far" },
             r = { ":CocSearch ", "search-and-replace" },
             h = {
                 name = "+history",
@@ -406,6 +407,7 @@ wk.register({ -- Visual mode mappings
                 name = "+code",
                 a = { "<Plug>(coc-codeaction-selected)", "codeaction" },
                 R = { "<cmd>SnipRun<CR>", "sniprun" },
+                f = { "<Plug>(coc-format-selected)", "code format selected" },
             },
             g = {
                 name = "+git",

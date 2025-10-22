@@ -18,13 +18,12 @@ map <localleader> lua require("which-key").show(",", {mode = "n", auto = true})<
 
 set history=500 
 set autoread
-
 " Silent or else `q:` or `q/` get messed up
 au FocusGained,BufEnter * silent! checktime 
 filetype off
 
 " set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
-" set guifont=Recursive:h12
+set guifont=RecMonoDuotone\ Nerd\ Font
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua
@@ -446,6 +445,8 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 " Experimental
 Plug 'uhs-robert/oasis.nvim'
 Plug 'chrisbra/Colorizer'
+Plug 'MagicDuck/grug-far.nvim'
+Plug 'folke/trouble.nvim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
@@ -635,7 +636,7 @@ let g:vista_floating_delay=200
 " let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
 let g:fzf_layout = { 'right': '80%' }
 " let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
-let g:fzf_preview_window = ['down:69%', 'ctrl-/']
+let g:fzf_preview_window = ['down:80%', 'ctrl-/']
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
