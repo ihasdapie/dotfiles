@@ -443,6 +443,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'uhs-robert/oasis.nvim'
 Plug 'chrisbra/Colorizer'
 Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
