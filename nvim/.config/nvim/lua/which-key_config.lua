@@ -181,13 +181,7 @@ wk.register({  -- Normal mode mappings
             name = "+git",
             G = { "<cmd>Git<CR>", "status" },
             c = { "<cmd>Commits<CR>", "commits" },
-
-            F = {
-                name = "+fugitive",
-                b = { "<cmd>Git blame<CR>", "blame" },
-            },
-
-
+            b = { "<cmd>Gitsigns blame<CR>", "git blame"},
             f = { "<cmd>GFiles<CR>", "search git files" },
             s = { "<cmd>Gitsigns stage_hunk<CR>", "stage hunk" },
             S = { "<cmd>Gitsigns undo_stage_hunk<CR>", "undo_stage hunk" },
