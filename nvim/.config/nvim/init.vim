@@ -7,6 +7,7 @@ endif
 
 filetype plugin indent on
 
+
 let mapleader=" "   " leader mappings with SPC
 let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcut for some leader actions
 
@@ -17,13 +18,12 @@ map <localleader> lua require("which-key").show(",", {mode = "n", auto = true})<
 
 set history=500 
 set autoread
-
 " Silent or else `q:` or `q/` get messed up
 au FocusGained,BufEnter * silent! checktime 
 filetype off
 
 " set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
-set guifont=Recursive:h12
+set guifont=RecMonoDuotone\ Nerd\ Font
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua
@@ -349,7 +349,7 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " Plug 'NTBBloodbath/galaxyline.nvim' , {'branch': 'main'}
 " Plug 'windwp/windline.nvim'
 Plug 'kshenoy/vim-signature' 
-Plug 'ggandor/leap.nvim'
+Plug 'folke/flash.nvim'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
 Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
@@ -407,7 +407,8 @@ Plug 'windwp/nvim-autopairs'
 
 
 Plug 'tpope/vim-surround'
-Plug 'folke/which-key.nvim', {'tag': 'v2.1.0'}
+" Plug 'folke/which-key.nvim', {'tag': 'v2.1.0'}
+Plug 'folke/which-key.nvim'
 Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex', 'tex']}
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
@@ -423,7 +424,8 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
             \ 'OpenBrowserSearch', 'OpenBrowserSmartSearch']}
 
 " Language Syntax
-Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+" Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+Plug 'lervag/vimtex', {'for': ['tex'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
 " Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave'], 'do': ':UpdateRemotePlugins'}
 " Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
@@ -443,6 +445,13 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'greggh/claude-code.nvim'
+Plug 'uhs-robert/oasis.nvim'
+Plug 'chrisbra/Colorizer'
+Plug 'MagicDuck/grug-far.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
+Plug 'junegunn/vim-easy-align'
 Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -480,6 +489,7 @@ Plug 'ARM9/arm-syntax-vim'
 Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
 
@@ -576,13 +586,13 @@ let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldCol
 " augroup END
 
 
+
 colorscheme kanagawa
-
-
 
 "}}}
 
 lua require('plugins')
+
 
 " => Uncrustify {{{
 
@@ -630,7 +640,7 @@ let g:vista_floating_delay=200
 " let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
 let g:fzf_layout = { 'right': '80%' }
 " let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
-let g:fzf_preview_window = ['down:69%', 'ctrl-/']
+let g:fzf_preview_window = ['down:80%', 'ctrl-/']
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -759,6 +769,7 @@ function! ShowDocFloat()
   endif
 endfunction
 
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 function! ShowDocSplit() abort
   let winid = get(g:, 'coc_last_float_win', -1)
@@ -857,7 +868,7 @@ let g:coc_global_extensions = [
             \ 'coc-toml',
             \ 'coc-sql',
             \ 'coc-sh',
-            \ 'coc-pyright',
+            \ '@yaegassy/coc-ruff',
             \ 'coc-rust-analyzer',
             \ 'coc-json',
             \ 'coc-java',
@@ -868,6 +879,7 @@ let g:coc_global_extensions = [
             \ 'coc-vimtex',
             \ ]
             " \ 'coc-basedpyright',
+            " \ 'coc-pyright',
 
 
 

@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require'nvim-treesitter.config'.setup {
     autotag = {
         enable = true,
         filetypes =  {'html', 'javascript', 'ttypescript', 'xml', 'markdown'}

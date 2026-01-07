@@ -305,7 +305,7 @@ set-option -s set-clipboard off
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
 # increase history size
-#set -g history-limit 10000
+#set -g history-limit 1000000
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -380,5 +380,12 @@ bind-key -r C-J swap-window -t -1 \; select-window -t -1
 bind-key -r C-K swap-window -t +1 \; select-window -t +1
 
 
+# set -g default-command ~/.local/bin/zsh
+
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+
+
+# Use vi mode keybindings e.g. / for search
+set-window-option -g mode-keys vi

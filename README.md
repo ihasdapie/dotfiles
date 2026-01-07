@@ -3,6 +3,10 @@ Still very much a messy work in progress.
 
 Installable with stow (https://www.gnu.org/software/stow/).
 
+## Karabiner
+
+https://github.com/jonasdiemer/karabiner-vim-mode-plus/blob/master/vim_mode_plus.json
+
 
 
 
