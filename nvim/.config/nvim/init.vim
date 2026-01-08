@@ -1,4 +1,5 @@
 " vim:fileencoding=utf-8:foldmethod=marker
+lua vim.loader.enable()
 
 " => General Settings {{{
 if $VIM_PATH != ""
@@ -86,14 +87,6 @@ if empty(glob('~/.config/nvim/private.vim'))
     silent !touch ~/.config/nvim/private.vim
 endif
 source ~/.config/nvim/private.vim
-
-
-
-
-
-
-
-
 
 " augroup remember_folds
 "   autocmd!
@@ -434,7 +427,6 @@ Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown']
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground', {'on': ['TSPlaygroundToggle']}
 " Plug 'nvim-treesitter/nvim-treesitter-refactor'
 " Plug 'p00f/nvim-ts-rainbow'
 
@@ -445,6 +437,7 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'MeanderingProgrammer/treesitter-modules.nvim'
 Plug 'greggh/claude-code.nvim'
 Plug 'uhs-robert/oasis.nvim'
 Plug 'chrisbra/Colorizer'
@@ -456,7 +449,7 @@ Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'hylang/vim-hy'
-Plug 'dansomething/vim-hackernews'
+" Plug 'dansomething/vim-hackernews'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'chengzeyi/fzf-preview.vim'
@@ -490,7 +483,7 @@ Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
-Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
+" Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
 
 " I can't seem to find another way emacs-like file finder without one of these
@@ -511,16 +504,14 @@ Plug 'jmcantrell/vim-diffchanges'
 Plug 'tpope/vim-dispatch'
 Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Startup time for these two is abysmal
 Plug 'google/vim-maktaba', {'on': ['Bazel']}
 Plug 'bazelbuild/vim-bazel', {'on': ['Bazel']}
 
 call plug#end()
-
 " }}}
-lua require('impatient')
 
 ": => vim-go {{{
 
@@ -686,8 +677,6 @@ command! -bang -nargs=* RgHidden
   \   fzf#vim#with_preview(), <bang>0)
 
 
-
-
 " create file with subdirectories if needed :E
 function s:MKDir(...)
     if         !a:0
@@ -841,14 +830,13 @@ augroup end
 
 " }}}
 
+
+
 " python-input usually gives inferior results to just the language server and it also doesn't do the icons right
 " let g:coc_sources_disable_map = {
 "             \ 'python': ['python-import']  
 "             \ }
 " Deprecated as of https://github.com/neoclide/coc.nvim/commit/7f2dd00637ef5adde7f89249e857c5e15e1504df
-
-
-
 
 let g:coc_global_extensions = [
             \ 'coc-yank',
@@ -884,6 +872,9 @@ let g:coc_global_extensions = [
 
 
 " }}}
+
+
+
 
 " => Personal Functions {{{
 
@@ -926,24 +917,6 @@ endfunction
 
 " }}}
 
-" => Lua Configurations {{{
-
-
-" }}}
-
-
-" -> Orgmode.nvim {{{
-
-
-"  }}}
-
-
-" => Treesitter {{{
-set nofoldenable
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set foldnestmax=10
-" }}}
 
 
 " => dadbod {{{
@@ -1351,13 +1324,10 @@ function BZL(command)
 endfunction
 " }]}
 
-
-
-
-
-
-
-
+" => Treesitter {{{
+set nofoldenable
+set foldnestmax=10
+" }}}
 
 
 
