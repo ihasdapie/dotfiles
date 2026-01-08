@@ -438,8 +438,10 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 " Experimental
 Plug 'MeanderingProgrammer/treesitter-modules.nvim'
-Plug 'greggh/claude-code.nvim'
+Plug 'coder/claudecode.nvim'
+Plug 'folke/snacks.nvim'
 Plug 'uhs-robert/oasis.nvim'
+Plug 'coder/claudecode.nvim'
 Plug 'chrisbra/Colorizer'
 Plug 'MagicDuck/grug-far.nvim'
 Plug 'folke/trouble.nvim'
@@ -451,7 +453,7 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'hylang/vim-hy'
 " Plug 'dansomething/vim-hackernews'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'chengzeyi/fzf-preview.vim'
 " Plug 'nvim-neotest/neotest'
 
@@ -627,27 +629,10 @@ let g:vista_floating_delay=200
 " }}}
 
 " => FZF {{{
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-" let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
+" Initialize configuration dictionary
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['down,80%', 'ctrl-/']
 let g:fzf_layout = { 'right': '80%' }
-" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
-let g:fzf_preview_window = ['down:80%', 'ctrl-/']
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg -U --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'  " -U for multi-line search w/ '.' matching \n
