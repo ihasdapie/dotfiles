@@ -53,15 +53,6 @@
 --     }, ]]
 -- }
 
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '*.*' },
-  callback = function() vim.treesitter.start() end,
-})
-
-vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.wo[0][0].foldmethod = 'expr'
-
 require('treesitter-modules').setup({
     -- list of parser names, or 'all', that must be installed
     ensure_installed = 'all',
@@ -75,7 +66,7 @@ require('treesitter-modules').setup({
         enable = true,
     },
     highlight = {
-        enable = false,
+        enable = true,
         -- setting this to true will run `:h syntax` and tree-sitter at the same time
         -- set this to `true` if you depend on 'syntax' being enabled
         -- using this option may slow down your editor, and duplicate highlights
