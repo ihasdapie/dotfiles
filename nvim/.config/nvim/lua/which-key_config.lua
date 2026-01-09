@@ -84,7 +84,7 @@ wk.add({
     { "<leader>cr", "<Plug>(coc-rename)", desc = "rename" },
     { "<leader>cs", "<cmd>CocCommand clangd.switchSourceHeader<CR>", desc = "switch source/header (clangd-only)" },
     { "<leader>cR", "<cmd>SnipRun<CR>", desc = "sniprun" },
-    { "<leader>cC", "<cmd>Copilot panel<CR>", desc = "copilot panel" },
+    { "<leader>cC", "<cmd>ClaudeCode<CR>", desc = "claude code" },
 
     -- Code: Golang
     { "<leader>cg", group = "golang" },
