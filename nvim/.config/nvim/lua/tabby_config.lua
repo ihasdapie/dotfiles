@@ -3,8 +3,7 @@ local util = require('tabby.util')
 local hl_extract = require('tabby.module.highlight').extract
 
 local hl_tabline = hl_extract('TabLine')
-local hl_normal = hl_extract('Normal')
-local hl_tabline_sel = hl_extract('TabLineSel')
+local hl_normal = hl_extract('Normal') local hl_tabline_sel = hl_extract('TabLineSel')
 local hl_tabline_fill = hl_extract('TabLineFill')
 
 
@@ -74,7 +73,7 @@ local line = {
     win = {
         label = function(winid)
             return {
-                '  ' .. filename.shorten(winid) .. ' ',
+                '  ' .. filename.relative(winid) .. ' ',
                 hl = { fg = palette.fg, bg = palette.bg_sec },
             }
         end,

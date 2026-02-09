@@ -1,7 +1,7 @@
 # zmodload zsh/zprof
 
-export PATH=$PATH:/usr/games
-paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
+# export PATH=$PATH:/usr/games
+# paste <(fortune | cowsay -f bunny) <(cal) | column  -s $'\t' -t
 # krabby random
 
 # instant prompt causes some rescaling jank...
@@ -47,8 +47,8 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 HISTFILE=~/.zhistory
 
-HISTSIZE=6969 # number loaded into memory
-SAVEHIST=20000 # number saved
+HISTSIZE=10000 # number loaded into memory
+SAVEHIST=100000000 # number saved
 
 
 ## Keybindings section
@@ -343,8 +343,8 @@ if [ "$(uname)" = "Darwin" ]; then
     export PATH=$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH
     # pyenv (after brew export to put pyenv shims first)
     export PYENV_ROOT="$HOME/.pyenv"
-    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+    # command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    # eval "$(pyenv init -)"
 
     # source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
     alias ll="ls -ialh --color=auto"
@@ -371,13 +371,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     export PATH=$PATH:$HOME/.poetry/bin/
     export PATH=$PATH:$HOME/.emacs.d/bin/
     export PATH=$PATH:$HOME/.local/bin
-    [ -f /usr/share/autojump/autojump.zsh ] || source /usr/share/autojump/autojump.zsh
+    [ -f /usr/share/autojump/autojump.zsh ] && source /usr/share/autojump/autojump.zsh
     [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
     [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
     [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
     alias du='du --human-readable --apparent-size'
     unset NODE_EXTRA_CA_CERTS
-    eval $(npm completion zsh)
+    # eval $(npm completion zsh)
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -390,8 +390,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 
 
     alias open='xdg-open'
-    export EDITOR=/usr/bin/nvim
-    export VISUAL=/usr/bin/nvim
+    export EDITOR=$(which nvim)
+    export VISUAL=$(which nvim)
 fi
 
 
@@ -408,12 +408,21 @@ fi
 
 # zprof
 
+# git stuff
+alias gcpc='git cherry-pick --continue'
+alias grc='git rebase --continue'
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 
-
-
-
-
+# git
+alias gcp='git cherry-pick'
 
 
 
