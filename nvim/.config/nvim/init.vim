@@ -1,4 +1,5 @@
 " vim:fileencoding=utf-8:foldmethod=marker
+lua vim.loader.enable()
 
 " => General Settings {{{
 if $VIM_PATH != ""
@@ -6,6 +7,7 @@ if $VIM_PATH != ""
 endif
 
 filetype plugin indent on
+
 
 let mapleader=" "   " leader mappings with SPC
 let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcut for some leader actions
@@ -17,13 +19,12 @@ map <localleader> lua require("which-key").show(",", {mode = "n", auto = true})<
 
 set history=500 
 set autoread
-
 " Silent or else `q:` or `q/` get messed up
 au FocusGained,BufEnter * silent! checktime 
 filetype off
 
 " set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
-set guifont=Recursive:h12
+set guifont=RecMonoDuotone\ Nerd\ Font
 
 set rtp+=~/.config/nvim/
 set rtp+=~/.config/nvim/lua
@@ -86,14 +87,6 @@ if empty(glob('~/.config/nvim/private.vim'))
     silent !touch ~/.config/nvim/private.vim
 endif
 source ~/.config/nvim/private.vim
-
-
-
-
-
-
-
-
 
 " augroup remember_folds
 "   autocmd!
@@ -313,6 +306,10 @@ let g:asmsyntax='nasm'
 " }}}
 "
 
+" https://github.com/powerman/vim-plugin-AnsiEsc depends on cecuitl, which
+" makes some mappings by default; disable it
+let g:no_cecutil_maps=1
+
 """"""""
 " => Polyglot
 """"""""""
@@ -349,7 +346,7 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " Plug 'NTBBloodbath/galaxyline.nvim' , {'branch': 'main'}
 " Plug 'windwp/windline.nvim'
 Plug 'kshenoy/vim-signature' 
-Plug 'ggandor/leap.nvim'
+Plug 'folke/flash.nvim'
 Plug 'famiu/bufdelete.nvim', {'on': ['Bdelete', 'BWipeout']}
 Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 Plug 'sindrets/winshift.nvim', {'on': ['WinShift']}
@@ -407,7 +404,8 @@ Plug 'windwp/nvim-autopairs'
 
 
 Plug 'tpope/vim-surround'
-Plug 'folke/which-key.nvim', {'tag': 'v2.1.0'}
+" Plug 'folke/which-key.nvim', {'tag': 'v2.1.0'}
+Plug 'folke/which-key.nvim'
 Plug 'ferrine/md-img-paste.vim', {'for': ['pandoc', 'markdown', 'latex', 'tex']}
 Plug 'mechatroner/rainbow_csv', {'for': ['csv']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DB']}
@@ -423,7 +421,8 @@ Plug 'tyru/open-browser.vim', {'on': ['OpenBrowser',
             \ 'OpenBrowserSearch', 'OpenBrowserSmartSearch']}
 
 " Language Syntax
-Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+" Plug 'lervag/vimtex', {'for': ['tex', 'bib', 'md', 'markdown', 'pdc', 'pandoc'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
+Plug 'lervag/vimtex', {'for': ['tex'], 'on': ['VimtexInverseSearch', 'VimtexView', 'VimtexCompile']}
 " Plug 'daeyun/vim-matlab', {'for': ['matlab', 'octave'], 'do': ':UpdateRemotePlugins'}
 " Plug 'daeyun/vim-matlab'
 Plug 'liuchengxu/graphviz.vim', {'for': ['dot'] }
@@ -432,7 +431,6 @@ Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['pandoc', 'pdc', 'md', 'markdown']
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground', {'on': ['TSPlaygroundToggle']}
 " Plug 'nvim-treesitter/nvim-treesitter-refactor'
 " Plug 'p00f/nvim-ts-rainbow'
 
@@ -443,13 +441,23 @@ Plug 'puremourning/vimspector', {'on': ['<Plug>VimspectorContinue',
 
 
 " Experimental
+Plug 'MeanderingProgrammer/treesitter-modules.nvim'
+Plug 'coder/claudecode.nvim'
+Plug 'folke/snacks.nvim'
+Plug 'uhs-robert/oasis.nvim'
+Plug 'coder/claudecode.nvim'
+Plug 'chrisbra/Colorizer'
+Plug 'MagicDuck/grug-far.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
+Plug 'junegunn/vim-easy-align'
 Plug 'm00qek/baleia.nvim'
 Plug 'nanotee/zoxide.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'hylang/vim-hy'
-Plug 'dansomething/vim-hackernews'
+" Plug 'dansomething/vim-hackernews'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'chengzeyi/fzf-preview.vim'
 " Plug 'nvim-neotest/neotest'
 
@@ -480,7 +488,8 @@ Plug 'ARM9/arm-syntax-vim'
 Plug 'nvim-orgmode/orgmode'
 Plug 'nathangrigg/vim-beancount', {'for': ['beancount']}
 Plug 'github/copilot.vim'
-Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
+" Plug 'tweekmonster/django-plus.vim', {'for': ['django', 'htmldjango', 'python']}
 
 
 " I can't seem to find another way emacs-like file finder without one of these
@@ -501,16 +510,14 @@ Plug 'jmcantrell/vim-diffchanges'
 Plug 'tpope/vim-dispatch'
 Plug 'ianding1/leetcode.vim', {'on': ['LeetCodeList', 'LeetCodeReset', 'LeetCodeSignIn', 'LeetCodeSubmit', 'LeetCodeTest']}
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Startup time for these two is abysmal
 Plug 'google/vim-maktaba', {'on': ['Bazel']}
 Plug 'bazelbuild/vim-bazel', {'on': ['Bazel']}
 
 call plug#end()
-
 " }}}
-lua require('impatient')
 
 ": => vim-go {{{
 
@@ -576,13 +583,13 @@ let g:ayu_sign_contrast = 1 " defaults to 0. If set to 1, SignColumn and FoldCol
 " augroup END
 
 
+
 colorscheme kanagawa
-
-
 
 "}}}
 
 lua require('plugins')
+
 
 " => Uncrustify {{{
 
@@ -626,27 +633,10 @@ let g:vista_floating_delay=200
 " }}}
 
 " => FZF {{{
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-" let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.90, 'yoffset': 0.1, 'relative': v:true } }
+" Initialize configuration dictionary
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['down,80%', 'ctrl-/']
 let g:fzf_layout = { 'right': '80%' }
-" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.3, 'highlight': 'Todo', 'yoffset': 0.02} }
-let g:fzf_preview_window = ['down:69%', 'ctrl-/']
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg -U --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'  " -U for multi-line search w/ '.' matching \n
@@ -674,8 +664,6 @@ command! -bang -nargs=* RgHidden
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --no-heading --color=always --follow --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
-
-
 
 
 " create file with subdirectories if needed :E
@@ -759,6 +747,7 @@ function! ShowDocFloat()
   endif
 endfunction
 
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 function! ShowDocSplit() abort
   let winid = get(g:, 'coc_last_float_win', -1)
@@ -784,14 +773,14 @@ function! s:OpenDirHere(dir)
     endif
 endfunction
 
-" Disable on files > 1mb
-autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
-    \ TSBufDisable highlight
-    \ TSBufDisable all
-    \ syntax off
-    \ IndentGuidesDisable 
-    \ let b:coc_enabled=0 
-    \ endif
+" " Disable on files > 1mb
+" autocmd BufAdd * if getfsize(expand('<afile>')) > 1024*1024 |
+"     \ TSBufDisable highlight
+"     \ TSBufDisable all
+"     \ syntax off
+"     \ IndentGuidesDisable 
+"     \ let b:coc_enabled=0 
+"     \ endif
 
 " Opens coc-definition in a new split if it isn't already opened.
 " TODO: Give option for floating.
@@ -830,14 +819,13 @@ augroup end
 
 " }}}
 
+
+
 " python-input usually gives inferior results to just the language server and it also doesn't do the icons right
 " let g:coc_sources_disable_map = {
 "             \ 'python': ['python-import']  
 "             \ }
 " Deprecated as of https://github.com/neoclide/coc.nvim/commit/7f2dd00637ef5adde7f89249e857c5e15e1504df
-
-
-
 
 let g:coc_global_extensions = [
             \ 'coc-yank',
@@ -857,7 +845,7 @@ let g:coc_global_extensions = [
             \ 'coc-toml',
             \ 'coc-sql',
             \ 'coc-sh',
-            \ 'coc-pyright',
+            \ '@yaegassy/coc-ruff',
             \ 'coc-rust-analyzer',
             \ 'coc-json',
             \ 'coc-java',
@@ -868,10 +856,14 @@ let g:coc_global_extensions = [
             \ 'coc-vimtex',
             \ ]
             " \ 'coc-basedpyright',
+            " \ 'coc-pyright',
 
 
 
 " }}}
+
+
+
 
 " => Personal Functions {{{
 
@@ -914,24 +906,6 @@ endfunction
 
 " }}}
 
-" => Lua Configurations {{{
-
-
-" }}}
-
-
-" -> Orgmode.nvim {{{
-
-
-"  }}}
-
-
-" => Treesitter {{{
-set nofoldenable
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set foldnestmax=10
-" }}}
 
 
 " => dadbod {{{
@@ -1339,13 +1313,20 @@ function BZL(command)
 endfunction
 " }]}
 
+" => Treesitter {{{
+set nofoldenable
+set foldnestmax=10
+" }}}
 
 
-
-
-
-
-
+" Make command-mode not shit to navigate {{{
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
+" cnoremap <Esc>b <S-Left>
+" cnoremap <Esc>f <S-Right>
+" }}}
 
 
 
