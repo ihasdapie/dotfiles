@@ -284,6 +284,8 @@ wk.add({
     { "<leader>qa", "<cmd>qa<CR>", desc = "quit all" },
 
     -- Localleader
+    { "<localleader>", "<cmd>WhichKey ,<CR>", desc = "Localleader bindings" },
+    { "<localleader><localleader>", "<cmd>lua require('flash').treesitter()<CR>", desc = "Flash TS" },
     { "<localleader>w", "<cmd>w<CR>", desc = "Save file" },
     { "<localleader>p", '"+p', desc = "Paste from system clipboard" },
     { "<localleader>P", "<cmd>call mdip#MarkdownClipboardImage()<CR>", desc = "Paste image" },

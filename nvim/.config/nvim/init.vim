@@ -13,7 +13,7 @@ let mapleader=" "   " leader mappings with SPC
 let maplocalleader="," " Although not for 'official' use -- use ',' as a shortcut for some leader actions
 
 " Early mapping here to prevent lightspeed.nvim from overriding it
-map <localleader> lua require("which-key").show(",", {mode = "n", auto = true})<CR>
+" map <localleader> lua require("which-key").show(",", {mode = "n", auto = true})<CR>
 
 " Set to auto read when a file is changed from the outside
 
