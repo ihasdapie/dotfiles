@@ -27,7 +27,7 @@ require("flash").setup({
     after = false,
     before = { 0, 0 },
     style = "overlay",
-    reuse = "lowercase",
+    reuse = "all",
     distance = true,
     min_pattern_length = 2,
   },
@@ -82,6 +82,6 @@ vim.keymap.set({ "n", "x", "o" }, "r", function()
   require("flash").treesitter()
 end, { desc = "Flash Treesitter" })
 
-vim.keymap.set("o", "R", function()
+--[[ vim.keymap.set("o", "R", function()
   require("flash").remote()
-end, { desc = "Remote Flash" })
+end, { desc = "Remote Flash" }) ]]
