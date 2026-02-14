@@ -301,6 +301,7 @@ tmux_conf_theme_clock_style='24'
 # on Linux, this requires xsel or xclip
 tmux_conf_copy_to_os_clipboard=true
 set-option -s set-clipboard off
+set -g set-clipboard on
 
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
