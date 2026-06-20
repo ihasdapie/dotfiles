@@ -396,7 +396,7 @@ fi
 
 
 
-
+alias nuke="printf '\033[3J'"
 source ~/.zshrc.local
 
 if [ -z ${TMUX+x} ]; then

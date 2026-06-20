@@ -286,7 +286,7 @@ wk.add({
     -- Localleader
     { "<localleader>", "<cmd>WhichKey ,<CR>", desc = "Localleader bindings" },
     { "<localleader><localleader>", "<cmd>lua require('flash').treesitter()<CR>", desc = "Flash TS" },
-    { "<localleader>w", "<cmd>w<CR>", desc = "Save file" },
+    { "<localleader>ww", ":%s/\\s\\+$//e<CR>", desc = "Delete all trailing whitespace" },
     { "<localleader>p", '"+p', desc = "Paste from system clipboard" },
     { "<localleader>P", "<cmd>call mdip#MarkdownClipboardImage()<CR>", desc = "Paste image" },
     { "<localleader>y", '"+y', desc = "Copy to system clipboard" },
