@@ -636,7 +636,7 @@ let g:vista_floating_delay=200
 " Initialize configuration dictionary
 let g:fzf_vim = {}
 let g:fzf_vim.preview_window = ['down,80%', 'ctrl-/']
-let g:fzf_layout = { 'left': '80%' }
+let g:fzf_layout = { 'right': '80%' }
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg -U --column --line-number --no-heading --color=always --follow --smart-case -- %s || true'  " -U for multi-line search w/ '.' matching \n
