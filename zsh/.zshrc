@@ -427,5 +427,10 @@ alias gcp='git cherry-pick'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
 
 autoload -U +X bashcompinit && bashcompinit
+
+
+# bean CLI (off-box: build+run from this repo)
+alias bean='bazel run //crates/cluster/bean-cli:bean --'
