@@ -383,9 +383,11 @@ set -g @tpm_plugins '          \
 
 
 # Swap left
-bind-key -r C-J swap-window -t -1 \; select-window -t -1
+unbind-key -q C-J
+bind-key -r C-j swap-window -t -1 \; select-window -t -1
 # Swap right
-bind-key -r C-K swap-window -t +1 \; select-window -t +1
+unbind-key -q C-K
+bind-key -r C-k swap-window -t +1 \; select-window -t +1
 
 
 # set -g default-command ~/.local/bin/zsh
@@ -396,6 +398,13 @@ set -g allow-passthrough on
 set -as terminal-features ',xterm-kitty:hyperlinks'
 set -as terminal-features ',xterm-256color:hyperlinks'
 set -as terminal-features ',tmux-256color:hyperlinks'
+
+# Open a URL even when it's PLAIN TEXT wrapped across several visual lines
+# (e.g. the gcloud / bean auth link). kitty can't mouse-detect such a URL
+# inside tmux — it only sees rendered rows — so grab it by keystroke instead:
+# capture-pane -J rejoins tmux-wrapped lines, then fzf picks and `open` launches.
+# prefix+u; the framework's prefix+U (urlview) needs a binary we don't have.
+bind-key u display-popup -E -w 80% -h 40% "tmux capture-pane -p -J -S -10000 -t '#{pane_id}' | grep -oE 'https?://[^[:space:])>]+' | awk '!seen[\$0]++' | fzf --no-sort --reverse --prompt 'open url: ' | xargs -I{} open {}"
 
 # Toggle a floating scratch terminal session
 bind-key -n M-i if-shell -F '#{==:#{session_name},scratch}' {

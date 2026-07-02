@@ -18,18 +18,21 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 -- 2. honza/vim-snippets (the snipmate-format dir). LuaSnip loads these
 --    natively. The UltiSnips/ dir is loaded by the UltiSnips engine — see
---    lua/plugins/lsp.lua and lua/configs/ultisnips.lua. Together these
---    reproduce what coc-snippets gave you (UltiSnips format) plus parity
---    with snipmate-format collections.
-local vim_snippets_dir = vim.env.HOME .. "/.config/nvim-arm/plugged/vim-snippets"
+--    lua/plugins/lsp.lua. Together these reproduce what coc-snippets gave you
+--    (UltiSnips format) plus parity with snipmate-format collections.
+--    Path is probed, not required: if honza/vim-snippets isn't present (it was
+--    previously read from the now-removed nvim-arm/plugged tree), this block
+--    silently skips. Point VIM_SNIPPETS_DIR at a checkout to re-enable.
+local vim_snippets_dir = vim.env.VIM_SNIPPETS_DIR
+    or (vim.fn.stdpath("data") .. "/lazy/vim-snippets")
 if vim.fn.isdirectory(vim_snippets_dir .. "/snippets") == 1 then
     require("luasnip.loaders.from_snipmate").lazy_load({
         paths = { vim_snippets_dir .. "/snippets" },
     })
 end
 
--- 3. User-authored snippets under nvim-arm/snippets/ (if any).
-local user_snip_dir = vim.env.HOME .. "/.config/nvim-arm/snippets"
+-- 3. User-authored snippets under this config's snippets/ dir (if any).
+local user_snip_dir = vim.fn.stdpath("config") .. "/snippets"
 if vim.fn.isdirectory(user_snip_dir) == 1 then
     require("luasnip.loaders.from_vscode").lazy_load({ paths = { user_snip_dir } })
     require("luasnip.loaders.from_snipmate").lazy_load({ paths = { user_snip_dir } })

@@ -116,6 +116,8 @@ add-zsh-hook preexec set-title-preexec
 # My Aliases START
 ##################
 alias vim="nvim"
+alias nv="nvim"
+alias j="z"
 alias vimf='vim $(fzf)'
 alias vimnorc="nvim -u NONE"
 alias min="nvim -u ~/.config/nvim/minimal.vim"
@@ -172,33 +174,8 @@ export NNN_TRASH=1
 
 # return to nnn when done
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
-# cd on quit
-nn () {
-    # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-
-    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # To cd on quit only on ^G, remove the "export" as in:
-    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    # NOTE: NNN_TMPFILE is fixed, should not be modified
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    nnn "$@"
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
+# nn opens yazi and cd's to its last dir on quit (see the y() wrapper below).
+alias nn='y'
 
 xd () {
   cd $(xplr)
@@ -356,8 +333,10 @@ if [ "$(uname)" = "Darwin" ]; then
     # export NVM_DIR="$HOME/.nvm"
     # [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
     # [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-    export EDITOR=/opt/homebrew/bin/nvim
-    export VISUAL=/opt/homebrew/bin/nvim
+    # -c "redraw!" forces a full repaint so nvim isn't black-until-scroll when
+    # launched from inside a TUI's alt-screen (e.g. Claude Code's Ctrl-O → v).
+    export EDITOR='/opt/homebrew/bin/nvim -c "redraw!"'
+    export VISUAL='/opt/homebrew/bin/nvim -c "redraw!"'
     export HOMEBREW_NO_AUTO_UPDATE=1
 
 
@@ -390,8 +369,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 
 
     alias open='xdg-open'
-    export EDITOR=$(which nvim)
-    export VISUAL=$(which nvim)
+    # -c "redraw!" forces a full repaint so nvim isn't black-until-scroll when
+    # launched from inside a TUI's alt-screen (e.g. Claude Code's Ctrl-O → v).
+    export EDITOR="$(which nvim) -c \"redraw!\""
+    export VISUAL="$(which nvim) -c \"redraw!\""
 fi
 
 
@@ -432,5 +413,15 @@ source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
 autoload -U +X bashcompinit && bashcompinit
 
 
-# bean CLI (off-box: build+run from this repo)
-alias bean='bazel run //crates/cluster/bean-cli:bean --'
+
+# cli tools
+source <(fzf --zsh)
+eval "$(zoxide init zsh)"
+
+# claude
+
+CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY=1
+
+export PATH="$HOME/.local/bin:$PATH"
+
+

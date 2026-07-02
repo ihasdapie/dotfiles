@@ -31,7 +31,8 @@ set visualbell
 set confirm
 set mousemodel=popup_setpos
 set noshowmode
-set lazyredraw
+" lazyredraw left the screen unpainted until a scroll inside tmux (black-screen-on-open). Disabled.
+set nolazyredraw
 set nowrap
 set timeoutlen=420
 set title titlestring=%t\:\ %n titlelen=70
@@ -69,9 +70,10 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Persistent undo
+" Persistent undo. Self-contained under this config's own dir (was
+" ~/.config/nvim-arm/undo/ — nvim-fast-2 no longer borrows from nvim-arm).
 if has('persistent_undo')
-    let target_path = expand('~/.config/nvim-arm/undo/')
+    let target_path = stdpath('config') . '/undo/'
     if !isdirectory(target_path)
         call system('mkdir -p ' . target_path)
     endif
@@ -79,14 +81,15 @@ if has('persistent_undo')
     set undofile
 endif
 
-if !isdirectory(expand('~/.config/nvim-arm/view/'))
-    silent ! mkdir -p ~/.config/nvim-arm/view
+let s:viewdir = stdpath('config') . '/view/'
+if !isdirectory(s:viewdir)
+    call system('mkdir -p ' . s:viewdir)
 endif
-set viewdir=~/.config/nvim-arm/view/
+let &viewdir = s:viewdir
 
 " Source private user file if it exists (don't auto-create — extra IO).
-if filereadable(expand('~/.config/nvim-arm/private.vim'))
-    source ~/.config/nvim-arm/private.vim
+if filereadable(stdpath('config') . '/private.vim')
+    execute 'source' stdpath('config') . '/private.vim'
 endif
 
 " ---------------------------------------------------------------------------

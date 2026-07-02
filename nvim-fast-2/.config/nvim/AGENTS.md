@@ -3,8 +3,8 @@
 Brian's lazy.nvim-managed, Lua-first Neovim config. Loaded via `NVIM_APPNAME=nvim-fast-2` (use the `nvim-fast-2` shell wrapper).
 
 Coexists with two older configs in `$HOME/.config/`:
-- `nvim/` — original vim-plug config.
-- `nvim-arm/` — vim-plug, ARM-host legacy. **nvim-fast-2 still pulls files from here** (see "Coexistence with nvim-arm" below); do not delete it.
+- `nvim/` — original vim-plug config. The legacy `*_config.lua` modules under `lua/legacy/` were copied verbatim from here.
+- `nvim-arm/` — vim-plug, ARM-host legacy. **No longer a dependency.** nvim-fast-2 used to pull its `*_config.lua` modules + `keybindings.vim` from `nvim-arm/lua` via `package.path`; that tree got wiped, so those files are now vendored into `lua/legacy/` (see "Vendored legacy modules" below). Safe to delete nvim-arm.
 - `nvim-fast/` — vim-plug + lazy patches, intermediate step before this rewrite.
 
 ## Quick orientation
@@ -12,12 +12,12 @@ Coexists with two older configs in `$HOME/.config/`:
 | File | Role |
 |------|------|
 | `init.lua` | Bootstrap (vim.loader, deprecation filter, rtp pruning, lazy clone, lazy.setup, legacy bridges). Read this first. |
-| `legacy.vim` | Slimmed-down vimscript carried from nvim-arm. Holds general `set` options, custom `:Rg` / `:RgHidden` commands, etc. Sourced from `init.lua` step 6. |
+| `legacy.vim` | Slimmed-down vimscript (originally from nvim-arm/init.vim). Holds general `set` options, custom `:Rg` / `:RgHidden` commands, persistent-undo/view dirs (self-contained under this config), etc. Sourced from `init.lua` step 6. |
+| `keybindings.vim` | Legacy vimscript keymaps (j→gj, `*`/`#` search, etc.), vendored from the original config. Sourced from `init.lua` step 6; coc-era bindings in it are patched/neutralized by `lua/configs/legacy_overrides.lua`. |
 | `lazy-lock.json` | lazy.nvim plugin lockfile. Commit changes after `:Lazy update`. |
 | `lua/plugins/*.lua` | Plugin specs grouped by domain (one return-table per file, imported via `{ import = "plugins" }`). |
-| `lua/configs/*.lua` | Per-plugin `setup()` callbacks. Called from plugin specs as `config = function() require("configs.<name>") end`. |
-| `coc-settings.json` | Symlink → `nvim-arm/coc-settings.json`. coc itself is gone, but some Mason/lspconfig consumers still read it. |
-| `UltiSnips/` | Symlink → `nvim-arm/plugged/vim-snippets/UltiSnips`. UltiSnips scans every rtp entry for a `UltiSnips` child dir. |
+| `lua/configs/*.lua` | Per-plugin `setup()` callbacks specific to nvim-fast-2. Called from plugin specs as `config = function() require("configs.<name>") end`. |
+| `lua/legacy/*.lua` | Vendored legacy `*_config.lua` modules (which-key, hydra, galaxyline, tabby, autopairs, indent-blankline, gitlinker, neogen, dap, kanagawa, claude, copilot_chat) + `functions.lua`. Required by bare name (`require("which-key_config")`) via a `package.path` entry set in `init.lua` step 3b. |
 | `undo/`, `view/`, `swap/` | Runtime state. Gitignored. |
 
 ## Plugin file layout
@@ -32,21 +32,24 @@ Each `lua/plugins/<domain>.lua` returns a list of lazy.nvim specs. Add new plugi
 | `extras.lua` | hydra.nvim, **toggleterm.nvim** (floating terminal), TrueZen, minimap, winshift, vim-maximizer, undotree, tabular, suda, AnsiEsc, vim-dispatch, spotdiff, vim-diffchanges, trouble.nvim, grug-far, open-browser, vim-bazel, leetcode, plenary, vim-startuptime |
 | `files.lua` | neo-tree, nnn.vim, fzf + fzf.vim, telescope, zoxide |
 | `git.lua` | gitsigns, vim-fugitive, gitlinker |
+| `kitty.lua` | mikesmithgh/kitty-scrollback.nvim (the kitty scrollback / last-command pager) |
 | `lang.lua` | nvim-treesitter (pinned `tag = "v0.10.0"`), aerial, vimtex, vim-pandoc, orgmode, neogen, nabla, venn, sniprun, vim-dadbod(+ui), md-img-paste, niche FT plugins |
 | `lsp.lua` | mason, mason-lspconfig, nvim-lspconfig, LuaSnip + friendly-snippets, ultisnips, nvim-cmp + sources, conform.nvim, nvim-lint, lazydev, yanky |
 | `ui.lua` | kanagawa (priority 1000) + alt colorschemes, nvim-web-devicons, galaxyline, tabby, **snacks.nvim** (priority 999, dashboard + everything), noice + nui + nvim-notify |
 
-## Coexistence with nvim-arm
+## Vendored legacy modules
 
-`init.lua` deliberately bridges to the older nvim-arm config rather than copying its lua/ files in:
+The legacy `*_config.lua` modules and `keybindings.vim` were originally borrowed live from `~/.config/nvim-arm/` via `package.path` + a `vim.cmd.source`. That tree got wiped, so they're now **vendored self-contained** into this config (copied verbatim from the original vim-plug `~/.config/nvim/` source):
 
-1. **`package.path` prepend** (`init.lua:86-89`) — adds `~/.config/nvim-arm/lua/?.lua` so any `require("foo_config")` resolves to the legacy config module. Many plugin specs use this (e.g. `require("kanagawa_config")`, `require("galaxyline_config")`, `require("which-key_config")`, `require("hydra_config")`, `require("gitsigns_config")`, `require("dap_config")`, etc.).
-2. **`vim.cmd.source(... keybindings.vim)`** (`init.lua:136`) — sources the legacy keybindings file directly.
-3. **Symlinks**: `UltiSnips`, `coc-settings.json` point into `nvim-arm/`.
+1. **`lua/legacy/*.lua`** — the legacy `*_config.lua` modules (`which-key_config`, `hydra_config`, `galaxyline_config`, `tabby_config`, `nvim-autopairs_config`, `indent-blankline_config`, `gitlinker_config`, `neogen_config`, `dap_config`, `kanagawa_config`, `copilot_chat_config`, `claude_config`) plus `functions.lua` and `utils/galaxyline_utils.lua`.
+2. **`package.path` prepend** (`init.lua` step 3b) — adds `<config>/lua/legacy/?.lua` so the bare-name `require("which-key_config")` etc. calls in the plugin specs keep resolving without scattering these files across the top-level `lua/`.
+3. **`keybindings.vim`** at the config root — sourced from `init.lua` step 6.
 
-Consequence: editing nvim-arm/lua/*_config.lua **affects nvim-fast-2**. If you need a divergent setting, copy the function body into `lua/configs/<name>.lua` and switch the spec's `config = function() ... end` to `require("configs.<name>")`. See `lua/configs/legacy_aliases.lua` and `lua/configs/legacy_overrides.lua` for the patterns already used.
+The plugin specs still `require("<name>_config")` by bare name; coc-era cruft inside `which-key_config.lua` / `keybindings.vim` is patched at runtime by `lua/configs/legacy_overrides.lua` (on `User VeryLazy`). `kanagawa_config` is `pcall`-wrapped in `ui.lua` and errors harmlessly (it calls `kanagawa.colors.setup()` before a kanagawa theme is active) — the active scheme is `kintsugi-flared`, so it's a tolerated no-op.
 
-⚠️ **Do not** `vim.opt.rtp:append("~/.config/nvim-arm")`. lazy.nvim refuses to start with: *"Found paths on the rtp from another plugin manager `plugged`"* (nvim-arm contains `plugged/`). The `package.path` trick is the supported workaround.
+If you want a divergent setting for one of these, edit it in `lua/legacy/<name>.lua` directly (it's yours now), or promote it to `lua/configs/<name>.lua` and switch the spec to `require("configs.<name>")`.
+
+⚠️ **Do not** add a foreign plugin-manager tree (e.g. `~/.config/nvim-arm`) to `rtp`. lazy.nvim refuses to start with: *"Found paths on the rtp from another plugin manager `plugged`"*. The `package.path` trick is the supported workaround for bare-name requires.
 
 ## Conventions
 
@@ -69,6 +72,25 @@ Consequence: editing nvim-arm/lua/*_config.lua **affects nvim-fast-2**. If you n
 
 - **`<Tab>` confirms with select.** When the menu is visible, `<Tab>` calls `cmp.confirm({ select = true })` — a single press accepts the top (or currently highlighted) suggestion. Don't change this back to `cmp.select_next_item()`.
 - **Browsing uses `<C-n>`/`<C-p>`** from the cmp preset; `<C-CR>` is the explicit confirm. Snippet expand/jump still chains after the visibility branch (luasnip `expand_or_jumpable`).
+
+## Python provider (UltiSnips)
+
+UltiSnips (and anything gated on `has('python3')`) needs nvim's python3 provider, i.e. `pynvim` importable from `g:python3_host_prog`. We keep a dedicated, **uv-managed nvim-only venv** so the system Python stays clean.
+
+- **Location:** `stdpath("data")/venv` → `~/.local/share/nvim/venv` (holds only `pynvim`).
+- **Wiring** (`init.lua` step 4): sets `vim.g.python3_host_prog` to that venv's `bin/python3` **iff it exists**; otherwise sets `vim.g.loaded_python3_provider = 0` so plugins fail soft (no `E319` spam) instead of erroring on a stale path.
+- **Create / rebuild it:** `~/.config/nvim/scripts/setup-python-provider.sh` (idempotent; `--force` to rebuild from scratch). It installs `uv` if missing (Homebrew, else the official installer), provisions CPython 3.12, creates the venv, and `uv pip install`s `pynvim`. Run once per machine.
+- **Verify:** `:checkhealth vim.provider`, or `:lua print(vim.fn.has('python3'))` should be `1`.
+- The venv lives under `stdpath("data")`, outside the repo — not committed, rebuilt by the script.
+
+## Kitty scrollback pager
+
+`ctrl+shift+h` (scrollback) and `ctrl+shift+g` (last command's output) open in nvim via **mikesmithgh/kitty-scrollback.nvim** (`lua/plugins/kitty.lua`), which handles ANSI + OSC-8 (hyperlink) escaping correctly.
+
+- **Replaced** the old custom recipe (`scrollback_pager nvim -u ~/.config/nvim/minimal.vim … require("kittypager")`). That broke when nvim-fast-2 took over `~/.config/nvim` (no `minimal.vim`/`kittypager` there) and mangled special chars regardless. Its lines are commented out in `kitty.conf`; `scrollback_pager` is back to the `less` default as a harmless fallback.
+- **kitty side** (`~/.config/kitty/kitty.conf`, symlinked from `dotfiles/kitty`): `action_alias kitty_scrollback_nvim kitten ${HOME}/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py` + `map kitty_mod+h` / `map kitty_mod+g`. Relies on `allow_remote_control yes` + `listen_on` (already set).
+- The kitten path points into nvim's lazy data dir — valid as long as the plugin is installed there (`:Lazy install`). On a host with a non-default `XDG_DATA_HOME`, update the path.
+- **Verify:** open kitty, `ctrl+shift+h`; or run `:KittyScrollbackCheckHealth` inside a kitty-launched nvim. After editing kitty.conf, reload with `ctrl+shift+f5` (or `kitty @ load-config`).
 
 ## Cache and reloading
 
@@ -111,19 +133,23 @@ Eagerly cloning `vim-snippets/` as a separate plugin is also intentionally avoid
 
 ```text
 ~/.config/nvim-fast-2/
-├── init.lua          → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/init.lua
-├── legacy.vim        → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/legacy.vim
-├── lazy-lock.json    → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/lazy-lock.json
-├── lua               → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/lua    (whole subtree)
-├── AGENTS.md         → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/AGENTS.md
-├── MIGRATION_PLAN.md → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/MIGRATION_PLAN.md
-├── UltiSnips         → … → nvim-arm/plugged/vim-snippets/UltiSnips  (chained)
-├── coc-settings.json → … → nvim-arm/coc-settings.json                (chained)
-├── .gitignore        → ../../dotfiles/nvim-fast-2/.config/nvim-fast-2/.gitignore
+├── init.lua          → ../../dotfiles/nvim-fast-2/.config/nvim/init.lua
+├── legacy.vim        → ../../dotfiles/nvim-fast-2/.config/nvim/legacy.vim
+├── keybindings.vim   → ../../dotfiles/nvim-fast-2/.config/nvim/keybindings.vim
+├── lazy-lock.json    → ../../dotfiles/nvim-fast-2/.config/nvim/lazy-lock.json
+├── lua               (real dir; per-file symlinks under configs/ + plugins/, lua/legacy → package subtree)
+├── AGENTS.md         → ../../dotfiles/nvim-fast-2/.config/nvim/AGENTS.md
+├── MIGRATION_PLAN.md → ../../dotfiles/nvim-fast-2/.config/nvim/MIGRATION_PLAN.md
+├── .gitignore        → ../../dotfiles/nvim-fast-2/.config/nvim/.gitignore
 ├── undo/             real dir (gitignored — runtime undo history)
 ├── view/             real dir (gitignored — runtime view state)
 └── swap/             real dir (gitignored)
 ```
+
+> Note: on this Mac the package is stowed as plain `~/.config/nvim/` (not `nvim-fast-2/`)
+> using GNU `stow` (`cd ~/dotfiles && stow -R -t ~ nvim-fast-2`). The `~/s14overlay/bin/xstow`
+> instructions below are from the original ARM host; `stow` is the equivalent here. After adding
+> a new file to the package, re-run the stow command so it gets symlinked into the live config.
 
 ### Re-stowing
 

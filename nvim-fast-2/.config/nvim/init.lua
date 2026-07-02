@@ -78,14 +78,18 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- 3b. Make the legacy nvim-arm lua/ dir importable for require(). We do NOT
---     append nvim-arm to rtp — that triggers lazy.nvim's "Found paths on the
---     rtp from another plugin manager `plugged`" error because nvim-arm/
---     contains plugged/. package.path is sufficient for every consumer of
---     these modules (we use require() exclusively, not :runtime).
-local nvim_arm_dir = vim.env.HOME .. "/.config/nvim-arm"
-package.path = nvim_arm_dir .. "/lua/?.lua;"
-            .. nvim_arm_dir .. "/lua/?/init.lua;"
+-- 3b. Make the vendored legacy lua modules importable by their bare names
+--     (`require("which-key_config")`, `require("hydra_config")`, etc.). These
+--     used to be pulled from ~/.config/nvim-arm/lua via package.path; they now
+--     live self-contained under lua/legacy/ in this config (copied verbatim
+--     from the original vim-plug config). Adding lua/legacy/ to package.path
+--     keeps the bare-name require() calls in the plugin specs working without
+--     scattering the legacy files across the top-level lua/ dir. We do NOT add
+--     it to rtp (no :runtime consumers; rtp-appending another plugin manager's
+--     tree triggers lazy.nvim's "Found paths from another plugin manager" error).
+local legacy_dir = vim.fn.stdpath("config") .. "/lua/legacy"
+package.path = legacy_dir .. "/?.lua;"
+            .. legacy_dir .. "/?/init.lua;"
             .. package.path
 
 -- 4. lazy.setup — registers plugins, runs config callbacks for non-lazy ones
@@ -95,8 +99,22 @@ package.path = nvim_arm_dir .. "/lua/?.lua;"
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
--- vim.g.loaded_python3_provider = 0   -- keep python3 for some plugins
 vim.g.loaded_python_provider = 0       -- python2 not needed
+
+-- python3 provider: point at a dedicated, uv-managed nvim-only venv that holds
+-- just `pynvim` (needed by UltiSnips and anything gated on `has('python3')`).
+-- Keeps the system Python clean. The venv is created by
+-- scripts/setup-python-provider.sh — run that once per machine. We only set
+-- python3_host_prog when the venv python actually exists; otherwise leave the
+-- provider unconfigured (a stale path would itself throw on every provider
+-- call). If the venv is missing, disable the provider outright so plugins fail
+-- soft (no E319 spam) and the fix is a one-liner.
+local py3 = vim.fn.stdpath("data") .. "/venv/bin/python3"
+if vim.uv.fs_stat(py3) then
+    vim.g.python3_host_prog = py3
+else
+    vim.g.loaded_python3_provider = 0  -- run scripts/setup-python-provider.sh to enable
+end
 
 -- Stop vim-pandoc from claiming .md files. Its ftdetect/pandoc.vim defaults
 -- to setlocal filetype=pandoc on every markdown variant, which then triggers
@@ -169,7 +187,7 @@ vim.api.nvim_create_autocmd("User", {
 -- 6. Source slimmed legacy.vim + keybindings.vim. legacy.vim no longer
 --    sources keybindings itself — done here to keep the order obvious.
 vim.cmd.source(vim.fn.stdpath("config") .. "/legacy.vim")
-vim.cmd.source(vim.env.HOME .. "/.config/nvim-arm/keybindings.vim")
+vim.cmd.source(vim.fn.stdpath("config") .. "/keybindings.vim")
 
 -- 6b. Re-assert fast-2 overrides AFTER legacy.vim — legacy.vim is sourced
 -- verbatim from nvim-arm/init.vim and contains `set shortmess=atcF` (line 41)
