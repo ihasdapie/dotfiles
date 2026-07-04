@@ -399,6 +399,14 @@ set -as terminal-features ',xterm-kitty:hyperlinks'
 set -as terminal-features ',xterm-256color:hyperlinks'
 set -as terminal-features ',tmux-256color:hyperlinks'
 
+# True-colour (24-bit RGB) + styled underlines so fancy character escape codes
+# (truecolor themes, italics, undercurl) render correctly inside tmux. This fork
+# never wired up tmux_conf_theme_24b_colour (its _apply_overrides is commented
+# out), so enable it explicitly via the modern terminal-features mechanism.
+set -as terminal-features ',xterm-kitty:RGB'
+set -as terminal-features ',xterm-256color:RGB'
+set -as terminal-features ',tmux-256color:RGB'
+
 # Open a URL even when it's PLAIN TEXT wrapped across several visual lines
 # (e.g. the gcloud / bean auth link). kitty can't mouse-detect such a URL
 # inside tmux — it only sees rendered rows — so grab it by keystroke instead:
