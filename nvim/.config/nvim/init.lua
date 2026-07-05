@@ -1,6 +1,6 @@
 -- nvim-fast-2: lazy.nvim-managed Lua-first config.
--- Coexists with nvim-arm (vim-plug) and nvim-fast (vim-plug + lazy patches).
--- Activated via NVIM_APPNAME=nvim-fast-2 (the `nvim-fast-2` shell wrapper).
+-- The plain ~/.config/nvim install (dotfiles: nvim/); the old vim-plug config
+-- lives at ~/.config/nvim-legacy (dotfiles: nvim-legacy/).
 
 -- 1. Built-in bytecode loader (replaces deprecated impatient.nvim)
 vim.loader.enable()

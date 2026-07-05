@@ -26,8 +26,8 @@ filetype off
 " set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
 set guifont=RecMonoDuotone\ Nerd\ Font
 
-set rtp+=~/.config/nvim/
-set rtp+=~/.config/nvim/lua
+set rtp+=~/.config/nvim-legacy/
+set rtp+=~/.config/nvim-legacy/lua
 
 
 lua require("tmp_init")
@@ -63,7 +63,7 @@ set shortmess=atcF " 'F' gets rid of the annoying echoing filename
 " guard for distributions lacking the 'persistent_undo' feature.
 if has('persistent_undo')
     " define a path to store persistent undo files.
-    let target_path = expand('~/.config/nvim/undo/')    " create the directory and any parent directories
+    let target_path = expand('~/.config/nvim-legacy/undo/')    " create the directory and any parent directories
     " if the location does not exist.
     if !isdirectory(target_path)
         call system('mkdir -p ' . target_path)
@@ -73,20 +73,20 @@ if has('persistent_undo')
 endif 
 
 
-if !isdirectory(expand('~/.config/nvim/view/'))
-    silent ! mkdir -p ~/.config/nvim/view
+if !isdirectory(expand('~/.config/nvim-legacy/view/'))
+    silent ! mkdir -p ~/.config/nvim-legacy/view
 endif
 
-set viewdir=~/.config/nvim/view/
+set viewdir=~/.config/nvim-legacy/view/
 
 
 """"""""""""""
 " Private Configuration
 """"""""""""""
-if empty(glob('~/.config/nvim/private.vim'))
-    silent !touch ~/.config/nvim/private.vim
+if empty(glob('~/.config/nvim-legacy/private.vim'))
+    silent !touch ~/.config/nvim-legacy/private.vim
 endif
-source ~/.config/nvim/private.vim
+source ~/.config/nvim-legacy/private.vim
 
 " augroup remember_folds
 "   autocmd!
@@ -321,13 +321,13 @@ let g:python_highlight_space_errors=0 " Get rid of ugly python red stuff for tra
 
 
 " auto-installation script
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+if empty(glob('~/.config/nvim-legacy/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim-legacy/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.config/nvim-legacy/plugged')
 
 " Essentials
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
@@ -976,7 +976,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'qf', 'quickfix', 'whichkey', '
 """"""""""""
 " => keybinds
 """""""""""
-silent source ~/.config/nvim/keybindings.vim
+silent source ~/.config/nvim-legacy/keybindings.vim
 " The rest of the keybindings can be found in ./lua/which-key_config.lua
 
 
@@ -1098,7 +1098,7 @@ let g:LargeFile=10
 
 """ => Vimspector {{{
 
-let g:vimspector_base_dir=expand('$HOME/.config/nvim/vimspector-config')
+let g:vimspector_base_dir=expand('$HOME/.config/nvim-legacy/vimspector-config')
 
 "}}}
 

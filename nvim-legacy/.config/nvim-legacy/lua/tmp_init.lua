@@ -27,8 +27,8 @@ local function M.add_rtp(path)
   local rtp = vim.o.rtp ]]
 
 --[[
-vim.api.nvim_exec("set rtp+=~/.config/nvim/lua")
-vim.api.nvim_exec("set rtp+=~/.config/nvim/") ]]
+vim.api.nvim_exec("set rtp+=~/.config/nvim-legacy/lua")
+vim.api.nvim_exec("set rtp+=~/.config/nvim-legacy/") ]]
 
 -- }}}
 

@@ -1,10 +1,14 @@
 # nvim-fast-2
 
-Brian's lazy.nvim-managed, Lua-first Neovim config. Loaded via `NVIM_APPNAME=nvim-fast-2` (use the `nvim-fast-2` shell wrapper).
+Brian's lazy.nvim-managed, Lua-first Neovim config. On this host it **is**
+`~/.config/nvim` (dotfiles: `nvim/`) — the plain `nvim` binary loads it, no
+`NVIM_APPNAME` needed. The old vim-plug config was moved aside to
+`~/.config/nvim-legacy` (dotfiles: `nvim-legacy/`) to make room; invoke it
+with `NVIM_APPNAME=nvim-legacy nvim` if you need it.
 
-Coexists with two older configs in `$HOME/.config/`:
-- `nvim/` — original vim-plug config. The legacy `*_config.lua` modules under `lua/legacy/` were copied verbatim from here.
-- `nvim-arm/` — vim-plug, ARM-host legacy. **No longer a dependency.** nvim-fast-2 used to pull its `*_config.lua` modules + `keybindings.vim` from `nvim-arm/lua` via `package.path`; that tree got wiped, so those files are now vendored into `lua/legacy/` (see "Vendored legacy modules" below). Safe to delete nvim-arm.
+Coexists with older configs in `$HOME/.config/`:
+- `nvim-legacy/` — original vim-plug config (formerly the `nvim` package/`~/.config/nvim`, renamed when nvim-fast-2 took over that name). The legacy `*_config.lua` modules under `lua/legacy/` were copied verbatim from here.
+- `nvim-arm/` — vim-plug, ARM-host legacy, not present on every host. **No longer a dependency.** nvim-fast-2 used to pull its `*_config.lua` modules + `keybindings.vim` from `nvim-arm/lua` via `package.path`; that tree got wiped, so those files are now vendored into `lua/legacy/` (see "Vendored legacy modules" below). Safe to delete nvim-arm.
 - `nvim-fast/` — vim-plug + lazy patches, intermediate step before this rewrite.
 
 ## Quick orientation
@@ -146,8 +150,10 @@ Eagerly cloning `vim-snippets/` as a separate plugin is also intentionally avoid
 └── swap/             real dir (gitignored)
 ```
 
-> Note: on this Mac the package is stowed as plain `~/.config/nvim/` (not `nvim-fast-2/`)
-> using GNU `stow` (`cd ~/dotfiles && stow -R -t ~ nvim-fast-2`). The `~/s14overlay/bin/xstow`
+> Note: on Mac/Linux hosts the package is stowed as plain `~/.config/nvim/`. The dotfiles
+> package itself is named `nvim/` (renamed from `nvim-fast-2/` when it took over that slot;
+> the previous `nvim/` package was renamed to `nvim-legacy/`), so it's just
+> `cd ~/dotfiles && stow -R -t ~ nvim`. The `~/s14overlay/bin/xstow`
 > instructions below are from the original ARM host; `stow` is the equivalent here. After adding
 > a new file to the package, re-run the stow command so it gets symlinked into the live config.
 

@@ -129,7 +129,7 @@ wk.add({
     { "<leader>ff", "<cmd>Files<CR>", desc = "List @ CWD" },
     { "<leader>fp", "<cmd>Files ../<CR>", desc = "List @ parent" },
     { "<leader>fs", "<cmd>w<CR>", desc = "Save" },
-    { "<leader>fP", "<cmd>Files ~/.config/nvim/<CR>", desc = "Open config files" },
+    { "<leader>fP", "<cmd>Files ~/.config/nvim-legacy/<CR>", desc = "Open config files" },
     { "<leader>fn", "<cmd>DashboardNewFile<CR>", desc = "new file" },
     { "<leader>fd", "<cmd>DiffChangesDiffToggle<CR>", desc = "vimdiff unsaved buffer with saved" },
     { "<leader>fD", "<cmd>DiffChangesDiffToggle<CR>", desc = "show patch for unsaved buffer with saved" },

@@ -30,7 +30,7 @@ require("snacks").setup({
                 { icon = "\u{f02a8} ", key = "g", desc = "Find Text",    action = ":Telescope live_grep" },       -- nf-md-text_box_search
                 { icon = "\u{f024c} ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },        -- nf-md-history
                 { icon = "\u{f024b} ", key = "p", desc = "Project",      action = ":Telescope find_files" },      -- nf-md-folder_open
-                { icon = "\u{f013} ",  key = "c", desc = "Config",       action = ":e ~/.config/nvim-fast-2/init.lua" }, -- nf-fa-cog
+                { icon = "\u{f013} ",  key = "c", desc = "Config",       action = ":e ~/.config/nvim/init.lua" }, -- nf-fa-cog
                 { icon = "\u{f04b2} ", key = "L", desc = "Lazy",         action = ":Lazy" },                      -- nf-md-package_variant
                 { icon = "\u{f487} ",  key = "M", desc = "Mason",        action = ":Mason" },                     -- nf-oct-tools
                 { icon = "\u{f44a} ",  key = "h", desc = "Health",       action = ":checkhealth" },               -- nf-md-medical_bag

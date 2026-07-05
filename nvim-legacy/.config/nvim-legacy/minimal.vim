@@ -4,8 +4,8 @@
 
 set guifont=PragmataProMonoLiga\ Nerd\ Font:h16
 
-set rtp+=~/.config/nvim/
-set rtp+=~/.config/nvim/lua/
+set rtp+=~/.config/nvim-legacy/
+set rtp+=~/.config/nvim-legacy/lua/
 
 lua require('tmp_init')
 
@@ -45,7 +45,7 @@ set shortmess=atcF " 'F' gets rid of the annoying echoing filename
 " guard for distributions lacking the 'persistent_undo' feature.
 if has('persistent_undo')
     " define a path to store persistent undo files.
-    let target_path = expand('~/.config/nvim/undo/')    " create the directory and any parent directories
+    let target_path = expand('~/.config/nvim-legacy/undo/')    " create the directory and any parent directories
     " if the location does not exist.
     if !isdirectory(target_path)
         call system('mkdir -p ' . target_path)
@@ -164,7 +164,7 @@ onoremap <expr> N  'nN'[v:searchforward]
 " }}}
 
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.config/nvim-legacy/plugged')
 
 " Essentials
 Plug 'm00qek/baleia.nvim'
@@ -235,7 +235,7 @@ command! -bang -nargs=* RgHidden
   \   'rg --column --line-number --hidden --no-heading --color=always --follow --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
-silent source ~/.config/nvim/keybindings.vim
+silent source ~/.config/nvim-legacy/keybindings.vim
 lua require('which-key_config')
 " The rest of the keybindings can be found in ./lua/which-key_config.lua
 

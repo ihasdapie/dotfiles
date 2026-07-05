@@ -120,7 +120,7 @@ alias nv="nvim"
 alias j="z"
 alias vimf='vim $(fzf)'
 alias vimnorc="nvim -u NONE"
-alias min="nvim -u ~/.config/nvim/minimal.vim"
+alias min="nvim -u ~/.config/nvim-legacy/minimal.vim"
 alias ll="ls -alh --color=auto --hyperlink"
 alias ls="ls --color=auto --hyperlink"
 alias spotify="spotify --force-device-scale-factor=2"
@@ -408,7 +408,6 @@ alias gcp='git cherry-pick'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
 
 autoload -U +X bashcompinit && bashcompinit
 

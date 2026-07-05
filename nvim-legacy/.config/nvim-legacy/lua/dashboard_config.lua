@@ -61,7 +61,7 @@ vim.g.dashboard_custom_section = {
     },
     edit_config = {
         description= make_dashboard_entry('  Config Files', 'SPC f P', dashboard_entry_length),
-        command = 'FZF ~/.config/nvim'
+        command = 'FZF ~/.config/nvim-legacy'
     },
     pick_project = {
         description = make_dashboard_entry('  Pick Project', 'SPC p p', dashboard_entry_length),
