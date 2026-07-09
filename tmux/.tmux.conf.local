@@ -371,14 +371,15 @@ set -g @resurrect-save-shell-history 'on'
 set -g @resurrect-processes ':all:'
 
 # Tmux is automatically started after the computer/server is turned on.
-# set -g @continuum-boot 'on'
-# set -g @continuum-restore 'on'
+set -g @continuum-boot 'on'
+set -g @continuum-restore 'on'
 # set -g @continuum-boot-options 'kitty'
 
 # List of plugins
 set -g @tpm_plugins '          \
   tmux-plugins/tpm             \
   tmux-plugins/tmux-resurrect  \
+  tmux-plugins/tmux-continuum  \
 '
 
 
