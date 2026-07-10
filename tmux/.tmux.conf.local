@@ -392,7 +392,6 @@ bind-key -r C-k swap-window -t +1 \; select-window -t +1
 
 
 # set -g default-command ~/.local/bin/zsh
-set -g allow-passthrough on
 
 # OSC 8 hyperlinks pass-through (kitty + others). Makes hyperlinks clickable
 # even when wrapped across multiple visual lines in a tmux pane.
@@ -408,12 +407,13 @@ set -as terminal-features ',xterm-kitty:RGB'
 set -as terminal-features ',xterm-256color:RGB'
 set -as terminal-features ',tmux-256color:RGB'
 
-# Open a URL even when it's PLAIN TEXT wrapped across several visual lines
-# (e.g. the gcloud / bean auth link). kitty can't mouse-detect such a URL
-# inside tmux — it only sees rendered rows — so grab it by keystroke instead:
-# capture-pane -J rejoins tmux-wrapped lines, then fzf picks and `open` launches.
+# Grab a URL even when it's PLAIN TEXT wrapped across several visual lines
+# (e.g. the gcloud / bean auth link). The terminal can't mouse-detect such a URL
+# inside tmux — it only sees rendered rows — so pick it by keystroke instead.
 # prefix+u; the framework's prefix+U (urlview) needs a binary we don't have.
-bind-key u display-popup -E -w 80% -h 40% "tmux capture-pane -p -J -S -10000 -t '#{pane_id}' | grep -oE 'https?://[^[:space:])>]+' | awk '!seen[\$0]++' | fzf --no-sort --reverse --prompt 'open url: ' | xargs -I{} open {}"
+# Logic lives in the helper so it can copy-via-OSC52 on a headless remote box
+# (no `open`) and still open directly when tmux runs locally.
+bind-key u display-popup -E -w 80% -h 40% "~/dotfiles/tmux/url-pick.sh '#{pane_id}'"
 
 # Toggle a floating scratch terminal session
 bind-key -n M-i if-shell -F '#{==:#{session_name},scratch}' {
