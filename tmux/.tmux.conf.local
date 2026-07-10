@@ -375,6 +375,12 @@ set -g @continuum-boot 'on'
 set -g @continuum-restore 'on'
 # set -g @continuum-boot-options 'kitty'
 
+# TPM's update-plugins key defaults to prefix+U, but the gpakosz framework forces
+# it to prefix+u via its `[ -z @tpm-update ] && set 'u'` bootstrap — which steals
+# prefix+u from the URL picker below (bind-key u). Pre-set it so that guard skips
+# and update stays on prefix+U, leaving prefix+u free for the picker.
+set -g @tpm-update 'U'
+
 # List of plugins
 set -g @tpm_plugins '          \
   tmux-plugins/tpm             \
