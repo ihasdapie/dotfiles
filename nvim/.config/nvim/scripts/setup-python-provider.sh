@@ -20,7 +20,20 @@
 set -euo pipefail
 
 PYTHON_VERSION="3.12"        # interpreter uv provisions for the venv
-VENV_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/venv"
+# Mirror init.lua's step-0 default (fast local disk over a possibly-slow
+# $HOME): that's set inside nvim's own process env, not the calling shell's,
+# so a standalone run of this script needs the same fallback to land the
+# venv where nvim will actually look.
+if [ -n "${XDG_DATA_HOME:-}" ]; then
+    DATA_HOME="$XDG_DATA_HOME"
+elif [ -d /scratch ]; then
+    DATA_HOME="/scratch/nvim/data"
+elif [ -d /tmp ]; then
+    DATA_HOME="/tmp/nvim/data"
+else
+    DATA_HOME="$HOME/.local/share"
+fi
+VENV_DIR="$DATA_HOME/nvim/venv"
 FORCE=0
 [ "${1:-}" = "--force" ] && FORCE=1
 

@@ -2,6 +2,21 @@
 -- The plain ~/.config/nvim install (dotfiles: nvim/); the old vim-plug config
 -- lives at ~/.config/nvim-legacy (dotfiles: nvim-legacy/).
 
+-- 0. $HOME is often slow (e.g. bean dev boxes mount it over NFS — ~28x
+-- slower than /scratch for metadata-heavy ops; see bean
+-- docs/decisions/0010-node-local-nvme-scratch.md). Always prefer fast local
+-- disk for plugin installs/mason/venv (stdpath("data")) and shada/swap
+-- (stdpath("state")): /scratch when present, else /tmp. legacy.vim mirrors
+-- this for undodir/viewdir. Must run before anything below calls stdpath().
+-- scripts/migrate-state-to-scratch.sh copies over any existing NFS-resident
+-- state (undo history, installed plugins) the first time this runs on a host.
+local fs = (vim.uv or vim.loop)
+local fast_root = fs.fs_stat("/scratch") and "/scratch/nvim" or fs.fs_stat("/tmp") and "/tmp/nvim"
+if not vim.env.XDG_DATA_HOME and fast_root then
+    vim.env.XDG_DATA_HOME = fast_root .. "/data"
+    vim.env.XDG_STATE_HOME = fast_root .. "/state"
+end
+
 -- 1. Built-in bytecode loader (replaces deprecated impatient.nvim)
 vim.loader.enable()
 

@@ -70,10 +70,14 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Persistent undo. Self-contained under this config's own dir (was
-" ~/.config/nvim-arm/undo/ — nvim-fast-2 no longer borrows from nvim-arm).
+" Persistent undo + view state. Self-contained under this config's own dir
+" only as a last resort — $HOME is often slow (e.g. NFS on bean dev boxes;
+" docs/decisions/0010-node-local-nvme-scratch.md), so init.lua already points
+" stdpath('state') at fast local disk (/scratch, else /tmp) when available.
+let s:nvim_runtime_root = (isdirectory('/scratch') || isdirectory('/tmp')) ? stdpath('state') : stdpath('config')
+
 if has('persistent_undo')
-    let target_path = stdpath('config') . '/undo/'
+    let target_path = s:nvim_runtime_root . '/undo/'
     if !isdirectory(target_path)
         call system('mkdir -p ' . target_path)
     endif
@@ -81,7 +85,16 @@ if has('persistent_undo')
     set undofile
 endif
 
-let s:viewdir = stdpath('config') . '/view/'
+" Swapfile dir: nvim's built-in default for 'directory' is a stdpath('state')
+" reference computed by nvim core before init.lua ever runs, so it does NOT
+" pick up init.lua's XDG_STATE_HOME redirect on its own — set it explicitly.
+let s:swapdir = s:nvim_runtime_root . '/swap//'
+if !isdirectory(s:swapdir)
+    call system('mkdir -p ' . s:swapdir)
+endif
+let &directory = s:swapdir
+
+let s:viewdir = s:nvim_runtime_root . '/view/'
 if !isdirectory(s:viewdir)
     call system('mkdir -p ' . s:viewdir)
 endif
