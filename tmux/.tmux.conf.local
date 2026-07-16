@@ -413,6 +413,16 @@ set -as terminal-features ',xterm-kitty:RGB'
 set -as terminal-features ',xterm-256color:RGB'
 set -as terminal-features ',tmux-256color:RGB'
 
+# Synchronized output (DECSET 2026). tmux 3.7 stopped freezing background panes
+# while a display-popup overlay is open — it now redraws them live, so with the
+# floating scratch popup (M-i) up, every background update repaints the uncovered
+# rows, flickering the top status line. tmux wraps each redraw in a sync begin/end
+# to make it atomic, but only emits its DCS "=1s/=2s" Sync form unless told the
+# terminal supports 2026; kitty honours only 2026 and silently drops the DCS form,
+# so frames tear. Advertising :sync makes tmux emit `\e[?2026h/l`, which kitty
+# batches into one atomic frame — no tearing/flicker.
+set -as terminal-features ',xterm-kitty:sync'
+
 # Grab a URL even when it's PLAIN TEXT wrapped across several visual lines
 # (e.g. the gcloud / bean auth link). The terminal can't mouse-detect such a URL
 # inside tmux — it only sees rendered rows — so pick it by keystroke instead.
