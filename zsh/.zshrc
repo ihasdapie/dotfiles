@@ -422,5 +422,6 @@ eval "$(zoxide init zsh)"
 CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY=1
 
 export PATH="$HOME/.local/bin:$PATH"
-
+alias cdx="codex --yolo"
+alias cld="claude --dangerously-skip-permissions"
 
