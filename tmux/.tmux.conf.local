@@ -431,11 +431,29 @@ set -as terminal-features ',xterm-kitty:sync'
 # (no `open`) and still open directly when tmux runs locally.
 bind-key u display-popup -E -w 80% -h 40% "~/dotfiles/tmux/url-pick.sh '#{pane_id}'"
 
-# Toggle a floating scratch terminal session
+# Toggle a floating scratch terminal session.
+# tmux >= 3.4 no longer freezes background panes while a display-popup overlay
+# is open (CHANGES 3.3a->3.4: "Do not freeze output in panes when a popup is
+# open"); it repaints the uncovered rows live on every background update. With
+# status-position top the outer status bar sits in the uncovered margin above
+# the centred 95% popup and flickers as text scrolls behind it. (tmux 3.3a, as
+# on the arch box, froze the background -> no flicker; hence this only appeared
+# after the 3.7 build here.)
+#
+# Blank the outer bar for the life of the popup, then restore it. Blank the
+# CONTENT (status-format[0] '') rather than `status off`: turning status off
+# reclaims the row and reflows every background pane, which itself flashes. An
+# empty status line keeps the row, so no reflow -- and repainting a blank line
+# is invisible. Restore with `set -u status-format` (unset the whole session
+# array; unsetting just [0] does not re-inherit the global). Targetless `set`
+# scopes to the current (outer) session, so the scratch session keeps its bar.
+# display-popup -E returns CMD_RETURN_WAIT, so the restore runs on dismissal.
 bind-key -n M-i if-shell -F '#{==:#{session_name},scratch}' {
     detach-client
 } {
-    display-popup -d "#{pane_current_path}" -xC -yC -w 90% -h 95% -E "tmux new-session -A -s scratch -c '#{pane_current_path}'"
+    set status-format[0] ''
+    display-popup -d "#{pane_current_path}" -xC -yC -w 95% -h 95% -E "tmux new-session -A -s scratch -c '#{pane_current_path}'"
+    set -u status-format
 }
 
 
