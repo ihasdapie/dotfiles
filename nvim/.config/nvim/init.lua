@@ -118,17 +118,23 @@ vim.g.loaded_python_provider = 0       -- python2 not needed
 
 -- python3 provider: point at a dedicated, uv-managed nvim-only venv that holds
 -- just `pynvim` (needed by UltiSnips and anything gated on `has('python3')`).
--- Keeps the system Python clean. The venv is created by
--- scripts/setup-python-provider.sh — run that once per machine. We only set
--- python3_host_prog when the venv python actually exists; otherwise leave the
--- provider unconfigured (a stale path would itself throw on every provider
--- call). If the venv is missing, disable the provider outright so plugins fail
--- soft (no E319 spam) and the fix is a one-liner.
+-- Bootstrap it on first launch; stdpath("data") already prefers /scratch, then
+-- /tmp, so the venv stays off a potentially slow home filesystem.
 local py3 = vim.fn.stdpath("data") .. "/venv/bin/python3"
+if not vim.uv.fs_stat(py3) then
+    local setup = vim.fn.stdpath("config") .. "/scripts/setup-python-provider.sh"
+    print("[nvim-fast-2] bootstrapping Python provider ...")
+    local out = vim.fn.system({ setup })
+    if vim.v.shell_error ~= 0 then
+        vim.schedule(function()
+            vim.notify("Failed to bootstrap Python provider:\n" .. out, vim.log.levels.WARN)
+        end)
+    end
+end
 if vim.uv.fs_stat(py3) then
     vim.g.python3_host_prog = py3
 else
-    vim.g.loaded_python3_provider = 0  -- run scripts/setup-python-provider.sh to enable
+    vim.g.loaded_python3_provider = 0
 end
 
 -- Stop vim-pandoc from claiming .md files. Its ftdetect/pandoc.vim defaults
