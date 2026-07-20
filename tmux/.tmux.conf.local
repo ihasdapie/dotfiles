@@ -439,11 +439,12 @@ bind-key u display-popup -E -w 80% -h 40% "~/dotfiles/tmux/url-pick.sh '#{pane_i
 # the status bar) fully stops it, because the margin genuinely shows live codex.
 # At -w 100% -h 100% there is no margin and the background is fully covered
 # (zero background draws measured), so it cannot flicker. The heavy orange
-# border + title make it obvious this is the scratch overlay, not a real window.
+# border + title + subtle warm tint make it obvious this is the scratch overlay,
+# not a real window.
 bind-key -n M-i if-shell -F '#{==:#{session_name},scratch}' {
     detach-client
 } {
-    display-popup -w 100% -h 100% -b heavy -S "fg=#ff8700,bold" -T " SCRATCH — M-i to exit " -d "#{pane_current_path}" -E "tmux new-session -A -s scratch -c '#{pane_current_path}'"
+    display-popup -w 100% -h 100% -b heavy -S "fg=#ff8700,bold" -s "bg=#2a2420" -T " SCRATCH — M-i to exit " -d "#{pane_current_path}" -E "tmux new-session -A -s scratch -c '#{pane_current_path}'"
 }
 
 
