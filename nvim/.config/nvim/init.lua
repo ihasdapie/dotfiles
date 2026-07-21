@@ -128,7 +128,27 @@ local py3 = vim.fn.stdpath("data") .. "/venv/bin/python3"
 if vim.uv.fs_stat(py3) then
     vim.g.python3_host_prog = py3
 else
-    vim.g.loaded_python3_provider = 0  -- run scripts/setup-python-provider.sh to enable
+    -- Venv missing (e.g. a /tmp wipe on reboot). Disable the provider for THIS
+    -- session so plugins fail soft (no E319 spam), and kick off the setup script
+    -- in the background so it self-heals — the venv is ready by the next launch.
+    vim.g.loaded_python3_provider = 0
+    local setup = vim.fn.stdpath("config") .. "/scripts/setup-python-provider.sh"
+    if vim.uv.fs_stat(setup) then
+        vim.fn.jobstart({ "sh", setup }, {
+            detach = true,
+            on_exit = function(_, code)
+                if code == 0 then
+                    -- Wire it up live so `:UltiSnips*` etc. work without a restart.
+                    vim.schedule(function()
+                        if vim.uv.fs_stat(py3) then
+                            vim.g.loaded_python3_provider = nil
+                            vim.g.python3_host_prog = py3
+                        end
+                    end)
+                end
+            end,
+        })
+    end
 end
 
 -- Stop vim-pandoc from claiming .md files. Its ftdetect/pandoc.vim defaults
