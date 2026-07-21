@@ -9,3 +9,7 @@ if [[ -z "$LANG" && -z "$LC_ALL" && -z "$LC_CTYPE" ]]; then
     export LANG=en_US.UTF-8
   fi
 fi
+
+# Installed by rustup. Keep this in the stowed file so rustup does not leave a
+# regular ~/.zshenv that conflicts with the zsh package.
+[[ -r "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"

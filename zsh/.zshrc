@@ -126,7 +126,7 @@ alias ls="ls --color=auto --hyperlink"
 alias spotify="spotify --force-device-scale-factor=2"
 alias icat="kitty +kitten icat"
 alias klipboard="kitty +kitten clipboard"
-alias ssh="kitty +kitten ssh"
+alias kssh="kitty +kitten ssh"
 alias cp="cp -i"                                                # Confirm before overwriting something
 alias mv="mv -i"                                                # Confirm before overwrite
 alias df='df -h'                                                # Human-readable sizes
@@ -424,3 +424,7 @@ CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY=1
 export PATH="$HOME/.local/bin:$PATH"
 
 
+
+# >>> bean login (managed) >>>
+export PATH="/Users/bc/.config/bean/bin:$PATH"
+# <<< bean login (managed) <<<
