@@ -138,32 +138,9 @@ for name, cfg in pairs(servers) do
     vim.lsp.config(name, cfg)
 end
 
--- Mason auto-install policy.
---   vim.g.nvim_fast2_install_servers can be:
---     nil / false / not set → install nothing automatically (default).
---     true                  → install ALL servers in the `servers` table
---                              (except pyrefly, which lives outside mason).
---     a list of names       → install ONLY those (e.g. {"clangd","lua_ls"}).
---   In all cases, `:MasonInstall <name>` works on demand; mason-lspconfig
---   discovers any pre-installed servers and exposes them via PATH.
-local install_setting = vim.g.nvim_fast2_install_servers
-local ensure_installed
-if install_setting == true then
-    ensure_installed = vim.tbl_filter(function(n) return n ~= "pyrefly" end,
-                                      vim.tbl_keys(servers))
-elseif type(install_setting) == "table" then
-    ensure_installed = install_setting
-else
-    ensure_installed = {}
-end
-require("mason-lspconfig").setup({
-    ensure_installed = ensure_installed,
-    automatic_installation = false,
-})
-
--- Only enable servers whose launcher binary is actually findable. Skipping
--- the missing ones avoids spurious "yaml-language-server --stdio failed"
--- popups when mason hasn't installed something.
+-- Resolve which server launchers are present. Shared by the mason bootstrap
+-- (what to install) and the enable pass (what's safe to start now — enabling
+-- a server whose binary is missing throws "<server> --stdio failed" popups).
 local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
 -- Known launcher binary for servers whose lspconfig cmd is a function
 -- (function-cmds resolve lazily, so we can't peek inside them at config
@@ -194,8 +171,7 @@ local function binary_exists(server_name)
     -- Check a known launcher name first — this catches function-style cmds
     -- (yamlls, ts_ls, html, cssls, jsonls, ...).
     local known = known_binary[server_name]
-    if known and find_binary(known) then return true end
-    if known and not find_binary(known) then return false end
+    if known then return find_binary(known) end
 
     -- Fall back to the cfg cmd we registered.
     local cfg = vim.lsp.config[server_name]
@@ -204,6 +180,47 @@ local function binary_exists(server_name)
     return find_binary(cfg.cmd[1])
 end
 
+-- Mason bootstrap policy. stdpath("data") lives on ephemeral /scratch (see
+-- init.lua), so a wiped host boots with an empty mason and NO language servers
+-- — which silently breaks gd/hover/references. So by default we bootstrap
+-- every configured server that isn't already resolvable, and let them reappear
+-- on a fresh host. Override with vim.g.nvim_fast2_install_servers:
+--     nil / not set → install every server in `servers` not already on PATH.
+--     false         → install nothing automatically.
+--     true          → install every server in `servers`.
+--     a list        → install ONLY those (e.g. {"clangd","lua_ls"}).
+-- `:MasonInstall <name>` always works on demand. rust_analyzer ships via
+-- rustup on PATH, so the default "not already present" filter skips it (mason
+-- would otherwise install a redundant second copy). pyrefly IS a mason package
+-- (python), so it bootstraps like the rest.
+local install_setting = vim.g.nvim_fast2_install_servers
+local ensure_installed
+if install_setting == false then
+    ensure_installed = {}
+elseif install_setting == true then
+    ensure_installed = vim.tbl_keys(servers)
+elseif type(install_setting) == "table" then
+    ensure_installed = install_setting
+else
+    ensure_installed = {}
+    for name in pairs(servers) do
+        if not binary_exists(name) then
+            table.insert(ensure_installed, name)
+        end
+    end
+end
+-- automatic_enable (mason-lspconfig v2) calls vim.lsp.enable() for each server
+-- as it finishes installing, reusing the vim.lsp.config() registered above
+-- (on_attach + capabilities) — so a freshly bootstrapped server attaches
+-- without a restart.
+require("mason-lspconfig").setup({
+    ensure_installed = ensure_installed,
+    automatic_enable = true,
+})
+
+-- Enable servers whose launcher is present right now (steady state). Skipping
+-- missing ones avoids the "<server> --stdio failed" popups; anything mason is
+-- still bootstrapping gets enabled by automatic_enable when it completes.
 local enable_list = {}
 local skipped = {}
 for name in pairs(servers) do

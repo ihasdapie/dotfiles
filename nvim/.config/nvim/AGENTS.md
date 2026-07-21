@@ -81,9 +81,9 @@ If you want a divergent setting for one of these, edit it in `lua/legacy/<name>.
 
 UltiSnips (and anything gated on `has('python3')`) needs nvim's python3 provider, i.e. `pynvim` importable from `g:python3_host_prog`. We keep a dedicated, **uv-managed nvim-only venv** so the system Python stays clean.
 
-- **Location:** `stdpath("data")/venv` → `~/.local/share/nvim/venv` (holds only `pynvim`).
-- **Wiring** (`init.lua` step 4): sets `vim.g.python3_host_prog` to that venv's `bin/python3` **iff it exists**; otherwise sets `vim.g.loaded_python3_provider = 0` so plugins fail soft (no `E319` spam) instead of erroring on a stale path.
-- **Create / rebuild it:** `~/.config/nvim/scripts/setup-python-provider.sh` (idempotent; `--force` to rebuild from scratch). It installs `uv` if missing (Homebrew, else the official installer), provisions CPython 3.12, creates the venv, and `uv pip install`s `pynvim`. Run once per machine.
+- **Location:** `stdpath("data")/venv` → `/scratch/nvim/data/nvim/venv` when `/scratch` exists, otherwise `/tmp/nvim/data/nvim/venv` (holds only `pynvim`).
+- **Wiring** (`init.lua` step 4): on first launch, runs `scripts/setup-python-provider.sh` if the venv is missing, then sets `vim.g.python3_host_prog` to its `bin/python3`. If bootstrap fails, it warns and disables the provider so plugins fail soft without `E319` spam.
+- **Manual rebuild:** `~/.config/nvim/scripts/setup-python-provider.sh --force`. The idempotent script installs `uv` if missing (Homebrew, else the official installer), provisions CPython 3.12, creates the venv, and `uv pip install`s `pynvim`.
 - **Verify:** `:checkhealth vim.provider`, or `:lua print(vim.fn.has('python3'))` should be `1`.
 - The venv lives under `stdpath("data")`, outside the repo — not committed, rebuilt by the script.
 

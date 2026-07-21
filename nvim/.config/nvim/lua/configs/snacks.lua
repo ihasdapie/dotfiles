@@ -58,12 +58,16 @@ require("snacks").setup({
     --   - dim:   off — repaints out-of-scope code on CursorMoved (heavy).
     --   - scope: stays but kept for indent.scope only (no guides on its own).
     --   - animate: off — adds frame-throttled redraws to scroll/zen anims.
-    -- Keep snacks.indent (guides) and statuscolumn — both are paint-light.
+    -- Keep snacks.indent (guides). statuscolumn is OFF: it hardcodes a 2+2
+    -- char left/right sign area (see snacks/statuscolumn.lua — empty sides
+    -- render as "  "), so the gutter stays 4 cols wide even with numbers and
+    -- signs off. Falling back to the native statuscolumn lets signcolumn=auto
+    -- collapse the gutter to zero width when there's nothing to show.
     ----------------------------------------------------------------------
     indent       = { enabled = true, animate = { enabled = false } }, -- guides yes, animation no
     scope        = { enabled = true },                          -- still needed for indent.scope highlight
     scroll       = { enabled = false },                         -- smooth scroll OFF
-    statuscolumn = { enabled = true },
+    statuscolumn = { enabled = false },                         -- native gutter; see note above
     dim          = { enabled = false },                         -- OFF — was repainting on every cursor move
     animate      = { enabled = false },                         -- OFF — frame-throttled draws hurt latency
     layout       = { enabled = true },
