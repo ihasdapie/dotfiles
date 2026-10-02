@@ -2,7 +2,8 @@
 # `tbean-org/bean#25639` or `bean#25639` on screen and open them in the browser.
 #
 # Mapped in kitty.conf:
-#   map kitty_mod+p>p kitten hints --customize-processing pr_hints.py
+#   map kitty_mod+p>p kitten hints --customize-processing pr_hints.py      (keyboard: hint labels)
+#   mouse_map cmd+left press ... pass_selection_to_program kitty +kitten pr_hints   (cmd+click)
 #
 # A bare `#NNNN` defaults to DEFAULT_REPO. `/pull/N` on GitHub redirects to
 # `/issues/N` when N is an issue, so one URL shape covers both.
@@ -32,3 +33,24 @@ def handle_result(args, data, target_window_id, boss, extra_cli_args, *a):
     for match, g in zip(data["match"], data["groupdicts"]):
         if match:
             boss.open_url(_url(g))
+
+
+def main(args):
+    """CLI entry: `kitty +kitten pr_hints <text>` opens the first PR ref found in <text>.
+
+    Used by the cmd+click mouse_map, which word-selects under the pointer and pipes
+    the selection here via pass_selection_to_program. Set PR_HINTS_DRY_RUN=1 to print
+    the URL instead of opening it.
+    """
+    import os
+    import sys
+
+    m = PATTERN.search(" ".join(args[1:]))
+    if not m:
+        return
+    url = _url(m.groupdict())
+    if os.environ.get("PR_HINTS_DRY_RUN"):
+        print(url)
+        return
+    from kitty.utils import open_url  # platform-correct `open` / `xdg-open`, detached
+    open_url(url)
